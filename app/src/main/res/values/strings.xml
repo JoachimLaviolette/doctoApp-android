@@ -3,6 +3,7 @@
 
     <!-- Main -->
     <string name="main_caption">Book an appointment with a specialized doctor online</string>
+    <string name="main_search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="main_search_btn">Search</string>
 
     <!-- Login -->
@@ -14,4 +15,8 @@
     <string name="login_btn">Login</string>
     <string name="login_signup_caption">You are a professional?</string>
     <string name="login_signup_link">Access your professional account</string>
+
+    <!-- Search -->
+    <string name="search_bar_placeholder">Doctor, place, speciality...</string>
+    <string name="search_btn">Search</string>
 </resources>

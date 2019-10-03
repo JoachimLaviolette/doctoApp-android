@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/search_background"
+    tools:context=".SearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="3sp">
+
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="302dp"
+            android:layout_height="46dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:ems="10"
+            android:fontFamily="@font/roboto"
+            android:hint="@string/search_bar_placeholder"
+            android:inputType="textPersonName"
+            android:shadowColor="@color/search_bar_shadow"
+            android:textColor="@color/search_bar_text"
+            android:textColorHighlight="@color/search_bar_text"
+            android:textColorHint="@color/search_bar_text"
+            android:textColorLink="@color/search_bar_text"
+            android:textSize="16sp"
+            android:textStyle="normal|bold" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/search_btn_background"
+            android:fontFamily="@font/roboto"
+            android:text="@string/search_btn"
+            android:textColor="@color/search_btn_text"
+            android:textColorHighlight="@color/search_btn_text"
+            android:textColorHint="@color/search_btn_text"
+            android:textColorLink="@color/search_btn_text"
+            android:textSize="16sp"
+            android:textStyle="normal|bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

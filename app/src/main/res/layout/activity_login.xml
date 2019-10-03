@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:layout_marginBottom="10sp"
+            android:fontFamily="@font/roboto"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/login_caption"
@@ -39,6 +40,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/editbox_background_normal"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/login_username_placeholder"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -48,6 +51,8 @@
                 android:layout_marginTop="10sp"
                 android:background="@android:drawable/editbox_background_normal"
                 android:ems="10"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/login_pwd_placeholder"
                 android:inputType="textPassword" />
 
             <LinearLayout
@@ -61,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
                     android:text="@string/login_stay_logged" />
 
                 <TextView
@@ -68,6 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
                     android:text="@string/login_forgot_pwd"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/login_forgot_pwd"
@@ -83,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/login_btn_background"
+                android:fontFamily="@font/roboto"
                 android:text="@string/login_btn"
                 android:textColor="@color/login_btn_text"
                 android:textColorHighlight="@color/login_btn_text"
@@ -106,9 +114,11 @@
                 android:id="@+id/login_signup_caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:padding="3sp"
                 android:text="@string/login_signup_caption"
                 android:textAlignment="center"
+                android:textSize="15sp"
                 android:textStyle="normal|bold" />
 
             <TextView
@@ -122,7 +132,9 @@
                 android:textColorHighlight="@color/login_signup_link"
                 android:textColorHint="@color/login_signup_link"
                 android:textColorLink="@color/login_signup_link"
-                android:textStyle="normal|bold" />
+                android:textSize="15sp"
+                android:textStyle="normal|bold"
+                android:fontFamily="@font/roboto" />
         </LinearLayout>
 
     </LinearLayout>

@@ -22,4 +22,11 @@
     <color name="login_signup_caption">#252525</color>
     <color name="login_signup_link">#1B86E4</color>
 
+    <!-- Search -->
+    <color name="search_background">#E4E4E4</color>
+    <color name="search_bar_text">#696969</color>
+    <color name="search_bar_shadow">#1D1D1D</color>
+    <color name="search_btn_background">#444444</color>
+    <color name="search_btn_text">#FFFFFF</color>
+
 </resources>
