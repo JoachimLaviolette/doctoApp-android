@@ -18,7 +18,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/main-logo"
+                android:id="@+id/main_logo"
                 android:layout_width="353dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fredoka_one"
@@ -29,7 +29,7 @@
                 android:textSize="30sp" />
 
             <ImageButton
-                android:id="@+id/main-login"
+                android:id="@+id/main_login"
                 android:layout_width="42dp"
                 android:layout_height="38dp"
                 android:layout_marginTop="20dp"
@@ -44,7 +44,7 @@
             android:paddingTop="60sp">
 
             <TextView
-                android:id="@+id/main-caption"
+                android:id="@+id/main_caption"
                 android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="60sp"

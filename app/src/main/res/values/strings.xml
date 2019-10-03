@@ -4,4 +4,14 @@
     <!-- Main -->
     <string name="main_caption">Book an appointment with a specialized doctor online</string>
     <string name="main_search_btn">Search</string>
+
+    <!-- Login -->
+    <string name="login_caption">Login and access your member profile</string>
+    <string name="login_username_placeholder">Email or phone number</string>
+    <string name="login_pwd_placeholder">Password</string>
+    <string name="login_stay_logged">I want to stay connected</string>
+    <string name="login_forgot_pwd">Forgot password?</string>
+    <string name="login_btn">Login</string>
+    <string name="login_signup_caption">You are a professional?</string>
+    <string name="login_signup_link">Access your professional account</string>
 </resources>
