@@ -4,23 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bienvenue dans DoctoApp!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Test"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="420dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/main-logo"
+                android:layout_width="353dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/fredoka_one"
+                android:padding="20dp"
+                android:text="DoctoApp"
+                android:textAlignment="center"
+                android:textColor="@color/main_logo"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/main-login"
+                android:layout_width="42dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/main_login" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="60sp">
+
+            <TextView
+                android:id="@+id/main-caption"
+                android:layout_width="276dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60sp"
+                android:fontFamily="@font/roboto"
+                android:paddingTop="10sp"
+                android:paddingBottom="10sp"
+                android:text="@string/main_caption"
+                android:textAlignment="center"
+                android:textColor="@color/main_caption"
+                android:textColorHighlight="@color/main_caption"
+                android:textColorHint="@color/main_caption"
+                android:textColorLink="@color/main_caption"
+                android:textSize="18sp"
+                android:textStyle="normal|bold" />
+
+            <LinearLayout
+                android:layout_width="398dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:orientation="horizontal"
+                android:textAlignment="center">
+
+                <EditText
+                    android:id="@+id/main-search"
+                    style="@android:style/Widget.DeviceDefault.Light.EditText"
+                    android:layout_width="289dp"
+                    android:layout_height="48dp"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:ems="0"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/main_search_text"
+                    android:textColorHighlight="@color/main_search_text"
+                    android:textColorHint="@color/main_search_text"
+                    android:textColorLink="@color/main_search_text"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <Button
+                    android:id="@+id/main-search-btn"
+                    android:layout_width="109dp"
+                    android:layout_height="54dp"
+                    android:backgroundTint="@color/main_search_btn_background"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/main_search_btn"
+                    android:textColor="@color/main_search_btn_text"
+                    android:textColorHighlight="@color/main_search_btn_text"
+                    android:textColorHint="@color/main_search_btn_text"
+                    android:textColorLink="@color/main_search_btn_text"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

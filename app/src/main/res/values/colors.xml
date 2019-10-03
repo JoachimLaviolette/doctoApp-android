@@ -3,4 +3,13 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Main -->
+    <color name="main_background">#21B2FF</color>
+    <color name="main_logo">#FFFFFF</color>
+    <color name="main_caption">#FFFFFF</color>
+    <color name="main_search_text">#696969</color>
+    <color name="main_search_btn_background">#FF7509</color>
+    <color name="main_search_btn_text">#FFFFFF</color>
+
 </resources>

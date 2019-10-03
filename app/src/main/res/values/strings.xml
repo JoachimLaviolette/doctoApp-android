@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DoctoApp</string>
+
+    <!-- Main -->
+    <string name="main_caption">Book an appointment with a specialized doctor online</string>
+    <string name="main_search_btn">Search</string>
 </resources>
