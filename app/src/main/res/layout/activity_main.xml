@@ -68,7 +68,7 @@
                 android:textAlignment="center">
 
                 <EditText
-                    android:id="@+id/main_search"
+                    android:id="@+id/main_search_bar"
                     style="@android:style/Widget.DeviceDefault.Light.EditText"
                     android:layout_width="289dp"
                     android:layout_height="48dp"
@@ -77,12 +77,12 @@
                     android:fontFamily="@font/roboto"
                     android:hint="@string/main_search_bar_placeholder"
                     android:inputType="textPersonName"
-                    android:textColor="@color/main_search_text"
-                    android:textColorHighlight="@color/main_search_text"
-                    android:textColorHint="@color/main_search_text"
-                    android:textColorLink="@color/main_search_text"
-                    android:textSize="16sp"
-                    android:textStyle="normal|bold" />
+                    android:textColor="@color/main_search_bar_text"
+                    android:textColorHighlight="@color/main_search_bar_text"
+                    android:textColorHint="@color/main_search_bar_text"
+                    android:textColorLink="@color/main_search_bar_text"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/main_search_btn"

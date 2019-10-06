@@ -14,7 +14,7 @@ public class MainActivity
         implements View.OnClickListener {
 
     private ImageButton loginBtn;
-    private EditText searchEditText;
+    private EditText searchBar;
     private Button searchBtn;
 
     @Override
@@ -28,13 +28,13 @@ public class MainActivity
 
     private void Instantiate() {
         this.loginBtn = findViewById(R.id.main_login);
-        this.searchEditText = findViewById(R.id.main_search);
+        this.searchBar = findViewById(R.id.main_search_bar);
         this.searchBtn = findViewById(R.id.main_search_btn);
     }
 
     private void SubscribeEvents() {
         this.loginBtn.setOnClickListener(this);
-        this.searchEditText.setOnClickListener(this);
+        this.searchBar.setOnClickListener(this);
         this.searchBtn.setOnClickListener(this);
     }
 
@@ -44,7 +44,7 @@ public class MainActivity
             case R.id.main_login:
                 this.Login();
                 break;
-            case R.id.main_search:
+            case R.id.main_search_bar:
             case R.id.main_search_btn:
                 this.Search();
                 break;
@@ -54,12 +54,23 @@ public class MainActivity
     }
 
     private void Login() {
+        // Create the intent
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
+
+        // Start the activity
         startActivity(i);
     }
 
     private void Search() {
+        // Create the intent
         Intent i = new Intent(MainActivity.this, SearchActivity.class);
+
+        // Put extra parameters
+        String key = this.getResources().getString(R.string.main_intent_search);
+        String value = this.searchBar.getText().toString();
+        i.putExtra(key, value);
+
+        // Start the activity
         startActivity(i);
     }
 }

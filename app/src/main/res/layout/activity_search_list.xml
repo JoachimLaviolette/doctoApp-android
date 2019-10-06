@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchListActivity">
+
+    <ListView
+        android:id="@+id/search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/search_list_background"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:divider="@color/search_list_divider"
+        android:dividerHeight="0.7dp">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/search_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/search_list_item_user_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:padding="10sp" />
+
+        <TextView
+            android:id="@+id/search_list_item_user_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/search_list_item_user_picture"
+            android:padding="10sp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/search_list_item_user_fullname"
+            android:textColorHighlight="@color/search_list_item_user_fullname"
+            android:textColorHint="@color/search_list_item_user_fullname"
+            android:textColorLink="@color/search_list_item_user_fullname"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/search_list_item_user_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/search_list_item_user_picture"
+            android:padding="10sp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/search_list_item_user_description"
+            android:textColorHighlight="@color/search_list_item_user_description"
+            android:textColorHint="@color/search_list_item_user_description"
+            android:textColorLink="@color/search_list_item_user_description"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
