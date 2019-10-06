@@ -15,9 +15,11 @@
     <!-- Login -->
     <color name="login_background">#E4E4E4</color>
     <color name="login_caption">#696969</color>
+    <color name="login_input_text">#858585</color>
     <color name="login_forgot_pwd">#1B86E4</color>
     <color name="login_btn_background">#1B86E4</color>
     <color name="login_btn_text">#FFFFFF</color>
+    <color name="login_stay_logged">#858585</color>
     <color name="login_signup_background">#FFFFFF</color>
     <color name="login_signup_caption">#252525</color>
     <color name="login_signup_link">#1B86E4</color>
