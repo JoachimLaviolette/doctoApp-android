@@ -24,6 +24,7 @@ public class SearchActivity
     private EditText searchBar;
     private Button searchBtn;
     private ListView searchList;
+    private String searchContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +34,14 @@ public class SearchActivity
         this.Instantiate();
         this.SubscribeEvents();
         this.RetrieveExtraParams();
-        this.FillList();
+        this.Search();
     }
 
     private void Instantiate() {
         this.searchBar = findViewById(R.id.search_bar);
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
+        this.searchContent = "";
     }
 
     private void SubscribeEvents() {
@@ -60,21 +62,56 @@ public class SearchActivity
         // Insert the param in the search bar
         this.searchBar.setText(searchContent);
 
-        if (searchContent.trim().isEmpty()) return;
-
-        // If the search content was not empty, search for it
-        this.Search();
+        // Save the content
+        this.searchContent = searchContent;
     }
 
-    private void FillList() {
-        List<String[]> doctorsList = new ArrayList<>();
-        doctorsList.add(new String[]{"Jerry Lombart", "Angiologue", "Toulon"});
-        doctorsList.add(new String[]{"Serge Pernant", "Pédiatre", "Paris"});
-        doctorsList.add(new String[]{"Chloé Chareyron", "Chirurgien", "Saint-Etienne"});
+    /**
+     * Run the search process to display the list of doctors
+     */
+    private void Search() {
+        if (searchContent.trim().isEmpty()) return;
 
+        this.FillDoctorsList();
+    }
+
+    /**
+     * Get the matching doctors and build the list of them on the view
+     */
+    private void FillDoctorsList() {
+        // Fetch the matching doctors
+        List<String[]> doctorsList = this.FetchMatchingDoctors();
+
+        // Build the doctors list view procedurally
+        this.BuildDoctorsListView(doctorsList);
+    }
+
+    /**
+     * Retrieve the doctors matching with the search content
+     * @return The list of matching doctors
+     */
+    private List<String[]> FetchMatchingDoctors() {
+        List<String[]> doctorsList = new ArrayList<>();
+
+        doctorsList.add(new String[]{"Jerry Lombart", "Angiologue", "Toulon"});
+        doctorsList.add(new String[]{"Serge Pernant", "Pédiatre", "Bordeaux"});
+        doctorsList.add(new String[]{"Chloé Chareyron", "Chirurgien", "Saint-Etienne"});
+        doctorsList.add(new String[]{"Joachim Laviolette", "Chirurgien", "Paris"});
+        doctorsList.add(new String[]{"David Zenon", "Podologue", "Ermont"});
+        doctorsList.add(new String[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine"});
+        doctorsList.add(new String[]{"Axel Luffy", "Dentiste", "Saint-Etienne"});
+
+        return doctorsList;
+    }
+
+    /**
+     * Fill the list view with the matching doctors
+     * @param doctorsList The list of matching doctors
+     */
+    private void BuildDoctorsListView(List<String[]> doctorsList) {
         ArrayList<Map<String,Object>> doctorsMapList = new ArrayList<>();
 
-        for(int i =0; i < doctorsList.size(); i++) {
+        for(int i = 0; i < doctorsList.size(); ++i) {
             Map<String,Object> doctorMap = new HashMap<>();
             doctorMap.put("search_list_item_user_picture", R.mipmap.ic_launcher);
             doctorMap.put("search_list_item_user_fullname", doctorsList.get(i)[0]);
@@ -109,9 +146,5 @@ public class SearchActivity
             default:
                 return;
         }
-    }
-
-    private void Search() {
-        // TODO: Display the list of results
     }
 }
