@@ -9,9 +9,9 @@
     <string name="main_caption">Book an appointment with a specialized doctor online</string>
     <string name="main_search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="main_search_btn">Search</string>
-        <!-- Intent -->
-            <!-- Search -->
-            <string name="main_intent_search">search_content</string>
+    <!-- Intent -->
+    <!-- Search -->
+    <string name="main_intent_search">search_content</string>
 
     <!-- Login -->
     <string name="login_caption">Login and access your member profile</string>
@@ -27,4 +27,10 @@
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="search_btn">Search</string>
     <string name="search_list_item_chevron">></string>
+    <string name="search_intent_doctor">doctor</string>
+
+    <!-- User service -->
+    <string name="user_service_user_picture">search_list_item_user_picture</string>
+    <string name="user_service_user_fullname">search_list_item_user_fullname</string>
+    <string name="user_service_user_description">search_list_item_user_description</string>
 </resources>
