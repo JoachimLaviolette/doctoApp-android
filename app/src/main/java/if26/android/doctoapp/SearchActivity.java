@@ -250,8 +250,6 @@ public class SearchActivity
         Bundle user = userService.GetDoctorAsBundle(doctor);
         i.putExtra(key, user);
 
-        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show();
-
         // Start the activity
         startActivity(i);
     }
