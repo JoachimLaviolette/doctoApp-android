@@ -38,4 +38,17 @@
     <color name="search_list_item_user_fullname">#1B86E4</color>
     <color name="search_list_item_user_description">#696969</color>
     <color name="search_list_item_chevron">#E9E9E9</color>
+
+    <!-- Doctor profile -->
+    <color name="doctor_profile_background">#E4E4E4</color>
+    <color name="doctor_profile_fullname">#FFFFFF</color>
+    <color name="doctor_profile_speciality">#FFFFFF</color>
+    <color name="doctor_profile_book_appointment_btn">#1B86E4</color>
+    <color name="doctor_profile_book_appointment_text">#FFFFFF</color>
+    <color name="doctor_profile_section_background">#FFFFFF</color>
+    <color name="doctor_profile_section_title">#444444</color>
+    <color name="doctor_profile_section_content">#727272</color>
+    <color name="doctor_profile_section_content_background">#B8B8B8</color>
+    <color name="doctor_profile_section_expand">#B8B8B8</color>
+    <color name="doctor_profile_unavailable">#A32828</color>
 </resources>
