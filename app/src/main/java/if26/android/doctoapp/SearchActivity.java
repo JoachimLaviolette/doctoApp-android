@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,9 +38,13 @@ public class SearchActivity
         this.Instantiate();
         this.SubscribeEvents();
         this.RetrieveExtraParams();
+        this.SyncSearchBar();
         this.Search();
     }
 
+    /**
+     * Retrieve the view components references
+     */
     private void Instantiate() {
         this.searchBar = findViewById(R.id.search_bar);
         this.searchBtn = findViewById(R.id.search_btn);
@@ -44,10 +52,17 @@ public class SearchActivity
         this.searchContent = "";
     }
 
+    /**
+     * Listen to the events
+     */
     private void SubscribeEvents() {
         this.searchBtn.setOnClickListener(this);
+        this.ObserveSearchBar();
     }
 
+    /**
+     * Retrieve the params sent by the Main view
+     */
     private void RetrieveExtraParams() {
         // Get the intent from Main activity
         Intent i = getIntent();
@@ -57,20 +72,37 @@ public class SearchActivity
 
         // Retrieve the params
         String key = this.getResources().getString(R.string.main_intent_search);
-        String searchContent = bundle.getString(key);
+        String searchContent = bundle.getString(key).trim();
 
+        // Save the search content
+        this.searchContent = searchContent;
+    }
+
+    /**
+     * Synchronize the search bar content with the last search content
+     */
+    private void SyncSearchBar() {
         // Insert the param in the search bar
         this.searchBar.setText(searchContent);
+    }
 
-        // Save the content
-        this.searchContent = searchContent;
+    /**
+     * Synchronize the search content with the last content of the search bar
+     * @param searchBarContent THe search bar content
+     */
+    private void SyncSearchContent(String searchBarContent) {
+        // Save the search content
+        this.searchContent = searchBarContent;
     }
 
     /**
      * Run the search process to display the list of doctors
      */
     private void Search() {
-        if (searchContent.trim().isEmpty()) return;
+        String searchBarContent = this.searchBar.getText().toString().trim();
+
+        if (!this.searchContent.equals(searchBarContent))
+            this.SyncSearchContent(searchBarContent);
 
         this.FillDoctorsList();
     }
@@ -93,15 +125,40 @@ public class SearchActivity
     private List<String[]> FetchMatchingDoctors() {
         List<String[]> doctorsList = new ArrayList<>();
 
+        // Get the doctors
         doctorsList.add(new String[]{"Jerry Lombart", "Angiologue", "Toulon"});
         doctorsList.add(new String[]{"Serge Pernant", "Pédiatre", "Bordeaux"});
-        doctorsList.add(new String[]{"Chloé Chareyron", "Chirurgien", "Saint-Etienne"});
-        doctorsList.add(new String[]{"Joachim Laviolette", "Chirurgien", "Paris"});
+        doctorsList.add(new String[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne"});
+        doctorsList.add(new String[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne"});
         doctorsList.add(new String[]{"David Zenon", "Podologue", "Ermont"});
         doctorsList.add(new String[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine"});
-        doctorsList.add(new String[]{"Axel Luffy", "Dentiste", "Saint-Etienne"});
+        doctorsList.add(new String[]{"Axel Luffy", "Dentiste", "Chambéry"});
 
-        return doctorsList;
+        // Filter the list of doctors
+        return this.FilterDoctorsList(doctorsList);
+    }
+
+    /**
+     * Filter the given list of doctors to match the ones
+     * Matching the pattern @searchContent
+     * @param doctorsList The list of doctors to filter
+     * @return The list of doctors filtered
+     */
+    private List<String[]> FilterDoctorsList(List<String[]> doctorsList) {
+        List<String[]> matchingDoctorsList = new ArrayList<>();
+
+        if (this.searchContent.isEmpty()) return matchingDoctorsList;
+
+        for (String[] doctor: doctorsList) {
+            for (String doctorAttribute: doctor) {
+                if (doctorAttribute.toLowerCase().contains(this.searchContent.toLowerCase())
+                    && !matchingDoctorsList.contains(doctor)) {
+                    matchingDoctorsList.add(doctor);
+                }
+            }
+        }
+
+        return matchingDoctorsList;
     }
 
     /**
@@ -137,14 +194,33 @@ public class SearchActivity
         this.searchList.setAdapter(simpleAdapter);
     }
 
+    /**
+     * Handle click events
+     * @param v The Search view
+     */
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.main_search_btn:
-                this.Search();
-                break;
-            default:
-                return;
-        }
+        if (v.getId() == R.id.search_btn)
+            this.Search();
+    }
+
+    /**
+     * Handle the actions to perform when the content of the search bar changes
+     */
+    private void ObserveSearchBar() {
+        this.searchBar.addTextChangedListener(
+            new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    Search();
+                }
+            }
+        );
     }
 }

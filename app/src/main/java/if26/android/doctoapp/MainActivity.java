@@ -26,18 +26,28 @@ public class MainActivity
         this.SubscribeEvents();
     }
 
+    /**
+     * Retrieve the view components references
+     */
     private void Instantiate() {
         this.loginBtn = findViewById(R.id.main_login);
         this.searchBar = findViewById(R.id.main_search_bar);
         this.searchBtn = findViewById(R.id.main_search_btn);
     }
 
+    /**
+     * Listen to the events
+     */
     private void SubscribeEvents() {
         this.loginBtn.setOnClickListener(this);
         this.searchBar.setOnClickListener(this);
         this.searchBtn.setOnClickListener(this);
     }
 
+    /**
+     * Handle click events
+     * @param v The Main view
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -53,6 +63,9 @@ public class MainActivity
         }
     }
 
+    /**
+     * Start Login activity
+     */
     private void Login() {
         // Create the intent
         Intent i = new Intent(MainActivity.this, LoginActivity.class);
@@ -61,6 +74,9 @@ public class MainActivity
         startActivity(i);
     }
 
+    /**
+     * Start Search activity
+     */
     private void Search() {
         // Create the intent
         Intent i = new Intent(MainActivity.this, SearchActivity.class);
