@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,7 @@ import android.widget.ImageButton;
 
 public class MainActivity
         extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, View.OnTouchListener {
 
     private ImageButton loginBtn;
     private EditText searchBar;
@@ -42,6 +43,7 @@ public class MainActivity
         this.loginBtn.setOnClickListener(this);
         this.searchBar.setOnClickListener(this);
         this.searchBtn.setOnClickListener(this);
+        this.searchBar.setOnTouchListener(this);
     }
 
     /**
@@ -57,10 +59,22 @@ public class MainActivity
             case R.id.main_search_bar:
             case R.id.main_search_btn:
                 this.Search();
-                break;
-            default:
-                return;
         }
+    }
+
+    /**
+     * Handle touch events
+     * @param v The Main view
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (v.getId() == R.id.main_search_bar) {
+            this.Search();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
