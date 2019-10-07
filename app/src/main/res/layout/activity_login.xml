@@ -42,10 +42,9 @@
                 android:padding="10sp"
                 android:fontFamily="@font/roboto"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:textColor="@color/login_input_text"
-                android:textColorHighlight="@color/login_input_text"
-                android:textColorHint="@color/login_input_text"
-                android:textColorLink="@color/login_input_text"
+                android:textColorHint="@color/login_input_hint"
                 android:hint="@string/login_username_placeholder"
                 android:inputType="textPersonName" />
 
@@ -59,10 +58,9 @@
                 android:padding="10sp"
                 android:fontFamily="@font/roboto"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:textColor="@color/login_input_text"
-                android:textColorHighlight="@color/login_input_text"
-                android:textColorHint="@color/login_input_text"
-                android:textColorLink="@color/login_input_text"
+                android:textColorHint="@color/login_input_hint"
                 android:hint="@string/login_pwd_placeholder"
                 android:inputType="textPassword" />
 
@@ -145,7 +143,6 @@
                 android:textAlignment="center"
                 android:textColor="@color/login_signup_link"
                 android:textColorHighlight="@color/login_signup_link"
-                android:textColorHint="@color/login_signup_link"
                 android:textColorLink="@color/login_signup_link"
                 android:textStyle="normal|bold"
                 android:fontFamily="@font/roboto" />

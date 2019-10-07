@@ -15,8 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="3sp">
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/search_bar"
@@ -29,9 +28,7 @@
                 android:inputType="textPersonName"
                 android:shadowColor="@color/search_bar_shadow"
                 android:textColor="@color/search_bar_text"
-                android:textColorHighlight="@color/search_bar_text"
-                android:textColorHint="@color/search_bar_text"
-                android:textColorLink="@color/search_bar_text"
+                android:textColorHint="@color/search_bar_hint"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 

@@ -9,10 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SearchListActivity"></activity>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SearchListActivity"/>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:name=".SearchActivity" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:name=".LoginActivity" />
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

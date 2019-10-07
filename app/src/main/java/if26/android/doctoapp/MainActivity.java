@@ -69,7 +69,8 @@ public class MainActivity
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         // This is to copy the exact behaviour of Doctolib's Main view
-        if (v.getId() == R.id.main_search_bar) {
+        if (v.getId() == R.id.main_search_bar
+            &&  event.getAction() == MotionEvent.ACTION_DOWN) {
             this.Search();
 
             return true;
@@ -98,7 +99,7 @@ public class MainActivity
 
         // Put extra parameters
         String key = this.getResources().getString(R.string.main_intent_search);
-        String value = this.searchBar.getText().toString();
+        String value = this.searchBar.getText().toString().trim();
         i.putExtra(key, value);
 
         // Start the activity

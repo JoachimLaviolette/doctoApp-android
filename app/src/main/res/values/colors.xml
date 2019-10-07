@@ -9,6 +9,7 @@
     <color name="main_logo">#FFFFFF</color>
     <color name="main_caption">#FFFFFF</color>
     <color name="main_search_bar_text">#858585</color>
+    <color name="main_search_bar_hint">#D8D8D8</color>
     <color name="main_search_btn_background">#FF7509</color>
     <color name="main_search_btn_text">#FFFFFF</color>
 
@@ -16,6 +17,7 @@
     <color name="login_background">#E4E4E4</color>
     <color name="login_caption">#696969</color>
     <color name="login_input_text">#858585</color>
+    <color name="login_input_hint">#D8D8D8</color>
     <color name="login_forgot_pwd">#1B86E4</color>
     <color name="login_btn_background">#1B86E4</color>
     <color name="login_btn_text">#FFFFFF</color>
@@ -25,8 +27,9 @@
     <color name="login_signup_link">#1B86E4</color>
 
     <!-- Search -->
-    <color name="search_background">#E4E4E4</color>
+    <color name="search_background">#FFFFFF</color>
     <color name="search_bar_text">#858585</color>
+    <color name="search_bar_hint">#D8D8D8</color>
     <color name="search_bar_shadow">#1D1D1D</color>
     <color name="search_btn_background">#444444</color>
     <color name="search_btn_text">#FFFFFF</color>
@@ -34,4 +37,5 @@
     <color name="search_list_divider">#D5D5D5</color>
     <color name="search_list_item_user_fullname">#1B86E4</color>
     <color name="search_list_item_user_description">#696969</color>
+    <color name="search_list_item_chevron">#E9E9E9</color>
 </resources>
