@@ -6,29 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SearchActivity
         extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private EditText searchBar;
     private Button searchBtn;
     private ListView searchList;
     private String searchContent;
+    private static UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +50,7 @@ public class SearchActivity
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
         this.searchContent = "";
+        userService = new UserService(this);
     }
 
     /**
@@ -58,6 +58,7 @@ public class SearchActivity
      */
     private void SubscribeEvents() {
         this.searchBtn.setOnClickListener(this);
+        this.searchList.setOnItemClickListener(this);
         this.ObserveSearchBar();
     }
 
@@ -89,7 +90,7 @@ public class SearchActivity
 
     /**
      * Synchronize the search content with the last content of the search bar
-     * @param searchBarContent THe search bar content
+     * @param searchBarContent The search bar content
      */
     private void SyncSearchContent(String searchBarContent) {
         // Save the search content
@@ -199,16 +200,6 @@ public class SearchActivity
     }
 
     /**
-     * Handle click events
-     * @param v The Search view
-     */
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.search_btn)
-            this.Search();
-    }
-
-    /**
      * Handle the actions to perform when the content of the search bar changes
      */
     private void ObserveSearchBar() {
@@ -226,5 +217,42 @@ public class SearchActivity
                 }
             }
         );
+    }
+
+    /**
+     * Handle click events
+     * @param v The Search view
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.search_btn)
+            this.Search();
+    }
+
+    /**
+     * Handle action when clicking on one of the users of the list
+     * @param parent
+     * @param view Search view
+     * @param position Clicked item position
+     * @param id Clicked item id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Create the intent
+        Intent i = new Intent(SearchActivity.this, DoctorProfile.class);
+
+        // Prepare the intent parameters
+        String key = this.getResources().getString(R.string.search_intent_doctor);
+        Map<String, Object> doctor = (HashMap<String, Object>) parent.getAdapter().getItem(position);
+
+         // To represent the doctor object we use a specific class in charge of formatting and creating
+         // the doctor as a Bundle with all the data we'll need afterwards
+        Bundle user = userService.GetDoctorAsBundle(doctor);
+        i.putExtra(key, user);
+
+        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show();
+
+        // Start the activity
+        startActivity(i);
     }
 }

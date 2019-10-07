@@ -9,16 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".DoctorProfile"></activity>
+        <activity android:name=".SearchListActivity" />
         <activity
-            android:name=".SearchListActivity"/>
+            android:name=".SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:name=".SearchActivity" />
-        <activity
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:name=".LoginActivity" />
-        <activity
-            android:name=".MainActivity">
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
