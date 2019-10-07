@@ -46,6 +46,7 @@ public class SearchActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
+        setTitle(R.string.title_search);
         this.searchBar = findViewById(R.id.search_bar);
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
@@ -173,6 +174,7 @@ public class SearchActivity
             doctorMap.put("search_list_item_user_picture", R.mipmap.ic_launcher);
             doctorMap.put("search_list_item_user_fullname", doctorsList.get(i)[0]);
             doctorMap.put("search_list_item_user_description", doctorsList.get(i)[1] + "\n" + doctorsList.get(i)[2]);
+            doctorMap.put("search_list_item_chevron", getResources().getString(R.string.search_list_item_chevron));
             doctorsMapList.add(doctorMap);
         }
 
@@ -183,12 +185,14 @@ public class SearchActivity
                 new String[] {
                         "search_list_item_user_picture",
                         "search_list_item_user_fullname",
-                        "search_list_item_user_description"
+                        "search_list_item_user_description",
+                        "search_list_item_chevron"
                 },
                 new int[] {
                         R.id.search_list_item_user_picture,
                         R.id.search_list_item_user_fullname,
-                        R.id.search_list_item_user_description
+                        R.id.search_list_item_user_description,
+                        R.id.search_list_item_chevron
                 });
 
         this.searchList.setAdapter(simpleAdapter);
