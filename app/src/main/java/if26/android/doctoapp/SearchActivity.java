@@ -200,7 +200,6 @@ public class SearchActivity
      */
     @Override
     public void onClick(View v) {
-        // This is to copy the exact behaviour of Doctolib's Main view
         if (v.getId() == R.id.search_btn)
             this.Search();
     }
