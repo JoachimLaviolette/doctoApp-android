@@ -49,6 +49,6 @@
     <color name="doctor_profile_section_title">#444444</color>
     <color name="doctor_profile_section_content">#727272</color>
     <color name="doctor_profile_section_content_background">#B8B8B8</color>
-    <color name="doctor_profile_section_expand">#B8B8B8</color>
+    <color name="doctor_profile_section_expand">#E9E9E9</color>
     <color name="doctor_profile_unavailable">#A32828</color>
 </resources>

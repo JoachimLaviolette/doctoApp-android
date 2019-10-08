@@ -13,9 +13,7 @@
         android:choiceMode="singleChoice"
         android:clickable="true"
         android:divider="@color/search_list_divider"
-        android:dividerHeight="0.7dp">
-
-    </ListView>
+        android:dividerHeight="0.7dp" />
 
     <RelativeLayout
         android:id="@+id/search_list_layout"
@@ -35,14 +33,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/search_list_item_user_picture"
+            android:layout_toEndOf="@id/search_list_item_user_picture"
             android:padding="10sp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/search_list_item_user_fullname"
             android:textColorHighlight="@color/search_list_item_user_fullname"
             android:textColorHint="@color/search_list_item_user_fullname"
             android:textColorLink="@color/search_list_item_user_fullname"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -50,32 +48,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/search_list_item_user_picture"
+            android:layout_toEndOf="@id/search_list_item_user_picture"
             android:padding="10sp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/search_list_item_user_description"
             android:textColorHighlight="@color/search_list_item_user_description"
             android:textColorHint="@color/search_list_item_user_description"
             android:textColorLink="@color/search_list_item_user_description"
-            android:textSize="13dp"
+            android:textSize="13sp"
             android:textStyle="normal" />
 
         <TextView
             android:id="@+id/search_list_item_chevron"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/search_list_item_user_picture"
+            android:layout_toEndOf="@id/search_list_item_user_picture"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="15sp"
             android:padding="10sp"
-            android:layout_marginTop="10sp"
-            android:layout_marginRight="15sp"
             android:fontFamily="@font/acme"
-            android:gravity="right"
+            android:gravity="end"
             android:textColor="@color/search_list_item_chevron"
             android:textColorHighlight="@color/search_list_item_chevron"
             android:textColorHint="@color/search_list_item_chevron"
             android:textColorLink="@color/search_list_item_chevron"
-            android:textSize="40dp"
+            android:textSize="40sp"
             android:textStyle="bold" />
     </RelativeLayout>
 

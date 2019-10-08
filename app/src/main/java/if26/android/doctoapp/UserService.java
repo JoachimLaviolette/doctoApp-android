@@ -11,9 +11,11 @@ public class UserService {
      * The calling activity class
      */
     private Context context;
+    private Resources resources;
 
     public UserService(Context context) {
         this.context = context;
+        this.resources = this.context.getResources();
     }
 
     /**
@@ -23,18 +25,47 @@ public class UserService {
      */
     public Bundle GetDoctorAsBundle(Map<String,Object> doctorMap) {
         Bundle user = new Bundle();
-        Resources resources = this.context.getResources();
         String value;
 
         for (String key: new String[] {
-                resources.getString(R.string.user_service_user_picture),
-                resources.getString(R.string.user_service_user_fullname),
-                resources.getString(R.string.user_service_user_description)
+                this.resources.getString(R.string.user_service_user_picture),
+                this.resources.getString(R.string.user_service_user_fullname),
+                this.resources.getString(R.string.user_service_user_description)
         }) {
             value = doctorMap.get(key).toString();
             user.putString(key, value);
         }
 
         return user;
+    }
+
+    public int GetDoctorPicture(Bundle doctor) {
+        String key = this.resources.getString(R.string.user_service_bundle_key_doctor);
+
+        return Integer.parseInt(
+                doctor
+                .getBundle(key)
+                .getString(
+                        this.resources.getString(
+                                R.string.user_service_user_picture
+                        )
+                )
+        );
+    }
+
+    public String GetDoctorFullname(Bundle doctor) {
+        String key = this.resources.getString(R.string.user_service_bundle_key_doctor);
+
+        return doctor
+                .getBundle(key)
+                .getString(this.resources.getString(R.string.user_service_user_fullname));
+    }
+
+    public String GetDoctorDescription(Bundle doctor) {
+        String key = this.resources.getString(R.string.user_service_bundle_key_doctor);
+
+        return doctor
+                .getBundle(key)
+                .getString(this.resources.getString(R.string.user_service_user_description));
     }
 }
