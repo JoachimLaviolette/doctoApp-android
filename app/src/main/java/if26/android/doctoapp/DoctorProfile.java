@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -48,19 +47,19 @@ public class DoctorProfile
     private void SetContent() {
         Intent i = getIntent();
         Bundle doctor = i.getExtras();
-        UserService userService = new UserService(this);
+        DoctorService doctorService = new DoctorService(this);
 
         // Set doctor picture
-        this.doctorPicture.setImageResource(userService.GetDoctorPicture(doctor));
+        this.doctorPicture.setImageResource(doctorService.GetDoctorPicture(doctor));
 
         // Set doctor fullname
-        this.doctorFullname.setText(userService.GetDoctorFullname(doctor));
+        this.doctorFullname.setText(doctorService.GetDoctorFullname(doctor));
 
         // Set doctor speciality
-        this.doctorSpeciality.setText(userService.GetDoctorDescription(doctor));
+        this.doctorSpeciality.setText(doctorService.GetDoctorSpeciality(doctor));
 
         // Set doctor address
-        this.doctorAddress.setText("");
+        this.doctorAddress.setText(doctorService.GetDoctorAddress(doctor));
     }
 
     /**

@@ -35,8 +35,9 @@
     <color name="search_btn_text">#FFFFFF</color>
     <color name="search_list_background">#FFFFFF</color>
     <color name="search_list_divider">#D5D5D5</color>
-    <color name="search_list_item_user_fullname">#1B86E4</color>
-    <color name="search_list_item_user_description">#696969</color>
+    <color name="search_list_item_doctor_fullname">#1B86E4</color>
+    <color name="search_list_item_doctor_speciality">#696969</color>
+    <color name="search_list_item_doctor_address">#696969</color>
     <color name="search_list_item_chevron">#E9E9E9</color>
 
     <!-- Doctor profile -->

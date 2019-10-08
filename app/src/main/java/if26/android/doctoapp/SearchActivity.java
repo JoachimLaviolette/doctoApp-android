@@ -26,7 +26,7 @@ public class SearchActivity
     private Button searchBtn;
     private ListView searchList;
     private String searchContent;
-    private static UserService userService;
+    private static DoctorService doctorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class SearchActivity
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
         this.searchContent = "";
-        userService = new UserService(this);
+        doctorService = new DoctorService(this);
     }
 
     /**
@@ -169,12 +169,20 @@ public class SearchActivity
     private void BuildDoctorsListView(List<String[]> doctorsList) {
         ArrayList<Map<String,Object>> doctorsMapList = new ArrayList<>();
 
+        // Keys
+        String pictureKey = this.getResources().getString(R.string.doctor_service_doctor_picture);
+        String fullnameKey = this.getResources().getString(R.string.doctor_service_doctor_fullname);
+        String specialityKey = this.getResources().getString(R.string.doctor_service_doctor_speciality);
+        String addressKey = this.getResources().getString(R.string.doctor_service_doctor_address);
+        String chevronKey = this.getResources().getString(R.string.search_list_item_chevron_label);
+
         for(int i = 0; i < doctorsList.size(); ++i) {
             Map<String,Object> doctorMap = new HashMap<>();
-            doctorMap.put("search_list_item_user_picture", R.mipmap.ic_launcher);
-            doctorMap.put("search_list_item_user_fullname", doctorsList.get(i)[0]);
-            doctorMap.put("search_list_item_user_description", doctorsList.get(i)[1] + "\n" + doctorsList.get(i)[2]);
-            doctorMap.put("search_list_item_chevron", getResources().getString(R.string.search_list_item_chevron));
+            doctorMap.put(pictureKey, R.mipmap.ic_launcher);
+            doctorMap.put(fullnameKey, doctorsList.get(i)[0]);
+            doctorMap.put(specialityKey, doctorsList.get(i)[1]);
+            doctorMap.put(addressKey, doctorsList.get(i)[2]);
+            doctorMap.put(chevronKey, getResources().getString(R.string.search_list_item_chevron));
             doctorsMapList.add(doctorMap);
         }
 
@@ -183,15 +191,17 @@ public class SearchActivity
                 doctorsMapList,
                 R.layout.activity_search_list,
                 new String[] {
-                        "search_list_item_user_picture",
-                        "search_list_item_user_fullname",
-                        "search_list_item_user_description",
-                        "search_list_item_chevron"
+                        pictureKey,
+                        fullnameKey,
+                        specialityKey,
+                        addressKey,
+                        chevronKey
                 },
                 new int[] {
-                        R.id.search_list_item_user_picture,
-                        R.id.search_list_item_user_fullname,
-                        R.id.search_list_item_user_description,
+                        R.id.search_list_item_doctor_picture,
+                        R.id.search_list_item_doctor_fullname,
+                        R.id.search_list_item_doctor_speciality,
+                        R.id.search_list_item_doctor_address,
                         R.id.search_list_item_chevron
                 });
 
@@ -246,7 +256,7 @@ public class SearchActivity
 
          // To represent the doctor object we use a specific class in charge of formatting and creating
          // the doctor as a Bundle with all the data we'll need afterwards
-        Bundle user = userService.GetDoctorAsBundle(doctor);
+        Bundle user = doctorService.GetDoctorAsBundle(doctor);
         i.putExtra(key, user);
 
         // Start the activity
