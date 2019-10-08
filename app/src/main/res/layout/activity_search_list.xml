@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/search_list_item_user_picture"
+            android:id="@+id/search_list_item_doctor_picture"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentTop="true"
@@ -29,40 +29,57 @@
             android:padding="10sp" />
 
         <TextView
-            android:id="@+id/search_list_item_user_fullname"
+            android:id="@+id/search_list_item_doctor_fullname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/search_list_item_user_picture"
+            android:layout_toEndOf="@id/search_list_item_doctor_picture"
             android:padding="10sp"
             android:fontFamily="@font/roboto"
-            android:textColor="@color/search_list_item_user_fullname"
-            android:textColorHighlight="@color/search_list_item_user_fullname"
-            android:textColorHint="@color/search_list_item_user_fullname"
-            android:textColorLink="@color/search_list_item_user_fullname"
+            android:textColor="@color/search_list_item_doctor_fullname"
+            android:textColorHighlight="@color/search_list_item_doctor_fullname"
+            android:textColorHint="@color/search_list_item_doctor_fullname"
+            android:textColorLink="@color/search_list_item_doctor_fullname"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/search_list_item_user_description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/search_list_item_user_picture"
-            android:padding="10sp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/search_list_item_user_description"
-            android:textColorHighlight="@color/search_list_item_user_description"
-            android:textColorHint="@color/search_list_item_user_description"
-            android:textColorLink="@color/search_list_item_user_description"
-            android:textSize="13sp"
-            android:textStyle="normal" />
+            android:layout_toEndOf="@id/search_list_item_doctor_picture"
+            android:padding="10sp">
+            <TextView
+                android:id="@+id/search_list_item_doctor_speciality"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/search_list_item_doctor_speciality"
+                android:textColorHighlight="@color/search_list_item_doctor_speciality"
+                android:textColorHint="@color/search_list_item_doctor_speciality"
+                android:textColorLink="@color/search_list_item_doctor_speciality"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/search_list_item_doctor_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/search_list_item_doctor_address"
+                android:textColorHighlight="@color/search_list_item_doctor_address"
+                android:textColorHint="@color/search_list_item_doctor_address"
+                android:textColorLink="@color/search_list_item_doctor_address"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/search_list_item_chevron"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/search_list_item_user_picture"
+            android:layout_toEndOf="@id/search_list_item_doctor_picture"
             android:layout_centerInParent="true"
             android:layout_marginEnd="15sp"
             android:padding="10sp"

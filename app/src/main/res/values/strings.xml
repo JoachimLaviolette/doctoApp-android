@@ -27,13 +27,15 @@
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="search_btn">Search</string>
     <string name="search_list_item_chevron">></string>
+    <string name="search_list_item_chevron_label">search_list_item_chevron</string>
     <string name="search_intent_doctor">doctor</string>
 
     <!-- User service -->
-    <string name="user_service_user_picture">search_list_item_user_picture</string>
-    <string name="user_service_user_fullname">search_list_item_user_fullname</string>
-    <string name="user_service_user_description">search_list_item_user_description</string>
-    <string name="user_service_bundle_key_doctor">doctor</string>
+    <string name="doctor_service_doctor_picture">search_list_item_doctor_picture</string>
+    <string name="doctor_service_doctor_fullname">search_list_item_doctor_fullname</string>
+    <string name="doctor_service_doctor_speciality">search_list_item_doctor_speciality</string>
+    <string name="doctor_service_doctor_address">search_list_item_doctor_address</string>
+    <string name="doctor_service_bundle_key_doctor">doctor</string>
 
     <!-- Doctor profile -->
     <string name="doctor_profile_book_appointment">Book an appointment online</string>
