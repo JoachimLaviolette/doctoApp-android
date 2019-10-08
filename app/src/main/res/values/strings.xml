@@ -49,5 +49,7 @@
     <string name="doctor_profile_languages">Spoken languages</string>
     <string name="doctor_profile_experiences">Experiences</string>
     <string name="doctor_profile_section_expand">+</string>
+    <string name="doctor_profile_popup_content">{popup_content}</string>
+    <string name="doctor_profile_popup_title">{popup_title}</string>
 
 </resources>
