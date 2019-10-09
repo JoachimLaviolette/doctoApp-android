@@ -20,7 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class DoctorProfile
         extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
-
+    private Bundle doctor;
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
     private ImageView doctorPicture;
@@ -56,6 +56,7 @@ public class DoctorProfile
         setContentView(R.layout.activity_doctor_profile);
 
         this.Instantiate();
+        this.RetrieveExtraParams();
         this.SetContent();
         this.SubscribeEvents();
     }
@@ -98,45 +99,51 @@ public class DoctorProfile
     }
 
     /**
+     * Retrieve the extra params sent by the Search view
+     */
+    private void RetrieveExtraParams() {
+        Intent i = getIntent();
+        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
+    }
+
+    /**
      * Set content procedurally
      */
     private void SetContent() {
-        Intent i = getIntent();
-        Bundle doctor = i.getExtras();
-        DoctorService doctorService = new DoctorService(this);
+        DoctorService doctorService = new DoctorService(this, this.doctor);
 
         // Set doctor picture
-        this.doctorPicture.setImageResource(doctorService.GetDoctorPicture(doctor));
+        this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
 
         // Set doctor fullname
-        this.doctorFullname.setText(doctorService.GetDoctorFullname(doctor));
+        this.doctorFullname.setText(doctorService.GetDoctorFullname());
 
         // Set doctor speciality
-        this.doctorSpeciality.setText(doctorService.GetDoctorSpeciality(doctor));
+        this.doctorSpeciality.setText(doctorService.GetDoctorSpeciality());
 
         // Set doctor address
-        this.doctorAddressContent.setText(doctorService.GetDoctorAddress(doctor));
+        this.doctorAddressContent.setText(doctorService.GetDoctorAddress());
 
         // Set doctor prices and refunds
-        this.doctorPricesRefundsContent.setText(doctorService.GetDoctorPricesRefunds(doctor));
+        this.doctorPricesRefundsContent.setText(doctorService.GetDoctorPricesRefunds());
 
         // Set doctor payment options
-        this.doctorPaymentOptionsContent.setText(doctorService.GetDoctorPaymentOptions(doctor));
+        this.doctorPaymentOptionsContent.setText(doctorService.GetDoctorPaymentOptions());
 
         // Set doctor description
-        this.doctorDescriptionContent.setText(doctorService.GetDoctorDescription(doctor));
+        this.doctorDescriptionContent.setText(doctorService.GetDoctorDescription());
 
         // Set doctor hours and contacts
-        this.doctorHoursContactsContent.setText(doctorService.GetDoctorHoursContacts(doctor));
+        this.doctorHoursContactsContent.setText(doctorService.GetDoctorHoursContacts());
 
         // Set doctor education
-        this.doctorEducationContent.setText(doctorService.GetDoctorEducation(doctor));
+        this.doctorEducationContent.setText(doctorService.GetDoctorEducation());
 
         // Set doctor languages
-        this.doctorLanguagesContent.setText(doctorService.GetDoctorLanguages(doctor));
+        this.doctorLanguagesContent.setText(doctorService.GetDoctorLanguages());
 
         // Set doctor experiences
-        this.doctorExperiencesContent.setText(doctorService.GetDoctorExperiences(doctor));
+        this.doctorExperiencesContent.setText(doctorService.GetDoctorExperiences());
     }
 
     /**
@@ -235,7 +242,15 @@ public class DoctorProfile
      * Start BookAppointment activity
      */
     private void BookAppointment() {
+        // Create the intent
+        Intent i = new Intent(DoctorProfile.this, ChooseReasonActivity.class);
 
+        // Prepare the intent parameters
+        String key = this.getResources().getString(R.string.search_intent_doctor);
+        i.putExtra(key, this.doctor);
+
+        // Start the activity
+        startActivity(i);
     }
 
     /**

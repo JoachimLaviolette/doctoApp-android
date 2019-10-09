@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import java.io.Serializable;
 import java.util.Map;
 
 public class DoctorService {
@@ -11,9 +12,9 @@ public class DoctorService {
      * The calling activity class
      */
     private Context context;
+    private Bundle doctor;
     private Resources resources;
     private static String
-            doctorKey,
             pictureKey,
             fullnameKey,
             specialityKey,
@@ -24,13 +25,39 @@ public class DoctorService {
             hoursContactsKey,
             educationKey,
             languagesKey,
-            experiencesKey;
+            experiencesKey,
+            reasonsKey;
 
+    /**
+     * Constructor
+     * @param context The calling context
+     */
     public DoctorService(Context context) {
+        this.Instantiate(context);
+        this.SetKeys();
+    }
+
+    /**
+     * Constructor
+     * @param context The calling context
+     * @param doctor The context to get data from
+     */
+    public DoctorService(Context context, Bundle doctor) {
+        this.doctor = doctor;
+        this.Instantiate(context);
+        this.SetKeys();
+    }
+
+    /**
+     * Instantiate the context and the resources
+     * @param context
+     */
+    private void Instantiate(Context context) {
         this.context = context;
         this.resources = this.context.getResources();
+    }
 
-        doctorKey = this.resources.getString(R.string.doctor_service_bundle_key_doctor);
+    private void SetKeys() {
         pictureKey = this.resources.getString(R.string.doctor_service_doctor_picture);
         fullnameKey = this.resources.getString(R.string.doctor_service_doctor_fullname);
         specialityKey = this.resources.getString(R.string.doctor_service_doctor_speciality);
@@ -42,97 +69,105 @@ public class DoctorService {
         educationKey = this.resources.getString(R.string.doctor_service_doctor_education);
         languagesKey = this.resources.getString(R.string.doctor_service_doctor_languages);
         experiencesKey = this.resources.getString(R.string.doctor_service_doctor_experiences);
+        reasonsKey = this.resources.getString(R.string.doctor_service_doctor_reason);
     }
 
     /**
      * Format the given doctor data and return it as a bundle
-     * @param doctorMap The doctor data
+     * @param doctorData The doctor data
      * @return The doctor data as a Bundle
      */
-    public Bundle GetDoctorAsBundle(Map<String,Object> doctorMap) {
-        Bundle user = new Bundle();
-        String value;
+    public Bundle GetDoctorAsBundle(Map<String,Object> doctorData) {
+        Bundle doctor = new Bundle();
+        Object value;
         String[] attributes = new String[] {
                 pictureKey,
                 fullnameKey,
                 specialityKey,
                 addressKey,
+                reasonsKey,
         };
 
         for (String attribute: attributes) {
-            value = doctorMap.get(attribute).toString();
-            user.putString(attribute, value);
+            value = doctorData.get(attribute);
+            if (value instanceof Serializable)
+               doctor.putSerializable(attribute, (Serializable) value);
+            else
+                doctor.putString(attribute, value.toString());
         }
 
-        return user;
+        return doctor;
     }
 
-    public int GetDoctorPicture(Bundle doctor) {
-        return Integer.
-                parseInt(
-                    doctor
-                    .getBundle(doctorKey)
-                    .getString(pictureKey)
-        );
+    public int GetDoctorPicture() {
+        return this.doctor.getInt(pictureKey);
     }
 
-    public String GetDoctorFullname(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(fullnameKey);
+    public String GetDoctorFullname() {
+        return doctor.getString(fullnameKey);
     }
 
-    public String GetDoctorSpeciality(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(specialityKey);
+    public String GetDoctorFullnameAsTitle() {
+        return
+                this.resources.getString(R.string.choose_reason_dr) +
+                " " +
+                this.GetFirstName() +
+                " " +
+                this.GetLastName();
     }
 
-    public String GetDoctorAddress(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(addressKey);
+    private String GetFirstName() {
+        String name = this.GetDoctorFullname();
+        name = name.substring(0, name.indexOf(" ")).trim();
+        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+
+        return name;
     }
 
-    public String GetDoctorPricesRefunds(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(pricesRefundsKey);
+    private String GetLastName() {
+        String name = this.GetDoctorFullname();
+        name = name.substring(name.indexOf(" ")).trim().toUpperCase();
+
+        return name;
     }
 
-    public String GetDoctorPaymentOptions(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(paymentOptionsKey);
+    public String GetDoctorSpeciality() {
+        return doctor.getString(specialityKey);
     }
 
-    public String GetDoctorDescription(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(descriptionKey);
+    public String GetDoctorAddress() {
+        return doctor.getString(addressKey);
     }
 
-    public String GetDoctorHoursContacts(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(hoursContactsKey);
+    public String GetDoctorPricesRefunds() {
+        return doctor.getString(pricesRefundsKey);
     }
 
-    public String GetDoctorEducation(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(educationKey);
+    public String GetDoctorPaymentOptions() {
+        return doctor.getString(paymentOptionsKey);
     }
 
-    public String GetDoctorLanguages(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(languagesKey);
+    public String GetDoctorDescription() {
+        return doctor.getString(descriptionKey);
     }
 
-    public String GetDoctorExperiences(Bundle doctor) {
-        return doctor
-                .getBundle(doctorKey)
-                .getString(experiencesKey);
+    public String GetDoctorHoursContacts() {
+        return doctor.getString(hoursContactsKey);
+    }
+
+    public String GetDoctorEducation() {
+        return doctor.getString(educationKey);
+    }
+
+    public String GetDoctorLanguages() {
+        return doctor.getString(languagesKey);
+    }
+
+    public String GetDoctorExperiences() {
+        return doctor.getString(experiencesKey);
+    }
+
+    public Serializable GetDoctorReasons() {
+        return doctor.getSerializable(reasonsKey);
     }
 }

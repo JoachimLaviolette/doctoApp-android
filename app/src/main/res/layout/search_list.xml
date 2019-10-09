@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".SearchListActivity">
+    android:layout_height="match_parent">
 
     <ListView
         android:id="@+id/search_list"
@@ -37,9 +35,6 @@
             android:padding="10sp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/search_list_item_doctor_fullname"
-            android:textColorHighlight="@color/search_list_item_doctor_fullname"
-            android:textColorHint="@color/search_list_item_doctor_fullname"
-            android:textColorLink="@color/search_list_item_doctor_fullname"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -56,9 +51,6 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/search_list_item_doctor_speciality"
-                android:textColorHighlight="@color/search_list_item_doctor_speciality"
-                android:textColorHint="@color/search_list_item_doctor_speciality"
-                android:textColorLink="@color/search_list_item_doctor_speciality"
                 android:textSize="13sp"
                 android:textStyle="normal" />
 
@@ -68,9 +60,6 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/search_list_item_doctor_address"
-                android:textColorHighlight="@color/search_list_item_doctor_address"
-                android:textColorHint="@color/search_list_item_doctor_address"
-                android:textColorLink="@color/search_list_item_doctor_address"
                 android:textSize="13sp"
                 android:textStyle="normal" />
         </LinearLayout>

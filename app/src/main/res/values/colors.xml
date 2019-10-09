@@ -33,6 +33,8 @@
     <color name="search_bar_shadow">#1D1D1D</color>
     <color name="search_btn_background">#444444</color>
     <color name="search_btn_text">#FFFFFF</color>
+
+    <!-- Search list -->
     <color name="search_list_background">#FFFFFF</color>
     <color name="search_list_divider">#D5D5D5</color>
     <color name="search_list_item_doctor_fullname">#1B86E4</color>
@@ -59,4 +61,16 @@
     <color name="doctor_profile_popup_content">#727272</color>
     <color name="doctor_profile_popup_close">#FFFFFF</color>
     <color name="doctor_profile_shadow">#222222</color>
+
+    <!-- Choose reason -->
+    <color name="choose_reason_header">#1B86E4</color>
+    <color name="choose_reason_body">#E4E4E4</color>
+    <color name="choose_reason_title_1">#66A8E2</color>
+    <color name="choose_reason_doctor_fullname">#FFFFFF</color>
+    <color name="choose_reason_title_2">#444444</color>
+
+    <!-- Reason list -->
+    <color name="reason_list">#FFFFFF</color>
+    <color name="reason_list_item_reason">#727272</color>
+    <color name="reason_list_divider">#E4E4E4</color>
 </resources>

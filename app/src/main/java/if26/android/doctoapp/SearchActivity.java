@@ -26,7 +26,6 @@ public class SearchActivity
     private Button searchBtn;
     private ListView searchList;
     private String searchContent;
-    private static DoctorService doctorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class SearchActivity
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
         this.searchContent = "";
-        doctorService = new DoctorService(this);
     }
 
     /**
@@ -62,7 +60,7 @@ public class SearchActivity
     }
 
     /**
-     * Retrieve the params sent by the Main view
+     * Retrieve the extra params sent by the Main view
      */
     private void RetrieveExtraParams() {
         // Get the intent from Main activity
@@ -113,7 +111,7 @@ public class SearchActivity
      */
     private void FillDoctorsList() {
         // Fetch the matching doctors
-        List<String[]> doctorsList = this.FetchMatchingDoctors();
+        List<Object[]> doctorsList = this.FetchMatchingDoctors();
 
         // Build the doctors list view procedurally
         this.BuildDoctorsListView(doctorsList);
@@ -123,17 +121,28 @@ public class SearchActivity
      * Retrieve the doctors matching with the search content
      * @return The list of matching doctors
      */
-    private List<String[]> FetchMatchingDoctors() {
-        List<String[]> doctorsList = new ArrayList<>();
+    private List<Object[]> FetchMatchingDoctors() {
+        List<Object[]> doctorsList = new ArrayList<>();
+
+        // Reasons
+        List<String[]> reasonsList = new ArrayList<>();
+        reasonsList.add(new String[]{ "Reason 1" });
+        reasonsList.add(new String[]{ "Reason 2" });
+        reasonsList.add(new String[]{ "Reason 3" });
+        reasonsList.add(new String[]{ "Reason 4" });
+        reasonsList.add(new String[]{ "Reason 5" });
+        reasonsList.add(new String[]{ "Reason 6" });
+        reasonsList.add(new String[]{ "Reason 7" });
+        reasonsList.add(new String[]{ "Reason 8" });
 
         // Get the doctors
-        doctorsList.add(new String[]{"Jerry Lombart", "Angiologue", "Toulon"});
-        doctorsList.add(new String[]{"Serge Pernant", "Pédiatre", "Bordeaux"});
-        doctorsList.add(new String[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne"});
-        doctorsList.add(new String[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne"});
-        doctorsList.add(new String[]{"David Zenon", "Podologue", "Ermont"});
-        doctorsList.add(new String[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine"});
-        doctorsList.add(new String[]{"Axel Luffy", "Dentiste", "Chambéry"});
+        doctorsList.add(new Object[]{"Jerry Lombart", "Angiologue", "Toulon", reasonsList});
+        doctorsList.add(new Object[]{"Serge Pernant", "Pédiatre", "Bordeaux", reasonsList});
+        doctorsList.add(new Object[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne", reasonsList});
+        doctorsList.add(new Object[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne", reasonsList});
+        doctorsList.add(new Object[]{"David Zenon", "Podologue", "Ermont", reasonsList});
+        doctorsList.add(new Object[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine", reasonsList});
+        doctorsList.add(new Object[]{"Axel Luffy", "Dentiste", "Chambéry", reasonsList});
 
         // Filter the list of doctors
         return this.FilterDoctorsList(doctorsList);
@@ -145,16 +154,18 @@ public class SearchActivity
      * @param doctorsList The list of doctors to filter
      * @return The list of doctors filtered
      */
-    private List<String[]> FilterDoctorsList(List<String[]> doctorsList) {
-        List<String[]> matchingDoctorsList = new ArrayList<>();
+    private List<Object[]> FilterDoctorsList(List<Object[]> doctorsList) {
+        List<Object[]> matchingDoctorsList = new ArrayList<>();
 
         if (this.searchContent.isEmpty()) return matchingDoctorsList;
 
-        for (String[] doctor: doctorsList) {
-            for (String doctorAttribute: doctor) {
-                if (doctorAttribute.toLowerCase().contains(this.searchContent.toLowerCase())
-                    && !matchingDoctorsList.contains(doctor)) {
-                    matchingDoctorsList.add(doctor);
+        for (Object[] doctor: doctorsList) {
+            for (Object doctorAttribute: doctor) {
+                if (doctorAttribute instanceof String) {
+                    if (((String) doctorAttribute).toLowerCase().contains(this.searchContent.toLowerCase())
+                            && !matchingDoctorsList.contains(doctor)) {
+                        matchingDoctorsList.add(doctor);
+                    }
                 }
             }
         }
@@ -166,7 +177,7 @@ public class SearchActivity
      * Fill the list view with the matching doctors
      * @param doctorsList The list of matching doctors
      */
-    private void BuildDoctorsListView(List<String[]> doctorsList) {
+    private void BuildDoctorsListView(List<Object[]> doctorsList) {
         ArrayList<Map<String,Object>> doctorsMapList = new ArrayList<>();
 
         // Keys
@@ -174,6 +185,7 @@ public class SearchActivity
         String fullnameKey = this.getResources().getString(R.string.doctor_service_doctor_fullname);
         String specialityKey = this.getResources().getString(R.string.doctor_service_doctor_speciality);
         String addressKey = this.getResources().getString(R.string.doctor_service_doctor_address);
+        String reasonsKey = this.getResources().getString(R.string.doctor_service_doctor_reason);
         String chevronKey = this.getResources().getString(R.string.search_list_item_chevron_label);
 
         for(int i = 0; i < doctorsList.size(); ++i) {
@@ -182,6 +194,7 @@ public class SearchActivity
             doctorMap.put(fullnameKey, doctorsList.get(i)[0]);
             doctorMap.put(specialityKey, doctorsList.get(i)[1]);
             doctorMap.put(addressKey, doctorsList.get(i)[2]);
+            doctorMap.put(reasonsKey, doctorsList.get(i)[3]);
             doctorMap.put(chevronKey, getResources().getString(R.string.search_list_item_chevron));
             doctorsMapList.add(doctorMap);
         }
@@ -189,13 +202,13 @@ public class SearchActivity
         SimpleAdapter simpleAdapter = new SimpleAdapter(
                 this,
                 doctorsMapList,
-                R.layout.activity_search_list,
+                R.layout.search_list,
                 new String[] {
                         pictureKey,
                         fullnameKey,
                         specialityKey,
                         addressKey,
-                        chevronKey
+                        chevronKey,
                 },
                 new int[] {
                         R.id.search_list_item_doctor_picture,
@@ -252,12 +265,14 @@ public class SearchActivity
 
         // Prepare the intent parameters
         String key = this.getResources().getString(R.string.search_intent_doctor);
-        Map<String, Object> doctor = (HashMap<String, Object>) parent.getAdapter().getItem(position);
+        Map<String, Object> doctorData = (HashMap<String, Object>) parent.getAdapter().getItem(position);
 
-         // To represent the doctor object we use a specific class in charge of formatting and creating
+        DoctorService doctorService = new DoctorService(this);
+
+        // To represent the doctor object we use a specific class in charge of formatting and creating
          // the doctor as a Bundle with all the data we'll need afterwards
-        Bundle user = doctorService.GetDoctorAsBundle(doctor);
-        i.putExtra(key, user);
+        Bundle doctor = doctorService.GetDoctorAsBundle(doctorData);
+        i.putExtra(key, doctor);
 
         // Start the activity
         startActivity(i);
