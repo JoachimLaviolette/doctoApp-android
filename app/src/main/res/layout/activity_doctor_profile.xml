@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/doctor_profile_background"
+    android:isScrollContainer="true"
     tools:context=".DoctorProfile">
 
     <LinearLayout
@@ -47,6 +48,10 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
+                    android:shadowColor="@color/doctor_profile_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
                     android:text="{doctor_fullname}"
                     android:textColor="@color/doctor_profile_fullname"
                     android:textSize="24sp"
@@ -58,6 +63,10 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
+                    android:shadowColor="@color/doctor_profile_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="3"
                     android:text="{doctor_speciality}"
                     android:textColor="@color/doctor_profile_speciality"
                     android:textSize="14sp"
@@ -71,7 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15sp"
-            android:isScrollContainer="true"
             android:orientation="vertical">
 
             <LinearLayout

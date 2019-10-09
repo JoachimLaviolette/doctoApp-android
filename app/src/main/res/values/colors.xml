@@ -52,8 +52,11 @@
     <color name="doctor_profile_section_content_background">#B8B8B8</color>
     <color name="doctor_profile_section_expand">#E9E9E9</color>
     <color name="doctor_profile_unavailable">#A32828</color>
+    <color name="doctor_profile_popup_external_background">#000000</color>
     <color name="doctor_profile_popup_background">#FFFFFF</color>
     <color name="doctor_profile_popup_title">#FFFFFF</color>
     <color name="doctor_profile_popup_title_background">#1B86E4</color>
     <color name="doctor_profile_popup_content">#727272</color>
+    <color name="doctor_profile_popup_close">#FFFFFF</color>
+    <color name="doctor_profile_shadow">#222222</color>
 </resources>
