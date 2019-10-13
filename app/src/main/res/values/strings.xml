@@ -30,8 +30,6 @@
     <string name="search_list_item_chevron_label">search_list_item_chevron</string>
     <string name="search_intent_doctor">doctor</string>
 
-    <!-- Doctor service -->
-    <string name="doctor_service_bundle_key_doctor">doctor</string>
     <!-- Search list -->
     <string name="doctor_service_doctor_picture">search_list_item_doctor_picture</string>
     <string name="doctor_service_doctor_fullname">search_list_item_doctor_fullname</string>
@@ -83,4 +81,24 @@
     <string name="date_service_day_number">day_number</string>
     <string name="date_service_month_name">month_name</string>
     <string name="date_service_tag">_tag_{time}_{day_name}_{day_number}_{month_name}</string>
+    <string name="date_service_full_day">{day_name}, {month_name} {day_number}</string>
+
+    <!-- Confirm appointment -->
+    <string name="confirm_appointment_header_title">Booking summary</string>
+    <string name="confirm_appointment_success_msg_title">Your booking is confirmed</string>
+    <string name="confirm_appointment_success_msg_content">We just sent you an confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
+
+    <!-- Appointment summary -->
+    <string name="appointment_summary_fullday">{Day, Month X}</string>
+    <string name="appointment_summary_time">{hh:mm}</string>
+    <string name="appointment_summary_doctor_fullname">{doctor_fullname}</string>
+    <string name="appointment_summary_doctor_speciality">{doctor_speciality}</string>
+    <string name="appointment_summary_chevron">></string>
+    <string name="appointment_summary_patient_title">Patient</string>
+    <string name="appointment_summary_patient_fullname">{patient_fullname}</string>
+    <string name="appointment_summary_warning_msg_title">Important message to read before your appointment</string>
+    <string name="appointment_summary_warning_msg_content">{warning_msg}</string>
+    <string name="appointment_summary_contact_number">{doctor_contact_number}</string>
+    <string name="appointment_summary_address_content">{doctor_address_content}</string>
+
 </resources>

@@ -56,7 +56,7 @@ public class ChooseReasonActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.doctor_service_bundle_key_doctor));
+        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
     }
 
     /**

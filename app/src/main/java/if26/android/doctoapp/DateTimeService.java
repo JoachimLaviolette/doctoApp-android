@@ -6,11 +6,11 @@ import android.content.res.Resources;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DateService {
+public class DateTimeService {
     private Context context;
     private Resources resources;
 
-    public DateService(Context context) {
+    public DateTimeService(Context context) {
         this.context = context;
         this.resources = this.context.getResources();
     }
@@ -21,20 +21,20 @@ public class DateService {
      * @param fullDay Has to be in format: "Day, Month X"
      * @return Date data as a map
      */
-    public Map<String,String> GetDateDataFromFullDay(String time, String fullDay) {
-        Map<String,String> dateData = new HashMap<>();
+    public Map<String,String> GetDateTimeDataFromFullDay(String time, String fullDay) {
+        Map<String,String> dateTimeData = new HashMap<>();
 
         String timeKey = this.resources.getString(R.string.date_service_time);
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
 
-        dateData.put(timeKey, time);
-        dateData.put(dayName, this.GetDayNameFromFullDay(fullDay));
-        dateData.put(dayNumber, this.GetDayNumberFromFullDay(fullDay));
-        dateData.put(monthName, this.GetMonthNameFromFullDay(fullDay));
+        dateTimeData.put(timeKey, time);
+        dateTimeData.put(dayName, this.GetDayNameFromFullDay(fullDay));
+        dateTimeData.put(dayNumber, this.GetDayNumberFromFullDay(fullDay));
+        dateTimeData.put(monthName, this.GetMonthNameFromFullDay(fullDay));
 
-        return dateData;
+        return dateTimeData;
     }
 
     /**
@@ -42,20 +42,20 @@ public class DateService {
      * @param timeTag The time tag
      * @return Data data as a map
      */
-    public Map<String,String> GetDateDataFromTimeTag(String timeTag) {
+    public Map<String,String> GetDateTimeDataFromTimeTag(String timeTag) {
         String timeKey = this.resources.getString(R.string.date_service_time);
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
 
-        Map<String,String> dateData = new HashMap<>();
+        Map<String,String> dateTimeData = new HashMap<>();
 
-        dateData.put(timeKey, this.GetTimeFromTimeTag(timeTag));
-        dateData.put(dayName, this.GetDayNameFromTimeTag(timeTag));
-        dateData.put(dayNumber, this.GetDayNumberFromTimeTag(timeTag));
-        dateData.put(monthName, this.GetMonthNameFromTimeTag(timeTag));
+        dateTimeData.put(timeKey, this.GetTimeFromTimeTag(timeTag));
+        dateTimeData.put(dayName, this.GetDayNameFromTimeTag(timeTag));
+        dateTimeData.put(dayNumber, this.GetDayNumberFromTimeTag(timeTag));
+        dateTimeData.put(monthName, this.GetMonthNameFromTimeTag(timeTag));
 
-        return dateData;
+        return dateTimeData;
     }
 
     /**
@@ -70,15 +70,50 @@ public class DateService {
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
         String tag = this.resources.getString(R.string.date_service_tag);
-        Map<String,String> dateData = this.GetDateDataFromFullDay(time, fullDay);
+        Map<String,String> dateTimeData = this.GetDateTimeDataFromFullDay(time, fullDay);
 
         return tag
-                .replace(this.ToBrace(timeKey), dateData.get(timeKey))
-                .replace(this.ToBrace(dayName), dateData.get(dayName))
-                .replace(this.ToBrace(dayNumber), dateData.get(dayNumber))
-                .replace(this.ToBrace(monthName), dateData.get(monthName));
+                .replace(this.ToBrace(timeKey), dateTimeData.get(timeKey))
+                .replace(this.ToBrace(dayName), dateTimeData.get(dayName))
+                .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
+                .replace(this.ToBrace(monthName), dateTimeData.get(monthName))
+                .trim();
     }
 
+    /**
+     * Return the full day in format "Day, Month X"
+     * @param dateTimeData Map containing datetime data
+     * @return The full day
+     */
+    public String GetFullDayFromData(Map<String,String> dateTimeData) {
+        String dayName = this.resources.getString(R.string.date_service_day_name);
+        String dayNumber = this.resources.getString(R.string.date_service_day_number);
+        String monthName = this.resources.getString(R.string.date_service_month_name);
+        String fullDay = this.resources.getString(R.string.date_service_full_day).trim();
+
+        return fullDay
+                .replace(this.ToBrace(dayName), dateTimeData.get(dayName))
+                .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
+                .replace(this.ToBrace(monthName), dateTimeData.get(monthName))
+                .trim();
+    }
+
+    /**
+     * Return the time in format hh:mm
+     * @param dateTimeData Map containing datetime data
+     * @return The time
+     */
+    public String GetTimeFromData(Map<String,String> dateTimeData) {
+        String timeKey = this.resources.getString(R.string.date_service_time);
+        
+        return dateTimeData.get(timeKey).trim();
+    }
+
+    /**
+     * Put braces around a key
+     * @param key The key to put braces around
+     * @return The braced key
+     */
     private String ToBrace(String key) {
         return "{" + key + "}";
     }
@@ -89,7 +124,7 @@ public class DateService {
      * @return The day name
      */
     private String GetDayNameFromFullDay(String fullDay) {
-        return fullDay.substring(0, fullDay.indexOf(","));
+        return fullDay.substring(0, fullDay.indexOf(",")).trim();
     }
 
     /**
@@ -98,7 +133,7 @@ public class DateService {
      * @return The day number
      */
     private String GetDayNumberFromFullDay(String fullDay) {
-        return fullDay.substring(fullDay.lastIndexOf(" ") + 1);
+        return fullDay.substring(fullDay.lastIndexOf(" ") + 1).trim();
     }
 
     /**
@@ -109,7 +144,7 @@ public class DateService {
     private String GetMonthNameFromFullDay(String fullDay) {
         String monthName = fullDay.substring(fullDay.indexOf(" ") + 1);
 
-        return monthName.substring(0, fullDay.indexOf(" "));
+        return monthName.substring(0, fullDay.indexOf(" ")).trim();
     }
 
     /**
@@ -120,7 +155,8 @@ public class DateService {
     private String GetTimeFromTimeTag(String timeTag) {
         return timeTag
                 .split("_")
-                [2];
+                [2]
+                .trim();
     }
 
     /**
@@ -131,7 +167,8 @@ public class DateService {
     private String GetDayNameFromTimeTag(String timeTag) {
         return timeTag
                 .split("_")
-                [3];
+                [3]
+                .trim();
     }
 
     /**
@@ -142,7 +179,8 @@ public class DateService {
     private String GetDayNumberFromTimeTag(String timeTag) {
         return timeTag
                 .split("_")
-                [4];
+                [4]
+                .trim();
     }
 
     /**
@@ -153,7 +191,8 @@ public class DateService {
     private String GetMonthNameFromTimeTag(String timeTag) {
         return timeTag
                 .split("_")
-                [5];
+                [5]
+                .trim();
     }
 
 }

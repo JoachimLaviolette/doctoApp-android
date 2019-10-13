@@ -168,7 +168,11 @@ public class DoctorService {
         List<HashMap<String,Object>> data = (ArrayList) doctor.getSerializable(hoursContactsKey);
 
         return data.get(0);
+    }
 
+    // TODO : This has nothing to do here since it's all about booking data so it must be put in another dedicated service
+    public Serializable GetAppointmentData() {
+        return doctor.getSerializable(hoursContactsKey);
     }
 
     public String GetDoctorEducation() {

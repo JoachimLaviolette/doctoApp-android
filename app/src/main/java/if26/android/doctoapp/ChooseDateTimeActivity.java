@@ -22,7 +22,7 @@ public class ChooseDateTimeActivity
     private TextView doctorFullname;
     private GridLayout dateTimeListGlobalLayout;
     private static DoctorService doctorService;
-    private static DateService dateService;
+    private static DateTimeService dateTimeService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ChooseDateTimeActivity
      */
     private void Instantiate() {
         doctorService = new DoctorService(this, this.doctor);
-        dateService = new DateService(this);
+        dateTimeService = new DateTimeService(this);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);
     }
@@ -57,7 +57,7 @@ public class ChooseDateTimeActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.doctor_service_bundle_key_doctor));
+        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
     }
 
     /**
@@ -103,7 +103,7 @@ public class ChooseDateTimeActivity
                 for (String hour : (String[]) hours) {
                     View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
                     ((TextView) time).setText(hour);
-                    time.setTag(dateService.CreateTimeTag(hour, d));
+                    time.setTag(dateTimeService.CreateTimeTag(hour, d));
                     time.setOnClickListener(this);
                     ((GridLayout) timeLayout).addView(time);
                 }
@@ -133,7 +133,13 @@ public class ChooseDateTimeActivity
 
         // Prepare date time data
         String timeTag = time.getTag().toString();
-        Map<String,String> dateData = dateService.GetDateDataFromTimeTag(timeTag);
+
+        // For some reason, a number is added at the end of the previously-built time tag
+        // So we need to clean it ...
+        timeTag = this.CleanTimeTag(timeTag);
+
+        // Get datetime data from the time tag
+        Map<String,String> dateData = dateTimeService.GetDateTimeDataFromTimeTag(timeTag);
 
         // Prepare doctor data with appointment date time information
         Map<String, Object> doctorData = new HashMap<>();
@@ -145,5 +151,16 @@ public class ChooseDateTimeActivity
 
         // Start the activity
         startActivity(i);
+    }
+
+    /**
+     * Clean the tag of a text view displaying a time
+     * @param timeTag The time tag to clean
+     * @return The time tag cleaned
+     */
+    private String CleanTimeTag(String timeTag) {
+        if (!timeTag.contains(" ")) return timeTag;
+
+        return timeTag.substring(0, timeTag.indexOf(" "));
     }
 }
