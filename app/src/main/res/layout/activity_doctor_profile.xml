@@ -76,508 +76,513 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15sp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="20sp"
-                android:background="@color/doctor_profile_section_background"
-                android:orientation="vertical"
-                android:padding="15sp">
+                android:layout_margin="15sp"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/doctor_profile_address_section"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/doctor_profile_section_background"
+                    android:orientation="vertical"
+                    android:padding="15sp">
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_address_section_title"
+                        android:id="@+id/doctor_profile_address_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_address_title"
-                            android:layout_width="298dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_address_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_address"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_address_expand"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/doctor_profile_address_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_address"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_address_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_address_section_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_address_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_address_section_content"
+                        android:id="@+id/doctor_profile_prices_refunds_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_address_content"
-                            android:layout_width="313dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_prices_refunds_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/doctor_profile_prices_refunds_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_prices_refunds"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_prices_refunds_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_prices_refunds_section_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_prices_refunds_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/doctor_profile_payment_options_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_payment_options_section_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_payment_options_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_payment_options"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_payment_options_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_payment_options_section_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_payment_options_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/doctor_profile_prices_refunds_section"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:background="@color/doctor_profile_section_background"
+                    android:orientation="vertical"
+                    android:padding="15sp">
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_prices_refunds_section_title"
+                        android:id="@+id/doctor_profile_description_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_prices_refunds_title"
-                            android:layout_width="298dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_description_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_prices_refunds"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_prices_refunds_expand"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/doctor_profile_description_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_description"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_description_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_description_section_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_description_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_prices_refunds_section_content"
+                        android:id="@+id/doctor_profile_hours_contacts_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_prices_refunds_content"
-                            android:layout_width="313dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_hours_contacts_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/doctor_profile_hours_contacts_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_hours_contacts"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_hours_contacts_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_hours_contacts_section_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_hours_contacts_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_payment_options_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_payment_options_section_title"
+                        android:id="@+id/doctor_profile_education_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_payment_options_title"
-                            android:layout_width="298dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_education_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_payment_options"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_payment_options_expand"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/doctor_profile_education_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_education"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_education_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_education_section_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_education_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/doctor_profile_payment_options_section_content"
+                        android:id="@+id/doctor_profile_languages_section"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/doctor_profile_payment_options_content"
-                            android:layout_width="313dp"
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_languages_section_title"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/doctor_profile_languages_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_languages"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_languages_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_languages_section_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_languages_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/doctor_profile_experiences_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_experiences_section_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_experiences_title"
+                                android:layout_width="298dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:text="@string/doctor_profile_experiences"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_title"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/doctor_profile_experiences_expand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:text="@string/doctor_profile_section_expand"
+                                android:textAlignment="center"
+                                android:textColor="@color/doctor_profile_section_expand"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doctor_profile_experiences_section_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/doctor_profile_experiences_content"
+                                android:layout_width="313dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="start"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/doctor_profile_section_content"
+                                android:textSize="13sp"
+                                android:textStyle="normal" />
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/doctor_profile_section_background"
-                android:orientation="vertical"
-                android:padding="15sp">
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_description_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_description_section_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_description_title"
-                            android:layout_width="298dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_description"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/doctor_profile_description_expand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_description_section_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_description_content"
-                            android:layout_width="313dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_hours_contacts_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_hours_contacts_section_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_hours_contacts_title"
-                            android:layout_width="298dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_hours_contacts"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/doctor_profile_hours_contacts_expand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_hours_contacts_section_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_hours_contacts_content"
-                            android:layout_width="313dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_education_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_education_section_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_education_title"
-                            android:layout_width="298dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_education"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/doctor_profile_education_expand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_education_section_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_education_content"
-                            android:layout_width="313dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_languages_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_languages_section_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_languages_title"
-                            android:layout_width="298dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_languages"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/doctor_profile_languages_expand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_languages_section_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_languages_content"
-                            android:layout_width="313dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/doctor_profile_experiences_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10sp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_experiences_section_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_experiences_title"
-                            android:layout_width="298dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:text="@string/doctor_profile_experiences"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_title"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/doctor_profile_experiences_expand"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/acme"
-                            android:gravity="end"
-                            android:text="@string/doctor_profile_section_expand"
-                            android:textAlignment="center"
-                            android:textColor="@color/doctor_profile_section_expand"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/doctor_profile_experiences_section_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/doctor_profile_experiences_content"
-                            android:layout_width="313dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto"
-                            android:gravity="start"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/doctor_profile_section_content"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <RelativeLayout

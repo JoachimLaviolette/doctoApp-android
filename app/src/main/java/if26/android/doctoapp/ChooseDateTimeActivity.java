@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,11 +15,14 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChooseDateTimeActivity extends AppCompatActivity {
+public class ChooseDateTimeActivity
+        extends AppCompatActivity
+        implements AdapterView.OnClickListener {
     private Bundle doctor;
     private TextView doctorFullname;
-    private static DoctorService doctorService;
     private GridLayout dateTimeListGlobalLayout;
+    private static DoctorService doctorService;
+    private static DateService dateService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class ChooseDateTimeActivity extends AppCompatActivity {
      */
     private void Instantiate() {
         doctorService = new DoctorService(this, this.doctor);
+        dateService = new DateService(this);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);
     }
@@ -98,6 +103,8 @@ public class ChooseDateTimeActivity extends AppCompatActivity {
                 for (String hour : (String[]) hours) {
                     View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
                     ((TextView) time).setText(hour);
+                    time.setTag(dateService.CreateTimeTag(hour, d));
+                    time.setOnClickListener(this);
                     ((GridLayout) timeLayout).addView(time);
                 }
             }
@@ -105,5 +112,38 @@ public class ChooseDateTimeActivity extends AppCompatActivity {
             ((LinearLayout) dateTimeLayout).addView(timeLayout);
             this.dateTimeListGlobalLayout.addView(dateTimeLayout);
         }
+    }
+
+    /**
+     * Handle click events
+     * @param v ChooseDataTime The view item that wa clicked
+     */
+    @Override
+    public void onClick(View v) {
+        if (v instanceof TextView) this.ConfirmAppointment((TextView) v);
+    }
+
+    /**
+     * Start ConfirmAppointment activity
+     * @param time The time that was chosen
+     */
+    public void ConfirmAppointment(TextView time) {
+        // Create the intent
+        Intent i = new Intent(ChooseDateTimeActivity.this, ConfirmAppointmentActivity.class);
+
+        // Prepare date time data
+        String timeTag = time.getTag().toString();
+        Map<String,String> dateData = dateService.GetDateDataFromTimeTag(timeTag);
+
+        // Prepare doctor data with appointment date time information
+        Map<String, Object> doctorData = new HashMap<>();
+        doctorData.put(this.getResources().getString(R.string.doctor_service_doctor_hours_contacts), dateData);
+
+        // Complete the doctor bundle adding appointment date time data
+        this.doctor = doctorService.GetDoctorAsBundle(doctorData);
+        i.putExtra(this.getResources().getString(R.string.search_intent_doctor), this.doctor);
+
+        // Start the activity
+        startActivity(i);
     }
 }

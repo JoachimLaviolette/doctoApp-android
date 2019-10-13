@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".ChooseDateTimeActivity"></activity>
+        <activity android:name=".ConfirmAppointmentActivity"></activity>
+        <activity android:name=".ChooseDateTimeActivity" />
         <activity android:name=".ChooseReasonActivity" />
         <activity android:name=".DoctorProfile" />
         <activity

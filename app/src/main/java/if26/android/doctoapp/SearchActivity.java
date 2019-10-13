@@ -138,12 +138,12 @@ public class SearchActivity
         // Hours
         List<Map<String,Object[]>> datetimesList = new ArrayList<>();
         Map<String,Object[]> datetimes = new HashMap<>();
-        datetimes.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
-        datetimes.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
-        datetimes.put("Wednesday", new String[] { "16:00", "17:00" });
-        datetimes.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
-        datetimes.put("Friday", new String[] { "10:00", "14:00", "15:30" });
-        datetimes.put("Saturday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+        datetimes.put("Monday, October 14", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        datetimes.put("Tuesday, October 15", new String[] { "11:00", "12:30", "14:00" });
+        datetimes.put("Wednesday, October 16", new String[] { "16:00", "17:00" });
+        datetimes.put("Thursday, October 17", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        datetimes.put("Friday, October 18", new String[] { "10:00", "14:00", "15:30" });
+        datetimes.put("Saturday, October 19", new String[] { "09:00", "10:00", "10:30", "11:00" });
         datetimesList.add(datetimes);
 
         // Get the doctors

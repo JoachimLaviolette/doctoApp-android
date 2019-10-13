@@ -76,4 +76,11 @@
     <string name="choose_date_time_dr">Dr</string>
     <string name="date_time_day_content">{Day, Month Number}</string>
     <string name="date_time_time_content">{hh:mm}</string>
+
+    <!-- Date service -->
+    <string name="date_service_time">time</string>
+    <string name="date_service_day_name">day_name</string>
+    <string name="date_service_day_number">day_number</string>
+    <string name="date_service_month_name">month_name</string>
+    <string name="date_service_tag">_tag_{time}_{day_name}_{day_number}_{month_name}</string>
 </resources>

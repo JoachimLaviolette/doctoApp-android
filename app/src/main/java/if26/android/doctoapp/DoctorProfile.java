@@ -4,22 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class DoctorProfile
         extends AppCompatActivity
-        implements View.OnClickListener, View.OnTouchListener {
+        implements View.OnClickListener {
     private Bundle doctor;
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
@@ -151,91 +150,75 @@ public class DoctorProfile
      */
     private void SubscribeEvents() {
         this.bookAppointmentBtn.setOnClickListener(this);
-        this.doctorAddressSection.setOnTouchListener(this);
-        this.doctorPricesRefundsSection.setOnTouchListener(this);
-        this.doctorPaymentOptionsSection.setOnTouchListener(this);
-        this.doctorDescriptionSection.setOnTouchListener(this);
-        this.doctorHoursContactsSection.setOnTouchListener(this);
-        this.doctorEducationSection.setOnTouchListener(this);
-        this.doctorLanguagesSection.setOnTouchListener(this);
-        this.doctorExperiencesSection.setOnTouchListener(this);
+        this.doctorAddressSection.setOnClickListener(this);
+        this.doctorPricesRefundsSection.setOnClickListener(this);
+        this.doctorPaymentOptionsSection.setOnClickListener(this);
+        this.doctorDescriptionSection.setOnClickListener(this);
+        this.doctorHoursContactsSection.setOnClickListener(this);
+        this.doctorEducationSection.setOnClickListener(this);
+        this.doctorLanguagesSection.setOnClickListener(this);
+        this.doctorExperiencesSection.setOnClickListener(this);
     }
 
     /**
      * Handle click events
-     * @param v The DoctorProfile view
+     * @param v DoctorProfile view
      */
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.doctor_profile_book_appointment) this.BookAppointment();
-    }
+        int titleKey = R.string.doctor_profile_popup_title;
+        int contentKey = R.string.doctor_profile_popup_content;
 
-    /**
-     * Handle touch events
-     * @param v The Main view
-     */
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            int titleKey, contentKey;
-
-            switch (v.getId()) {
-                case R.id.doctor_profile_popup_close:
+        switch (v.getId()) {
+            case R.id.doctor_profile_book_appointment:
+                this.BookAppointment();
+                return;
+            case R.id.doctor_profile_popup_close:
+                this.ClearCurrentPopupContext();
+                return;
+            case R.id.doctor_profile_popup_external_background:
+                if (v.getId() != R.id.doctor_profile_popup_content_layout) {
                     this.ClearCurrentPopupContext();
-
-                    return true;
-                case R.id.doctor_profile_popup_external_background:
-                    if (v.getId() != R.id.doctor_profile_popup_content_layout) {
-                        this.ClearCurrentPopupContext();
-
-                        return true;
-                    }
-                case R.id.doctor_profile_address_section:
-                    titleKey = R.string.doctor_profile_address;
-                    contentKey = R.id.doctor_profile_address_content;
-                    break;
-                case R.id.doctor_profile_description_section:
-                    titleKey = R.string.doctor_profile_description;
-                    contentKey = R.id.doctor_profile_description_content;
-                    break;
-                case R.id.doctor_profile_education_section:
-                    titleKey = R.string.doctor_profile_education;
-                    contentKey = R.id.doctor_profile_education_content;
-                    break;
-                case R.id.doctor_profile_experiences_section:
-                    titleKey = R.string.doctor_profile_experiences;
-                    contentKey = R.id.doctor_profile_experiences_content;
-                    break;
-                case R.id.doctor_profile_hours_contacts_section:
-                    titleKey = R.string.doctor_profile_hours_contacts;
-                    contentKey = R.id.doctor_profile_hours_contacts_content;
-                    break;
-                case R.id.doctor_profile_languages_section:
-                    titleKey = R.string.doctor_profile_languages;
-                    contentKey = R.id.doctor_profile_languages_content;
-                    break;
-                case R.id.doctor_profile_payment_options_section:
-                    titleKey = R.string.doctor_profile_payment_options;
-                    contentKey = R.id.doctor_profile_payment_options_content;
-                    break;
-                case R.id.doctor_profile_prices_refunds_section:
-                    titleKey = R.string.doctor_profile_prices_refunds;
-                    contentKey = R.id.doctor_profile_prices_refunds_content;
-                    break;
-                default:
-                    titleKey = R.string.doctor_profile_popup_title;
-                    contentKey = R.string.doctor_profile_popup_content;
-            }
-
-            String title = this.getResources().getString(titleKey);
-            String content = ((TextView) findViewById(contentKey)).getText().toString();
-
-            this.CreatePopup(title, content);
-
-            return true;
+                    return;
+                }
+            case R.id.doctor_profile_address_section:
+                titleKey = R.string.doctor_profile_address;
+                contentKey = R.id.doctor_profile_address_content;
+                break;
+            case R.id.doctor_profile_description_section:
+                titleKey = R.string.doctor_profile_description;
+                contentKey = R.id.doctor_profile_description_content;
+                break;
+            case R.id.doctor_profile_education_section:
+                titleKey = R.string.doctor_profile_education;
+                contentKey = R.id.doctor_profile_education_content;
+                break;
+            case R.id.doctor_profile_experiences_section:
+                titleKey = R.string.doctor_profile_experiences;
+                contentKey = R.id.doctor_profile_experiences_content;
+                break;
+            case R.id.doctor_profile_hours_contacts_section:
+                titleKey = R.string.doctor_profile_hours_contacts;
+                contentKey = R.id.doctor_profile_hours_contacts_content;
+                break;
+            case R.id.doctor_profile_languages_section:
+                titleKey = R.string.doctor_profile_languages;
+                contentKey = R.id.doctor_profile_languages_content;
+                break;
+            case R.id.doctor_profile_payment_options_section:
+                titleKey = R.string.doctor_profile_payment_options;
+                contentKey = R.id.doctor_profile_payment_options_content;
+                break;
+            case R.id.doctor_profile_prices_refunds_section:
+                titleKey = R.string.doctor_profile_prices_refunds;
+                contentKey = R.id.doctor_profile_prices_refunds_content;
+                break;
         }
 
-        return false;
+        this.CreatePopup(
+                this.getResources().getString(titleKey),
+                ((TextView) findViewById(contentKey)).getText().toString()
+        );
     }
 
     /**
@@ -282,7 +265,6 @@ public class DoctorProfile
         if (this.currentPopup != null) this.currentPopup.dismiss();
         if (this.popupClose != null) {
             this.popupClose = null;
-            this.popupClose.setOnTouchListener(null);
         }
         if (this.popupExternalBackground != null) this.popupExternalBackground = null;
         if (this.popupContentLayout != null) this.popupContentLayout = null;
@@ -294,7 +276,7 @@ public class DoctorProfile
      */
     private View CreateNewPopupContext() {
         // Initialize a new instance of LayoutInflater service
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = getLayoutInflater();
 
         // Inflate the popup layout
         View popupSampleView = inflater.inflate(R.layout.doctor_profile_popup_layout, null);
@@ -312,9 +294,9 @@ public class DoctorProfile
      * Attach the appropriate events to the current popup components
      */
     private void SubscribeEventsPopup() {
-        this.popupClose.setOnTouchListener(this);
-        this.popupExternalBackground.setOnTouchListener(this);
-        this.popupContentLayout.setOnTouchListener(this);
+        this.popupClose.setOnClickListener(this);
+        this.popupExternalBackground.setOnClickListener(this);
+        this.popupContentLayout.setOnClickListener(this);
     }
 
     /**
