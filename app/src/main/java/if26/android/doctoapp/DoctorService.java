@@ -5,6 +5,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DoctorService {
@@ -78,22 +81,32 @@ public class DoctorService {
      * @return The doctor data as a Bundle
      */
     public Bundle GetDoctorAsBundle(Map<String,Object> doctorData) {
-        Bundle doctor = new Bundle();
+        Bundle doctor = this.doctor != null ? this.doctor : new Bundle();
         Object value;
         String[] attributes = new String[] {
                 pictureKey,
                 fullnameKey,
                 specialityKey,
                 addressKey,
+                pricesRefundsKey,
+                paymentOptionsKey,
+                descriptionKey,
+                hoursContactsKey,
+                educationKey,
+                languagesKey,
+                experiencesKey,
                 reasonsKey,
         };
 
         for (String attribute: attributes) {
             value = doctorData.get(attribute);
-            if (value instanceof Serializable)
-               doctor.putSerializable(attribute, (Serializable) value);
-            else
-                doctor.putString(attribute, value.toString());
+
+            if (value != null) {
+                if (value instanceof Serializable)
+                   doctor.putSerializable(attribute, (Serializable) value);
+                else
+                    doctor.putString(attribute, value.toString());
+            }
         }
 
         return doctor;
@@ -151,8 +164,11 @@ public class DoctorService {
         return doctor.getString(descriptionKey);
     }
 
-    public String GetDoctorHoursContacts() {
-        return doctor.getString(hoursContactsKey);
+    public Serializable GetDoctorHoursContacts() {
+        List<HashMap<String,Object>> data = (ArrayList) doctor.getSerializable(hoursContactsKey);
+
+        return data.get(0);
+
     }
 
     public String GetDoctorEducation() {

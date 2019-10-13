@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseDateTimeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/choose_date_time_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/choose_date_time_header"
+            android:padding="20sp">
+
+            <TextView
+                android:id="@+id/choose_date_time_title_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/choose_date_time_title_1"
+                android:textColor="@color/choose_date_time_title_1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/choose_date_time_doctor_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/choose_date_time_doctor_fullname"
+                android:textColor="@color/choose_date_time_doctor_fullname"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/choose_date_time_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/choose_date_time_body"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/choose_date_time_title_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:padding="20sp"
+                android:text="@string/choose_date_time_title_2"
+                android:textAlignment="center"
+                android:textColor="@color/choose_date_time_title_2"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15sp"
+                android:layout_marginRight="15sp"
+                android:layout_marginLeft="15sp"
+                android:orientation="vertical">
+
+                <include layout="@layout/date_time_list" />
+
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

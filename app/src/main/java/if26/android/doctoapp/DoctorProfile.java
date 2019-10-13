@@ -134,7 +134,7 @@ public class DoctorProfile
         this.doctorDescriptionContent.setText(doctorService.GetDoctorDescription());
 
         // Set doctor hours and contacts
-        this.doctorHoursContactsContent.setText(doctorService.GetDoctorHoursContacts());
+        //this.doctorHoursContactsContent.setText(doctorService.GetDoctorHoursContacts());
 
         // Set doctor education
         this.doctorEducationContent.setText(doctorService.GetDoctorEducation());

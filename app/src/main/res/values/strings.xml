@@ -32,20 +32,20 @@
 
     <!-- Doctor service -->
     <string name="doctor_service_bundle_key_doctor">doctor</string>
-        <!-- Search list -->
-        <string name="doctor_service_doctor_picture">search_list_item_doctor_picture</string>
-        <string name="doctor_service_doctor_fullname">search_list_item_doctor_fullname</string>
-        <string name="doctor_service_doctor_speciality">search_list_item_doctor_speciality</string>
-        <string name="doctor_service_doctor_address">search_list_item_doctor_address</string>
-        <string name="doctor_service_doctor_prices_refunds">search_list_item_doctor_prices__refunds</string>
-        <string name="doctor_service_doctor_payment_options">search_list_item_doctor_payment_options</string>
-        <string name="doctor_service_doctor_description">search_list_item_doctor_description</string>
-        <string name="doctor_service_doctor_hours_contacts">search_list_item_doctor_hours_contacts</string>
-        <string name="doctor_service_doctor_education">search_list_item_doctor_education</string>
-        <string name="doctor_service_doctor_languages">search_list_item_doctor_languages</string>
-        <string name="doctor_service_doctor_experiences">search_list_item_doctor_experiences</string>
-        <!-- Reason list -->
-        <string name="doctor_service_doctor_reason">reason_list_item_reason</string>
+    <!-- Search list -->
+    <string name="doctor_service_doctor_picture">search_list_item_doctor_picture</string>
+    <string name="doctor_service_doctor_fullname">search_list_item_doctor_fullname</string>
+    <string name="doctor_service_doctor_speciality">search_list_item_doctor_speciality</string>
+    <string name="doctor_service_doctor_address">search_list_item_doctor_address</string>
+    <string name="doctor_service_doctor_prices_refunds">search_list_item_doctor_prices__refunds</string>
+    <string name="doctor_service_doctor_payment_options">search_list_item_doctor_payment_options</string>
+    <string name="doctor_service_doctor_description">search_list_item_doctor_description</string>
+    <string name="doctor_service_doctor_hours_contacts">search_list_item_doctor_hours_contacts</string>
+    <string name="doctor_service_doctor_education">search_list_item_doctor_education</string>
+    <string name="doctor_service_doctor_languages">search_list_item_doctor_languages</string>
+    <string name="doctor_service_doctor_experiences">search_list_item_doctor_experiences</string>
+    <!-- Reason list -->
+    <string name="doctor_service_doctor_reason">reason_list_item_reason</string>
 
     <!-- Doctor profile -->
     <string name="doctor_profile_book_appointment">Book an appointment online</string>
@@ -68,4 +68,12 @@
     <string name="choose_reason_doctor_fullname">{doctor_fullname}</string>
     <string name="choose_reason_title_2">Choose your consultation\'s reason</string>
     <string name="choose_reason_dr">Dr</string>
+
+    <!-- Choose datetime -->
+    <string name="choose_date_time_title_1">Book an appointment</string>
+    <string name="choose_date_time_doctor_fullname">{doctor_fullname}</string>
+    <string name="choose_date_time_title_2">Choose your consultation\'s date</string>
+    <string name="choose_date_time_dr">Dr</string>
+    <string name="date_time_day_content">{Day, Month Number}</string>
+    <string name="date_time_time_content">{hh:mm}</string>
 </resources>

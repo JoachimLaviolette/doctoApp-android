@@ -125,24 +125,35 @@ public class SearchActivity
         List<Object[]> doctorsList = new ArrayList<>();
 
         // Reasons
-        List<String[]> reasonsList = new ArrayList<>();
-        reasonsList.add(new String[]{ "Reason 1" });
-        reasonsList.add(new String[]{ "Reason 2" });
-        reasonsList.add(new String[]{ "Reason 3" });
-        reasonsList.add(new String[]{ "Reason 4" });
-        reasonsList.add(new String[]{ "Reason 5" });
-        reasonsList.add(new String[]{ "Reason 6" });
-        reasonsList.add(new String[]{ "Reason 7" });
-        reasonsList.add(new String[]{ "Reason 8" });
+        List<String> reasonsList = new ArrayList<>();
+        reasonsList.add("Reason 1");
+        reasonsList.add("Reason 2");
+        reasonsList.add("Reason 3");
+        reasonsList.add("Reason 4");
+        reasonsList.add("Reason 5");
+        reasonsList.add("Reason 6");
+        reasonsList.add("Reason 7");
+        reasonsList.add("Reason 8");
+
+        // Hours
+        List<Map<String,Object[]>> datetimesList = new ArrayList<>();
+        Map<String,Object[]> datetimes = new HashMap<>();
+        datetimes.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        datetimes.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
+        datetimes.put("Wednesday", new String[] { "16:00", "17:00" });
+        datetimes.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        datetimes.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+        datetimes.put("Saturday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+        datetimesList.add(datetimes);
 
         // Get the doctors
-        doctorsList.add(new Object[]{"Jerry Lombart", "Angiologue", "Toulon", reasonsList});
-        doctorsList.add(new Object[]{"Serge Pernant", "Pédiatre", "Bordeaux", reasonsList});
-        doctorsList.add(new Object[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne", reasonsList});
-        doctorsList.add(new Object[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne", reasonsList});
-        doctorsList.add(new Object[]{"David Zenon", "Podologue", "Ermont", reasonsList});
-        doctorsList.add(new Object[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine", reasonsList});
-        doctorsList.add(new Object[]{"Axel Luffy", "Dentiste", "Chambéry", reasonsList});
+        doctorsList.add(new Object[]{"Jerry Lombart", "Angiologue", "Toulon", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"Serge Pernant", "Pédiatre", "Bordeaux", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"David Zenon", "Podologue", "Ermont", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine", reasonsList, datetimesList});
+        doctorsList.add(new Object[]{"Axel Luffy", "Dentiste", "Chambéry", reasonsList, datetimesList});
 
         // Filter the list of doctors
         return this.FilterDoctorsList(doctorsList);
@@ -186,6 +197,7 @@ public class SearchActivity
         String specialityKey = this.getResources().getString(R.string.doctor_service_doctor_speciality);
         String addressKey = this.getResources().getString(R.string.doctor_service_doctor_address);
         String reasonsKey = this.getResources().getString(R.string.doctor_service_doctor_reason);
+        String hoursContactsKey = this.getResources().getString(R.string.doctor_service_doctor_hours_contacts);
         String chevronKey = this.getResources().getString(R.string.search_list_item_chevron_label);
 
         for(int i = 0; i < doctorsList.size(); ++i) {
@@ -195,6 +207,7 @@ public class SearchActivity
             doctorMap.put(specialityKey, doctorsList.get(i)[1]);
             doctorMap.put(addressKey, doctorsList.get(i)[2]);
             doctorMap.put(reasonsKey, doctorsList.get(i)[3]);
+            doctorMap.put(hoursContactsKey, doctorsList.get(i)[4]);
             doctorMap.put(chevronKey, getResources().getString(R.string.search_list_item_chevron));
             doctorsMapList.add(doctorMap);
         }
@@ -252,7 +265,7 @@ public class SearchActivity
     }
 
     /**
-     * Handle action when clicking on one of the users of the list
+     * Handle action when clicking on one of the doctors of the list
      * @param parent
      * @param view Search view
      * @param position Clicked item position

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10sp"
+    android:background="@color/date_time_time_background"
+    android:fontFamily="@font/roboto"
+    android:gravity="center"
+    android:padding="10sp"
+    android:paddingStart="30sp"
+    android:paddingEnd="30sp"
+    android:text="@string/date_time_time_content"
+    android:textColor="@color/date_time_time"
+    android:textSize="15sp"
+    android:textStyle="bold" />
