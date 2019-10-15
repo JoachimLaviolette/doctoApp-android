@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import if26.android.doctoapp.Services.DoctorService;
+
 public class ChooseReasonActivity
         extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
@@ -52,7 +54,7 @@ public class ChooseReasonActivity
     }
 
     /**
-     * Retrieve the params sent by the DoctorProfile view
+     * Retrieve the params sent by the DoctorProfileActivity view
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();

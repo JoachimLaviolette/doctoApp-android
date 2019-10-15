@@ -12,7 +12,7 @@
         <activity android:name=".ConfirmAppointmentActivity"></activity>
         <activity android:name=".ChooseDateTimeActivity" />
         <activity android:name=".ChooseReasonActivity" />
-        <activity android:name=".DoctorProfile" />
+        <activity android:name=".DoctorProfileActivity" />
         <activity
             android:name=".SearchActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
