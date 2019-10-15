@@ -190,14 +190,7 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        List<Doctor> doctors = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            do {
-                doctors = this.BuildDoctorsList(c);
-            } while (c.moveToNext());
-        }
-
+        List<Doctor> doctors = this.BuildDoctorsList(c);
         c.close();
 
         return doctors;
@@ -210,42 +203,47 @@ public class DoctorDatabaseHelper {
      */
     private List<Doctor> BuildDoctorsList(Cursor c) {
         List<Doctor> doctors = new ArrayList<>();
-        Map<String, Object> doctorData = new HashMap<>();
 
-        // Get data from doctor table
-        doctorData = this.GetDoctorTableData(doctorData, c);
+        if (c.moveToFirst()) {
+            do {
+                Map<String, Object> doctorData = new HashMap<>();
 
-        // Retrieve the current doctor id
-        String doctorAddressId = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ADDRESS).toString();
-        String doctorId = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ID).toString();
+                // Get data from doctor table
+                doctorData = this.GetDoctorTableData(doctorData, c);
 
-        // Get data from address table for the current doctor
-        doctorData = this.GetAddressTableData(doctorData, doctorAddressId);
+                // Retrieve the current doctor id
+                String doctorAddressId = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ADDRESS).toString();
+                String doctorId = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ID).toString();
 
-        // Get data from availability table for the current doctor
-        doctorData = this.GetAvailabilityTableData(doctorData, doctorId);
+                // Get data from address table for the current doctor
+                doctorData = this.GetAddressTableData(doctorData, doctorAddressId);
 
-        // Get data from language table for the current doctor
-        doctorData = this.GetLanguageTableData(doctorData, doctorId);
+                // Get data from availability table for the current doctor
+                doctorData = this.GetAvailabilityTableData(doctorData, doctorId);
 
-        // Get data from payment_option table for the current doctor
-        doctorData = this.GetPaymentOptionTableData(doctorData, doctorId);
+                // Get data from language table for the current doctor
+                doctorData = this.GetLanguageTableData(doctorData, doctorId);
 
-        // Get data from reason table for the current doctor
-        doctorData = this.GetReasonTableData(doctorData, doctorId);
+                // Get data from payment_option table for the current doctor
+                doctorData = this.GetPaymentOptionTableData(doctorData, doctorId);
 
-        // Get data from education table for the current doctor
-        doctorData = this.GetEducationTableData(doctorData, doctorId);
+                // Get data from reason table for the current doctor
+                doctorData = this.GetReasonTableData(doctorData, doctorId);
 
-        // Get data from experience table for the current doctor
-        doctorData = this.GetExperienceTableData(doctorData, doctorId);
+                // Get data from education table for the current doctor
+                doctorData = this.GetEducationTableData(doctorData, doctorId);
 
-        // Get data from booking table for the current doctor
-        //doctorData = this.GetBookingTableData(doctorData, doctorId);
+                // Get data from experience table for the current doctor
+                doctorData = this.GetExperienceTableData(doctorData, doctorId);
 
-        Doctor doctor = new Doctor(doctorData);
-        doctor.setId(Long.parseLong(doctorId));
-        doctors.add(doctor);
+                // Get data from booking table for the current doctor
+                //doctorData = this.GetBookingTableData(doctorData, doctorId);
+
+                Doctor doctor = new Doctor(doctorData);
+                doctor.setId(Long.parseLong(doctorId));
+                doctors.add(doctor);
+            } while (c.moveToNext());
+        }
 
         return doctors;
     }
