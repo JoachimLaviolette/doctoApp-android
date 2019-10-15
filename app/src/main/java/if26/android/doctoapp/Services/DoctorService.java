@@ -1,4 +1,4 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Services;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import if26.android.doctoapp.R;
 
 public class DoctorService {
     /**
@@ -60,6 +62,9 @@ public class DoctorService {
         this.resources = this.context.getResources();
     }
 
+    /**
+     * Set the keys
+     */
     private void SetKeys() {
         pictureKey = this.resources.getString(R.string.doctor_service_doctor_picture);
         fullnameKey = this.resources.getString(R.string.doctor_service_doctor_fullname);

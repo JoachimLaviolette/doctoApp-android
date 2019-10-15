@@ -16,7 +16,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class DoctorProfile
+import if26.android.doctoapp.Services.DoctorService;
+
+public class DoctorProfileActivity
         extends AppCompatActivity
         implements View.OnClickListener {
     private Bundle doctor;
@@ -162,7 +164,7 @@ public class DoctorProfile
 
     /**
      * Handle click events
-     * @param v DoctorProfile view
+     * @param v DoctorProfileActivity view
      */
     @Override
     public void onClick(View v) {
@@ -226,7 +228,7 @@ public class DoctorProfile
      */
     private void BookAppointment() {
         // Create the intent
-        Intent i = new Intent(DoctorProfile.this, ChooseReasonActivity.class);
+        Intent i = new Intent(DoctorProfileActivity.this, ChooseReasonActivity.class);
 
         // Prepare the intent parameters
         String key = this.getResources().getString(R.string.search_intent_doctor);

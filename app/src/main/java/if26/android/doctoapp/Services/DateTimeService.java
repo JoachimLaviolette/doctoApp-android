@@ -1,10 +1,16 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Services;
 
 import android.content.Context;
 import android.content.res.Resources;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
+
+import if26.android.doctoapp.R;
 
 public class DateTimeService {
     private Context context;
@@ -195,4 +201,16 @@ public class DateTimeService {
                 .trim();
     }
 
+    /**
+     * Return the current date time
+     * @return The current date time
+     */
+    public static String GetCurrentDateTime() {
+        String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date today = Calendar.getInstance().getTime();
+
+        return dateFormat.format(today);
+    }
 }

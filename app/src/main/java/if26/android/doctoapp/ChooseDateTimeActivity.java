@@ -15,6 +15,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.DoctorService;
+
 public class ChooseDateTimeActivity
         extends AppCompatActivity
         implements AdapterView.OnClickListener {
@@ -53,7 +56,7 @@ public class ChooseDateTimeActivity
     }
 
     /**
-     * Retrieve the params sent by the DoctorProfile view
+     * Retrieve the params sent by the DoctorProfileActivity view
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
