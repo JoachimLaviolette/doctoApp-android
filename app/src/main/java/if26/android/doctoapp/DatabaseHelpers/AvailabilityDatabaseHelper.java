@@ -2,9 +2,13 @@ package if26.android.doctoapp.DatabaseHelpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import if26.android.doctoapp.Models.Availability;
 import if26.android.doctoapp.Models.Doctor;
@@ -66,5 +70,63 @@ public class AvailabilityDatabaseHelper {
                 doctor.getId(),
                 doctor.getAvailabilities()
         };
+    }
+
+    /**
+     * Get the availabilities associated to the given doctor
+     * @param doctorId The doctor id
+     * @return The matching availabilities
+     */
+    public List<Availability> GetAvailabilitiesByDoctor(String doctorId) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.Availability.TABLE_NAME,
+                DoctoAppDatabaseContract.Availability.COLUMN_NAME_DOCTOR
+        );
+
+        String[] args = { doctorId };
+
+        Cursor c = database.rawQuery(query, args);
+        List<Availability> availabilities = this.BuildAvailabilitiesList(c);
+        c.close();
+
+        return availabilities;
+    }
+
+
+    /**
+     * Build the list of availabilities iterating on the given cursor
+     * @param c Cursor pointing search query results
+     * @return The list of matching availabilities
+     */
+    private List<Availability> BuildAvailabilitiesList(Cursor c) {
+        List<Availability> availabilities = new ArrayList<>();
+
+        if (c.moveToFirst()) {
+            do {
+                Map<String, Object> availabilityData = new HashMap<>();
+
+                for (int i = 0; i < DoctoAppDatabaseContract.Availability.TABLE_KEYS.length; i++) {
+                    availabilityData.put(
+                            DoctoAppDatabaseContract.Availability.TABLE_KEYS[i],
+                            c.getString(DoctoAppDatabaseContract.Availability.TABLE_COLUMNS_POSITIONS[i])
+                    );
+                }
+
+                Availability a = new Availability(
+                        null,
+                        availabilityData.get(DoctoAppDatabaseContract.Availability.COLUMN_NAME_DATE).toString(),
+                        availabilityData.get(DoctoAppDatabaseContract.Availability.COLUMN_NAME_TIME).toString()
+                );
+
+                availabilities.add(a);
+            } while (c.moveToNext());
+        }
+
+        return availabilities;
     }
 }

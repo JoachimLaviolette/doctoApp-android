@@ -2,8 +2,12 @@ package if26.android.doctoapp.DatabaseHelpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import if26.android.doctoapp.Models.Doctor;
@@ -65,4 +69,58 @@ public class PaymentOptionDatabaseHelper {
                 doctor.getPaymentOptions()
         };
     }
+
+    /**
+     * Get the payment options associated to the given doctor
+     * @param doctorId The doctor id
+     * @return The matching payment options
+     */
+    public Set<PaymentOption> GetPaymentOptionsByDoctor(String doctorId) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.PaymentOption.TABLE_NAME,
+                DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_DOCTOR
+        );
+
+        String[] args = { doctorId };
+
+        Cursor c = database.rawQuery(query, args);
+        Set<PaymentOption> paymentOptions = this.BuildPaymentOptionsList(c);
+        c.close();
+
+        return paymentOptions;
+    }
+
+    /**
+     * Build the list of payment options iterating on the given cursor
+     * @param c Cursor pointing search query results
+     * @return The list of matching payment options
+     */
+    private Set<PaymentOption> BuildPaymentOptionsList(Cursor c) {
+        Set<PaymentOption> paymentOptions = new HashSet<>();
+
+        if (c.moveToFirst()) {
+            do {
+                Map<String, Object> paymentOptionData = new HashMap<>();
+
+                for (int i = 0; i < DoctoAppDatabaseContract.PaymentOption.TABLE_KEYS.length; i++) {
+                    paymentOptionData.put(
+                            DoctoAppDatabaseContract.PaymentOption.TABLE_KEYS[i],
+                            c.getString(DoctoAppDatabaseContract.PaymentOption.TABLE_COLUMNS_POSITIONS[i])
+                    );
+                }
+
+                PaymentOption po = PaymentOption.valueOf(paymentOptionData.get(DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_PAYMENT_OPTION).toString());
+
+                paymentOptions.add(po);
+            } while (c.moveToNext());
+        }
+
+        return paymentOptions;
+    }
+
 }

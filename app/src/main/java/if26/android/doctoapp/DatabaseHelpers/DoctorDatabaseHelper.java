@@ -7,18 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import if26.android.doctoapp.Models.Availability;
 import if26.android.doctoapp.Models.Doctor;
-import if26.android.doctoapp.Models.Education;
-import if26.android.doctoapp.Models.Experience;
-import if26.android.doctoapp.Models.Language;
-import if26.android.doctoapp.Models.PaymentOption;
-import if26.android.doctoapp.Models.Reason;
 
 public class DoctorDatabaseHelper {
     private DoctoAppDatabaseHelper databaseHelper;
@@ -47,10 +39,11 @@ public class DoctorDatabaseHelper {
         LanguageDatabaseHelper languageDatabaseHelper = new LanguageDatabaseHelper(this.context);
         PaymentOptionDatabaseHelper paymentOptionDatabaseHelper = new PaymentOptionDatabaseHelper(this.context);
         ReasonDatabaseHelper reasonDatabaseHelper = new ReasonDatabaseHelper(this.context);
+        BookingDatabaseHelper bookingDatabaseHelper = new BookingDatabaseHelper(this.context);
 
         // Insert the address of the doc in the DB
         // And save the address id
-        doctor = addressDatabaseHelper.InsertAddress(doctor);
+        doctor = (Doctor) addressDatabaseHelper.InsertAddress(doctor);
 
         if (doctor.GetAddressId() == -1) return false;
 
@@ -87,6 +80,11 @@ public class DoctorDatabaseHelper {
 
         // Insert the reasons of the doc in the DB
         doctor = reasonDatabaseHelper.InsertReasons(doctor);
+
+        // TODO : check if any has not been added
+
+        // Insert the appointments of the doc in the DB
+        doctor = (Doctor) bookingDatabaseHelper.InsertAppointments(doctor);
 
         // TODO : check if any has not been added
 
@@ -237,15 +235,42 @@ public class DoctorDatabaseHelper {
                 doctorData = this.GetExperienceTableData(doctorData, doctorId);
 
                 // Get data from booking table for the current doctor
-                //doctorData = this.GetBookingTableData(doctorData, doctorId);
+                doctorData = this.GetBookingTableData(doctorData, doctorId);
 
                 Doctor doctor = new Doctor(doctorData);
-                doctor.setId(Long.parseLong(doctorId));
+                doctor.UpdateRelatedData();
                 doctors.add(doctor);
             } while (c.moveToNext());
         }
 
         return doctors;
+    }
+
+    /**
+     * Get a doctor by id
+     * @param doctorId The id of the doctor to retrieve
+     * @return The matching doctor
+     */
+    public Doctor GetDoctorById(String doctorId) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.Doctor.TABLE_NAME,
+                DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ID
+        );
+
+        String[] args = {
+                doctorId
+        };
+
+        Cursor c = database.rawQuery(query, args);
+        Doctor doctor = this.BuildDoctorsList(c).get(0);
+        c.close();
+
+        return doctor;
     }
 
     /**
@@ -272,30 +297,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing address table data for the given doctor
      */
     private Map<String, Object> GetAddressTableData(Map<String, Object> doctorData, String doctorAddressId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        AddressDatabaseHelper addressDatabaseHelper = new AddressDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Address.TABLE_NAME,
-                DoctoAppDatabaseContract.Address.COLUMN_NAME_ID
-        );
-
-        String[] args = { doctorAddressId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        if (c.moveToFirst()) {
-            do {
-                for (int i = 0; i < DoctoAppDatabaseContract.Address.TABLE_KEYS.length; i++) {
-                    doctorData.put(
-                            DoctoAppDatabaseContract.Address.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Address.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-            } while (c.moveToNext());
-        }
+                addressDatabaseHelper.GetAddressById(doctorAddressId));
 
         return doctorData;
     }
@@ -307,44 +313,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing availability table data for the given doctor
      */
     private Map<String, Object> GetAvailabilityTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        AvailabilityDatabaseHelper availabilityDatabaseHelper = new AvailabilityDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Availability.TABLE_NAME,
-                DoctoAppDatabaseContract.Availability.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        List<Availability> availabilities = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> availabilityData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.Availability.TABLE_KEYS.length; i++) {
-                    availabilityData.put(
-                            DoctoAppDatabaseContract.Availability.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Availability.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                Availability a = new Availability(
-                        null,
-                        availabilityData.get(DoctoAppDatabaseContract.Availability.COLUMN_NAME_DATE).toString(),
-                        availabilityData.get(DoctoAppDatabaseContract.Availability.COLUMN_NAME_TIME).toString()
-                );
-
-                availabilities.add(a);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.Availability.TABLE_NAME, availabilities);
+                availabilityDatabaseHelper.GetAvailabilitiesByDoctor(doctorId));
 
         return doctorData;
     }
@@ -356,40 +329,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing language table data for the given doctor
      */
     private Map<String, Object> GetLanguageTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        LanguageDatabaseHelper languageDatabaseHelper = new LanguageDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Language.TABLE_NAME,
-                DoctoAppDatabaseContract.Language.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        Set<Language> languages = new HashSet<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> languageData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.Language.TABLE_KEYS.length; i++) {
-                    languageData.put(
-                            DoctoAppDatabaseContract.Language.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Language.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                Language l = Language.valueOf(languageData.get(DoctoAppDatabaseContract.Language.COLUMN_NAME_LANGUAGE).toString());
-
-                languages.add(l);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.Language.TABLE_NAME, languages);
+                languageDatabaseHelper.GetLanguagesByDoctor(doctorId));
 
         return doctorData;
     }
@@ -401,40 +345,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing payment option table data for the given doctor
      */
     private Map<String, Object> GetPaymentOptionTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        PaymentOptionDatabaseHelper paymentOptionDatabaseHelper = new PaymentOptionDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.PaymentOption.TABLE_NAME,
-                DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        Set<PaymentOption> paymentOptions = new HashSet<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> paymentOptionData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.PaymentOption.TABLE_KEYS.length; i++) {
-                    paymentOptionData.put(
-                            DoctoAppDatabaseContract.PaymentOption.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.PaymentOption.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                PaymentOption po = PaymentOption.valueOf(paymentOptionData.get(DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_PAYMENT_OPTION).toString());
-
-                paymentOptions.add(po);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.PaymentOption.TABLE_NAME, paymentOptions);
+                paymentOptionDatabaseHelper.GetPaymentOptionsByDoctor(doctorId));
 
         return doctorData;
     }
@@ -446,44 +361,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing reason table data for the given doctor
      */
     private Map<String, Object> GetReasonTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        ReasonDatabaseHelper reasonDatabaseHelper = new ReasonDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Reason.TABLE_NAME,
-                DoctoAppDatabaseContract.Reason.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        List<Reason> reasons = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> reasonData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.Reason.TABLE_KEYS.length; i++) {
-                    reasonData.put(
-                            DoctoAppDatabaseContract.Reason.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Reason.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                Reason r = new Reason(
-                        Long.parseLong(reasonData.get(DoctoAppDatabaseContract.Reason.COLUMN_NAME_ID).toString()),
-                        null,
-                        reasonData.get(DoctoAppDatabaseContract.Reason.COLUMN_NAME_DESCRIPTION).toString()
-                );
-
-                reasons.add(r);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.Reason.TABLE_NAME, reasons);
+                reasonDatabaseHelper.GetReasonsByDoctor(doctorId));
 
         return doctorData;
     }
@@ -495,44 +377,11 @@ public class DoctorDatabaseHelper {
      * @return A map containing education table data for the given doctor
      */
     private Map<String, Object> GetEducationTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        EducationDatabaseHelper educationDatabaseHelper = new EducationDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Education.TABLE_NAME,
-                DoctoAppDatabaseContract.Education.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        List<Education> trainings = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> educationData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.Education.TABLE_KEYS.length; i++) {
-                    educationData.put(
-                            DoctoAppDatabaseContract.Education.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Education.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                Education e = new Education(
-                        null,
-                        educationData.get(DoctoAppDatabaseContract.Education.COLUMN_NAME_YEAR).toString(),
-                        educationData.get(DoctoAppDatabaseContract.Education.COLUMN_NAME_DEGREE).toString()
-                );
-
-                trainings.add(e);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.Education.TABLE_NAME, trainings);
+                educationDatabaseHelper.GetEducationByDoctor(doctorId));
 
         return doctorData;
     }
@@ -544,50 +393,28 @@ public class DoctorDatabaseHelper {
      * @return A map containing experience table data for the given doctor
      */
     private Map<String, Object> GetExperienceTableData(Map<String, Object> doctorData, String doctorId) {
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        ExperienceDatabaseHelper experienceDatabaseHelper = new ExperienceDatabaseHelper(this.context);
 
-        String query = String.format(
-                "SELECT * " +
-                        "FROM %s " +
-                        "WHERE %s = ?",
+        doctorData.put(
                 DoctoAppDatabaseContract.Experience.TABLE_NAME,
-                DoctoAppDatabaseContract.Experience.COLUMN_NAME_DOCTOR
-        );
-
-        String[] args = { doctorId };
-
-        Cursor c = database.rawQuery(query, args);
-
-        List<Experience> experiences = new ArrayList<>();
-
-        if (c.moveToFirst()) {
-            do {
-                Map<String, Object> experienceData = new HashMap<>();
-
-                for (int i = 0; i < DoctoAppDatabaseContract.Experience.TABLE_KEYS.length; i++) {
-                    experienceData.put(
-                            DoctoAppDatabaseContract.Experience.TABLE_KEYS[i],
-                            c.getString(DoctoAppDatabaseContract.Experience.TABLE_COLUMNS_POSITIONS[i])
-                    );
-                }
-
-                Experience e = new Experience(
-                        null,
-                        experienceData.get(DoctoAppDatabaseContract.Experience.COLUMN_NAME_YEAR).toString(),
-                        experienceData.get(DoctoAppDatabaseContract.Experience.COLUMN_NAME_DESCRIPTION).toString()
-                );
-
-                experiences.add(e);
-            } while (c.moveToNext());
-        }
-
-        doctorData.put(DoctoAppDatabaseContract.Experience.TABLE_NAME, experiences);
+                experienceDatabaseHelper.GetExperiencesByDoctor(doctorId));
 
         return doctorData;
     }
 
+    /**
+     * Gather booking table data in a map according to the given doctor data
+     * @param doctorData The doctor data
+     * @param doctorId The doctor id
+     * @return A map containing booking table data for the given doctor
+     */
     private Map<String, Object> GetBookingTableData(Map<String, Object> doctorData, String doctorId) {
-        // TODO
-        return null;
+        BookingDatabaseHelper bookingDatabaseHelper = new BookingDatabaseHelper(this.context);
+
+        doctorData.put(
+                DoctoAppDatabaseContract.Booking.TABLE_NAME,
+                bookingDatabaseHelper.GetAppointmentsByDoctor(doctorId));
+
+        return doctorData;
     }
 }
