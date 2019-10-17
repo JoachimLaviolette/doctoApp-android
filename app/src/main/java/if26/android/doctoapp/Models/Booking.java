@@ -66,4 +66,17 @@ public class Booking {
     public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
+
+    // Transitive getters and setters
+    public long GetDoctorId() {
+        return this.doctor.getId();
+    }
+
+    public long GetPatientId() {
+        return this.patient.getId();
+    }
+
+    public long GetReasonId() {
+        return this.reason.getId();
+    }
 }

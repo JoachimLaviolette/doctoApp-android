@@ -1,0 +1,43 @@
+PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplicationContext());
+
+        // doctor data
+        String lastname = "Coppens";
+        String firstname = "Ewen";
+        String birthdate = "1996-01-01";
+        String email = "ewen.coppens@gmail.com";
+        String insuranceNumber = "2 18 15 62 489 658 27";
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("world");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+        // address
+        String city = "Paris";
+        String country = "France";
+        String street1 = "23 Blvd Haussman";
+        String street2 = "Bat 2B Bte 9 4e étage";
+        String zip = "750015";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+        // appointments
+        Booking a1 = new Booking(null, doctor1, doctor1.getReasons().get(2), doctor1.getAvailabilities().get(0).getDate(), doctor1.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
+        Booking a2 = new Booking(null, doctor2, doctor2.getReasons().get(1), doctor2.getAvailabilities().get(0).getDate(), doctor2.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
+        Booking a3 = new Booking(null, doctor3, doctor3.getReasons().get(0), doctor3.getAvailabilities().get(0).getDate(), doctor3.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
+
+        Set<Booking> appointmentsList = new HashSet<>();
+        appointmentsList.add(a1);
+        appointmentsList.add(a2);
+        appointmentsList.add(a3);
+
+        Patient patient = new Patient(
+                -1,
+                lastname,
+                firstname,
+                birthdate,
+                email,
+                pwd,
+                pwdSalt,
+                insuranceNumber,
+                address,
+                lastLogin,
+                appointmentsList
+        );

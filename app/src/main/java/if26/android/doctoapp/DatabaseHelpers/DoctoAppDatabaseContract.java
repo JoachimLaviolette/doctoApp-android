@@ -9,11 +9,11 @@ public final class DoctoAppDatabaseContract {
     public static class Address implements BaseColumns {
         public static final String TABLE_NAME = "address";
         public static final String COLUMN_NAME_ID = "id";
-        public static final String COLUMN_NAME_CITY = "city";
-        public static final String COLUMN_NAME_COUNTRY = "country";
         public static final String COLUMN_NAME_STREET1 = "street1";
         public static final String COLUMN_NAME_STREET2 = "street2";
+        public static final String COLUMN_NAME_CITY = "city";
         public static final String COLUMN_NAME_ZIP = "zip";
+        public static final String COLUMN_NAME_COUNTRY = "country";
         public static final String[] TABLE_KEYS_INSERT = {
                 COLUMN_NAME_CITY,
                 COLUMN_NAME_COUNTRY,
@@ -23,19 +23,19 @@ public final class DoctoAppDatabaseContract {
         };
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_ID,
-                COLUMN_NAME_CITY,
-                COLUMN_NAME_COUNTRY,
                 COLUMN_NAME_STREET1,
                 COLUMN_NAME_STREET2,
+                COLUMN_NAME_CITY,
                 COLUMN_NAME_ZIP,
+                COLUMN_NAME_COUNTRY,
         };
         public static final int[] TABLE_COLUMNS_POSITIONS = {
                 0,
-                3,
-                5,
                 1,
                 2,
+                3,
                 4,
+                5,
         };
     }
 
@@ -60,10 +60,10 @@ public final class DoctoAppDatabaseContract {
         public static final String TABLE_NAME = "booking";
         public static final String COLUMN_NAME_PATIENT = "patient_id";
         public static final String COLUMN_NAME_DOCTOR = "doctor_id";
-        public static final String COLUMN_NAME_BOOKING_DATE = "booking_date";
+        public static final String COLUMN_NAME_REASON = "reason_id";
         public static final String COLUMN_NAME_DATE = "date";
         public static final String COLUMN_NAME_TIME = "time";
-        public static final String COLUMN_NAME_REASON = "reason_id";
+        public static final String COLUMN_NAME_BOOKING_DATE = "booking_date";
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_PATIENT,
                 COLUMN_NAME_DOCTOR,
@@ -85,15 +85,15 @@ public final class DoctoAppDatabaseContract {
     public static class Patient implements BaseColumns {
         public static final String TABLE_NAME = "patient";
         public static final String COLUMN_NAME_ID = "id";
-        public static final String COLUMN_NAME_ADDRESS = "address_id";
+        public static final String COLUMN_NAME_LASTNAME = "lastname";
+        public static final String COLUMN_NAME_FIRSTNAME = "firstname";
         public static final String COLUMN_NAME_BIRTHDATE = "birthdate";
         public static final String COLUMN_NAME_EMAIL = "email";
-        public static final String COLUMN_NAME_FIRSTNAME = "firstname";
-        public static final String COLUMN_NAME_LASTNAME = "lastname";
-        public static final String COLUMN_NAME_INSURANCE_NUMBER = "insurance_number";
-        public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
         public static final String COLUMN_NAME_PWD = "pwd";
         public static final String COLUMN_NAME_PWD_SALT = "pwd_salt";
+        public static final String COLUMN_NAME_INSURANCE_NUMBER = "insurance_number";
+        public static final String COLUMN_NAME_ADDRESS = "address_id";
+        public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
         public static final String[] TABLE_KEYS_INSERT = {
                 COLUMN_NAME_LASTNAME,
                 COLUMN_NAME_FIRSTNAME,
@@ -134,18 +134,18 @@ public final class DoctoAppDatabaseContract {
     public static class Doctor implements BaseColumns {
         public static final String TABLE_NAME = "doctor";
         public static final String COLUMN_NAME_ID = "id";
-        public static final String COLUMN_NAME_ADDRESS = "address_id";
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_LASTNAME = "lastname";
+        public static final String COLUMN_NAME_FIRSTNAME = "firstname";
         public static final String COLUMN_NAME_SPECIALITY = "speciality";
         public static final String COLUMN_NAME_EMAIL = "email";
-        public static final String COLUMN_NAME_FIRSTNAME = "firstname";
-        public static final String COLUMN_NAME_LASTNAME = "lastname";
+        public static final String COLUMN_NAME_PWD = "pwd";
+        public static final String COLUMN_NAME_PWD_SALT = "pwd_salt";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_IS_UNDER_AGREEMENT = "is_under_agreement";
         public static final String COLUMN_NAME_IS_HEALTH_INSURANCE_CARD = "is_health_insurance_card";
         public static final String COLUMN_NAME_IS_THIRD_PARTY_PAYMENT = "is_third_party_payment";
+        public static final String COLUMN_NAME_ADDRESS = "address_id";
         public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
-        public static final String COLUMN_NAME_PWD = "pwd";
-        public static final String COLUMN_NAME_PWD_SALT = "pwd_salt";
         public static final String[] TABLE_KEYS_INSERT = {
                 COLUMN_NAME_LASTNAME,
                 COLUMN_NAME_FIRSTNAME,
@@ -195,8 +195,8 @@ public final class DoctoAppDatabaseContract {
     public static class Education implements BaseColumns {
         public static final String TABLE_NAME = "education";
         public static final String COLUMN_NAME_DOCTOR = "doctor_id";
-        public static final String COLUMN_NAME_DEGREE = "degree";
         public static final String COLUMN_NAME_YEAR = "year";
+        public static final String COLUMN_NAME_DEGREE = "degree";
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_DOCTOR,
                 COLUMN_NAME_YEAR,
@@ -212,8 +212,8 @@ public final class DoctoAppDatabaseContract {
     public static class Experience implements BaseColumns {
         public static final String TABLE_NAME = "experience";
         public static final String COLUMN_NAME_DOCTOR = "doctor_id";
-        public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String COLUMN_NAME_YEAR = "year";
+        public static final String COLUMN_NAME_DESCRIPTION = "description";
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_DOCTOR,
                 COLUMN_NAME_YEAR,

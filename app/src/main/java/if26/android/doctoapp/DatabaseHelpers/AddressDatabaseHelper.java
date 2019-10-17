@@ -2,9 +2,16 @@ package if26.android.doctoapp.DatabaseHelpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import if26.android.doctoapp.Models.Doctor;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import if26.android.doctoapp.Models.Address;
+import if26.android.doctoapp.Models.Resident;
 
 public class AddressDatabaseHelper {
     private DoctoAppDatabaseHelper databaseHelper;
@@ -22,13 +29,13 @@ public class AddressDatabaseHelper {
 
     /**
      * Insert a new address in the db using the given doctor model
-     * @param doctor The doctor model
+     * @param resident The Resident model
      * @return The doctor model completed
      */
-    public Doctor InsertAddress(Doctor doctor) {
+    public Resident InsertAddress(Resident resident) {
         SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
 
-        String[] addressData = this.CreateAddressData(doctor);
+        String[] addressData = this.CreateAddressData(resident);
 
         ContentValues addressContentValues = new ContentValues();
         String[] addressTableKeys = DoctoAppDatabaseContract.Address.TABLE_KEYS_INSERT;
@@ -42,23 +49,83 @@ public class AddressDatabaseHelper {
                 addressContentValues
         );
 
-        doctor.SetAddressId(addressId);
+        resident.SetAddressId(addressId);
 
-        return doctor;
+        return resident;
     }
 
     /**
-     * Create data struct for address using the given doctor model
-     * @param doctor The doctor model
+     * Create data struct for address using the given resident
+     * @param resident The Resident model
      * @return The data struct
      */
-    private String[] CreateAddressData(Doctor doctor) {
+    private String[] CreateAddressData(Resident resident) {
         return new String[] {
-                doctor.GetCity(),
-                doctor.GetCountry().toUpperCase(),
-                doctor.GetStreet1(),
-                doctor.GetStreet2(),
-                doctor.GetZip(),
+                resident.GetStreet1(),
+                resident.GetStreet2(),
+                resident.GetCity(),
+                resident.GetZip(),
+                resident.GetCountry().toUpperCase(),
         };
+    }
+
+    /**
+     * Get an address by id
+     * @param addressId The address id
+     * @return The matching address
+     */
+    public Address GetAddressById(String addressId) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.Address.TABLE_NAME,
+                DoctoAppDatabaseContract.Address.COLUMN_NAME_ID
+        );
+
+        String[] args = { addressId };
+
+        Cursor c = database.rawQuery(query, args);
+        Address address = this.BuildAddressesList(c).get(0);
+        c.close();
+
+        return address;
+    }
+
+    /**
+     * Build the list of addresses iterating on the given cursor
+     * @param c Cursor pointing search query results
+     * @return The list of matching addresses
+     */
+    private List<Address> BuildAddressesList(Cursor c) {
+        List<Address> addresses = new ArrayList<>();
+
+        if (c.moveToFirst()) {
+            do {
+                Map<String, Object> addressData = new HashMap<>();
+
+                for (int i = 0; i < DoctoAppDatabaseContract.Address.TABLE_KEYS.length; i++) {
+                    addressData.put(
+                            DoctoAppDatabaseContract.Address.TABLE_KEYS[i],
+                            c.getString(DoctoAppDatabaseContract.Address.TABLE_COLUMNS_POSITIONS[i])
+                    );
+                }
+
+                Address a = new Address(
+                        Long.parseLong(addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_ID).toString()),
+                        addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_STREET1).toString(),
+                        addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_STREET2).toString(),
+                        addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_CITY).toString(),
+                        addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_ZIP).toString(),
+                        addressData.get(DoctoAppDatabaseContract.Address.COLUMN_NAME_COUNTRY).toString()
+                );
+
+                addresses.add(a);
+            } while (c.moveToNext());
+        }
+
+        return addresses;
     }
 }

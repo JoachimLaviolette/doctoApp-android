@@ -1,68 +1,61 @@
 package if26.android.doctoapp.Models;
 
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-public class Patient {
-    private long id;
-    private String lastname;
-    private String firstname;
-    private String birthdate;
-    private String email;
-    private String insurance_number;
-    private Address address;
-    private String lastLogin;
-    private Set<Booking> appointments;
+import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
 
-    public Patient(long id, String lastname, String firstname, String birthdate, String email, String insurance_number, Address address, String lastLogin) {
-        this.id = id;
-        this.lastname = lastname;
-        this.firstname = firstname;
+public class Patient extends Resident {
+    private String birthdate;
+    private String insuranceNumber;
+
+    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin) {
+        super(
+                id,
+                lastname,
+                firstname,
+                email,
+                pwd,
+                pwdSalt,
+                address,
+                lastLogin
+        );
         this.birthdate = birthdate;
-        this.email = email;
-        this.insurance_number = insurance_number;
-        this.address = address;
-        this.lastLogin = lastLogin;
-        this.appointments = new HashSet<>();
+        this.insuranceNumber = insuranceNumber;
     }
 
-    public Patient(long id, String lastname, String firstname, String birthdate, String email, String insurance_number, Address address, String lastLogin, Set<Booking> appointments) {
-        this.id = id;
-        this.lastname = lastname;
-        this.firstname = firstname;
+    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin, Set<Booking> appointments) {
+        super(
+                id,
+                lastname,
+                firstname,
+                email,
+                pwd,
+                pwdSalt,
+                address,
+                lastLogin,
+                appointments
+        );
         this.birthdate = birthdate;
-        this.email = email;
-        this.insurance_number = insurance_number;
-        this.address = address;
-        this.lastLogin = lastLogin;
-        this.appointments = appointments;
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public Patient(Map<String, Object> patientData) {
+        super(patientData);
+        this.id = Long.parseLong(patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_ID).toString());
+        this.lastname = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_LASTNAME).toString();
+        this.firstname = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_FIRSTNAME).toString();
+        this.birthdate = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_BIRTHDATE).toString();
+        this.email = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_EMAIL).toString();
+        this.insuranceNumber = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_INSURANCE_NUMBER).toString();
+        this.pwd = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_PWD).toString();
+        this.pwdSalt = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_PWD_SALT).toString();
+        this.address = (Address) patientData.get(DoctoAppDatabaseContract.Address.TABLE_NAME);
+        this.lastLogin = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_LAST_LOGIN).toString();
+        this.appointments = (Set<Booking>) patientData.get(DoctoAppDatabaseContract.Booking.TABLE_NAME);
     }
 
     // Getters and setters
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getLastname() {
-        return this.lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getFirstname() {
-        return this.firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
     public String getBirthdate() {
         return this.birthdate;
     }
@@ -71,54 +64,20 @@ public class Patient {
         this.birthdate = birthdate;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getInsuranceNumber() {
+        return this.insuranceNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setInsuranceNumber(String insuranceNumber) {
+        this.insuranceNumber = insuranceNumber;
     }
 
-    public String getInsurance_number() {
-        return this.insurance_number;
+    // Update methods
+    public void UpdateRelatedData() {
+        this.UpdateAppointmentsResidentId();
     }
 
-    public void setInsurance_number(String insurance_number) {
-        this.insurance_number = insurance_number;
-    }
-
-    public Address getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getLastLogin() {
-        return this.lastLogin;
-    }
-
-    public void setLastLogin(String lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public Set<Booking> getAppointments() {
-        return this.appointments;
-    }
-
-    public void setAppointments(Set<Booking> appointments) {
-        this.appointments = appointments;
-    }
-
-    // Add methods
-    public void addAppointment(Booking b) {
-        this.appointments.add(b);
-    }
-
-    // Remove methods
-    public void removeAppointment(Booking b) {
-        if (this.appointments.contains(b))
-            this.appointments.remove(b);
+    protected void UpdateAppointmentsResidentId() {
+        for (Booking a: this.appointments) a.setPatient(this);
     }
 }

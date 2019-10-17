@@ -15,23 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
-import if26.android.doctoapp.Models.Address;
-import if26.android.doctoapp.Models.Availability;
-import if26.android.doctoapp.Models.Doctor;
-import if26.android.doctoapp.Models.Education;
-import if26.android.doctoapp.Models.Experience;
-import if26.android.doctoapp.Models.Language;
-import if26.android.doctoapp.Models.PaymentOption;
-import if26.android.doctoapp.Models.Reason;
-import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
+import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Services.DoctorService;
-import if26.android.doctoapp.Services.EncryptionService;
 
 public class SearchActivity
         extends AppCompatActivity
@@ -56,105 +45,12 @@ public class SearchActivity
     }
 
     /**
-     * Method to test DB working
+     * Method to test doctors db working
      */
     private void TestDb() {
-        DoctorDatabaseHelper doctorDbHelper = new DoctorDatabaseHelper(this.getApplicationContext());
-
-        // doctor data
-        String firstname = "Joachim";
-        String lastname = "Laviolette";
-        String email = "joachim.laviolette@gmail.com";
-        String speciality = "Cardiologist";
-        String description = "Specialized in heart surgery";
-        boolean isUnderAgreement = true;
-        boolean isHealthInsuranceCard = true;
-        boolean isThirdPartyPayment = true;
-        String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("hello");
-        String pwdSalt = EncryptionService.SALT(pwd);
-
-        // address
-        String city = "Paris";
-        String country = "France";
-        String street1 = "18 rue Emile Zola";
-        String street2 = "";
-        String zip = "75008";
-        Address address = new Address(-1, street1, street2, city, zip, country);
-
-        // availabilities
-        List<Availability> availabilitiesList = new ArrayList<>();
-        Map<String,String[]> availabilities = new HashMap<>();
-        availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
-        availabilities.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
-        availabilities.put("Wednesday", new String[] { "16:00", "17:00" });
-        availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
-        availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
-        availabilities.put("Saturday", new String[] { "09:00", "10:00", "10:30", "11:00" });
-        availabilities.put("Sunday", new String[] { "09:00", "10:00", "10:30", "11:00" });
-
-        for (String day: availabilities.keySet()) {
-            for (String time: availabilities.get(day)) {
-                Availability a = new Availability(null, day, time);
-                availabilitiesList.add(a);
-            }
-        }
-
-        // languages
-        Set<Language> languagesList = new HashSet<>();
-        languagesList.add(Language.FR);
-        languagesList.add(Language.EN);
-        languagesList.add(Language.ES);
-
-        // payment options
-        Set<PaymentOption> paymentOptionsList = new HashSet<>();
-        paymentOptionsList.add(PaymentOption.CASH);
-        paymentOptionsList.add(PaymentOption.CHEQUE);
-        paymentOptionsList.add(PaymentOption.CREDIT_CARD);
-
-        // reasons
-        List<Reason> reasonsList = new ArrayList<>();
-        reasonsList.add(new Reason(-1, null, "Reason 1"));
-        reasonsList.add(new Reason(-1, null, "Reason 2"));
-        reasonsList.add(new Reason(-1, null, "Reason 3"));
-
-        // trainings
-        List<Education> trainingsList = new ArrayList<>();
-        trainingsList.add(new Education(null, "", "Certificate in Medicine"));
-        trainingsList.add(new Education(null, "", "BSc Medicine"));
-        trainingsList.add(new Education(null, "", "MSc Medicine"));
-
-        // experiences
-        List<Experience> experiencesList = new ArrayList<>();
-        experiencesList.add(new Experience(null, "2002", "2 years at Boston Municipal Hospital"));
-        experiencesList.add(new Experience(null, "2004", "4 years at Washington Hospital"));
-        experiencesList.add(new Experience(null, "2008", "3 years at NYC International Hospital"));
-
-        Doctor doctor = new Doctor(
-                        -1,
-                        lastname,
-                        firstname,
-                        speciality,
-                        email,
-                        description,
-                        pwd,
-                        pwdSalt,
-                        isUnderAgreement,
-                        isHealthInsuranceCard,
-                        isThirdPartyPayment,
-                        address,
-                        lastLogin,
-                        availabilitiesList,
-                        languagesList,
-                        paymentOptionsList,
-                        reasonsList,
-                        trainingsList,
-                        experiencesList
-        );
-
-        //doctorDbHelper.CreateDoctor(doctor);
-        List<Doctor> doctors = doctorDbHelper.GetDoctors("Lav");
-        String a = "a";
+        PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplicationContext());
+        List<Patient> patients = patientDbHelper.GetPatients();
+        String DEBUG = "PUT A BREAKPOINT ON THIS LINE TO INSPECT PREVIOUS LIST OF PATIENTS";
     }
 
     /**

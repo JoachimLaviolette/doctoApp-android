@@ -1,0 +1,257 @@
+// doctor data
+String firstname = "Joachim";
+String lastname = "Laviolette";
+String email = "joachim.laviolette@gmail.com";
+String speciality = "Cardiologist";
+String description = "Specialized in heart surgery";
+boolean isUnderAgreement = true;
+boolean isHealthInsuranceCard = true;
+boolean isThirdPartyPayment = true;
+String lastLogin = DateTimeService.GetCurrentDateTime();
+String pwd = EncryptionService.SHA1("hello");
+String pwdSalt = EncryptionService.SALT(pwd);
+
+// address
+String city = "Paris";
+String country = "France";
+String street1 = "18 rue Emile Zola";
+String street2 = "";
+String zip = "75008";
+Address address = new Address(-1, street1, street2, city, zip, country);
+
+// availabilities
+List<Availability> availabilitiesList = new ArrayList<>();
+Map<String,String[]> availabilities = new HashMap<>();
+availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+availabilities.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
+availabilities.put("Wednesday", new String[] { "16:00", "17:00" });
+availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+availabilities.put("Saturday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+availabilities.put("Sunday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+
+for (String day: availabilities.keySet()) {
+    for (String time: availabilities.get(day)) {
+        Availability a = new Availability(null, day, time);
+        availabilitiesList.add(a);
+    }
+}
+
+// languages
+Set<Language> languagesList = new HashSet<>();
+languagesList.add(Language.FR);
+languagesList.add(Language.EN);
+languagesList.add(Language.ES);
+
+// payment options
+Set<PaymentOption> paymentOptionsList = new HashSet<>();
+paymentOptionsList.add(PaymentOption.CASH);
+paymentOptionsList.add(PaymentOption.CHEQUE);
+paymentOptionsList.add(PaymentOption.CREDIT_CARD);
+
+// reasons
+List<Reason> reasonsList = new ArrayList<>();
+reasonsList.add(new Reason(-1, null, "Reason 1"));
+reasonsList.add(new Reason(-1, null, "Reason 2"));
+reasonsList.add(new Reason(-1, null, "Reason 3"));
+
+// trainings
+List<Education> trainingsList = new ArrayList<>();
+trainingsList.add(new Education(null, "", "Certificate in Medicine"));
+trainingsList.add(new Education(null, "", "BSc Medicine"));
+trainingsList.add(new Education(null, "", "MSc Medicine"));
+
+// experiences
+List<Experience> experiencesList = new ArrayList<>();
+experiencesList.add(new Experience(null, "2002", "2 years at Boston Municipal Hospital"));
+experiencesList.add(new Experience(null, "2004", "4 years at Washington Hospital"));
+experiencesList.add(new Experience(null, "2008", "3 years at NYC International Hospital"));
+
+Doctor doctor = new Doctor(
+                -1,
+                lastname,
+                firstname,
+                speciality,
+                email,
+                description,
+                pwd,
+                pwdSalt,
+                isUnderAgreement,
+                isHealthInsuranceCard,
+                isThirdPartyPayment,
+                address,
+                lastLogin,
+                availabilitiesList,
+                languagesList,
+                paymentOptionsList,
+                reasonsList,
+                trainingsList,
+                experiencesList
+);
+
+/ ---------------------------------------------------------------- /
+
+// doctor data
+String firstname = "Serge";
+String lastname = "Lavoine";
+String email = "serge.lavoine@gmail.com";
+String speciality = "Dentist";
+String description = "Specialized in teeth surgery";
+boolean isUnderAgreement = false;
+boolean isHealthInsuranceCard = false;
+boolean isThirdPartyPayment = false;
+String lastLogin = DateTimeService.GetCurrentDateTime();
+String pwd = EncryptionService.SHA1("test");
+String pwdSalt = EncryptionService.SALT(pwd);
+
+// address
+String city = "Bordeaux";
+String country = "France";
+String street1 = "3 rue de la place";
+String street2 = "";
+String zip = "33000";
+Address address = new Address(-1, street1, street2, city, zip, country);
+
+// availabilities
+List<Availability> availabilitiesList = new ArrayList<>();
+Map<String,String[]> availabilities = new HashMap<>();
+availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+availabilities.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
+availabilities.put("Wednesday", new String[] { "16:00", "17:00" });
+availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+
+for (String day: availabilities.keySet()) {
+    for (String time: availabilities.get(day)) {
+        Availability a = new Availability(null, day, time);
+        availabilitiesList.add(a);
+    }
+}
+
+// languages
+Set<Language> languagesList = new HashSet<>();
+languagesList.add(Language.FR);
+
+// payment options
+Set<PaymentOption> paymentOptionsList = new HashSet<>();
+paymentOptionsList.add(PaymentOption.CASH);
+
+// reasons
+List<Reason> reasonsList = new ArrayList<>();
+reasonsList.add(new Reason(-1, null, "I have a decay"));
+reasonsList.add(new Reason(-1, null, "I want to do a descaling"));
+reasonsList.add(new Reason(-1, null, "I want to have my wisdom teeth removed"));
+
+// trainings
+List<Education> trainingsList = new ArrayList<>();
+trainingsList.add(new Education(null, "2005", "Degree in dentistry"));
+
+// experiences
+List<Experience> experiencesList = new ArrayList<>();
+experiencesList.add(new Experience(null, "2005", "4 years at Paris Hospital"));
+experiencesList.add(new Experience(null, "2009", "Bordeaux Dentistry Clinic"));
+
+Doctor doctor = new Doctor(
+                -1,
+                lastname,
+                firstname,
+                speciality,
+                email,
+                description,
+                pwd,
+                pwdSalt,
+                isUnderAgreement,
+                isHealthInsuranceCard,
+                isThirdPartyPayment,
+                address,
+                lastLogin,
+                availabilitiesList,
+                languagesList,
+                paymentOptionsList,
+                reasonsList,
+                trainingsList,
+                experiencesList
+);
+
+/ ---------------------------------------------------------------- /
+
+// doctor data
+        String firstname = "Florence";
+        String lastname = "Larrier";
+        String email = "florence.larrier@gmail.com";
+        String speciality = "Pediatrician";
+        String description = "Specialized in child auscultation";
+        boolean isUnderAgreement = true;
+        boolean isHealthInsuranceCard = true;
+        boolean isThirdPartyPayment = false;
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("child");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+        // address
+        String city = "Lyon";
+        String country = "France";
+        String street1 = "9 boulevard des Belges";
+        String street2 = "Secteur Fraissinette";
+        String zip = "69000";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+        // availabilities
+        List<Availability> availabilitiesList = new ArrayList<>();
+        Map<String,String[]> availabilities = new HashMap<>();
+        availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+
+        for (String day: availabilities.keySet()) {
+            for (String time: availabilities.get(day)) {
+                Availability a = new Availability(null, day, time);
+                availabilitiesList.add(a);
+            }
+        }
+
+        // languages
+        Set<Language> languagesList = new HashSet<>();
+        languagesList.add(Language.FR);
+        languagesList.add(Language.GER);
+        languagesList.add(Language.IT);
+
+        // payment options
+        Set<PaymentOption> paymentOptionsList = new HashSet<>();
+        paymentOptionsList.add(PaymentOption.CHEQUE);
+        paymentOptionsList.add(PaymentOption.CREDIT_CARD);
+
+        // reasons
+        List<Reason> reasonsList = new ArrayList<>();
+        reasonsList.add(new Reason(-1, null, "My child has pains"));
+        reasonsList.add(new Reason(-1, null, "I want my child to be checked"));
+
+        // trainings
+        List<Education> trainingsList = new ArrayList<>();
+        trainingsList.add(new Education(null, "2010", "Degree in pediatrics"));
+
+        // experiences
+        List<Experience> experiencesList = new ArrayList<>();
+        experiencesList.add(new Experience(null, "2010", "9 years at Lyon Hospital"));
+
+        Doctor doctor = new Doctor(
+                        -1,
+                        lastname,
+                        firstname,
+                        speciality,
+                        email,
+                        description,
+                        pwd,
+                        pwdSalt,
+                        isUnderAgreement,
+                        isHealthInsuranceCard,
+                        isThirdPartyPayment,
+                        address,
+                        lastLogin,
+                        availabilitiesList,
+                        languagesList,
+                        paymentOptionsList,
+                        reasonsList,
+                        trainingsList,
+                        experiencesList
+        );
