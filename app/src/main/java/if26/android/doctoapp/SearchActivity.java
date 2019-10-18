@@ -13,14 +13,28 @@ import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
+import if26.android.doctoapp.Models.Address;
+import if26.android.doctoapp.Models.Availability;
+import if26.android.doctoapp.Models.Booking;
+import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Education;
+import if26.android.doctoapp.Models.Experience;
+import if26.android.doctoapp.Models.Language;
 import if26.android.doctoapp.Models.Patient;
-import if26.android.doctoapp.Services.DoctorService;
+import if26.android.doctoapp.Models.PaymentOption;
+import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.EncryptionService;
 
 public class SearchActivity
         extends AppCompatActivity
@@ -41,16 +55,331 @@ public class SearchActivity
         this.RetrieveExtraParams();
         this.SyncSearchBar();
         this.Search();
-        this.TestDb();
+
+        // Create data in db
+        //this.CreateDataDb();
     }
 
     /**
      * Method to test doctors db working
      */
-    private void TestDb() {
+    private void CreateDataDb() {
+        this.CreateDoctor1();
+        this.CreateDoctor2();
+        this.CreateDoctor3();
+        DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
+        this.CreatePatient(doctorDatabaseHelper.GetDoctors("Larrier").get(0));
+    }
+    private void CreateDoctor1() {
+        DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
+
+        // doctor data
+        String firstname = "Florence";
+        String lastname = "Larrier";
+        String email = "florence.larrier@gmail.com";
+        String speciality = "Pediatrician";
+        String description = "Specialized in child auscultation";
+        boolean isUnderAgreement = true;
+        boolean isHealthInsuranceCard = true;
+        boolean isThirdPartyPayment = false;
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("child");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+        // address
+        String city = "Lyon";
+        String country = "France";
+        String street1 = "9 boulevard des Belges";
+        String street2 = "Secteur Fraissinette";
+        String zip = "69000";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+        // availabilities
+        List<Availability> availabilitiesList = new ArrayList<>();
+        Map<String,String[]> availabilities = new LinkedHashMap<>();
+        availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+
+        for (String day: availabilities.keySet()) {
+            for (String time: availabilities.get(day)) {
+                Availability a = new Availability(null, day, time);
+                availabilitiesList.add(a);
+            }
+        }
+
+        // languages
+        Set<Language> languagesList = new LinkedHashSet<>();
+        languagesList.add(Language.FR);
+        languagesList.add(Language.GER);
+        languagesList.add(Language.IT);
+
+        // payment options
+        Set<PaymentOption> paymentOptionsList = new LinkedHashSet<>();
+        paymentOptionsList.add(PaymentOption.CHEQUE);
+        paymentOptionsList.add(PaymentOption.CREDIT_CARD);
+
+        // reasons
+        List<Reason> reasonsList = new ArrayList<>();
+        reasonsList.add(new Reason(-1, null, "My child has pains"));
+        reasonsList.add(new Reason(-1, null, "I want my child to be checked"));
+
+        // trainings
+        List<Education> trainingsList = new ArrayList<>();
+        trainingsList.add(new Education(null, "2010", "Degree in pediatrics"));
+
+        // experiences
+        List<Experience> experiencesList = new ArrayList<>();
+        experiencesList.add(new Experience(null, "2010", "9 years at Lyon Hospital"));
+
+        Doctor doctor = new Doctor(
+                -1,
+                lastname,
+                firstname,
+                speciality,
+                email,
+                description,
+                pwd,
+                pwdSalt,
+                isUnderAgreement,
+                isHealthInsuranceCard,
+                isThirdPartyPayment,
+                address,
+                lastLogin,
+                availabilitiesList,
+                languagesList,
+                paymentOptionsList,
+                reasonsList,
+                trainingsList,
+                experiencesList
+        );
+
+        doctorDatabaseHelper.CreateDoctor(doctor);
+    }
+    private void CreateDoctor2() {
+        DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
+
+        // doctor data
+        String firstname = "Japp";
+        String lastname = "Lavoine";
+        String email = "serge.lavoine@gmail.com";
+        String speciality = "Dentist";
+        String description = "Specialized in teeth surgery";
+        boolean isUnderAgreement = false;
+        boolean isHealthInsuranceCard = false;
+        boolean isThirdPartyPayment = false;
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("test");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+// address
+        String city = "Bordeaux";
+        String country = "France";
+        String street1 = "3 rue de la place";
+        String street2 = "";
+        String zip = "33000";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+// availabilities
+        List<Availability> availabilitiesList = new ArrayList<>();
+        Map<String,String[]> availabilities = new LinkedHashMap<>();
+        availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        availabilities.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
+        availabilities.put("Wednesday", new String[] { "16:00", "17:00" });
+        availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+
+        for (String day: availabilities.keySet()) {
+            for (String time: availabilities.get(day)) {
+                Availability a = new Availability(null, day, time);
+                availabilitiesList.add(a);
+            }
+        }
+
+// languages
+        Set<Language> languagesList = new LinkedHashSet<>();
+        languagesList.add(Language.FR);
+
+// payment options
+        Set<PaymentOption> paymentOptionsList = new LinkedHashSet<>();
+        paymentOptionsList.add(PaymentOption.CASH);
+
+// reasons
+        List<Reason> reasonsList = new ArrayList<>();
+        reasonsList.add(new Reason(-1, null, "I have a decay"));
+        reasonsList.add(new Reason(-1, null, "I want to do a descaling"));
+        reasonsList.add(new Reason(-1, null, "I want to have my wisdom teeth removed"));
+
+// trainings
+        List<Education> trainingsList = new ArrayList<>();
+        trainingsList.add(new Education(null, "2005", "Degree in dentistry"));
+
+// experiences
+        List<Experience> experiencesList = new ArrayList<>();
+        experiencesList.add(new Experience(null, "2005", "4 years at Paris Hospital"));
+        experiencesList.add(new Experience(null, "2009", "Bordeaux Dentistry Clinic"));
+
+        Doctor doctor = new Doctor(
+                -1,
+                lastname,
+                firstname,
+                speciality,
+                email,
+                description,
+                pwd,
+                pwdSalt,
+                isUnderAgreement,
+                isHealthInsuranceCard,
+                isThirdPartyPayment,
+                address,
+                lastLogin,
+                availabilitiesList,
+                languagesList,
+                paymentOptionsList,
+                reasonsList,
+                trainingsList,
+                experiencesList
+        );
+
+        doctorDatabaseHelper.CreateDoctor(doctor);
+    }
+    private void CreateDoctor3() {
+        DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
+
+        String firstname = "Chloé";
+        String lastname = "Laviolette";
+        String email = "chloe.laviolette@gmail.com";
+        String speciality = "Cardiologist";
+        String description = "Specialized in heart surgery";
+        boolean isUnderAgreement = true;
+        boolean isHealthInsuranceCard = true;
+        boolean isThirdPartyPayment = true;
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("hello");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+// address
+        String city = "Saint-Etienne";
+        String country = "France";
+        String street1 = "18 rue Emile Zola";
+        String street2 = "";
+        String zip = "42230";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+// availabilities
+        List<Availability> availabilitiesList = new ArrayList<>();
+        Map<String,String[]> availabilities = new LinkedHashMap<>();
+        availabilities.put("Monday", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
+        availabilities.put("Tuesday", new String[] { "11:00", "12:30", "14:00" });
+        availabilities.put("Wednesday", new String[] { "16:00", "17:00" });
+        availabilities.put("Thursday", new String[] { "08:00", "08:20", "09:00", "11:00" });
+        availabilities.put("Friday", new String[] { "10:00", "14:00", "15:30" });
+        availabilities.put("Saturday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+        availabilities.put("Sunday", new String[] { "09:00", "10:00", "10:30", "11:00" });
+
+        for (String day: availabilities.keySet()) {
+            for (String time: availabilities.get(day)) {
+                Availability a = new Availability(null, day, time);
+                availabilitiesList.add(a);
+            }
+        }
+
+// languages
+        Set<Language> languagesList = new LinkedHashSet<>();
+        languagesList.add(Language.FR);
+        languagesList.add(Language.EN);
+        languagesList.add(Language.ES);
+        languagesList.add(Language.IT);
+
+// payment options
+        Set<PaymentOption> paymentOptionsList = new LinkedHashSet<>();
+        paymentOptionsList.add(PaymentOption.CASH);
+        paymentOptionsList.add(PaymentOption.CHEQUE);
+        paymentOptionsList.add(PaymentOption.CREDIT_CARD);
+
+// reasons
+        List<Reason> reasonsList = new ArrayList<>();
+        reasonsList.add(new Reason(-1, null, "I feel pains around my heart"));
+        reasonsList.add(new Reason(-1, null, "I want to make a check up"));
+        reasonsList.add(new Reason(-1, null, "I have difficulties for breathing"));
+
+// trainings
+        List<Education> trainingsList = new ArrayList<>();
+        trainingsList.add(new Education(null, "1997", "Certificate in Medicine"));
+        trainingsList.add(new Education(null, "2000", "BSc Medicine"));
+        trainingsList.add(new Education(null, "2002", "MSc Medicine"));
+
+// experiences
+        List<Experience> experiencesList = new ArrayList<>();
+        experiencesList.add(new Experience(null, "2002", "2 years at Saint-Etienne Hospital"));
+        experiencesList.add(new Experience(null, "2004", "4 years at Saint-Victor sur Loire Hospital"));
+        experiencesList.add(new Experience(null, "2008", "Berland Hospital"));
+
+        Doctor doctor = new Doctor(
+                -1,
+                lastname,
+                firstname,
+                speciality,
+                email,
+                description,
+                pwd,
+                pwdSalt,
+                isUnderAgreement,
+                isHealthInsuranceCard,
+                isThirdPartyPayment,
+                address,
+                lastLogin,
+                availabilitiesList,
+                languagesList,
+                paymentOptionsList,
+                reasonsList,
+                trainingsList,
+                experiencesList
+        );
+
+        doctorDatabaseHelper.CreateDoctor(doctor);
+    }
+    private void CreatePatient(Doctor doctor) {
         PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplicationContext());
-        List<Patient> patients = patientDbHelper.GetPatients();
-        String DEBUG = "PUT A BREAKPOINT ON THIS LINE TO INSPECT PREVIOUS LIST OF PATIENTS";
+        // doctor data
+        String lastname = "Coppens";
+        String firstname = "Ewen";
+        String birthdate = "1996-01-01";
+        String email = "ewen.coppens@gmail.com";
+        String insuranceNumber = "2 18 15 62 489 658 27";
+        String lastLogin = DateTimeService.GetCurrentDateTime();
+        String pwd = EncryptionService.SHA1("world");
+        String pwdSalt = EncryptionService.SALT(pwd);
+
+        // address
+        String city = "Paris";
+        String country = "France";
+        String street1 = "23 Blvd Haussman";
+        String street2 = "Bat 2B Bte 9 4e étage";
+        String zip = "750015";
+        Address address = new Address(-1, street1, street2, city, zip, country);
+
+        // appointments
+        Booking a1 = new Booking(null, doctor, doctor.getReasons().get(0), doctor.getAvailabilities().get(0).getDate(), doctor.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
+
+        Set<Booking> appointmentsList = new LinkedHashSet<>();
+        appointmentsList.add(a1);
+
+        Patient patient = new Patient(
+                -1,
+                lastname,
+                firstname,
+                birthdate,
+                email,
+                pwd,
+                pwdSalt,
+                insuranceNumber,
+                address,
+                lastLogin,
+                appointmentsList
+        );
+
+        patientDbHelper.CreatePatient(patient);
     }
 
     /**
@@ -125,103 +454,35 @@ public class SearchActivity
      */
     private void FillDoctorsList() {
         // Fetch the matching doctors
-        List<Object[]> doctorsList = this.FetchMatchingDoctors();
+        DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
+        List<Doctor> doctorsList = doctorDatabaseHelper.GetDoctors(this.searchContent);
 
         // Build the doctors list view procedurally
         this.BuildDoctorsListView(doctorsList);
     }
 
     /**
-     * Retrieve the doctors matching with the search content
-     * @return The list of matching doctors
-     */
-    private List<Object[]> FetchMatchingDoctors() {
-        List<Object[]> doctorsList = new ArrayList<>();
-
-        // Reasons
-        List<String> reasonsList = new ArrayList<>();
-        reasonsList.add("Reason 1");
-        reasonsList.add("Reason 2");
-        reasonsList.add("Reason 3");
-        reasonsList.add("Reason 4");
-        reasonsList.add("Reason 5");
-        reasonsList.add("Reason 6");
-        reasonsList.add("Reason 7");
-        reasonsList.add("Reason 8");
-
-        // Hours
-        List<Map<String,Object[]>> datetimesList = new ArrayList<>();
-        Map<String,Object[]> datetimes = new HashMap<>();
-        datetimes.put("Monday, October 14", new String[] { "15:00", "15:30", "16:00", "18:00", "19:30" });
-        datetimes.put("Tuesday, October 15", new String[] { "11:00", "12:30", "14:00" });
-        datetimes.put("Wednesday, October 16", new String[] { "16:00", "17:00" });
-        datetimes.put("Thursday, October 17", new String[] { "08:00", "08:20", "09:00", "11:00" });
-        datetimes.put("Friday, October 18", new String[] { "10:00", "14:00", "15:30" });
-        datetimes.put("Saturday, October 19", new String[] { "09:00", "10:00", "10:30", "11:00" });
-        datetimesList.add(datetimes);
-
-        // Get the doctors
-        doctorsList.add(new Object[]{"Jerry Lombart", "Angiologue", "Toulon", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"Serge Pernant", "Pédiatre", "Bordeaux", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"Chloé Laviolette", "Chirurgien", "Saint-Etienne", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"Joachim Laviolette", "Chirurgien", "Saint-Etienne", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"David Zenon", "Podologue", "Ermont", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"Hamza Mebarek", "ORL", "Epinay-sur-Seine", reasonsList, datetimesList});
-        doctorsList.add(new Object[]{"Axel Luffy", "Dentiste", "Chambéry", reasonsList, datetimesList});
-
-        // Filter the list of doctors
-        return this.FilterDoctorsList(doctorsList);
-    }
-
-    /**
-     * Filter the given list of doctors to match the ones
-     * Matching the pattern @searchContent
-     * @param doctorsList The list of doctors to filter
-     * @return The list of doctors filtered
-     */
-    private List<Object[]> FilterDoctorsList(List<Object[]> doctorsList) {
-        List<Object[]> matchingDoctorsList = new ArrayList<>();
-
-        if (this.searchContent.isEmpty()) return matchingDoctorsList;
-
-        for (Object[] doctor: doctorsList) {
-            for (Object doctorAttribute: doctor) {
-                if (doctorAttribute instanceof String) {
-                    if (((String) doctorAttribute).toLowerCase().contains(this.searchContent.toLowerCase())
-                            && !matchingDoctorsList.contains(doctor)) {
-                        matchingDoctorsList.add(doctor);
-                    }
-                }
-            }
-        }
-
-        return matchingDoctorsList;
-    }
-
-    /**
      * Fill the list view with the matching doctors
      * @param doctorsList The list of matching doctors
      */
-    private void BuildDoctorsListView(List<Object[]> doctorsList) {
-        ArrayList<Map<String,Object>> doctorsMapList = new ArrayList<>();
+    private void BuildDoctorsListView(List<Doctor> doctorsList) {
+        ArrayList<Map<String, Object>> doctorsMapList = new ArrayList<>();
 
         // Keys
         String pictureKey = this.getResources().getString(R.string.doctor_service_doctor_picture);
         String fullnameKey = this.getResources().getString(R.string.doctor_service_doctor_fullname);
         String specialityKey = this.getResources().getString(R.string.doctor_service_doctor_speciality);
         String addressKey = this.getResources().getString(R.string.doctor_service_doctor_address);
-        String reasonsKey = this.getResources().getString(R.string.doctor_service_doctor_reason);
-        String hoursContactsKey = this.getResources().getString(R.string.doctor_service_doctor_hours_contacts);
+        String doctorKey = this.getResources().getString(R.string.intent_doctor);
         String chevronKey = this.getResources().getString(R.string.search_list_item_chevron_label);
 
-        for(int i = 0; i < doctorsList.size(); ++i) {
-            Map<String,Object> doctorMap = new HashMap<>();
+        for (Doctor doctor: doctorsList) {
+            Map<String, Object> doctorMap = new LinkedHashMap<>();
             doctorMap.put(pictureKey, R.mipmap.ic_launcher);
-            doctorMap.put(fullnameKey, doctorsList.get(i)[0]);
-            doctorMap.put(specialityKey, doctorsList.get(i)[1]);
-            doctorMap.put(addressKey, doctorsList.get(i)[2]);
-            doctorMap.put(reasonsKey, doctorsList.get(i)[3]);
-            doctorMap.put(hoursContactsKey, doctorsList.get(i)[4]);
+            doctorMap.put(fullnameKey, doctor.getFullname());
+            doctorMap.put(specialityKey, doctor.getSpeciality());
+            doctorMap.put(addressKey, doctor.GetCityCountry());
+            doctorMap.put(doctorKey, doctor);
             doctorMap.put(chevronKey, getResources().getString(R.string.search_list_item_chevron));
             doctorsMapList.add(doctorMap);
         }
@@ -270,7 +531,7 @@ public class SearchActivity
 
     /**
      * Handle click events
-     * @param v The Search view
+     * @param v Search view
      */
     @Override
     public void onClick(View v) {
@@ -291,15 +552,8 @@ public class SearchActivity
         Intent i = new Intent(SearchActivity.this, DoctorProfileActivity.class);
 
         // Prepare the intent parameters
-        String key = this.getResources().getString(R.string.search_intent_doctor);
-        Map<String, Object> doctorData = (HashMap<String, Object>) parent.getAdapter().getItem(position);
-
-        DoctorService doctorService = new DoctorService(this);
-
-        // To represent the doctor object we use a specific class in charge of formatting and creating
-         // the doctor as a Bundle with all the data we'll need afterwards
-        Bundle doctor = doctorService.GetDoctorAsBundle(doctorData);
-        i.putExtra(key, doctor);
+        String key = this.getResources().getString(R.string.intent_doctor);
+        i.putExtra(key, (Serializable) ((LinkedHashMap<String, Object>) parent.getAdapter().getItem(position)).get(key));
 
         // Start the activity
         startActivity(i);

@@ -15,11 +15,11 @@ public final class DoctoAppDatabaseContract {
         public static final String COLUMN_NAME_ZIP = "zip";
         public static final String COLUMN_NAME_COUNTRY = "country";
         public static final String[] TABLE_KEYS_INSERT = {
-                COLUMN_NAME_CITY,
-                COLUMN_NAME_COUNTRY,
                 COLUMN_NAME_STREET1,
                 COLUMN_NAME_STREET2,
+                COLUMN_NAME_CITY,
                 COLUMN_NAME_ZIP,
+                COLUMN_NAME_COUNTRY,
         };
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_ID,

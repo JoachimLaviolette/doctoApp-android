@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +104,7 @@ public class AddressDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> addressData = new HashMap<>();
+                Map<String, Object> addressData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Address.TABLE_KEYS.length; i++) {
                     addressData.put(

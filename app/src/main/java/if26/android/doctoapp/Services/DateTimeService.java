@@ -6,7 +6,7 @@ import android.content.res.Resources;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -28,7 +28,7 @@ public class DateTimeService {
      * @return Date data as a map
      */
     public Map<String,String> GetDateTimeDataFromFullDay(String time, String fullDay) {
-        Map<String,String> dateTimeData = new HashMap<>();
+        Map<String,String> dateTimeData = new LinkedHashMap<>();
 
         String timeKey = this.resources.getString(R.string.date_service_time);
         String dayName = this.resources.getString(R.string.date_service_day_name);
@@ -54,7 +54,7 @@ public class DateTimeService {
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
 
-        Map<String,String> dateTimeData = new HashMap<>();
+        Map<String,String> dateTimeData = new LinkedHashMap<>();
 
         dateTimeData.put(timeKey, this.GetTimeFromTimeTag(timeTag));
         dateTimeData.put(dayName, this.GetDayNameFromTimeTag(timeTag));
@@ -212,5 +212,43 @@ public class DateTimeService {
         Date today = Calendar.getInstance().getTime();
 
         return dateFormat.format(today);
+    }
+
+    /**
+     * Return the current date time in the given format
+     * @param format The format to get the date in
+     * @return The current date
+     */
+    public static String GetCurrentDateTime(String format) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date today = Calendar.getInstance().getTime();
+
+        return dateFormat.format(today);
+    }
+
+    /**
+     * Get the current date + the number of given days
+     * @param daysToAdd The number of days to add
+     * @return The new date
+     */
+    public static String GetDateFromCurrent(int daysToAdd) {
+        String DATE_FORMAT = "EEEE, MMMM d";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        Calendar c = Calendar.getInstance();
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        c.add(Calendar.DAY_OF_MONTH, daysToAdd);
+        String date = dateFormat.format(c.getTime());
+
+        return date;
+    }
+
+    /**
+     * Must be in format {Day, Month 7}
+     * @param date The date to extract the day from
+     * @return The day
+     */
+    public static String GetDayFromDate(String date) {
+        return date.substring(0, date.indexOf(","));
     }
 }

@@ -1,10 +1,13 @@
 package if26.android.doctoapp.Models;
 
-import java.util.HashSet;
+import android.content.Context;
+
+import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class Resident {
+public abstract class Resident implements Serializable {
     protected long id;
     protected String lastname;
     protected String firstname;
@@ -24,7 +27,7 @@ public abstract class Resident {
         this.pwdSalt = pwdSalt;
         this.address = address;
         this.lastLogin = lastLogin;
-        this.appointments = new HashSet<>();
+        this.appointments = new LinkedHashSet<>();
     }
 
     public Resident(long id, String lastname, String firstname, String email, String pwd, String pwdSalt, Address address, String lastLogin, Set<Booking> appointments) {
@@ -64,6 +67,10 @@ public abstract class Resident {
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public String getFullname() {
+        return this.firstname + " " + getLastname().toUpperCase();
     }
 
     public String getEmail() {
@@ -154,7 +161,20 @@ public abstract class Resident {
         this.address.setId(id);
     }
 
+    public String GetCityCountry() {
+        return this.GetCity() + ", " + this.GetCountry().toUpperCase();
+    }
+
+    public String GetFullAddress() {
+        return this.GetStreet1() + ", " + this.GetStreet2() + "\n"
+                + this.GetZip() + ", " + this.GetCity() + "\n"
+                + this.GetCountry();
+    }
+
+
     // Update methods
     public abstract void UpdateRelatedData();
     protected abstract void UpdateAppointmentsResidentId();
+
+    public abstract Resident Update(Context context);
 }

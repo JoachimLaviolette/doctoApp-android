@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -158,7 +158,7 @@ public class PatientDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> patientData = new HashMap<>();
+                Map<String, Object> patientData = new LinkedHashMap<>();
 
                 // Get data from patient table
                 patientData = this.GetPatientTableData(patientData, c);

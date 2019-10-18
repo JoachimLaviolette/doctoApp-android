@@ -65,12 +65,12 @@
             android:fadeScrollbars="true"
             android:fontFamily="@font/roboto"
             android:isScrollContainer="true"
+            android:lineSpacingExtra="6sp"
             android:padding="20sp"
             android:shadowColor="#000000"
-            android:textColor="@color/doctor_profile_popup_content"
-            android:textSize="13sp"
-            android:text="@string/doctor_profile_popup_content"/>
-
+            android:text="@string/doctor_profile_popup_content"
+            android:textColor="@color/doctor_profile_popup_section_content"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </RelativeLayout>

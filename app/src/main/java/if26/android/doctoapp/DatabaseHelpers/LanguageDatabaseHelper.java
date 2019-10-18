@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,11 +101,11 @@ public class LanguageDatabaseHelper {
      * @return The list of matching languages
      */
     private Set<Language> BuildLanguagesList(Cursor c) {
-        Set<Language> languages = new HashSet<>();
+        Set<Language> languages = new LinkedHashSet<>();
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> languageData = new HashMap<>();
+                Map<String, Object> languageData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Language.TABLE_KEYS.length; i++) {
                     languageData.put(

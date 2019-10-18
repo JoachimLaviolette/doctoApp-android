@@ -1,9 +1,12 @@
 package if26.android.doctoapp.Models;
 
+import android.content.Context;
+
 import java.util.Map;
 import java.util.Set;
 
 import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
+import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 
 public class Patient extends Resident {
     private String birthdate;
@@ -79,5 +82,15 @@ public class Patient extends Resident {
 
     protected void UpdateAppointmentsResidentId() {
         for (Booking a: this.appointments) a.setPatient(this);
+    }
+
+    /**
+     * Update the current patient
+     * @param context The calling context
+     * @return The patient with refreshed data
+     */
+    public Resident Update(Context context) {
+        PatientDatabaseHelper patientDatabaseHelper = new PatientDatabaseHelper(context);
+        return patientDatabaseHelper.GetPatientById(this.id + "");
     }
 }

@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public class Reason {
+import java.io.Serializable;
+
+public class Reason implements Serializable {
     private long id;
     private Doctor doctor;
     private String description;

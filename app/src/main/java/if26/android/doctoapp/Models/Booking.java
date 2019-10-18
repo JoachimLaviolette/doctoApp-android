@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public class Booking {
+import java.io.Serializable;
+
+public class Booking implements Serializable {
     private Patient patient;
     private Doctor doctor;
     private Reason reason;
