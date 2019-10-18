@@ -16,12 +16,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import if26.android.doctoapp.Services.DoctorService;
+import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
+import if26.android.doctoapp.Models.Booking;
+import if26.android.doctoapp.Models.Doctor;
 
 public class DoctorProfileActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-    private Bundle doctor;
+    private Doctor doctor;
+
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
     private ImageView doctorPicture;
@@ -32,14 +35,15 @@ public class DoctorProfileActivity
                 doctorAddressContent,
                 doctorPricesRefundsContent,
                 doctorPaymentOptionsContent,
-                doctorDescriptionContent,
-                doctorHoursContactsContent,
-                doctorEducationContent,
-                doctorLanguagesContent,
-                doctorExperiencesContent;
+                isUnderAgreementPopupContent,
+                isThirdPartyPaymentPopupContent,
+                isHealthInsuranceCardPopupContent;
     private LinearLayout
             doctorAddressSection,
             doctorPricesRefundsSection,
+            isUnderAgreementPopupSection,
+            isThirdPartyPaymentPopupSection,
+            isHealthInsuranceCardPopupSection,
             doctorPaymentOptionsSection,
             doctorDescriptionSection,
             doctorHoursContactsSection,
@@ -86,11 +90,6 @@ public class DoctorProfileActivity
         this.doctorAddressContent = findViewById(R.id.doctor_profile_address_content);
         this.doctorPricesRefundsContent = findViewById(R.id.doctor_profile_prices_refunds_content);
         this.doctorPaymentOptionsContent = findViewById(R.id.doctor_profile_payment_options_content);
-        this.doctorDescriptionContent = findViewById(R.id.doctor_profile_description_content);
-        this.doctorHoursContactsContent = findViewById(R.id.doctor_profile_hours_contacts_content);
-        this.doctorEducationContent = findViewById(R.id.doctor_profile_education_content);
-        this.doctorLanguagesContent = findViewById(R.id.doctor_profile_languages_content);
-        this.doctorExperiencesContent = findViewById(R.id.doctor_profile_experiences_content);
 
         // Popup
         this.currentPopup = null;
@@ -104,47 +103,34 @@ public class DoctorProfileActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
+        String key = this.getResources().getString(R.string.intent_doctor);
+
+        // Get the doctor
+        this.doctor = (Doctor) i.getExtras().getSerializable(key);
+        this.doctor = (Doctor) this.doctor.Update(this.getApplicationContext());
     }
 
     /**
      * Set content procedurally
      */
     private void SetContent() {
-        DoctorService doctorService = new DoctorService(this, this.doctor);
-
         // Set doctor picture
-        this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
+        //this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
 
         // Set doctor fullname
-        this.doctorFullname.setText(doctorService.GetDoctorFullname());
+        this.doctorFullname.setText(this.doctor.getFullname());
 
         // Set doctor speciality
-        this.doctorSpeciality.setText(doctorService.GetDoctorSpeciality());
+        this.doctorSpeciality.setText(this.doctor.getSpeciality());
 
         // Set doctor address
-        this.doctorAddressContent.setText(doctorService.GetDoctorAddress());
+        this.doctorAddressContent.setText(this.doctor.GetFullAddress());
 
         // Set doctor prices and refunds
-        this.doctorPricesRefundsContent.setText(doctorService.GetDoctorPricesRefunds());
+        this.doctorPricesRefundsContent.setText(doctor.getPricesAndRefundsAsString(this.getApplicationContext()));
 
         // Set doctor payment options
-        this.doctorPaymentOptionsContent.setText(doctorService.GetDoctorPaymentOptions());
-
-        // Set doctor description
-        this.doctorDescriptionContent.setText(doctorService.GetDoctorDescription());
-
-        // Set doctor hours and contacts
-        //this.doctorHoursContactsContent.setText(doctorService.GetDoctorHoursContacts());
-
-        // Set doctor education
-        this.doctorEducationContent.setText(doctorService.GetDoctorEducation());
-
-        // Set doctor languages
-        this.doctorLanguagesContent.setText(doctorService.GetDoctorLanguages());
-
-        // Set doctor experiences
-        this.doctorExperiencesContent.setText(doctorService.GetDoctorExperiences());
+        this.doctorPaymentOptionsContent.setText(doctor.getPaymentOptionsAsString());
     }
 
     /**
@@ -170,6 +156,7 @@ public class DoctorProfileActivity
     public void onClick(View v) {
         int titleKey = R.string.doctor_profile_popup_title;
         int contentKey = R.string.doctor_profile_popup_content;
+        boolean popup = true;
 
         switch (v.getId()) {
             case R.id.doctor_profile_book_appointment:
@@ -187,39 +174,53 @@ public class DoctorProfileActivity
                 titleKey = R.string.doctor_profile_address;
                 contentKey = R.id.doctor_profile_address_content;
                 break;
+            default:
+                popup = false;
+        }
+
+        if (popup) {
+            this.CreatePopup(
+                    this.getResources().getString(titleKey),
+                    ((TextView) findViewById(contentKey)).getText().toString()
+            );
+
+            return;
+        }
+
+        String content = this.getResources().getString(contentKey);
+
+        switch (v.getId()) {
+            case R.id.doctor_profile_prices_refunds_section:
+                titleKey = R.string.doctor_profile_prices_refunds;
+                content = "";
+                break;
             case R.id.doctor_profile_description_section:
                 titleKey = R.string.doctor_profile_description;
-                contentKey = R.id.doctor_profile_description_content;
+                content = this.doctor.getDescription();
                 break;
             case R.id.doctor_profile_education_section:
                 titleKey = R.string.doctor_profile_education;
-                contentKey = R.id.doctor_profile_education_content;
+                content = this.doctor.getTrainingsAsString();
                 break;
             case R.id.doctor_profile_experiences_section:
                 titleKey = R.string.doctor_profile_experiences;
-                contentKey = R.id.doctor_profile_experiences_content;
+                content = this.doctor.getExperiencesAString();
                 break;
             case R.id.doctor_profile_hours_contacts_section:
                 titleKey = R.string.doctor_profile_hours_contacts;
-                contentKey = R.id.doctor_profile_hours_contacts_content;
+                // TODO: content = this.doctor.GetFullAddress();
                 break;
             case R.id.doctor_profile_languages_section:
                 titleKey = R.string.doctor_profile_languages;
-                contentKey = R.id.doctor_profile_languages_content;
+                content = this.doctor.getLanguagesAsString();
                 break;
-            case R.id.doctor_profile_payment_options_section:
-                titleKey = R.string.doctor_profile_payment_options;
-                contentKey = R.id.doctor_profile_payment_options_content;
-                break;
-            case R.id.doctor_profile_prices_refunds_section:
-                titleKey = R.string.doctor_profile_prices_refunds;
-                contentKey = R.id.doctor_profile_prices_refunds_content;
-                break;
+            default:
+                return;
         }
 
         this.CreatePopup(
                 this.getResources().getString(titleKey),
-                ((TextView) findViewById(contentKey)).getText().toString()
+                content
         );
     }
 
@@ -230,9 +231,19 @@ public class DoctorProfileActivity
         // Create the intent
         Intent i = new Intent(DoctorProfileActivity.this, ChooseReasonActivity.class);
 
+        // Create the appointment object
+        Booking booking = new Booking(
+                (new PatientDatabaseHelper(this.getApplicationContext()).GetPatients().get(0)),
+                this.doctor,
+                null,
+                "",
+                "",
+                ""
+        );
+
         // Prepare the intent parameters
-        String key = this.getResources().getString(R.string.search_intent_doctor);
-        i.putExtra(key, this.doctor);
+        String key = this.getResources().getString(R.string.intent_booking);
+        i.putExtra(key, booking);
 
         // Start the activity
         startActivity(i);
@@ -248,7 +259,7 @@ public class DoctorProfileActivity
         this.ClearCurrentPopupContext();
 
         // Create the new popup context
-        View popupSampleView = this.CreateNewPopupContext();
+        View popupSampleView = this.CreateNewPopupContext(title);
 
         // Attach the appropriate events to the current popup
         this.SubscribeEventsPopup();
@@ -276,12 +287,16 @@ public class DoctorProfileActivity
      * Create a new popup context
      * @return The popup sample view
      */
-    private View CreateNewPopupContext() {
+    private View CreateNewPopupContext(String title) {
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = getLayoutInflater();
+        int popupLayout = R.layout.doctor_profile_popup_layout;
 
         // Inflate the popup layout
-        View popupSampleView = inflater.inflate(R.layout.doctor_profile_popup_layout, null);
+        if (title == this.getResources().getString(R.string.doctor_profile_prices_refunds))
+            popupLayout = R.layout.doctor_profile_popup_prices_refunds_layout;
+
+        View popupSampleView = inflater.inflate(popupLayout, null);
 
         // Create the popup window
         this.currentPopup = new PopupWindow(popupSampleView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -310,10 +325,48 @@ public class DoctorProfileActivity
     private void SetPopupAttributes(String title, String content, View popupSampleView) {
         // Retrieve popup components references
         TextView popupTitle = popupSampleView.findViewById(R.id.doctor_profile_popup_title);
-        TextView popupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_content);
 
         // Set the popup title
         popupTitle.setText(title);
-        popupContent.setText(content);
+
+        if (title != this.getResources().getString(R.string.doctor_profile_prices_refunds)) {
+            TextView popupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_content);
+            popupContent.setText(content);
+
+            return;
+        }
+
+        this.FormatPricesRefundsPopupViewData(popupSampleView);
+    }
+
+    /**
+     * Format prices and refunds popup view data
+     * @param popupSampleView
+     */
+    private void FormatPricesRefundsPopupViewData(View popupSampleView) {
+        this.isUnderAgreementPopupSection = popupSampleView.findViewById(R.id.doctor_profile_popup_section_is_under_agreement);
+        this.isThirdPartyPaymentPopupSection = popupSampleView.findViewById(R.id.doctor_profile_section_is_third_party_payment);
+        this.isHealthInsuranceCardPopupSection = popupSampleView.findViewById(R.id.doctor_profile_section_is_health_insurance_card);
+        this.isUnderAgreementPopupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_is_under_agreement_content);
+        this.isThirdPartyPaymentPopupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_is_third_party_payment_content);
+        this.isHealthInsuranceCardPopupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_is_health_insurance_card_content);
+
+        if (this.doctor.isUnderAgreement()) {
+            this.isUnderAgreementPopupContent.setText(this.getResources().getString(R.string.doctor_profile_popup_is_under_agreement_content));
+        } else {
+            this.isUnderAgreementPopupSection.setVisibility(View.GONE);
+        }
+
+        if (this.doctor.isThirdPartyPayment()) {
+            this.isThirdPartyPaymentPopupContent.setText(this.getResources().getString(R.string.doctor_profile_popup_is_third_party_payment_content));
+        } else {
+            this.isThirdPartyPaymentPopupSection.setVisibility(View.GONE);
+        }
+
+        if (this.doctor.isHealthInsuranceCard()) {
+            this.isHealthInsuranceCardPopupContent.setText(this.getResources().getString(R.string.doctor_profile_popup_is_health_insurance_card_content));
+        } else {
+            this.isHealthInsuranceCardPopupSection.setVisibility(View.GONE);
+        }
     }
 }

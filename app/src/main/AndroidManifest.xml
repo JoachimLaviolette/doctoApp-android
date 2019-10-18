@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".ConfirmAppointmentActivity"></activity>
-        <activity android:name=".ChooseDateTimeActivity" />
+        <activity android:name=".ChooseAvailabilityActivity" />
         <activity android:name=".ChooseReasonActivity" />
         <activity android:name=".DoctorProfileActivity" />
         <activity

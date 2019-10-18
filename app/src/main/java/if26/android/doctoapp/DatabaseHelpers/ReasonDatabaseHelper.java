@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -134,7 +134,7 @@ public class ReasonDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> reasonData = new HashMap<>();
+                Map<String, Object> reasonData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Reason.TABLE_KEYS.length; i++) {
                     reasonData.put(

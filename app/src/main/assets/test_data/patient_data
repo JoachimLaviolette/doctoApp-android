@@ -23,7 +23,7 @@ PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplic
         Booking a2 = new Booking(null, doctor2, doctor2.getReasons().get(1), doctor2.getAvailabilities().get(0).getDate(), doctor2.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
         Booking a3 = new Booking(null, doctor3, doctor3.getReasons().get(0), doctor3.getAvailabilities().get(0).getDate(), doctor3.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
 
-        Set<Booking> appointmentsList = new HashSet<>();
+        Set<Booking> appointmentsList = new LinkedHashSet<>();
         appointmentsList.add(a1);
         appointmentsList.add(a2);
         appointmentsList.add(a3);

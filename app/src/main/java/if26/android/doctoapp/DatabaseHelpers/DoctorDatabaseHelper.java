@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -149,6 +149,8 @@ public class DoctorDatabaseHelper {
      * @return A list of matching doctors
      */
     public List<Doctor> GetDoctors(String needle) {
+        if (needle.isEmpty()) return new ArrayList<>();
+
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
 
         String query = String.format(
@@ -204,7 +206,7 @@ public class DoctorDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> doctorData = new HashMap<>();
+                Map<String, Object> doctorData = new LinkedHashMap<>();
 
                 // Get data from doctor table
                 doctorData = this.GetDoctorTableData(doctorData, c);

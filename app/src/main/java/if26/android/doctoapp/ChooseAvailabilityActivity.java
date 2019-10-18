@@ -11,26 +11,30 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import if26.android.doctoapp.Models.Availability;
+import if26.android.doctoapp.Models.Booking;
+import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Services.DateTimeService;
-import if26.android.doctoapp.Services.DoctorService;
 
-public class ChooseDateTimeActivity
+public class ChooseAvailabilityActivity
         extends AppCompatActivity
         implements AdapterView.OnClickListener {
-    private Bundle doctor;
+    private Doctor doctor;
+    private Booking booking;
+
     private TextView doctorFullname;
     private GridLayout dateTimeListGlobalLayout;
-    private static DoctorService doctorService;
     private static DateTimeService dateTimeService;
+
+    private static int WEEKS_NUMBER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_date_time);
+        setContentView(R.layout.activity_choose_availability);
 
         this.RetrieveExtraParams();
         this.Instantiate();
@@ -42,7 +46,6 @@ public class ChooseDateTimeActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        doctorService = new DoctorService(this, this.doctor);
         dateTimeService = new DateTimeService(this);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);
@@ -60,14 +63,21 @@ public class ChooseDateTimeActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
+        String key = this.getResources().getString(R.string.intent_booking);
+
+        // Get the booking
+        this.booking = (Booking) i.getExtras().getSerializable(key);
+
+        // Get the doctor
+        this.doctor = this.booking.getDoctor();
+        this.doctor = (Doctor) this.doctor.Update(this.getApplicationContext());
     }
 
     /**
      * Set content procedurally
      */
     private void SetContent() {
-        this.doctorFullname.setText(doctorService.GetDoctorFullnameAsTitle());
+        this.doctorFullname.setText(this.doctor.getFullname());
         this.FillDateTimesList();
     }
 
@@ -75,22 +85,21 @@ public class ChooseDateTimeActivity
      * Fill the date times list with the date times available
      */
     private void FillDateTimesList() {
-        // Fetch the reasons
-        Serializable dateTimesList = doctorService.GetDoctorHoursContacts();
+        // Fetch the availabilities
+        Map<String, List<Availability>> availabilitiesPerDay = this.doctor.getAvailabilitiesPerDay(this.WEEKS_NUMBER);
 
         // Build the date times list view procedurally
-        if (dateTimesList instanceof HashMap)
-            this.BuildDateTimesListView((HashMap<String,Object>) dateTimesList);
+        this.BuildDateTimesListView(availabilitiesPerDay);
     }
 
     /**
-     * Fill the list view with the date times
-     * @param dateTimesList The list of date times
+     * Fill the list view with the availabilities
+     * @param availabilitiesPerDay The list of availabilities per day
      */
-    private void BuildDateTimesListView(Map<String,Object> dateTimesList) {
+    private void BuildDateTimesListView(Map<String, List<Availability>> availabilitiesPerDay) {
         LayoutInflater inflater = getLayoutInflater();
 
-        for (String d: dateTimesList.keySet()) {
+        for (String d: availabilitiesPerDay.keySet()) {
             View dateTimeLayout = inflater.inflate(R.layout.date_time_datetime_layout, this.dateTimeListGlobalLayout, false);
 
             View day = inflater.inflate(R.layout.date_time_day, (LinearLayout) dateTimeLayout, false);
@@ -100,16 +109,15 @@ public class ChooseDateTimeActivity
 
             ((LinearLayout) dateTimeLayout).addView(day);
 
-            Object hours = dateTimesList.get(d);
+            List<Availability> availabilities = availabilitiesPerDay.get(d);
 
-            if (hours instanceof String[]) {
-                for (String hour : (String[]) hours) {
-                    View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
-                    ((TextView) time).setText(hour);
-                    time.setTag(dateTimeService.CreateTimeTag(hour, d));
-                    time.setOnClickListener(this);
-                    ((GridLayout) timeLayout).addView(time);
-                }
+            for (Availability a: availabilities) {
+                String hour = a.getTime();
+                View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
+                ((TextView) time).setText(hour);
+                time.setTag(dateTimeService.CreateTimeTag(hour, a.getDate()));
+                time.setOnClickListener(this);
+                ((GridLayout) timeLayout).addView(time);
             }
 
             ((LinearLayout) dateTimeLayout).addView(timeLayout);
@@ -131,9 +139,6 @@ public class ChooseDateTimeActivity
      * @param time The time that was chosen
      */
     public void ConfirmAppointment(TextView time) {
-        // Create the intent
-        Intent i = new Intent(ChooseDateTimeActivity.this, ConfirmAppointmentActivity.class);
-
         // Prepare date time data
         String timeTag = time.getTag().toString();
 
@@ -144,13 +149,15 @@ public class ChooseDateTimeActivity
         // Get datetime data from the time tag
         Map<String,String> dateData = dateTimeService.GetDateTimeDataFromTimeTag(timeTag);
 
-        // Prepare doctor data with appointment date time information
-        Map<String, Object> doctorData = new HashMap<>();
-        doctorData.put(this.getResources().getString(R.string.doctor_service_doctor_hours_contacts), dateData);
+        // Create the intent
+        Intent i = new Intent(ChooseAvailabilityActivity.this, ConfirmAppointmentActivity.class);
 
-        // Complete the doctor bundle adding appointment date time data
-        this.doctor = doctorService.GetDoctorAsBundle(doctorData);
-        i.putExtra(this.getResources().getString(R.string.search_intent_doctor), this.doctor);
+        // Prepare the intent parameters
+        String key = this.getResources().getString(R.string.intent_booking);
+        this.booking.setDate((new DateTimeService(this.getApplicationContext()).GetFullDayFromData(dateData)));
+        this.booking.setTime(dateData.get(this.getResources().getString(R.string.date_service_time)));
+        this.booking.setBookingDate(DateTimeService.GetCurrentDateTime());
+        i.putExtra(key, this.booking);
 
         // Start the activity
         startActivity(i);

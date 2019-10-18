@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public class Experience {
+import java.io.Serializable;
+
+public class Experience implements Serializable {
     private Doctor doctor;
     private String year;
     private String description;

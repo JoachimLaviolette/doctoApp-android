@@ -101,6 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
                             android:text="@string/appointment_summary_doctor_speciality"
                             android:textColor="@color/appointment_summary_doctor_speciality"
                             android:textSize="13sp"
@@ -169,6 +170,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
                             android:text="@string/appointment_summary_patient_fullname"
                             android:textColor="@color/appointment_summary_patient_fullname"
                             android:textSize="13sp"
@@ -224,6 +226,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
                             android:text="@string/appointment_summary_warning_msg_content"
                             android:textColor="@color/appointment_summary_warning_msg_content"
                             android:textSize="13sp"
@@ -302,7 +305,8 @@
                             android:text="@string/appointment_summary_address_content"
                             android:textColor="@color/appointment_summary_address_content"
                             android:textSize="13sp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            android:lineSpacingExtra="6sp" />
 
                         <com.google.android.gms.maps.MapView
                             android:id="@+id/appointment_summary_address_mapview"

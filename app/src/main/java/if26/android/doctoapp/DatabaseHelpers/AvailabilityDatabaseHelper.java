@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -108,7 +108,7 @@ public class AvailabilityDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> availabilityData = new HashMap<>();
+                Map<String, Object> availabilityData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Availability.TABLE_KEYS.length; i++) {
                     availabilityData.put(

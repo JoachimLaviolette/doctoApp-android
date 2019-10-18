@@ -58,7 +58,8 @@
     <color name="doctor_profile_popup_background">#FFFFFF</color>
     <color name="doctor_profile_popup_title">#FFFFFF</color>
     <color name="doctor_profile_popup_title_background">#1B86E4</color>
-    <color name="doctor_profile_popup_content">#727272</color>
+    <color name="doctor_profile_popup_section_title">#444444</color>
+    <color name="doctor_profile_popup_section_content">#727272</color>
     <color name="doctor_profile_popup_close">#FFFFFF</color>
     <color name="doctor_profile_shadow">#222222</color>
 

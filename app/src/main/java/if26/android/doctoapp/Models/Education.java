@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public class Education {
+import java.io.Serializable;
+
+public class Education implements Serializable {
     private Doctor doctor;
     private String year;
     private String degree;

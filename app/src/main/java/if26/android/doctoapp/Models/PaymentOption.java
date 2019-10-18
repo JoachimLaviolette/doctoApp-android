@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public enum PaymentOption {
+import java.io.Serializable;
+
+public enum PaymentOption implements Serializable {
     CASH,
     CREDIT_CARD,
     CHEQUE,

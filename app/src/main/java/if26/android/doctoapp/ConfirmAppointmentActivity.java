@@ -2,20 +2,23 @@ package if26.android.doctoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import if26.android.doctoapp.Models.Booking;
+import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Services.DateTimeService;
-import if26.android.doctoapp.Services.DoctorService;
 
 public class ConfirmAppointmentActivity
-        extends AppCompatActivity {
-    private Bundle doctor;
+        extends AppCompatActivity
+        implements View.OnClickListener {
+    private Doctor doctor;
+    private Patient patient;
+    private Booking booking;
 
     private TextView appointmentDay;
     private TextView appointmentTime;
@@ -23,6 +26,7 @@ public class ConfirmAppointmentActivity
     private ImageView doctorPicture;
     private TextView doctorFullname;
     private TextView doctorSpeciality;
+    private TextView doctorChevron;
 
     private ImageView patientPicture;
     private TextView patientFullname;
@@ -32,7 +36,6 @@ public class ConfirmAppointmentActivity
 
     private TextView doctorAddress;
 
-    private static DoctorService doctorService;
     private static DateTimeService dateTimeService;
 
     @Override
@@ -50,24 +53,23 @@ public class ConfirmAppointmentActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        doctorService = new DoctorService(this, this.doctor);
         dateTimeService = new DateTimeService(this);
         this.appointmentDay = findViewById(R.id.appointment_summary_fullday);
         this.appointmentTime = findViewById(R.id.appointment_summary_time);
         this.doctorPicture = findViewById(R.id.appointment_summary_doctor_picture);
         this.doctorFullname = findViewById(R.id.appointment_summary_doctor_fullname);
         this.doctorSpeciality = findViewById(R.id.appointment_summary_doctor_speciality);
+        this.doctorChevron = findViewById(R.id.appointment_summary_chevron);
         this.patientPicture = findViewById(R.id.appointment_summary_patient_picture);
         this.patientFullname = findViewById(R.id.appointment_summary_patient_fullname);
         this.doctorAddress = findViewById(R.id.appointment_summary_address_content);
-
     }
 
     /**
      * Listen to the events
      */
     private void SubscribeEvents() {
-
+        this.doctorChevron.setOnClickListener(this);
     }
 
     /**
@@ -75,31 +77,68 @@ public class ConfirmAppointmentActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        this.doctor = i.getExtras().getBundle(this.getResources().getString(R.string.search_intent_doctor));
+        String key = this.getResources().getString(R.string.intent_booking);
+
+        // Get the booking
+        this.booking = (Booking) i.getExtras().getSerializable(key);
+
+        // Get the doctor
+        this.doctor = this.booking.getDoctor();
+        this.doctor = (Doctor) this.doctor.Update(this.getApplicationContext());
+
+        // Get the patient
+        this.patient = this.booking.getPatient();
+        this.patient = (Patient) this.patient.Update(this.getApplicationContext());
     }
 
     /**
      * Set content procedurally
      */
     private void SetContent() {
-        Map<String,String> appointmentData = (HashMap) doctorService.GetAppointmentData();
-
         // Set appointment full day
-        this.appointmentDay.setText(dateTimeService.GetFullDayFromData(appointmentData));
+        this.appointmentDay.setText(this.booking.getDate());
 
         // Set appointment time
-        this.appointmentTime.setText(dateTimeService.GetTimeFromData(appointmentData));
+        this.appointmentTime.setText(this.booking.getTime());
 
         // Set doctor picture
-        this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
+        //this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
 
         // Set doctor fullname
-        this.doctorFullname.setText(doctorService.GetDoctorFullname());
+        this.doctorFullname.setText(this.doctor.getFullname());
 
         // Set doctor speciality
-        this.doctorSpeciality.setText(doctorService.GetDoctorSpeciality());
+        this.doctorSpeciality.setText(this.doctor.getSpeciality());
 
         // Set doctor address
-        this.doctorAddress.setText(doctorService.GetDoctorAddress());
+        this.doctorAddress.setText(this.doctor.GetFullAddress());
+
+        // Set patient fullname
+        this.patientFullname.setText(this.patient.getFullname());
+    }
+
+    /**
+     * Handle click events
+     * @param v ConfirmAppointment view
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.appointment_summary_chevron)
+            this.ShowDoctorProfile();
+    }
+
+    /**
+     * Show the appointment doctor's profile
+     */
+    private void ShowDoctorProfile() {
+        // Create the intent
+        Intent i = new Intent(ConfirmAppointmentActivity.this, DoctorProfileActivity.class);
+
+        // Prepare the intent parameters
+        String key = this.getResources().getString(R.string.intent_doctor);
+        i.putExtra(key, this.doctor);
+
+        // Start the activity
+        startActivity(i);
     }
 }

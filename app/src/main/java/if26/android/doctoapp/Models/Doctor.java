@@ -1,12 +1,19 @@
 package if26.android.doctoapp.Models;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
+import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
+import if26.android.doctoapp.R;
+import if26.android.doctoapp.Services.DateTimeService;
 
 public class Doctor extends Resident {
     private String speciality;
@@ -39,8 +46,8 @@ public class Doctor extends Resident {
         this.isHealthInsuranceCard = isHealthInsuranceCard;
         this.isThirdPartyPayment = isThirdPartyPayment;
         this.availabilities = new ArrayList<>();
-        this.languages = new HashSet<>();
-        this.paymentOptions = new HashSet<>();
+        this.languages = new LinkedHashSet<>();
+        this.paymentOptions = new LinkedHashSet<>();
         this.reasons = new ArrayList<>();
         this.trainings = new ArrayList<>();
         this.experiences = new ArrayList<>();
@@ -93,7 +100,7 @@ public class Doctor extends Resident {
         this.reasons = reasons;
         this.trainings = trainings;
         this.experiences = experiences;
-        this.appointments = new HashSet<>();
+        this.appointments = new LinkedHashSet<>();
     }
 
     public Doctor(Map<String, Object> doctorData) {
@@ -265,6 +272,135 @@ public class Doctor extends Resident {
             this.experiences.remove(e);
     }
 
+    // Super getters and setters
+    /**
+     * Return prices and refunds data as a string
+     * @return The prices and refunds data
+     */
+    public String getPricesAndRefundsAsString(Context context) {
+        Resources resources = context.getResources();
+
+        String isUnderAgreement = "- ";
+        isUnderAgreement += this.isUnderAgreement ?
+                resources.getString(R.string.doctor_profile_is_under_agreement_true) : resources.getString(R.string.doctor_profile_is_under_agreement_false);
+
+        String isHealthInsuranceCard = "- ";
+        isHealthInsuranceCard += this.isHealthInsuranceCard() ?
+                resources.getString(R.string.doctor_profile_is_health_insurance_card_true) : resources.getString(R.string.doctor_profile_is_health_insurance_card_false);
+
+        String isThirdPartyPayment = this.isThirdPartyPayment ?
+                "- " + resources.getString(R.string.doctor_profile_is_third_party_payment_true) : "";
+
+        return (isUnderAgreement + "\n"
+                + isHealthInsuranceCard + "\n"
+                + isThirdPartyPayment).trim();
+    }
+
+    /**
+     * Return doctor payment options as a string
+     * @return The payment options
+     */
+    public String getPaymentOptionsAsString() {
+        String paymentOptions = "";
+
+        for (PaymentOption po: this.paymentOptions) paymentOptions += po.toString().toLowerCase().replace("_", " ") + ", ";
+
+        paymentOptions = paymentOptions.substring(0, 1).toUpperCase() + paymentOptions.substring(1).toLowerCase().trim();
+        paymentOptions = paymentOptions.substring(0, paymentOptions.lastIndexOf(","));
+
+        return paymentOptions;
+    }
+
+    /**
+     * Return doctor languages as a string
+     * @return The languages
+     */
+    public String getLanguagesAsString() {
+        String languages = "";
+
+        for (Language l: this.languages) languages += "- " + l.toString().toUpperCase() + "\n";
+
+        return languages.trim();
+    }
+
+    /**
+     * Return trainings as a string
+     * @return The trainings
+     */
+    public String getTrainingsAsString() {
+        String trainings = "";
+
+        for (Education t: this.trainings) trainings += "- " + t.getYear() + ": " + t.getDegree() + "\n";
+
+        return trainings.trim();
+    }
+
+    /**
+     * Return experiences as a string
+     * @return The experiences
+     */
+    public String getExperiencesAString() {
+        String experiences = "";
+
+        for (Experience e: this.experiences) experiences += "- " + e.getYear() + ": " + e.getDescription() + "\n";
+
+        return experiences.trim();
+    }
+
+    /**
+     * Organize the availabilities by day
+     * @param weeksNumber On how many weeks to display
+     * @return A map containing all the availabilities per day
+     */
+    public Map<String, List<Availability>> getAvailabilitiesPerDay(int weeksNumber) {
+        Map<String, List<Availability>> availabilitiesPerDay = new LinkedHashMap<>();
+
+        // Thursday, October 17
+        // Friday, October 18
+        // Monday, October 21
+        // ...
+        // Thursday, October 24 // if weeksNumber == 1
+        // ...
+        // Thursday, October 31 // if weeksNumber == 2
+
+        Map<String, List<Availability>> availabilitiesPerDayRef = new LinkedHashMap<>();
+
+        for (Availability a : this.availabilities) {
+            if (!availabilitiesPerDayRef.containsKey(a.getDate())) {
+                availabilitiesPerDayRef.put(a.getDate(), new ArrayList<Availability>());
+            }
+        }
+
+        for (int x = 0; x <= 7 * weeksNumber; x++) {
+            String date = DateTimeService.GetDateFromCurrent(x);
+            if (availabilitiesPerDayRef.containsKey(DateTimeService.GetDayFromDate(date)))
+                availabilitiesPerDay.put(date, new ArrayList<Availability>());
+        }
+
+
+        for (Availability a : this.availabilities) {
+            if (availabilitiesPerDayRef.containsKey(a.getDate()))
+                availabilitiesPerDayRef.get(a.getDate()).add(a);
+        }
+
+        for (String date : availabilitiesPerDay.keySet()) {
+            String day = DateTimeService.GetDayFromDate(date);
+            if (availabilitiesPerDayRef.containsKey(day)) {
+                for (Availability a: availabilitiesPerDayRef.get(day)) {
+                    availabilitiesPerDay.get(date).add(
+                            new Availability(
+                                    a.getDoctor(),
+                                    date,
+                                    a.getTime()
+                            )
+                    );
+                }
+            }
+        }
+
+        return availabilitiesPerDay;
+    }
+
     // Update methods
     public void UpdateRelatedData() {
         this.UpdateAvailabilitiesDoctorId();
@@ -274,9 +410,7 @@ public class Doctor extends Resident {
         this.UpdateAppointmentsResidentId();
     }
 
-    private void UpdateAvailabilitiesDoctorId() {
-        for (Availability a: this.availabilities) a.setDoctor(this);
-    }
+    private void UpdateAvailabilitiesDoctorId() { for (Availability a: this.availabilities) a.setDoctor(this); }
 
     private void UpdateReasonsDoctorId() {
         for (Reason r: this.reasons) r.setDoctor(this);
@@ -286,16 +420,17 @@ public class Doctor extends Resident {
         for (Education t: this.trainings) t.setDoctor(this);
     }
 
-    private void UpdateExperiencesDoctorId() {
-        for (Experience e: this.experiences) e.setDoctor(this);
-    }
+    private void UpdateExperiencesDoctorId() { for (Experience e: this.experiences) e.setDoctor(this); }
 
-    protected void UpdateAppointmentsResidentId() {
-        for (Booking a: this.appointments) a.setDoctor(this);
-    }
+    protected void UpdateAppointmentsResidentId() { for (Booking a: this.appointments) a.setDoctor(this); }
+
+    /**
+     * Update the current doctor
+     * @param context The calling activity
+     * @return The doctor with refreshed data
+     */
+    public Resident Update(Context context) { return new DoctorDatabaseHelper(context).GetDoctorById(this.id + ""); }
 
     // Transitive getters and setters
-    public void SetReasonId(Reason r, long reasonId) {
-        if (this.reasons.contains(r)) r.setId(reasonId);
-    }
+    public void SetReasonId(Reason r, long reasonId) { if (this.reasons.contains(r)) r.setId(reasonId); }
 }

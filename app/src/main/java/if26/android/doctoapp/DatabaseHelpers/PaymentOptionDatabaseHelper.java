@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,11 +101,11 @@ public class PaymentOptionDatabaseHelper {
      * @return The list of matching payment options
      */
     private Set<PaymentOption> BuildPaymentOptionsList(Cursor c) {
-        Set<PaymentOption> paymentOptions = new HashSet<>();
+        Set<PaymentOption> paymentOptions = new LinkedHashSet<>();
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> paymentOptionData = new HashMap<>();
+                Map<String, Object> paymentOptionData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.PaymentOption.TABLE_KEYS.length; i++) {
                     paymentOptionData.put(

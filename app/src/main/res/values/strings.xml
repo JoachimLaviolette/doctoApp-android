@@ -28,7 +28,6 @@
     <string name="search_btn">Search</string>
     <string name="search_list_item_chevron">></string>
     <string name="search_list_item_chevron_label">search_list_item_chevron</string>
-    <string name="search_intent_doctor">doctor</string>
 
     <!-- Search list -->
     <string name="doctor_service_doctor_picture">search_list_item_doctor_picture</string>
@@ -49,8 +48,12 @@
     <string name="doctor_profile_book_appointment">Book an appointment online</string>
     <string name="doctor_profile_address">Address</string>
     <string name="doctor_profile_prices_refunds">Prices and refunds</string>
+    <string name="doctor_profile_is_under_agreement_true">Under agreement</string>
+    <string name="doctor_profile_is_under_agreement_false">Not under agreement</string>
+    <string name="doctor_profile_is_health_insurance_card_true">Accepts health insurance card</string>
+    <string name="doctor_profile_is_health_insurance_card_false">Does not accept health insurance card</string>
+    <string name="doctor_profile_is_third_party_payment_true">Third party payment: Social welfare and complementary health insurance</string>
     <string name="doctor_profile_payment_options">Payment options</string>
-    <string name="doctor_profile_expertises_acts_symptoms">Expertises, acts and symptoms</string>
     <string name="doctor_profile_description">Description</string>
     <string name="doctor_profile_hours_contacts">Hours and contacts</string>
     <string name="doctor_profile_education">Education</string>
@@ -60,6 +63,12 @@
     <string name="doctor_profile_popup_content">{popup_content}</string>
     <string name="doctor_profile_popup_title">{popup_title}</string>
     <string name="doctor_profile_popup_close">x</string>
+    <string name="doctor_profile_popup_is_under_agreement">Area and agreement</string>
+    <string name="doctor_profile_popup_is_under_agreement_content">This doctor is under agreement. It applies basic rates for routine care for which you will be refunded by social welfare. The rest can be supported partially or entirely by your complementary mutual health.</string>
+    <string name="doctor_profile_popup_is_third_party_payment">Third party payment</string>
+    <string name="doctor_profile_popup_is_third_party_payment_content">You will not have to advance the social welfare and complementary health insurance costs.\nTo allow third party payment, please be sure to update your health insurance card. Also do not forget your complementary health insurance card.\nExample : for a simple consultation with a generalist practitioner at 25€ you will only have to pay the 1€ of flat rate participation.</string>
+    <string name="doctor_profile_popup_is_health_insurance_card">Insurance card</string>
+    <string name="doctor_profile_popup_is_health_insurance_card_content">Make sure your health insurance card is up to date in order to benefit from remote transmission and be refunded quickly. If it is not, update it from a pharmacy kiosk.\nRemote transmission prevents you from sending care sheet.</string>
 
     <!-- Choose reason -->
     <string name="choose_reason_title_1">Book an appointment</string>
@@ -86,7 +95,7 @@
     <!-- Confirm appointment -->
     <string name="confirm_appointment_header_title">Booking summary</string>
     <string name="confirm_appointment_success_msg_title">Your booking is confirmed</string>
-    <string name="confirm_appointment_success_msg_content">We just sent you an confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
+    <string name="confirm_appointment_success_msg_content">We just sent you a confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
 
     <!-- Appointment summary -->
     <string name="appointment_summary_fullday">{Day, Month X}</string>
@@ -100,5 +109,11 @@
     <string name="appointment_summary_warning_msg_content">{warning_msg}</string>
     <string name="appointment_summary_contact_number">{doctor_contact_number}</string>
     <string name="appointment_summary_address_content">{doctor_address_content}</string>
+
+    <!-- Intent -->
+    <string name="intent_doctor">doctor</string>
+    <string name="intent_booking">booking</string>
+    <string name="intent_reason">reason</string>
+    <string name="intent_availability">availability</string>
 
 </resources>

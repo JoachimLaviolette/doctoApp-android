@@ -1,6 +1,8 @@
 package if26.android.doctoapp.Models;
 
-public class Availability {
+import java.io.Serializable;
+
+public class Availability implements Serializable {
     private Doctor doctor;
     private String date;
     private String time;

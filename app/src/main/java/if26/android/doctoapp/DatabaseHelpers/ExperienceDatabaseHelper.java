@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +107,7 @@ public class ExperienceDatabaseHelper {
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> experienceData = new HashMap<>();
+                Map<String, Object> experienceData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Experience.TABLE_KEYS.length; i++) {
                     experienceData.put(

@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -151,11 +151,11 @@ public class BookingDatabaseHelper {
      * @return The list of matching appointments
      */
     private Set<Booking> BuildDoctorAppointmentsList(Cursor c) {
-        Set<Booking> appointments = new HashSet<>();
+        Set<Booking> appointments = new LinkedHashSet<>();
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> bookingData = new HashMap<>();
+                Map<String, Object> bookingData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Booking.TABLE_KEYS.length; i++) {
                     bookingData.put(
@@ -188,11 +188,11 @@ public class BookingDatabaseHelper {
     private Set<Booking> BuildPatientAppointmentsList(Cursor c, Patient patient) {
         DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.context);
         ReasonDatabaseHelper reasonDatabaseHelper = new ReasonDatabaseHelper(this.context);
-        Set<Booking> appointments = new HashSet<>();
+        Set<Booking> appointments = new LinkedHashSet<>();
 
         if (c.moveToFirst()) {
             do {
-                Map<String, Object> bookingData = new HashMap<>();
+                Map<String, Object> bookingData = new LinkedHashMap<>();
 
                 for (int i = 0; i < DoctoAppDatabaseContract.Booking.TABLE_KEYS.length; i++) {
                     bookingData.put(
