@@ -84,6 +84,28 @@ public class BookingDatabaseHelper {
     }
 
     /**
+     * Insert a new appointment using the provided model
+     * @param booking The appointment to add
+     * @return If the appointment was properly added in the database
+     */
+    public boolean InsertAppointment(Booking booking) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        ContentValues bookingContentValues = new ContentValues();
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT, booking.getPatient().getId());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR, booking.getDoctor().getId());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON, booking.getReason().getId());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE, booking.getDate());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME, booking.getTime());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE, booking.getBookingDate());
+
+        return database.insert(
+                DoctoAppDatabaseContract.Booking.TABLE_NAME,
+                null,
+                bookingContentValues
+        ) != -1;
+    }
+
+    /**
      * Create data struct for booking using the given resident model
      * @param resident The resident model
      * @return The data struct

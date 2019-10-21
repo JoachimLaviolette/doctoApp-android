@@ -149,6 +149,32 @@ public class PatientDatabaseHelper {
     }
 
     /**
+     * Get a patient by email
+     * @param email The email
+     * @return A patient if found, null otherwise
+     */
+    public Patient GetPatientByEmail(String email) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.Patient.TABLE_NAME,
+                DoctoAppDatabaseContract.Patient.COLUMN_NAME_EMAIL
+        );
+
+        String[] args = { email };
+
+        Cursor c = database.rawQuery(query, args);
+        List<Patient> patientsList = this.BuildPatientsList(c);
+        Patient patient = patientsList.size() > 0 ? patientsList.get(0) : null;
+        c.close();
+
+        return patient;
+    }
+
+    /**
      * Build the list of patients iterating on the given cursor
      * @param c Cursor pointing search query results
      * @return The list of matching patients

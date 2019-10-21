@@ -1,6 +1,8 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,17 +35,22 @@ import if26.android.doctoapp.Models.Language;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.PaymentOption;
 import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
+import if26.android.doctoapp.Services.RequestCode;
 
 public class SearchActivity
         extends AppCompatActivity
         implements View.OnClickListener, AdapterView.OnItemClickListener {
+    private Patient loggedUser;
 
     private EditText searchBar;
     private Button searchBtn;
     private ListView searchList;
     private String searchContent;
+
+    private static SharedPreferences sharedPrefences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,7 @@ public class SearchActivity
         this.Search();
 
         // Create data in db
-        //this.CreateDataDb();
+        // this.CreateDataDb();
     }
 
     /**
@@ -83,8 +90,8 @@ public class SearchActivity
         boolean isHealthInsuranceCard = true;
         boolean isThirdPartyPayment = false;
         String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("child");
-        String pwdSalt = EncryptionService.SALT(pwd);
+        String pwdSalt = EncryptionService.SALT();
+        String pwd = EncryptionService.SHA1("child" + pwdSalt);
 
         // address
         String city = "Lyon";
@@ -160,17 +167,17 @@ public class SearchActivity
         DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
 
         // doctor data
-        String firstname = "Japp";
-        String lastname = "Lavoine";
-        String email = "serge.lavoine@gmail.com";
+        String firstname = "Lyssana";
+        String lastname = "Vistorky";
+        String email = "lyssana.vistorky@gmail.com";
         String speciality = "Dentist";
         String description = "Specialized in teeth surgery";
         boolean isUnderAgreement = false;
         boolean isHealthInsuranceCard = false;
         boolean isThirdPartyPayment = false;
         String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("test");
-        String pwdSalt = EncryptionService.SALT(pwd);
+        String pwdSalt = EncryptionService.SALT();
+        String pwd = EncryptionService.SHA1("test" + pwdSalt);
 
 // address
         String city = "Bordeaux";
@@ -255,8 +262,8 @@ public class SearchActivity
         boolean isHealthInsuranceCard = true;
         boolean isThirdPartyPayment = true;
         String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("hello");
-        String pwdSalt = EncryptionService.SALT(pwd);
+        String pwdSalt = EncryptionService.SALT();
+        String pwd = EncryptionService.SHA1("hello" + pwdSalt);
 
 // address
         String city = "Saint-Etienne";
@@ -348,8 +355,8 @@ public class SearchActivity
         String email = "ewen.coppens@gmail.com";
         String insuranceNumber = "2 18 15 62 489 658 27";
         String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("world");
-        String pwdSalt = EncryptionService.SALT(pwd);
+        String pwdSalt = EncryptionService.SALT();
+        String pwd = EncryptionService.SHA1("world" + pwdSalt);
 
         // address
         String city = "Paris";
@@ -387,6 +394,7 @@ public class SearchActivity
      */
     private void Instantiate() {
         setTitle(R.string.title_search);
+        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.searchBar = findViewById(R.id.search_bar);
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
@@ -413,11 +421,14 @@ public class SearchActivity
         Bundle bundle = i.getExtras();
 
         // Retrieve the params
-        String key = this.getResources().getString(R.string.main_intent_search);
-        String searchContent = bundle.getString(key).trim();
+        // Get the logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
 
-        // Save the search content
-        this.searchContent = searchContent;
+        // Get the search bar content
+        key = this.getResources().getString(R.string.main_intent_search);
+        this.searchContent = bundle.getString(key).trim();
     }
 
     /**
@@ -531,7 +542,7 @@ public class SearchActivity
 
     /**
      * Handle click events
-     * @param v Search view
+     * @param v The view that has been clicked
      */
     @Override
     public void onClick(View v) {
@@ -552,10 +563,42 @@ public class SearchActivity
         Intent i = new Intent(SearchActivity.this, DoctorProfileActivity.class);
 
         // Prepare the intent parameters
+        // The selected doctor
         String key = this.getResources().getString(R.string.intent_doctor);
         i.putExtra(key, (Serializable) ((LinkedHashMap<String, Object>) parent.getAdapter().getItem(position)).get(key));
 
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
         // Start the activity
-        startActivity(i);
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        // Put extra parameters
+        // The logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        // Check which request we're responding to
+        if (requestCode == RequestCode.LOGGED_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+            }
+        }
     }
 }

@@ -9,17 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".ConfirmAppointmentActivity"></activity>
-        <activity android:name=".ChooseAvailabilityActivity" />
-        <activity android:name=".ChooseReasonActivity" />
-        <activity android:name=".DoctorProfileActivity" />
+        <activity android:name=".Activities.ConfirmAppointmentActivity"></activity>
+        <activity android:name=".Activities.ChooseAvailabilityActivity" />
+        <activity android:name=".Activities.ChooseReasonActivity" />
+        <activity android:name=".Activities.DoctorProfileActivity" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Activities.SearchActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

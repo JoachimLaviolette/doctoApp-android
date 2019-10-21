@@ -47,10 +47,9 @@ public class EncryptionService {
 
     /**
      * Create a salt from the given encrypted password
-     * @param encryptedPwd The encrypted password
      * @return The created salt
      */
-    public static String SALT(String encryptedPwd) {
-        return SHA1(encryptedPwd + UUID.randomUUID().toString());
+    public static String SALT() {
+        return SHA1(UUID.randomUUID().toString());
     }
 }

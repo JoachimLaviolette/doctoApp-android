@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/search_background"
-    tools:context=".SearchActivity">
+    tools:context=".Activities.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

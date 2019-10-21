@@ -10,8 +10,8 @@
     <string name="main_search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="main_search_btn">Search</string>
     <!-- Intent -->
-    <!-- Search -->
-    <string name="main_intent_search">search_content</string>
+        <!-- Search -->
+        <string name="main_intent_search">search_content</string>
 
     <!-- Login -->
     <string name="login_caption">Login and access your member profile</string>
@@ -20,8 +20,15 @@
     <string name="login_stay_logged">I want to stay connected</string>
     <string name="login_forgot_pwd">Forgot password?</string>
     <string name="login_btn">Login</string>
+    <string name="login_logout_btn">Logout</string>
     <string name="login_signup_caption">You are a professional?</string>
     <string name="login_signup_link">Access your professional account</string>
+    <string name="login_success_msg_title">Connexion succeeded</string>
+    <string name="login_success_msg_content">You are now connected. You can view your bookings and update your personal information using the right sidebar.</string>
+    <string name="login_error_msg_title">Connexion failed</string>
+    <string name="login_error_msg_content">Impossible to connect. Please check your email and/or your password. Make sure it exists, ask for renewing your password, or create an account using the links below.</string>
+    <string name="login_toast_login_content">You are now connected to your patient account</string>
+    <string name="login_toast_logout_content">You are now disconnected from your patient account</string>
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>
@@ -96,6 +103,8 @@
     <string name="confirm_appointment_header_title">Booking summary</string>
     <string name="confirm_appointment_success_msg_title">Your booking is confirmed</string>
     <string name="confirm_appointment_success_msg_content">We just sent you a confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
+    <string name="confirm_appointment_error_msg_title">Something went wrong with your booking...</string>
+    <string name="confirm_appointment_error_msg_content">Your booking could not be confirmed. It appears you already have a booking scheduled at this date with the doctor.</string>
 
     <!-- Appointment summary -->
     <string name="appointment_summary_fullday">{Day, Month X}</string>
@@ -111,6 +120,7 @@
     <string name="appointment_summary_address_content">{doctor_address_content}</string>
 
     <!-- Intent -->
+    <string name="intent_logged_user">logged_user</string>
     <string name="intent_doctor">doctor</string>
     <string name="intent_booking">booking</string>
     <string name="intent_reason">reason</string>

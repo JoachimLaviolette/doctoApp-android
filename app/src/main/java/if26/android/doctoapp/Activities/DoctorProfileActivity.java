@@ -1,4 +1,4 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +16,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.R;
+import if26.android.doctoapp.Services.RequestCode;
 
 public class DoctorProfileActivity
         extends AppCompatActivity
         implements View.OnClickListener {
     private Doctor doctor;
+    private Patient loggedUser;
 
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
@@ -103,9 +106,16 @@ public class DoctorProfileActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        String key = this.getResources().getString(R.string.intent_doctor);
+        Bundle bundle = i.getExtras();
+
+        // Retrieve the params
+        // Get the logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
 
         // Get the doctor
+        key = this.getResources().getString(R.string.intent_doctor);
         this.doctor = (Doctor) i.getExtras().getSerializable(key);
         this.doctor = (Doctor) this.doctor.Update(this.getApplicationContext());
     }
@@ -150,7 +160,7 @@ public class DoctorProfileActivity
 
     /**
      * Handle click events
-     * @param v DoctorProfileActivity view
+     * @param v The view that has been clicked
      */
     @Override
     public void onClick(View v) {
@@ -228,12 +238,18 @@ public class DoctorProfileActivity
      * Start BookAppointment activity
      */
     private void BookAppointment() {
+        if(this.loggedUser == null) {
+            startActivityForResult(new Intent(DoctorProfileActivity.this, LoginActivity.class), RequestCode.CONNECT_PATIENT);
+
+            return;
+        }
+
         // Create the intent
         Intent i = new Intent(DoctorProfileActivity.this, ChooseReasonActivity.class);
 
         // Create the appointment object
         Booking booking = new Booking(
-                (new PatientDatabaseHelper(this.getApplicationContext()).GetPatients().get(0)),
+                this.loggedUser,
                 this.doctor,
                 null,
                 "",
@@ -242,11 +258,16 @@ public class DoctorProfileActivity
         );
 
         // Prepare the intent parameters
+        // The booking
         String key = this.getResources().getString(R.string.intent_booking);
         i.putExtra(key, booking);
 
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
         // Start the activity
-        startActivity(i);
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**
@@ -367,6 +388,46 @@ public class DoctorProfileActivity
             this.isHealthInsuranceCardPopupContent.setText(this.getResources().getString(R.string.doctor_profile_popup_is_health_insurance_card_content));
         } else {
             this.isHealthInsuranceCardPopupSection.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        // Put extra parameters
+        // The logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        // Check which request we're responding to
+        if (requestCode == RequestCode.LOGGED_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+
+            }
+        }
+
+        if (requestCode == RequestCode.CONNECT_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.BookAppointment();
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,17 +19,23 @@ import java.util.Map;
 import if26.android.doctoapp.Models.Availability;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.RequestCode;
 
 public class ChooseAvailabilityActivity
         extends AppCompatActivity
         implements AdapterView.OnClickListener {
     private Doctor doctor;
     private Booking booking;
+    private Patient loggedUser;
 
     private TextView doctorFullname;
     private GridLayout dateTimeListGlobalLayout;
     private static DateTimeService dateTimeService;
+
+    private static SharedPreferences sharedPrefences;
 
     private static int WEEKS_NUMBER = 1;
 
@@ -38,7 +46,6 @@ public class ChooseAvailabilityActivity
 
         this.RetrieveExtraParams();
         this.Instantiate();
-        this.SubscribeEvents();
         this.SetContent();
     }
 
@@ -46,16 +53,10 @@ public class ChooseAvailabilityActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
+        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         dateTimeService = new DateTimeService(this);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);
-    }
-
-    /**
-     * Listen to the events
-     */
-    private void SubscribeEvents() {
-
     }
 
     /**
@@ -63,10 +64,17 @@ public class ChooseAvailabilityActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        String key = this.getResources().getString(R.string.intent_booking);
+        Bundle bundle = i.getExtras();
+
+        // Retrieve the params
+        // Get the logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
 
         // Get the booking
-        this.booking = (Booking) i.getExtras().getSerializable(key);
+        key = this.getResources().getString(R.string.intent_booking);
+        this.booking = (Booking) bundle.getSerializable(key);
 
         // Get the doctor
         this.doctor = this.booking.getDoctor();
@@ -127,7 +135,7 @@ public class ChooseAvailabilityActivity
 
     /**
      * Handle click events
-     * @param v ChooseDataTime The view item that wa clicked
+     * @param v The view that has been clicked
      */
     @Override
     public void onClick(View v) {
@@ -153,14 +161,19 @@ public class ChooseAvailabilityActivity
         Intent i = new Intent(ChooseAvailabilityActivity.this, ConfirmAppointmentActivity.class);
 
         // Prepare the intent parameters
+        // The completed booking
         String key = this.getResources().getString(R.string.intent_booking);
         this.booking.setDate((new DateTimeService(this.getApplicationContext()).GetFullDayFromData(dateData)));
         this.booking.setTime(dateData.get(this.getResources().getString(R.string.date_service_time)));
         this.booking.setBookingDate(DateTimeService.GetCurrentDateTime());
         i.putExtra(key, this.booking);
 
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
         // Start the activity
-        startActivity(i);
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**
@@ -172,5 +185,32 @@ public class ChooseAvailabilityActivity
         if (!timeTag.contains(" ")) return timeTag;
 
         return timeTag.substring(0, timeTag.indexOf(" "));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        // Put extra parameters
+        // The logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        // Check which request we're responding to
+        if (requestCode == RequestCode.LOGGED_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+            }
+        }
     }
 }
