@@ -7,8 +7,9 @@ PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplic
         String email = "ewen.coppens@gmail.com";
         String insuranceNumber = "2 18 15 62 489 658 27";
         String lastLogin = DateTimeService.GetCurrentDateTime();
-        String pwd = EncryptionService.SHA1("world");
-        String pwdSalt = EncryptionService.SALT(pwd);
+        String pwdSalt = EncryptionService.SALT();
+        String pwd = EncryptionService.SHA1("world" + pwdSalt);
+
 
         // address
         String city = "Paris";

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfirmAppointmentActivity">
+    tools:context=".Activities.ConfirmAppointmentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:background="@color/confirm_appointment_body">
 
             <LinearLayout
-                android:id="@+id/confirm_appointment_success_msg"
+                android:id="@+id/confirm_appointment_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15sp"
@@ -49,7 +49,7 @@
                 android:textAlignment="center">
 
                 <TextView
-                    android:id="@+id/confirm_appointment_success_msg_title"
+                    android:id="@+id/confirm_appointment_msg_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"
@@ -61,7 +61,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/confirm_appointment_success_msg_content"
+                    android:id="@+id/confirm_appointment_msg_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10sp"

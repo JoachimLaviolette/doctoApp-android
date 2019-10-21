@@ -1,17 +1,23 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import if26.android.doctoapp.DatabaseHelpers.BookingDatabaseHelper;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.RequestCode;
 
 public class ConfirmAppointmentActivity
         extends AppCompatActivity
@@ -19,6 +25,13 @@ public class ConfirmAppointmentActivity
     private Doctor doctor;
     private Patient patient;
     private Booking booking;
+    private Patient loggedUser;
+
+    private LinearLayout confirmAppointmentSummary;
+    private LinearLayout confirmAppointmentMsg;
+
+    private TextView confirmAppointmentMsgTitle;
+    private TextView confirmAppointmentMsgContent;
 
     private TextView appointmentDay;
     private TextView appointmentTime;
@@ -38,6 +51,8 @@ public class ConfirmAppointmentActivity
 
     private static DateTimeService dateTimeService;
 
+    private static SharedPreferences sharedPrefences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +68,12 @@ public class ConfirmAppointmentActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
+        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         dateTimeService = new DateTimeService(this);
+        this.confirmAppointmentSummary = findViewById(R.id.confirm_appointment_summary);
+        this.confirmAppointmentMsg = findViewById(R.id.confirm_appointment_msg);
+        this.confirmAppointmentMsgTitle = findViewById(R.id.confirm_appointment_msg_title);
+        this.confirmAppointmentMsgContent = findViewById(R.id.confirm_appointment_msg_content);
         this.appointmentDay = findViewById(R.id.appointment_summary_fullday);
         this.appointmentTime = findViewById(R.id.appointment_summary_time);
         this.doctorPicture = findViewById(R.id.appointment_summary_doctor_picture);
@@ -77,10 +97,17 @@ public class ConfirmAppointmentActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        String key = this.getResources().getString(R.string.intent_booking);
+        Bundle bundle = i.getExtras();
+
+        // Retrieve the params
+        // Get the logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
 
         // Get the booking
-        this.booking = (Booking) i.getExtras().getSerializable(key);
+        key = this.getResources().getString(R.string.intent_booking);
+        this.booking = (Booking) bundle.getSerializable(key);
 
         // Get the doctor
         this.doctor = this.booking.getDoctor();
@@ -95,6 +122,16 @@ public class ConfirmAppointmentActivity
      * Set content procedurally
      */
     private void SetContent() {
+        if ((new BookingDatabaseHelper(this.getApplicationContext())).InsertAppointment(this.booking))
+            this.SetSuccessContent();
+        else
+            this.SetErrorContent();
+    }
+
+    /**
+     * Set the content in case the booking has successfully been created
+     */
+    private void SetSuccessContent() {
         // Set appointment full day
         this.appointmentDay.setText(this.booking.getDate());
 
@@ -118,8 +155,18 @@ public class ConfirmAppointmentActivity
     }
 
     /**
+     * Set the content in case something went wrong with the booking
+     */
+    private void SetErrorContent() {
+        this.confirmAppointmentSummary.setVisibility(View.GONE);
+        this.confirmAppointmentMsg.setBackgroundResource(R.color.confirm_appointment_error_msg);
+        this.confirmAppointmentMsgTitle.setText(this.getResources().getString(R.string.confirm_appointment_error_msg_title));
+        this.confirmAppointmentMsgContent.setText(this.getResources().getString(R.string.confirm_appointment_error_msg_content));
+    }
+
+    /**
      * Handle click events
-     * @param v ConfirmAppointment view
+     * @param v The view that has been clicked
      */
     @Override
     public void onClick(View v) {
@@ -135,10 +182,42 @@ public class ConfirmAppointmentActivity
         Intent i = new Intent(ConfirmAppointmentActivity.this, DoctorProfileActivity.class);
 
         // Prepare the intent parameters
+        // The doctor
         String key = this.getResources().getString(R.string.intent_doctor);
         i.putExtra(key, this.doctor);
 
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
         // Start the activity
-        startActivity(i);
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        // Put extra parameters
+        // The logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        // Check which request we're responding to
+        if (requestCode == RequestCode.LOGGED_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+            }
+        }
     }
 }

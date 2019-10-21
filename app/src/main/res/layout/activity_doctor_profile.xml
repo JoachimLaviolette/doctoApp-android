@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/doctor_profile_background"
     android:isScrollContainer="true"
-    tools:context=".DoctorProfileActivity">
+    tools:context=".Activities.DoctorProfileActivity">
 
     <ScrollView
         android:layout_width="match_parent"

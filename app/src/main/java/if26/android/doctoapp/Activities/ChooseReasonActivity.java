@@ -1,6 +1,8 @@
-package if26.android.doctoapp;
+package if26.android.doctoapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,16 +19,22 @@ import java.util.Map;
 
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.R;
+import if26.android.doctoapp.Services.RequestCode;
 
 public class ChooseReasonActivity
         extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
     private Doctor doctor;
     private Booking booking;
+    private Patient loggedUser;
 
     private TextView doctorFullname;
     private ListView reasonsList;
+
+    private static SharedPreferences sharedPrefences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class ChooseReasonActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
+        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.doctorFullname = findViewById(R.id.choose_reason_doctor_fullname);
         this.reasonsList = findViewById(R.id.reasons_list);
     }
@@ -59,10 +68,17 @@ public class ChooseReasonActivity
      */
     private void RetrieveExtraParams() {
         Intent i = getIntent();
-        String key = this.getResources().getString(R.string.intent_booking);
+        Bundle bundle = i.getExtras();
+
+        // Retrieve the params
+        // Get the logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
 
         // Get the booking
-        this.booking = (Booking) i.getExtras().getSerializable(key);
+        key = this.getResources().getString(R.string.intent_booking);
+        this.booking = (Booking) bundle.getSerializable(key);
 
         // Get the doctor
         this.doctor = this.booking.getDoctor();
@@ -119,7 +135,7 @@ public class ChooseReasonActivity
 
     /**
      * Handle action when clicking on one of the reasons of the list
-     * @param parent
+     * @param parent The adapter used in the list
      * @param view Choose reason view
      * @param position Clicked item position
      * @param id Clicked item id
@@ -130,6 +146,7 @@ public class ChooseReasonActivity
         Intent i = new Intent(ChooseReasonActivity.this, ChooseAvailabilityActivity.class);
 
         // Prepare the intent parameters
+        // The chosen reason
         String key = this.getResources().getString(R.string.intent_reason);
         Reason r = (Reason) ((LinkedHashMap<String, Object>) parent.getAdapter().getItem(position)).get(key);
         this.booking.setReason(r);
@@ -137,7 +154,38 @@ public class ChooseReasonActivity
         key = this.getResources().getString(R.string.intent_booking);
         i.putExtra(key, this.booking);
 
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
         // Start the activity
-        startActivity(i);
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        // Put extra parameters
+        // The logged user
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        // Check which request we're responding to
+        if (requestCode == RequestCode.LOGGED_PATIENT) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // Get the logged user
+                Bundle bundle = intent.getExtras();
+                String key = this.getResources().getString(R.string.intent_logged_user);
+                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+            }
+        }
     }
 }
