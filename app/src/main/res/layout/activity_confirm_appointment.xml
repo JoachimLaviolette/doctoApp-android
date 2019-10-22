@@ -35,8 +35,8 @@
             android:id="@+id/confirm_appointment_body"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/confirm_appointment_body">
+            android:background="@color/confirm_appointment_body"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/confirm_appointment_msg"
@@ -75,14 +75,27 @@
             <LinearLayout
                 android:id="@+id/confirm_appointment_summary"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="15sp">
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:orientation="vertical">
 
                 <include layout="@layout/appointment_summary" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/confirm_appointment_see_my_bookings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15sp"
+                android:background="@color/confirm_appointment_see_my_bookings_background"
+                android:fontFamily="@font/roboto"
+                android:text="@string/confirm_appointment_see_my_bookings"
+                android:textColor="@color/confirm_appointment_see_my_bookings_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

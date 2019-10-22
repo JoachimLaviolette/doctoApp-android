@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.MyBookingsActivity">
+
+    <LinearLayout
+        android:id="@+id/my_bookings_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/my_bookings_body"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/my_bookings_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_bookings_header"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:id="@+id/my_bookings_title_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/my_bookings_title_1"
+                android:textColor="@color/my_bookings_title_1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/my_bookings_view_appointments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/my_bookings_view_appointments"
+                android:textColor="@color/my_bookings_view_appointments"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/my_bookings_no_booking_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:background="@color/my_bookings_no_booking_msg"
+            android:orientation="vertical"
+            android:padding="10sp"
+            android:textAlignment="center">
+
+            <TextView
+                android:id="@+id/my_bookings_no_booking_msg_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/my_bookings_no_booking_msg_title"
+                android:textAlignment="center"
+                android:textColor="@color/my_bookings_no_booking_msg_title"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/my_bookings_no_booking_msg_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/my_bookings_no_booking_msg_content"
+                android:textAlignment="center"
+                android:textColor="@color/my_bookings_no_booking_msg_content"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15sp"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="7.5sp">
+
+            <include layout="@layout/appointment_list" />
+
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
