@@ -2,7 +2,6 @@ package if26.android.doctoapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +27,7 @@ public class LoginActivity
     private LinearLayout loginMsg;
     private TextView loginMsgTitle;
     private TextView loginMsgContent;
-    private EditText usernameInput;
+    private EditText emailInput;
     private EditText passwordInput;
     private CheckBox stayLogged;
     private TextView forgotPwd;
@@ -36,9 +35,9 @@ public class LoginActivity
     private Button loginBtn;
     private Button logoutBtn;
     private TextView signupLink;
+    private LinearLayout signupSection;
+    private TextView proAccountLink;
     private LinearLayout professionalSection;
-
-    private static SharedPreferences sharedPrefences;
 
     private static final int LOGOUT = 0;
     private static final int LOGIN = 1;
@@ -58,12 +57,11 @@ public class LoginActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.loggedUser = null;
         this.loginMsg = findViewById(R.id.login_msg);
         this.loginMsgTitle = findViewById(R.id.login_msg_title);
         this.loginMsgContent = findViewById(R.id.login_msg_content);
-        this.usernameInput = findViewById(R.id.login_username);
+        this.emailInput = findViewById(R.id.login_email);
         this.passwordInput = findViewById(R.id.login_pwd);
         this.stayLogged = findViewById(R.id.login_stay_logged);
         this.forgotPwd = findViewById(R.id.login_forgot_pwd);
@@ -71,7 +69,9 @@ public class LoginActivity
         this.loginBtn = findViewById(R.id.login_btn);
         this.logoutBtn = findViewById(R.id.login_logout_btn);
         this.signupLink = findViewById(R.id.login_signup_link);
-        this.professionalSection = findViewById(R.id.login_professional_section);
+        this.signupSection = findViewById(R.id.login_signup_section);
+        this.proAccountLink = findViewById(R.id.login_pro_account_link);
+        this.professionalSection = findViewById(R.id.login_pro_account_section);
     }
 
     /**
@@ -82,6 +82,7 @@ public class LoginActivity
         this.loginBtn.setOnClickListener(this);
         this.logoutBtn.setOnClickListener(this);
         this.signupLink.setOnClickListener(this);
+        this.proAccountLink.setOnClickListener(this);
     }
 
     /**
@@ -134,7 +135,11 @@ public class LoginActivity
 
                 return;
             case R.id.login_signup_link:
-                this.SignUp();
+                this.Signup();
+
+                return;
+            case R.id.login_pro_account_link:
+                this.LoginProAccount();
 
                 return;
         }
@@ -144,29 +149,30 @@ public class LoginActivity
      * Set Login context
      */
     private void SetLoginContext() {
-        this.usernameInput.setVisibility(View.VISIBLE);
+        this.emailInput.setVisibility(View.VISIBLE);
         this.passwordInput.setVisibility(View.VISIBLE);
         this.optionsSection.setVisibility(View.VISIBLE);
         this.loginBtn.setVisibility(View.VISIBLE);
         this.logoutBtn.setVisibility(View.GONE);
+        this.signupSection.setVisibility(View.VISIBLE);
         this.professionalSection.setVisibility(View.VISIBLE);
         this.loginMsg.setVisibility(View.GONE);
-        this.usernameInput.setText("");
+        this.emailInput.setText("");
         this.passwordInput.setText("");
         this.stayLogged.setChecked(false);
     }
 
     /**
-     * Try to login using patient credentials from the input fields
+     * Execute login process
      */
     private void Login() {
-        String inputEmail = this.usernameInput.getText().toString();
+        String inputEmail = this.emailInput.getText().toString();
 
         // Try to get a patient using the provided username
         Patient patient = (new PatientDatabaseHelper(this.getApplicationContext())).GetPatientByEmail(inputEmail);
 
         if (patient != null) {
-            String inputPwd = this.passwordInput.getText().toString();
+            String inputPwd = this.passwordInput.getText().toString().trim();
             String salt = patient.getPwdSalt();
             String hashedInputPwd = EncryptionService.SHA1(inputPwd + salt);
             String patientPwd = patient.getPwd();
@@ -174,13 +180,13 @@ public class LoginActivity
             if (patientPwd.equals(hashedInputPwd)) {
                 // Logged-in
                 this.DisplaySuccessMsg();
+                this.MakeToast(this.LOGIN);
                 this.loggedUser = patient;
                 Intent i = new Intent();
                 String key = this.getResources().getString(R.string.intent_logged_user);
                 i.putExtra(key, this.loggedUser);
                 setResult(RESULT_OK, i);
                 finish();
-                this.MakeToast(this.LOGIN);
 
                 return;
             }
@@ -198,11 +204,12 @@ public class LoginActivity
         this.loginMsg.setBackgroundResource(R.color.login_success_msg);
         this.loginMsgTitle.setText(this.getResources().getString(R.string.login_success_msg_title));
         this.loginMsgContent.setText(this.getResources().getString(R.string.login_success_msg_content));
-        this.usernameInput.setVisibility(View.GONE);
+        this.emailInput.setVisibility(View.GONE);
         this.passwordInput.setVisibility(View.GONE);
         this.optionsSection.setVisibility(View.GONE);
         this.loginBtn.setVisibility(View.GONE);
         this.logoutBtn.setVisibility(View.VISIBLE);
+        this.signupSection.setVisibility(View.GONE);
         this.professionalSection.setVisibility(View.GONE);
     }
 
@@ -226,16 +233,32 @@ public class LoginActivity
     }
 
     /**
-     * Start SignUp activity
+     * Start Signup activity
      */
-    private void SignUp() {
+    private void Signup() {
+        // Create the intent
+        Intent i = new Intent(LoginActivity.this, SignupActivity.class);
 
+        // Put extra parameters
+        // The search bar content
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**
      * Start ForgotPwd activity
      */
     private void ForgotPwd() {
+
+    }
+
+    /**
+     * Start LoginProAccount activity
+     */
+    private void LoginProAccount() {
 
     }
 

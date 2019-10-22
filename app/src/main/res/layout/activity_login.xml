@@ -68,7 +68,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/login_username"
+                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/editbox_background_normal"
@@ -78,8 +78,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/login_input_text"
                 android:textColorHint="@color/login_input_hint"
-                android:hint="@string/login_username_placeholder"
-                android:inputType="textPersonName" />
+                android:hint="@string/login_email_placeholder"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/login_pwd"
@@ -112,9 +112,7 @@
                     android:fontFamily="@font/roboto"
                     android:text="@string/login_stay_logged"
                     android:textColor="@color/login_stay_logged"
-                    android:textColorHighlight="@color/login_forgot_pwd"
-                    android:textColorHint="@color/login_forgot_pwd"
-                    android:textColorLink="@color/login_forgot_pwd" />
+                    android:textColorHint="@color/login_forgot_pwd"/>
 
                 <TextView
                     android:id="@+id/login_forgot_pwd"
@@ -125,9 +123,7 @@
                     android:text="@string/login_forgot_pwd"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/login_forgot_pwd"
-                    android:textColorHighlight="@color/login_forgot_pwd"
                     android:textColorHint="@color/login_forgot_pwd"
-                    android:textColorLink="@color/login_forgot_pwd"
                     android:textStyle="normal" />
 
             </LinearLayout>
@@ -143,9 +139,7 @@
                 android:paddingLeft="20dp"
                 android:text="@string/login_logout_btn"
                 android:textColor="@color/login_logout_btn_text"
-                android:textColorHighlight="@color/login_logout_btn_text"
                 android:textColorHint="@color/login_logout_btn_text"
-                android:textColorLink="@color/login_logout_btn_text"
                 android:textSize="18sp"
                 android:textStyle="normal" />
 
@@ -158,20 +152,18 @@
                 android:fontFamily="@font/roboto"
                 android:text="@string/login_btn"
                 android:textColor="@color/login_btn_text"
-                android:textColorHighlight="@color/login_btn_text"
                 android:textColorHint="@color/login_btn_text"
-                android:textColorLink="@color/login_btn_text"
                 android:textSize="18sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/login_professional_section"
+            android:id="@+id/login_signup_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
-            android:layout_marginBottom="15sp"
+            android:layout_marginBottom="5sp"
             android:background="@color/login_signup_background"
             android:orientation="vertical"
             android:padding="20sp">
@@ -195,8 +187,38 @@
                 android:text="@string/login_signup_link"
                 android:textAlignment="center"
                 android:textColor="@color/login_signup_link"
-                android:textColorHighlight="@color/login_signup_link"
-                android:textColorLink="@color/login_signup_link"
+                android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/login_pro_account_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="15sp"
+            android:background="@color/login_signup_background"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:id="@+id/login_pro_account_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:paddingBottom="5sp"
+                android:text="@string/login_pro_account_caption"
+                android:textAlignment="center"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/login_pro_account_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:paddingTop="5sp"
+                android:text="@string/login_pro_account_link"
+                android:textAlignment="center"
+                android:textColor="@color/login_pro_account_link"
                 android:textStyle="normal|bold" />
         </LinearLayout>
 

@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Activities.ConfirmAppointmentActivity"></activity>
+        <activity
+            android:name=".Activities.SignupActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".Activities.ConfirmAppointmentActivity" />
         <activity android:name=".Activities.ChooseAvailabilityActivity" />
         <activity android:name=".Activities.ChooseReasonActivity" />
         <activity android:name=".Activities.DoctorProfileActivity" />

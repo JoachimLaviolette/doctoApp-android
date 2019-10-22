@@ -10,7 +10,6 @@ PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplic
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1("world" + pwdSalt);
 
-
         // address
         String city = "Paris";
         String country = "France";
