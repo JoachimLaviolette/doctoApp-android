@@ -1,8 +1,6 @@
 package if26.android.doctoapp.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,8 +23,6 @@ public class MainActivity
     private EditText searchBar;
     private Button searchBtn;
 
-    private static SharedPreferences sharedPrefences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +37,6 @@ public class MainActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.loginBtn = findViewById(R.id.main_login);
         this.searchBar = findViewById(R.id.main_search_bar);
         this.searchBtn = findViewById(R.id.main_search_btn);

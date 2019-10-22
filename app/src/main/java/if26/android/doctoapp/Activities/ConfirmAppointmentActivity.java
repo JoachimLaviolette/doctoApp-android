@@ -1,8 +1,6 @@
 package if26.android.doctoapp.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,8 +49,6 @@ public class ConfirmAppointmentActivity
 
     private static DateTimeService dateTimeService;
 
-    private static SharedPreferences sharedPrefences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +64,6 @@ public class ConfirmAppointmentActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         dateTimeService = new DateTimeService(this);
         this.confirmAppointmentSummary = findViewById(R.id.confirm_appointment_summary);
         this.confirmAppointmentMsg = findViewById(R.id.confirm_appointment_msg);

@@ -1,8 +1,6 @@
 package if26.android.doctoapp.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,8 +32,6 @@ public class ChooseReasonActivity
     private TextView doctorFullname;
     private ListView reasonsList;
 
-    private static SharedPreferences sharedPrefences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +47,6 @@ public class ChooseReasonActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.doctorFullname = findViewById(R.id.choose_reason_doctor_fullname);
         this.reasonsList = findViewById(R.id.reasons_list);
     }

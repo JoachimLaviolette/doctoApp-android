@@ -1,8 +1,6 @@
 package if26.android.doctoapp.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +33,6 @@ public class ChooseAvailabilityActivity
     private GridLayout dateTimeListGlobalLayout;
     private static DateTimeService dateTimeService;
 
-    private static SharedPreferences sharedPrefences;
-
     private static int WEEKS_NUMBER = 1;
 
     @Override
@@ -53,7 +49,6 @@ public class ChooseAvailabilityActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         dateTimeService = new DateTimeService(this);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);

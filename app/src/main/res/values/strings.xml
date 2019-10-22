@@ -4,31 +4,80 @@
     <!-- Titles -->
     <string name="title_search">Search</string>
     <string name="title_login">Login</string>
+    <string name="title_signup">Sign-up</string>
 
     <!-- Main -->
     <string name="main_caption">Book an appointment with a specialized doctor online</string>
     <string name="main_search_bar_placeholder">Doctor, place, speciality...</string>
     <string name="main_search_btn">Search</string>
     <!-- Intent -->
-        <!-- Search -->
-        <string name="main_intent_search">search_content</string>
+    <!-- Search -->
+    <string name="main_intent_search">search_content</string>
 
     <!-- Login -->
     <string name="login_caption">Login and access your member profile</string>
-    <string name="login_username_placeholder">Email or phone number</string>
+    <string name="login_email_placeholder">Email</string>
     <string name="login_pwd_placeholder">Password</string>
     <string name="login_stay_logged">I want to stay connected</string>
     <string name="login_forgot_pwd">Forgot password?</string>
     <string name="login_btn">Login</string>
     <string name="login_logout_btn">Logout</string>
-    <string name="login_signup_caption">You are a professional?</string>
-    <string name="login_signup_link">Access your professional account</string>
+    <string name="login_signup_caption">Not registered yet?</string>
+    <string name="login_signup_link">Create your account now</string>
+    <string name="login_pro_account_caption">You are a professional?</string>
+    <string name="login_pro_account_link">Access your professional account</string>
     <string name="login_success_msg_title">Connexion succeeded</string>
     <string name="login_success_msg_content">You are now connected. You can view your bookings and update your personal information using the right sidebar.</string>
     <string name="login_error_msg_title">Connexion failed</string>
     <string name="login_error_msg_content">Impossible to connect. Please check your email and/or your password. Make sure it exists, ask for renewing your password, or create an account using the links below.</string>
     <string name="login_toast_login_content">You are now connected to your patient account</string>
     <string name="login_toast_logout_content">You are now disconnected from your patient account</string>
+
+    <!-- Signup -->
+    <string name="signup_caption">Sign-up and access your member profile</string>
+
+    <string name="signup_lastname">Last name</string>
+    <string name="signup_firstname">First name</string>
+    <string name="signup_birthdate">Birth date</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_insurance_number">Insurance number</string>
+    <string name="signup_pwd">Password</string>
+    <string name="signup_confirm_pwd">Confirm your password</string>
+
+    <string name="signup_street1">Street 1</string>
+    <string name="signup_street2">Street 2</string>
+    <string name="signup_city">City</string>
+    <string name="signup_zip">Zip code</string>
+    <string name="signup_country">Country</string>
+
+    <string name="signup_lastname_placeholder">Last name</string>
+    <string name="signup_firstname_placeholder">First name</string>
+    <string name="signup_birthdate_placeholder">Birth date (ie. 1995-05-28)</string>
+    <string name="signup_email_placeholder">Email</string>
+    <string name="signup_insurance_number_placeholder">Insurance number</string>
+    <string name="signup_pwd_placeholder">Password</string>
+    <string name="signup_confirm_pwd_placeholder">Confirm your password</string>
+
+    <string name="signup_street1_placeholder">Street 1</string>
+    <string name="signup_street2_placeholder">Street 2</string>
+    <string name="signup_city_placeholder">City</string>
+    <string name="signup_zip_placeholder">Zip code</string>
+    <string name="signup_country_placeholder">Country</string>
+
+    <string name="signup_btn">sign up</string>
+    <string name="signup_login_caption">Already have an account?</string>
+    <string name="signup_login_link">Login now</string>
+    <string name="signup_pro_account_caption">You are a professional?</string>
+    <string name="signup_pro_account_link">Access your professional account</string>
+    <string name="signup_success_msg_title">Registration succeeded</string>
+    <string name="signup_success_msg_content">You are now registered. You can login to your account using the email you provided to sign-up.</string>
+    <string name="signup_error_msg_title">Registration failed</string>
+    <string name="signup_error_msg_content">Impossible to sign-up. Please make sure your email is in a correct format and that all the fields are properly filled. Also check both passwords are corresponding. If your email is already associated to an existing account, login to your account using the link below.</string>
+    <string name="signup_toast_signup_content">You are now registered. Login to your account from the login page.</string>
+
+    <string name="signup_patient_profile_section_label">Profile data</string>
+    <string name="signup_patient_address_section_label">Address data</string>
+
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>

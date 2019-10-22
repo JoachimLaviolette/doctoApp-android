@@ -1,8 +1,6 @@
 package if26.android.doctoapp.Activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,8 +48,6 @@ public class SearchActivity
     private ListView searchList;
     private String searchContent;
 
-    private static SharedPreferences sharedPrefences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +60,7 @@ public class SearchActivity
         this.Search();
 
         // Create data in db
-        // this.CreateDataDb();
+        //this.CreateDataDb();
     }
 
     /**
@@ -394,7 +390,6 @@ public class SearchActivity
      */
     private void Instantiate() {
         setTitle(R.string.title_search);
-        sharedPrefences = this.getPreferences(Context.MODE_PRIVATE);
         this.searchBar = findViewById(R.id.search_bar);
         this.searchBtn = findViewById(R.id.search_btn);
         this.searchList = findViewById(R.id.search_list);
