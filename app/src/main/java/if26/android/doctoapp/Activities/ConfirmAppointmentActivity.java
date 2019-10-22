@@ -3,6 +3,7 @@ package if26.android.doctoapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class ConfirmAppointmentActivity
     private TextView doctorSpeciality;
     private TextView doctorChevron;
 
+    private TextView appointmentReason;
+
     private ImageView patientPicture;
     private TextView patientFullname;
 
@@ -46,6 +49,8 @@ public class ConfirmAppointmentActivity
     private TextView contactNumber;
 
     private TextView doctorAddress;
+
+    private Button seeMyBookings;
 
     private static DateTimeService dateTimeService;
 
@@ -75,9 +80,11 @@ public class ConfirmAppointmentActivity
         this.doctorFullname = findViewById(R.id.appointment_summary_doctor_fullname);
         this.doctorSpeciality = findViewById(R.id.appointment_summary_doctor_speciality);
         this.doctorChevron = findViewById(R.id.appointment_summary_chevron);
+        this.appointmentReason = findViewById(R.id.appointment_summary_reason);
         this.patientPicture = findViewById(R.id.appointment_summary_patient_picture);
         this.patientFullname = findViewById(R.id.appointment_summary_patient_fullname);
         this.doctorAddress = findViewById(R.id.appointment_summary_address_content);
+        this.seeMyBookings = findViewById(R.id.confirm_appointment_see_my_bookings);
     }
 
     /**
@@ -85,6 +92,7 @@ public class ConfirmAppointmentActivity
      */
     private void SubscribeEvents() {
         this.doctorChevron.setOnClickListener(this);
+        this.seeMyBookings.setOnClickListener(this);
     }
 
     /**
@@ -142,6 +150,9 @@ public class ConfirmAppointmentActivity
         // Set doctor speciality
         this.doctorSpeciality.setText(this.doctor.getSpeciality());
 
+        // Set the reason
+        this.appointmentReason.setText(this.booking.getReason().getDescription());
+
         // Set doctor address
         this.doctorAddress.setText(this.doctor.GetFullAddress());
 
@@ -165,8 +176,16 @@ public class ConfirmAppointmentActivity
      */
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.appointment_summary_chevron)
-            this.ShowDoctorProfile();
+        switch (v.getId()) {
+            case R.id.appointment_summary_chevron:
+                this.ShowDoctorProfile();
+
+                return;
+            case R.id.confirm_appointment_see_my_bookings:
+                this.MyBookings();
+
+                return;
+        }
     }
 
     /**
@@ -183,6 +202,22 @@ public class ConfirmAppointmentActivity
 
         // The logged user
         key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start MyBookings activity
+     */
+    private void MyBookings() {
+        // Create the intent
+        Intent i = new Intent(ConfirmAppointmentActivity.this, MyBookingsActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
         i.putExtra(key, this.loggedUser);
 
         // Start the activity

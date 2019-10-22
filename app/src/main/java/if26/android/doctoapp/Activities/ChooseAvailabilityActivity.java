@@ -100,7 +100,7 @@ public class ChooseAvailabilityActivity
      * @param availabilitiesPerDay The list of availabilities per day
      */
     private void BuildDateTimesListView(Map<String, List<Availability>> availabilitiesPerDay) {
-        LayoutInflater inflater = getLayoutInflater();
+        LayoutInflater inflater = this.getLayoutInflater();
 
         for (String d: availabilitiesPerDay.keySet()) {
             View dateTimeLayout = inflater.inflate(R.layout.date_time_datetime_layout, this.dateTimeListGlobalLayout, false);

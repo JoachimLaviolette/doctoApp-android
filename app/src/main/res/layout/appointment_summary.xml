@@ -18,22 +18,27 @@
             android:id="@+id/appointment_summary_fullday_icon"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+            android:layout_marginRight="4sp"
+            android:tint="#FFF"
+            app:srcCompat="@drawable/ic_calendar" />
 
         <TextView
             android:id="@+id/appointment_summary_fullday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:fontFamily="@font/roboto"
             android:text="@string/appointment_summary_fullday"
             android:textColor="@color/appointment_summary_fullday"
-            android:textSize="15sp"
-            android:fontFamily="@font/roboto"/>
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/appointment_summary_time_icon"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            app:srcCompat="@android:drawable/ic_menu_recent_history" />
+            android:layout_marginRight="2sp"
+            android:tint="#FFF"
+            app:srcCompat="@drawable/ic_time_2" />
 
         <TextView
             android:id="@+id/appointment_summary_time"
@@ -68,11 +73,11 @@
 
                     <ImageView
                         android:id="@+id/appointment_summary_doctor_picture"
-                        android:layout_width="46dp"
+                        android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginBottom="3dp"
-                        android:padding="10sp"
+                        android:layout_centerVertical="true"
+                        android:padding="5sp"
                         app:srcCompat="@mipmap/ic_launcher_round" />
 
                     <TextView
@@ -81,8 +86,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_toEndOf="@id/appointment_summary_doctor_picture"
-                        android:padding="10sp"
                         android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
                         android:text="@string/appointment_summary_doctor_fullname"
                         android:textColor="@color/appointment_summary_doctor_fullname"
                         android:textSize="13sp"
@@ -91,10 +97,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="35sp"
                         android:layout_toEndOf="@id/appointment_summary_doctor_picture"
-                        android:padding="10sp"
-                        android:layout_marginTop="35sp">
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
 
                         <TextView
                             android:id="@+id/appointment_summary_doctor_speciality"
@@ -126,6 +133,43 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/appointment_summary_section_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/appointment_summary_reason_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="46dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        android:padding="10sp"
+                        android:tint="@color/appointment_summary_icon_tint"
+                        app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                    <TextView
+                        android:id="@+id/appointment_summary_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/appointment_summary_reason_icon"
+                        android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
+                        android:text="@string/appointment_summary_reason"
+                        android:textColor="@color/appointment_summary_reason"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/appointment_summary_section_patient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,11 +181,10 @@
 
                     <ImageView
                         android:id="@+id/appointment_summary_patient_picture"
-                        android:layout_width="46dp"
+                        android:layout_width="60dp"
                         android:layout_height="46dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="3dp"
-                        android:padding="10sp"
+                        android:layout_centerVertical="true"
+                        android:padding="5sp"
                         app:srcCompat="@mipmap/ic_launcher_round" />
 
                     <TextView
@@ -150,20 +193,22 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_toEndOf="@id/appointment_summary_patient_picture"
-                        android:padding="10sp"
                         android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
                         android:text="@string/appointment_summary_patient_title"
                         android:textColor="@color/appointment_summary_patient_title"
                         android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:paddingBottom="10sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="35sp"
                         android:layout_toEndOf="@id/appointment_summary_patient_picture"
-                        android:padding="10sp"
-                        android:layout_marginTop="35sp">
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
 
                         <TextView
                             android:id="@+id/appointment_summary_patient_fullname"
@@ -192,10 +237,10 @@
 
                     <ImageView
                         android:id="@+id/appointment_summary_warning_msg_icon"
-                        android:layout_width="46dp"
+                        android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginBottom="3dp"
+                        android:layout_centerVertical="true"
                         android:padding="10sp"
                         android:tint="@color/appointment_summary_icon_tint"
                         app:srcCompat="@android:drawable/stat_sys_warning" />
@@ -206,8 +251,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_toEndOf="@id/appointment_summary_warning_msg_icon"
-                        android:padding="10sp"
                         android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
                         android:text="@string/appointment_summary_warning_msg_title"
                         android:textColor="@color/appointment_summary_warning_msg_title"
                         android:textSize="13sp"
@@ -216,10 +262,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_marginTop="35sp"
                         android:layout_toEndOf="@id/appointment_summary_warning_msg_icon"
-                        android:padding="10sp"
-                        android:layout_marginTop="35sp">
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
 
                         <TextView
                             android:id="@+id/appointment_summary_warning_msg_content"
@@ -247,13 +294,12 @@
 
                     <ImageView
                         android:id="@+id/appointment_summary_contact_icon"
-                        android:layout_width="46dp"
+                        android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginBottom="3dp"
                         android:padding="10sp"
                         android:tint="@color/appointment_summary_icon_tint"
-                        app:srcCompat="@drawable/common_full_open_on_phone" />
+                        app:srcCompat="@drawable/ic_contact" />
 
                     <TextView
                         android:id="@+id/appointment_summary_contact_number"
@@ -261,8 +307,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/appointment_summary_contact_icon"
-                        android:padding="10sp"
                         android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
                         android:text="@string/appointment_summary_contact_number"
                         android:textColor="@color/appointment_summary_contact_number"
                         android:textSize="13sp"
@@ -282,10 +329,10 @@
 
                     <ImageView
                         android:id="@+id/appointment_summary_address_icon"
-                        android:layout_width="46dp"
+                        android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_alignParentTop="true"
-                        android:layout_marginBottom="3dp"
+                        android:layout_centerVertical="true"
                         android:padding="10sp"
                         android:tint="@color/appointment_summary_icon_tint"
                         app:srcCompat="@android:drawable/ic_dialog_map" />
@@ -293,25 +340,22 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/appointment_summary_address_icon"
-                        android:padding="10sp">
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
 
                         <TextView
                             android:id="@+id/appointment_summary_address_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
                             android:text="@string/appointment_summary_address_content"
                             android:textColor="@color/appointment_summary_address_content"
                             android:textSize="13sp"
-                            android:textStyle="normal"
-                            android:lineSpacingExtra="6sp" />
-
-                        <com.google.android.gms.maps.MapView
-                            android:id="@+id/appointment_summary_address_mapview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:textStyle="normal" />
 
                     </LinearLayout>
                 </RelativeLayout>

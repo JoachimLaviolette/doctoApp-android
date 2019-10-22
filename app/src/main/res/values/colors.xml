@@ -124,6 +124,8 @@
     <color name="confirm_appointment_error_msg">#B32323</color>
     <color name="confirm_appointment_success_msg_title">#FFFFFF</color>
     <color name="confirm_appointment_success_msg_content">#FFFFFF</color>
+    <color name="confirm_appointment_see_my_bookings_background">#BE4A4A</color>
+    <color name="confirm_appointment_see_my_bookings_text">#FFFFFF</color>
 
     <!-- Appointment summary -->
     <color name="appointment_summary_header">#444444</color>
@@ -132,6 +134,7 @@
     <color name="appointment_summary_time">#FFFFFF</color>
     <color name="appointment_summary_doctor_fullname">#444444</color>
     <color name="appointment_summary_doctor_speciality">#727272</color>
+    <color name="appointment_summary_reason">#D33030</color>
     <color name="appointment_summary_chevron">#E9E9E9</color>
     <color name="appointment_summary_patient_title">#444444</color>
     <color name="appointment_summary_patient_fullname">#727272</color>
@@ -140,4 +143,29 @@
     <color name="appointment_summary_contact_number">#1B86E4</color>
     <color name="appointment_summary_address_content">#727272</color>
     <color name="appointment_summary_icon_tint">#DBDBDB</color>
+
+    <!-- Appointments item -->
+    <color name="appointment_item_header">#444444</color>
+    <color name="appointment_item_body">#FFFFFF</color>
+    <color name="appointment_item_fullday">#FFFFFF</color>
+    <color name="appointment_item_time">#FFFFFF</color>
+    <color name="appointment_item_doctor_fullname">#444444</color>
+    <color name="appointment_item_doctor_speciality">#727272</color>
+    <color name="appointment_item_chevron">#E9E9E9</color>
+    <color name="appointment_item_patient_title">#444444</color>
+    <color name="appointment_item_patient_fullname">#727272</color>
+    <color name="appointment_item_contact_number">#1B86E4</color>
+    <color name="appointment_item_address_content">#727272</color>
+    <color name="appointment_item_reason">#D33030</color>
+    <color name="appointment_item_icon_tint">#DBDBDB</color>
+
+    <!-- My bookings -->
+    <color name="my_bookings_header">#1B86E4</color>
+    <color name="my_bookings_title_1">#66A8E2</color>
+    <color name="my_bookings_view_appointments">#FFFFFF</color>
+    <color name="my_bookings_body">#E9E9E9</color>
+    <color name="my_bookings_no_booking_msg">#444444</color>
+    <color name="my_bookings_no_booking_msg_title">#FFFFFF</color>
+    <color name="my_bookings_no_booking_msg_content">#FFFFFF</color>
+
 </resources>

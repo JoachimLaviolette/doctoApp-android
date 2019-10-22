@@ -154,6 +154,7 @@
     <string name="confirm_appointment_success_msg_content">We just sent you a confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
     <string name="confirm_appointment_error_msg_title">Something went wrong with your booking...</string>
     <string name="confirm_appointment_error_msg_content">Your booking could not be confirmed. It appears you already have a booking scheduled at this date with the doctor.</string>
+    <string name="confirm_appointment_see_my_bookings">See my bookings</string>
 
     <!-- Appointment summary -->
     <string name="appointment_summary_fullday">{Day, Month X}</string>
@@ -161,12 +162,29 @@
     <string name="appointment_summary_doctor_fullname">{doctor_fullname}</string>
     <string name="appointment_summary_doctor_speciality">{doctor_speciality}</string>
     <string name="appointment_summary_chevron">></string>
+    <string name="appointment_summary_reason">{reason}</string>
     <string name="appointment_summary_patient_title">Patient</string>
     <string name="appointment_summary_patient_fullname">{patient_fullname}</string>
     <string name="appointment_summary_warning_msg_title">Important message to read before your appointment</string>
     <string name="appointment_summary_warning_msg_content">{warning_msg}</string>
     <string name="appointment_summary_contact_number">{doctor_contact_number}</string>
     <string name="appointment_summary_address_content">{doctor_address_content}</string>
+
+    <!-- Appointment item -->
+    <string name="appointment_item_fullday">{Day, Month X}</string>
+    <string name="appointment_item_time">{hh:mm}</string>
+    <string name="appointment_item_doctor_fullname">{doctor_fullname}</string>
+    <string name="appointment_item_doctor_speciality">{doctor_speciality}</string>
+    <string name="appointment_item_chevron">></string>
+    <string name="appointment_item_reason">{reason}</string>
+    <string name="appointment_item_contact_number">{doctor_contact_number}</string>
+    <string name="appointment_item_address_content">{doctor_address_content}</string>
+
+    <!-- My bookings -->
+    <string name="my_bookings_title_1">My bookings</string>
+    <string name="my_bookings_view_appointments">See all the appointments</string>
+    <string name="my_bookings_no_booking_msg_title">No booking to display</string>
+    <string name="my_bookings_no_booking_msg_content">It appears you have no booking registered yet in the system.\nTo book an appointment with a doctor, use the search system from the main screen of the app.</string>
 
     <!-- Intent -->
     <string name="intent_logged_user">logged_user</string>
