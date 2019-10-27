@@ -14,7 +14,7 @@ import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
-import if26.android.doctoapp.Services.ErrorCode;
+import if26.android.doctoapp.Codes.ErrorCode;
 
 public class Doctor extends Resident {
     private String speciality;

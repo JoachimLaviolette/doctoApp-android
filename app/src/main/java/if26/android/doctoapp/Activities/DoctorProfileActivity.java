@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -16,11 +15,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.R;
-import if26.android.doctoapp.Services.RequestCode;
+import if26.android.doctoapp.Services.ImageService;
 
 public class DoctorProfileActivity
         extends AppCompatActivity
@@ -30,7 +31,7 @@ public class DoctorProfileActivity
 
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
-    private ImageView doctorPicture;
+    private CircleImageView doctorPicture;
     private TextView
                 doctorFullname,
                 doctorSpeciality;
@@ -125,7 +126,9 @@ public class DoctorProfileActivity
      */
     private void SetContent() {
         // Set doctor picture
-        //this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
+        // TODO : Remove this is a test with the logged-in own picture (working)
+        this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.loggedUser.getPicture()));
+        //this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
 
         // Set doctor fullname
         this.doctorFullname.setText(this.doctor.getFullname());
