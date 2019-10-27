@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.LoginActivity">
 
     <ScrollView
@@ -14,6 +13,7 @@
         <LinearLayout
             android:layout_width="409dp"
             android:layout_height="729dp"
+            android:background="@color/signup_background"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="1dp">
@@ -42,10 +42,10 @@
                     android:id="@+id/signup_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20sp"
                     android:background="@color/signup_success_msg"
                     android:orientation="vertical"
                     android:padding="10sp"
-                    android:layout_marginBottom="20sp"
                     android:textAlignment="center">
 
                     <TextView
@@ -83,11 +83,59 @@
                         android:id="@+id/signup_patient_profile_section_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/signup_patient_profile_section_label"
                         android:fontFamily="@font/roboto"
+                        android:padding="5sp"
+                        android:text="@string/signup_patient_profile_section_label"
                         android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:padding="5sp" />
+                        android:textStyle="bold" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/signup_patient_picture"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_launcher_background"
+                        app:civ_border_width="0dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/signup_take_picture_from_camera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/signup_take_picture_from_camera"
+                            android:drawableStart="@drawable/ic_take_picture"
+                            android:drawablePadding="10sp"
+                            android:paddingStart="25sp"
+                            android:paddingEnd="25sp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/signup_take_picture_from_camera"
+                            android:textColor="@color/signup_take_picture_from_camera_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/signup_select_picture_from_gallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/signup_select_picture_from_gallery"
+                            android:drawableStart="@drawable/ic_add_image"
+                            android:drawablePadding="10sp"
+                            android:paddingStart="25sp"
+                            android:paddingEnd="25sp"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/signup_select_picture_from_gallery"
+                            android:textColor="@color/signup_select_picture_from_gallery_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
 
                     <EditText
                         android:id="@+id/signup_lastname"
@@ -213,11 +261,11 @@
                         android:id="@+id/signup_patient_address_section_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/signup_patient_address_section_label"
                         android:fontFamily="@font/roboto"
+                        android:padding="5sp"
+                        android:text="@string/signup_patient_address_section_label"
                         android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:padding="5sp" />
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/signup_street1"

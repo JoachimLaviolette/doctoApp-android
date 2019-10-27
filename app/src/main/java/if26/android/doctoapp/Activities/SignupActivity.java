@@ -2,7 +2,11 @@ package if26.android.doctoapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,14 +15,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import if26.android.doctoapp.BuildConfig;
+import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
-import if26.android.doctoapp.Services.RequestCode;
+import if26.android.doctoapp.Services.ImageService;
 
 public class SignupActivity
         extends AppCompatActivity
@@ -28,6 +41,12 @@ public class SignupActivity
     private LinearLayout signupMsg;
     private TextView signupMsgTitle;
     private TextView signupMsgContent;
+
+    private CircleImageView picture;
+    private Button takePictureFromCamera;
+    private Button selectPictureFromGallery;
+    private String picturePath;
+    private Uri pictureURI;
 
     private EditText lastnameInput;
     private EditText firstnameInput;
@@ -55,6 +74,9 @@ public class SignupActivity
     private static final int LOGOUT = 0;
     private static final int LOGIN = 1;
 
+    private static final String KEY_TAKE_PICTURE_FROM_CAMERA = "data";
+    private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +97,12 @@ public class SignupActivity
         this.signupMsg = findViewById(R.id.signup_msg);
         this.signupMsgTitle = findViewById(R.id.signup_msg_title);
         this.signupMsgContent = findViewById(R.id.signup_msg_content);
+
+        this.picture = findViewById(R.id.signup_patient_picture);
+        this.takePictureFromCamera = findViewById(R.id.signup_take_picture_from_camera);
+        this.selectPictureFromGallery = findViewById(R.id.signup_select_picture_from_gallery);
+        this.picturePath = null;
+        this.pictureURI = null;
 
         this.lastnameInput = findViewById(R.id.signup_lastname);
         this.firstnameInput = findViewById(R.id.signup_firstname);
@@ -105,6 +133,8 @@ public class SignupActivity
      * Listen to the events
      */
     private void SubscribeEvents() {
+        this.takePictureFromCamera.setOnClickListener(this);
+        this.selectPictureFromGallery.setOnClickListener(this);
         this.signupBtn.setOnClickListener(this);
         this.loginLink.setOnClickListener(this);
         this.proAccountLink.setOnClickListener(this);
@@ -143,6 +173,14 @@ public class SignupActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.signup_take_picture_from_camera:
+                this.TakePictureFromCamera();
+
+                return;
+            case R.id.signup_select_picture_from_gallery:
+                this.SelectPictureFromGallery();
+
+                return;
             case R.id.signup_btn:
                 this.Signup();
 
@@ -178,6 +216,101 @@ public class SignupActivity
     }
 
     /**
+     * Ask the user to load a picture
+     */
+    private void TakePictureFromCamera() {
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (i.resolveActivity(getPackageManager()) == null) return;
+
+        File pictureFile = this.CreatePictureFile();
+
+        if (pictureFile == null) return;
+
+        String authorities = BuildConfig.APPLICATION_ID + ".fileprovider";
+        Uri pictureURI = FileProvider.getUriForFile(this, authorities, pictureFile);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, pictureURI);
+        startActivityForResult(i, RequestCode.TAKE_PICTURE_FROM_CAMERA);
+    }
+
+    /**
+     * Ask the user to load a picture
+     */
+    private void SelectPictureFromGallery() {
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        if (i.resolveActivity(getPackageManager()) == null) return;
+
+        startActivityForResult(i, RequestCode.SELECT_PICTURE_FROM_GALLERY);
+    }
+
+    /**
+     * Create a file using the uploaded picture
+     * @return The create file
+     */
+    private File CreatePictureFile() {
+        File pictureFile = null;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String pictureFileName = PREFIX_PROFILE_PICTURE + timeStamp + "_";
+
+        /**
+         * To store internally, use : getFilesDir()
+         */
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        try {
+            pictureFile = File.createTempFile(pictureFileName, ".jpg", storageDir);
+            this.picturePath = pictureFile.getAbsolutePath();
+            this.pictureURI = ImageService.GetURIFromFile(pictureFile);
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        finally { return pictureFile; }
+    }
+
+    /**
+     * Save to uploaded image to app folder
+     */
+    private boolean SaveBitmapToAppFolder(Intent data) {
+        Bitmap pictureBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
+        File pictureFile = this.CreatePictureFile();
+
+        if (pictureFile == null) return false;
+
+        try {
+            FileOutputStream out = new FileOutputStream(pictureFile);
+            pictureBmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case RequestCode.TAKE_PICTURE_FROM_CAMERA:
+                    this.picture.setImageURI(this.pictureURI);
+
+                    return;
+                case RequestCode.SELECT_PICTURE_FROM_GALLERY:
+                    if (!this.SaveBitmapToAppFolder(data)) return;
+
+                    this.picture.setImageURI(this.pictureURI);
+
+                    return;
+            }
+        }
+    }
+
+    /**
      * Execute signup process
      */
     private void Signup() {
@@ -195,9 +328,10 @@ public class SignupActivity
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1(inputPwd + pwdSalt);
 
-        String picture = "";
+        String picture = this.picturePath;
 
-        Address address = new Address(-1,
+        Address address = new Address(
+                -1,
                 this.street1Input.getText().toString().trim(),
                 this.street2Input.getText().toString().trim(),
                 this.cityInput.getText().toString().trim(),
@@ -251,7 +385,8 @@ public class SignupActivity
                         || this.street2Input.getText().toString().trim().isEmpty()
                         || this.cityInput.getText().toString().trim().isEmpty()
                         || this.zipInput.getText().toString().trim().isEmpty()
-                        || this.countryInput.getText().toString().trim().isEmpty();
+                        || this.countryInput.getText().toString().trim().isEmpty()
+                        || this.picturePath.trim().isEmpty();
 
         // One of the fields is empty
         if (allFieldsFilled) return false;

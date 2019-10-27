@@ -14,7 +14,7 @@ import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.R;
-import if26.android.doctoapp.Services.RequestCode;
+import if26.android.doctoapp.Codes.RequestCode;
 
 public class MyBookingsActivity
         extends AppCompatActivity {

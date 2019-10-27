@@ -52,6 +52,10 @@
     <color name="signup_error_msg">#BE4A4A</color>
     <color name="signup_success_msg_title">#FFFFFF</color>
     <color name="signup_success_msg_content">#FFFFFF</color>
+    <color name="signup_take_picture_from_camera">#1B86E4</color>
+    <color name="signup_take_picture_from_camera_text">#FFFFFF</color>
+    <color name="signup_select_picture_from_gallery">#1B86E4</color>
+    <color name="signup_select_picture_from_gallery_text">#FFFFFF</color>
 
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>

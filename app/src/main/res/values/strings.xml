@@ -34,7 +34,12 @@
     <string name="login_toast_logout_content">You are now disconnected from your patient account</string>
 
     <!-- Signup -->
+    <string name="signup_picture_uri">signup_picture_uri</string>
+
     <string name="signup_caption">Sign-up and access your member profile</string>
+
+    <string name="signup_take_picture_from_camera">Take a picture</string>
+    <string name="signup_select_picture_from_gallery">Select a picture</string>
 
     <string name="signup_lastname">Last name</string>
     <string name="signup_firstname">First name</string>
