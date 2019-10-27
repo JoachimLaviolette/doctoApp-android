@@ -195,6 +195,8 @@ public class SignupActivity
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1(inputPwd + pwdSalt);
 
+        String picture = "";
+
         Address address = new Address(-1,
                 this.street1Input.getText().toString().trim(),
                 this.street2Input.getText().toString().trim(),
@@ -213,7 +215,8 @@ public class SignupActivity
                 pwdSalt,
                 this.insuranceNumberInput.getText().toString().trim(),
                 address,
-                lastLogin
+                lastLogin,
+                picture
         );
 
         if (patientDbHelper.CreatePatient(patient)) {

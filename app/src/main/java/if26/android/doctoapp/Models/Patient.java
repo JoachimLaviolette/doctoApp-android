@@ -12,22 +12,7 @@ public class Patient extends Resident {
     private String birthdate;
     private String insuranceNumber;
 
-    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin) {
-        super(
-                id,
-                lastname,
-                firstname,
-                email,
-                pwd,
-                pwdSalt,
-                address,
-                lastLogin
-        );
-        this.birthdate = birthdate;
-        this.insuranceNumber = insuranceNumber;
-    }
-
-    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin, Set<Booking> appointments) {
+    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin, String picture) {
         super(
                 id,
                 lastname,
@@ -37,6 +22,23 @@ public class Patient extends Resident {
                 pwdSalt,
                 address,
                 lastLogin,
+                picture
+        );
+        this.birthdate = birthdate;
+        this.insuranceNumber = insuranceNumber;
+    }
+
+    public Patient(long id, String lastname, String firstname, String birthdate, String email, String pwd, String pwdSalt, String insuranceNumber, Address address, String lastLogin, String picture, Set<Booking> appointments) {
+        super(
+                id,
+                lastname,
+                firstname,
+                email,
+                pwd,
+                pwdSalt,
+                address,
+                lastLogin,
+                picture,
                 appointments
         );
         this.birthdate = birthdate;
@@ -55,6 +57,7 @@ public class Patient extends Resident {
         this.pwdSalt = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_PWD_SALT).toString();
         this.address = (Address) patientData.get(DoctoAppDatabaseContract.Address.TABLE_NAME);
         this.lastLogin = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_LAST_LOGIN).toString();
+        this.picture = patientData.get(DoctoAppDatabaseContract.Patient.COLUMN_NAME_PICTURE).toString();
         this.appointments = (Set<Booking>) patientData.get(DoctoAppDatabaseContract.Booking.TABLE_NAME);
     }
 

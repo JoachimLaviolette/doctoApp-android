@@ -46,7 +46,8 @@ public class ConfirmAppointmentActivity
     private TextView patientFullname;
 
     private TextView warningMessage;
-    private TextView contactNumber;
+
+    private TextView doctorContactNumber;
 
     private TextView doctorAddress;
 
@@ -83,6 +84,7 @@ public class ConfirmAppointmentActivity
         this.appointmentReason = findViewById(R.id.appointment_summary_reason);
         this.patientPicture = findViewById(R.id.appointment_summary_patient_picture);
         this.patientFullname = findViewById(R.id.appointment_summary_patient_fullname);
+        this.doctorContactNumber = findViewById(R.id.appointment_summary_contact_number);
         this.doctorAddress = findViewById(R.id.appointment_summary_address_content);
         this.seeMyBookings = findViewById(R.id.confirm_appointment_see_my_bookings);
     }
@@ -152,6 +154,9 @@ public class ConfirmAppointmentActivity
 
         // Set the reason
         this.appointmentReason.setText(this.booking.getReason().getDescription());
+
+        // Set doctor contact number
+        this.doctorContactNumber.setText(this.doctor.getContactNumberAsString());
 
         // Set doctor address
         this.doctorAddress.setText(this.doctor.GetFullAddress());

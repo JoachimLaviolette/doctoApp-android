@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -117,7 +118,7 @@ public class ChooseAvailabilityActivity
             for (Availability a: availabilities) {
                 String hour = a.getTime();
                 View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
-                ((TextView) time).setText(hour);
+                ((Button) time).setText(hour);
                 time.setTag(dateTimeService.CreateTimeTag(hour, a.getDate()));
                 time.setOnClickListener(this);
                 ((GridLayout) timeLayout).addView(time);

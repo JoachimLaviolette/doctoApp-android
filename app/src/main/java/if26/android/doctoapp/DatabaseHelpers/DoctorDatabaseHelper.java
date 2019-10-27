@@ -105,11 +105,14 @@ public class DoctorDatabaseHelper {
                 doctor.getPwd(),
                 doctor.getPwdSalt(),
                 doctor.getDescription(),
+                doctor.getContactNumber(),
                 doctor.isUnderAgreement(),
                 doctor.isHealthInsuranceCard(),
                 doctor.isThirdPartyPayment(),
                 doctor.GetAddressId(),
                 doctor.getLastLogin(),
+                doctor.getPicture(),
+                doctor.getHeader(),
         };
     }
 

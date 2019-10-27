@@ -94,6 +94,7 @@ public final class DoctoAppDatabaseContract {
         public static final String COLUMN_NAME_INSURANCE_NUMBER = "insurance_number";
         public static final String COLUMN_NAME_ADDRESS = "address_id";
         public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
+        public static final String COLUMN_NAME_PICTURE = "picture";
         public static final String[] TABLE_KEYS_INSERT = {
                 COLUMN_NAME_LASTNAME,
                 COLUMN_NAME_FIRSTNAME,
@@ -104,6 +105,7 @@ public final class DoctoAppDatabaseContract {
                 COLUMN_NAME_INSURANCE_NUMBER,
                 COLUMN_NAME_ADDRESS,
                 COLUMN_NAME_LAST_LOGIN,
+                COLUMN_NAME_PICTURE
         };
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_ID,
@@ -116,6 +118,7 @@ public final class DoctoAppDatabaseContract {
                 COLUMN_NAME_INSURANCE_NUMBER,
                 COLUMN_NAME_ADDRESS,
                 COLUMN_NAME_LAST_LOGIN,
+                COLUMN_NAME_PICTURE
         };
         public static final int[] TABLE_COLUMNS_POSITIONS = {
                 0,
@@ -128,6 +131,7 @@ public final class DoctoAppDatabaseContract {
                 7,
                 8,
                 9,
+                10,
         };
     }
 
@@ -141,11 +145,14 @@ public final class DoctoAppDatabaseContract {
         public static final String COLUMN_NAME_PWD = "pwd";
         public static final String COLUMN_NAME_PWD_SALT = "pwd_salt";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_CONTACT_NUMBER = "contact_number";
         public static final String COLUMN_NAME_IS_UNDER_AGREEMENT = "is_under_agreement";
         public static final String COLUMN_NAME_IS_HEALTH_INSURANCE_CARD = "is_health_insurance_card";
         public static final String COLUMN_NAME_IS_THIRD_PARTY_PAYMENT = "is_third_party_payment";
         public static final String COLUMN_NAME_ADDRESS = "address_id";
         public static final String COLUMN_NAME_LAST_LOGIN = "last_login";
+        public static final String COLUMN_NAME_PICTURE = "picture";
+        public static final String COLUMN_NAME_HEADER = "header";
         public static final String[] TABLE_KEYS_INSERT = {
                 COLUMN_NAME_LASTNAME,
                 COLUMN_NAME_FIRSTNAME,
@@ -154,11 +161,14 @@ public final class DoctoAppDatabaseContract {
                 COLUMN_NAME_PWD,
                 COLUMN_NAME_PWD_SALT,
                 COLUMN_NAME_DESCRIPTION,
+                COLUMN_NAME_CONTACT_NUMBER,
                 COLUMN_NAME_IS_UNDER_AGREEMENT,
                 COLUMN_NAME_IS_HEALTH_INSURANCE_CARD,
                 COLUMN_NAME_IS_THIRD_PARTY_PAYMENT,
                 COLUMN_NAME_ADDRESS,
                 COLUMN_NAME_LAST_LOGIN,
+                COLUMN_NAME_PICTURE,
+                COLUMN_NAME_HEADER
         };
         public static final String[] TABLE_KEYS = {
                 COLUMN_NAME_ID,
@@ -169,11 +179,14 @@ public final class DoctoAppDatabaseContract {
                 COLUMN_NAME_PWD,
                 COLUMN_NAME_PWD_SALT,
                 COLUMN_NAME_DESCRIPTION,
+                COLUMN_NAME_CONTACT_NUMBER,
                 COLUMN_NAME_IS_UNDER_AGREEMENT,
                 COLUMN_NAME_IS_HEALTH_INSURANCE_CARD,
                 COLUMN_NAME_IS_THIRD_PARTY_PAYMENT,
                 COLUMN_NAME_ADDRESS,
                 COLUMN_NAME_LAST_LOGIN,
+                COLUMN_NAME_PICTURE,
+                COLUMN_NAME_HEADER
         };
         public static final int[] TABLE_COLUMNS_POSITIONS = {
                 0,
@@ -189,6 +202,9 @@ public final class DoctoAppDatabaseContract {
                 10,
                 11,
                 12,
+                13,
+                14,
+                15,
         };
     }
 

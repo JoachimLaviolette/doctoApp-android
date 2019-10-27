@@ -131,31 +131,30 @@
             <Button
                 android:id="@+id/login_logout_btn"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="54dp"
                 android:layout_gravity="center"
-                android:background="@color/login_logout_btn_background"
+                android:backgroundTint="@color/login_logout_btn_background"
                 android:drawableStart="@drawable/ic_logout"
                 android:fontFamily="@font/roboto"
-                android:paddingLeft="20dp"
+                android:gravity="center"
+                android:paddingStart="20dp"
                 android:text="@string/login_logout_btn"
                 android:textColor="@color/login_logout_btn_text"
-                android:textColorHint="@color/login_logout_btn_text"
-                android:textSize="18sp"
-                android:textStyle="normal" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="54dp"
                 android:layout_gravity="center"
-                android:background="@color/login_btn_background"
+                android:backgroundTint="@color/login_btn_background"
                 android:fontFamily="@font/roboto"
+                android:gravity="center"
                 android:text="@string/login_btn"
                 android:textColor="@color/login_btn_text"
-                android:textColorHint="@color/login_btn_text"
-                android:textSize="18sp"
-                android:textStyle="normal" />
-
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

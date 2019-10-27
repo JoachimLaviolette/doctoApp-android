@@ -16,11 +16,14 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  pwd TEXT NOT NULL,
  pwd_salt TEXT NOT NULL,
  description TEXT,
+ contact_number TEXT NOT NULL,
  is_under_agreement INTEGER DEFAULT NULL,
  is_health_insurance_card INTEGER DEFAULT NULL,
  is_third_party_payment INTEGER DEFAULT NULL,
  address_id INTEGER NOT NULL,
  last_login TEXT,
+ picture TEXT,
+ header TEXT,
  FOREIGN KEY(address_id) REFERENCES address(id)
 );
 
@@ -66,6 +69,7 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  insurance_number TEXT NOT NULL UNIQUE,
  address_id INTEGER NOT NULL,
  last_login TEXT,
+ picture TEXT,
  FOREIGN KEY(address_id) REFERENCES address(id)
 );
 

@@ -4,10 +4,13 @@ String lastname = "Laviolette";
 String email = "chloe.laviolette@gmail.com";
 String speciality = "Cardiologist";
 String description = "Specialized in heart surgery";
+String contactNumber = "0980736518";
 boolean isUnderAgreement = true;
 boolean isHealthInsuranceCard = true;
 boolean isThirdPartyPayment = true;
 String lastLogin = DateTimeService.GetCurrentDateTime();
+String picture = "";
+String header = "";
 String pwd = EncryptionService.SHA1("hello");
 String pwdSalt = EncryptionService.SALT(pwd);
 
@@ -75,6 +78,7 @@ Doctor doctor = new Doctor(
                 speciality,
                 email,
                 description,
+                contactNumber,
                 pwd,
                 pwdSalt,
                 isUnderAgreement,
@@ -82,6 +86,8 @@ Doctor doctor = new Doctor(
                 isThirdPartyPayment,
                 address,
                 lastLogin,
+                picture,
+                header,
                 availabilitiesList,
                 languagesList,
                 paymentOptionsList,
@@ -93,15 +99,18 @@ Doctor doctor = new Doctor(
 / ---------------------------------------------------------------- /
 
 // doctor data
-String firstname = "Japp";
-String lastname = "Lavoine";
-String email = "serge.lavoine@gmail.com";
+String firstname = "Richard";
+String lastname = "Lavert";
+String email = "lavert.richard@gmail.com";
 String speciality = "Dentist";
 String description = "Specialized in teeth surgery";
+String contactNumber = "+33156777845";
 boolean isUnderAgreement = false;
 boolean isHealthInsuranceCard = false;
 boolean isThirdPartyPayment = false;
 String lastLogin = DateTimeService.GetCurrentDateTime();
+String picture = "";
+String header = "";
 String pwd = EncryptionService.SHA1("test");
 String pwdSalt = EncryptionService.SALT(pwd);
 
@@ -159,6 +168,7 @@ Doctor doctor = new Doctor(
                 speciality,
                 email,
                 description,
+                contactNumber,
                 pwd,
                 pwdSalt,
                 isUnderAgreement,
@@ -166,6 +176,8 @@ Doctor doctor = new Doctor(
                 isThirdPartyPayment,
                 address,
                 lastLogin,
+                picture,
+                header,
                 availabilitiesList,
                 languagesList,
                 paymentOptionsList,
@@ -182,10 +194,13 @@ Doctor doctor = new Doctor(
         String email = "florence.larrier@gmail.com";
         String speciality = "Pediatrician";
         String description = "Specialized in child auscultation";
+        String contactNumber = "01 15 66 76 90";
         boolean isUnderAgreement = true;
         boolean isHealthInsuranceCard = true;
         boolean isThirdPartyPayment = false;
         String lastLogin = DateTimeService.GetCurrentDateTime();
+        String picture = "";
+        String header = "";
         String pwd = EncryptionService.SHA1("child");
         String pwdSalt = EncryptionService.SALT(pwd);
 
@@ -242,6 +257,7 @@ Doctor doctor = new Doctor(
                         speciality,
                         email,
                         description,
+                        contactNumber,
                         pwd,
                         pwdSalt,
                         isUnderAgreement,
@@ -249,6 +265,8 @@ Doctor doctor = new Doctor(
                         isThirdPartyPayment,
                         address,
                         lastLogin,
+                        picture,
+                        header,
                         availabilitiesList,
                         languagesList,
                         paymentOptionsList,

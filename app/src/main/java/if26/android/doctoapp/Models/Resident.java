@@ -15,10 +15,11 @@ public abstract class Resident implements Serializable {
     protected String pwd;
     protected String pwdSalt;
     protected String lastLogin;
+    protected String picture;
     protected Address address;
     protected Set<Booking> appointments;
 
-    public Resident(long id, String lastname, String firstname, String email, String pwd, String pwdSalt, Address address, String lastLogin) {
+    public Resident(long id, String lastname, String firstname, String email, String pwd, String pwdSalt, Address address, String lastLogin, String picture) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -27,10 +28,11 @@ public abstract class Resident implements Serializable {
         this.pwdSalt = pwdSalt;
         this.address = address;
         this.lastLogin = lastLogin;
+        this.picture = picture;
         this.appointments = new LinkedHashSet<>();
     }
 
-    public Resident(long id, String lastname, String firstname, String email, String pwd, String pwdSalt, Address address, String lastLogin, Set<Booking> appointments) {
+    public Resident(long id, String lastname, String firstname, String email, String pwd, String pwdSalt, Address address, String lastLogin, String picture, Set<Booking> appointments) {
         this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
@@ -39,6 +41,7 @@ public abstract class Resident implements Serializable {
         this.pwdSalt = pwdSalt;
         this.address = address;
         this.lastLogin = lastLogin;
+        this.picture = picture;
         this.appointments = appointments;
     }
 
@@ -95,6 +98,14 @@ public abstract class Resident implements Serializable {
 
     public void setLastLogin(String lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public String getPicture() {
+        return this.picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getPwd() {
