@@ -70,6 +70,7 @@ public class PatientDatabaseHelper {
                 patient.getInsuranceNumber(),
                 patient.GetAddressId(),
                 patient.getLastLogin(),
+                patient.getPicture(),
         };
     }
 

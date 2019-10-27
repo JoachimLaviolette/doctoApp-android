@@ -25,7 +25,6 @@ import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
 import if26.android.doctoapp.Models.Availability;
-import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Education;
 import if26.android.doctoapp.Models.Experience;
@@ -82,10 +81,13 @@ public class SearchActivity
         String email = "florence.larrier@gmail.com";
         String speciality = "Pediatrician";
         String description = "Specialized in child auscultation";
+        String contactNumber = "01 15 66 76 90";
         boolean isUnderAgreement = true;
         boolean isHealthInsuranceCard = true;
         boolean isThirdPartyPayment = false;
         String lastLogin = DateTimeService.GetCurrentDateTime();
+        String picture = "";
+        String header = "";
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1("child" + pwdSalt);
 
@@ -142,6 +144,7 @@ public class SearchActivity
                 speciality,
                 email,
                 description,
+                contactNumber,
                 pwd,
                 pwdSalt,
                 isUnderAgreement,
@@ -149,6 +152,8 @@ public class SearchActivity
                 isThirdPartyPayment,
                 address,
                 lastLogin,
+                picture,
+                header,
                 availabilitiesList,
                 languagesList,
                 paymentOptionsList,
@@ -163,15 +168,18 @@ public class SearchActivity
         DoctorDatabaseHelper doctorDatabaseHelper = new DoctorDatabaseHelper(this.getApplicationContext());
 
         // doctor data
-        String firstname = "Lyssana";
-        String lastname = "Vistorky";
-        String email = "lyssana.vistorky@gmail.com";
+        String firstname = "Richard";
+        String lastname = "Lavert";
+        String email = "lavert.richard@gmail.com";
         String speciality = "Dentist";
         String description = "Specialized in teeth surgery";
+        String contactNumber = "+33156777845";
         boolean isUnderAgreement = false;
         boolean isHealthInsuranceCard = false;
         boolean isThirdPartyPayment = false;
         String lastLogin = DateTimeService.GetCurrentDateTime();
+        String picture = "";
+        String header = "";
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1("test" + pwdSalt);
 
@@ -229,6 +237,7 @@ public class SearchActivity
                 speciality,
                 email,
                 description,
+                contactNumber,
                 pwd,
                 pwdSalt,
                 isUnderAgreement,
@@ -236,6 +245,8 @@ public class SearchActivity
                 isThirdPartyPayment,
                 address,
                 lastLogin,
+                picture,
+                header,
                 availabilitiesList,
                 languagesList,
                 paymentOptionsList,
@@ -254,10 +265,13 @@ public class SearchActivity
         String email = "chloe.laviolette@gmail.com";
         String speciality = "Cardiologist";
         String description = "Specialized in heart surgery";
+        String contactNumber = "0980736518";
         boolean isUnderAgreement = true;
         boolean isHealthInsuranceCard = true;
         boolean isThirdPartyPayment = true;
         String lastLogin = DateTimeService.GetCurrentDateTime();
+        String picture = "";
+        String header = "";
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1("hello" + pwdSalt);
 
@@ -325,6 +339,7 @@ public class SearchActivity
                 speciality,
                 email,
                 description,
+                contactNumber,
                 pwd,
                 pwdSalt,
                 isUnderAgreement,
@@ -332,6 +347,8 @@ public class SearchActivity
                 isThirdPartyPayment,
                 address,
                 lastLogin,
+                picture,
+                header,
                 availabilitiesList,
                 languagesList,
                 paymentOptionsList,
@@ -345,28 +362,23 @@ public class SearchActivity
     private void CreatePatient(Doctor doctor) {
         PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplicationContext());
         // doctor data
-        String lastname = "Coppens";
-        String firstname = "Ewen";
-        String birthdate = "1996-01-01";
-        String email = "ewen.coppens@gmail.com";
-        String insuranceNumber = "2 18 15 62 489 658 27";
+        String lastname = "Laviolette";
+        String firstname = "Joachim";
+        String birthdate = "1996-04-07";
+        String email = "joachim.laviolette@gmail.com";
+        String insuranceNumber = "2 55 23 33 467 212 34";
         String lastLogin = DateTimeService.GetCurrentDateTime();
+        String picture = "";
         String pwdSalt = EncryptionService.SALT();
-        String pwd = EncryptionService.SHA1("world" + pwdSalt);
+        String pwd = EncryptionService.SHA1("test" + pwdSalt);
 
         // address
-        String city = "Paris";
+        String city = "Epinay-sur-Seine";
         String country = "France";
-        String street1 = "23 Blvd Haussman";
-        String street2 = "Bat 2B Bte 9 4e étage";
-        String zip = "750015";
+        String street1 = "1 Allée Rodin";
+        String street2 = "Appt 221D 2e etage Bte 7";
+        String zip = "93800";
         Address address = new Address(-1, street1, street2, city, zip, country);
-
-        // appointments
-        Booking a1 = new Booking(null, doctor, doctor.getReasons().get(0), doctor.getAvailabilities().get(0).getDate(), doctor.getAvailabilities().get(0).getTime(), DateTimeService.GetCurrentDateTime());
-
-        Set<Booking> appointmentsList = new LinkedHashSet<>();
-        appointmentsList.add(a1);
 
         Patient patient = new Patient(
                 -1,
@@ -379,7 +391,7 @@ public class SearchActivity
                 insuranceNumber,
                 address,
                 lastLogin,
-                appointmentsList
+                picture
         );
 
         patientDbHelper.CreatePatient(patient);

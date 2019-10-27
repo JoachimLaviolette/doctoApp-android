@@ -14,13 +14,16 @@ import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.ErrorCode;
 
 public class Doctor extends Resident {
     private String speciality;
     private String description;
+    private String contactNumber;
     private boolean isUnderAgreement;
     private boolean isHealthInsuranceCard;
     private boolean isThirdPartyPayment;
+    private String header;
     private List<Availability> availabilities;
     private Set<Language> languages;
     private Set<PaymentOption> paymentOptions;
@@ -29,7 +32,7 @@ public class Doctor extends Resident {
     private List<Experience> experiences;
 
     // Constructors
-    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin) {
+    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String contactNumber, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, String picture, String header) {
         super(
                 id,
                 lastname,
@@ -38,13 +41,16 @@ public class Doctor extends Resident {
                 pwd,
                 pwdSalt,
                 address,
-                lastLogin
+                lastLogin,
+                picture
         );
         this.speciality = speciality;
         this.description = description;
+        this.contactNumber = contactNumber;
         this.isUnderAgreement = isUnderAgreement;
         this.isHealthInsuranceCard = isHealthInsuranceCard;
         this.isThirdPartyPayment = isThirdPartyPayment;
+        this.header = header;
         this.availabilities = new ArrayList<>();
         this.languages = new LinkedHashSet<>();
         this.paymentOptions = new LinkedHashSet<>();
@@ -53,7 +59,7 @@ public class Doctor extends Resident {
         this.experiences = new ArrayList<>();
     }
 
-    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences, Set<Booking> appointments) {
+    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String contactNumber, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, String picture, String header, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences, Set<Booking> appointments) {
         super(
                 id,
                 lastname,
@@ -62,13 +68,16 @@ public class Doctor extends Resident {
                 pwd,
                 pwdSalt,
                 address,
-                lastLogin
+                lastLogin,
+                picture
         );
         this.speciality = speciality;
         this.description = description;
+        this.contactNumber = contactNumber;
         this.isUnderAgreement = isUnderAgreement;
         this.isHealthInsuranceCard = isHealthInsuranceCard;
         this.isThirdPartyPayment = isThirdPartyPayment;
+        this.header = header;
         this.availabilities = availabilities;
         this.languages = languages;
         this.paymentOptions = paymentOptions;
@@ -78,7 +87,7 @@ public class Doctor extends Resident {
         this.appointments = appointments;
     }
 
-    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences) {
+    public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String contactNumber, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, String picture, String header, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences) {
         super(
                 id,
                 lastname,
@@ -87,13 +96,16 @@ public class Doctor extends Resident {
                 pwd,
                 pwdSalt,
                 address,
-                lastLogin
+                lastLogin,
+                picture
         );
         this.speciality = speciality;
         this.description = description;
+        this.contactNumber = contactNumber;
         this.isUnderAgreement = isUnderAgreement;
         this.isHealthInsuranceCard = isHealthInsuranceCard;
         this.isThirdPartyPayment = isThirdPartyPayment;
+        this.header = header;
         this.availabilities = availabilities;
         this.languages = languages;
         this.paymentOptions = paymentOptions;
@@ -111,6 +123,7 @@ public class Doctor extends Resident {
         this.speciality = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_SPECIALITY).toString();
         this.email = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_EMAIL).toString();
         this.description = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_DESCRIPTION).toString();
+        this.contactNumber = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_CONTACT_NUMBER).toString();
         this.pwd = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_PWD).toString();
         this.pwdSalt = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_PWD_SALT).toString();
         this.isUnderAgreement = Boolean.parseBoolean(doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_IS_UNDER_AGREEMENT).toString());
@@ -118,6 +131,8 @@ public class Doctor extends Resident {
         this.isThirdPartyPayment = Boolean.parseBoolean(doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_IS_THIRD_PARTY_PAYMENT).toString());
         this.address = (Address) doctorData.get(DoctoAppDatabaseContract.Address.TABLE_NAME);
         this.lastLogin = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_LAST_LOGIN).toString();
+        this.picture = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_PICTURE).toString();
+        this.header = doctorData.get(DoctoAppDatabaseContract.Doctor.COLUMN_NAME_HEADER).toString();
         this.availabilities = (List<Availability>) doctorData.get(DoctoAppDatabaseContract.Availability.TABLE_NAME);
         this.languages = (Set<Language>) doctorData.get(DoctoAppDatabaseContract.Language.TABLE_NAME);
         this.paymentOptions = (Set<PaymentOption>) doctorData.get(DoctoAppDatabaseContract.PaymentOption.TABLE_NAME);
@@ -144,6 +159,14 @@ public class Doctor extends Resident {
         this.description = description;
     }
 
+    public String getContactNumber() {
+        return this.contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
     public boolean isUnderAgreement() {
         return this.isUnderAgreement;
     }
@@ -166,6 +189,14 @@ public class Doctor extends Resident {
 
     public void setThirdPartyPayment(boolean thirdPartyPayment) {
         isThirdPartyPayment = thirdPartyPayment;
+    }
+
+    public String getHeader() {
+        return this.header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 
     public List<Availability> getAvailabilities() {
@@ -273,6 +304,41 @@ public class Doctor extends Resident {
     }
 
     // Super getters and setters
+    /**
+     * Return the contact number as a string
+     * @return The contact number
+     */
+    public String getContactNumberAsString() {
+        String contactNumber = this.contactNumber.replaceAll(" ", "").trim();
+
+        if (contactNumber.length() != 10
+            && contactNumber.length() != 12)
+            return ErrorCode.DATA_FORMAT_ERROR;
+
+        if (contactNumber.startsWith("+"))
+            return contactNumber.substring(0, 3) +
+                    " " +
+                    contactNumber.charAt(3) +
+                    " " +
+                    contactNumber.substring(4, 6) +
+                    " " +
+                    contactNumber.substring(6, 8) +
+                    " " +
+                    contactNumber.substring(8, 10) +
+                    " " +
+                    contactNumber.substring(10);
+
+        return contactNumber.substring(0, 2) +
+                " " +
+                contactNumber.substring(2, 4) +
+                " " +
+                contactNumber.substring(4, 6) +
+                " " +
+                contactNumber.substring(6, 8) +
+                " " +
+                contactNumber.substring(8);
+    }
+
     /**
      * Return prices and refunds data as a string
      * @return The prices and refunds data

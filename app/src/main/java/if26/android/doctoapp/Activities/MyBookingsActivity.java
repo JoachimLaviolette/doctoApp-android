@@ -94,7 +94,7 @@ public class MyBookingsActivity
             doctorFullname.setText(a.getDoctor().getFullname());
             doctorSpeciality.setText(a.getDoctor().getSpeciality());
             reason.setText(a.getReason().getDescription());
-            // TODO : doctorContactNumber.setText(a.getDoctor().getContactNumber());
+            doctorContactNumber.setText(a.getDoctor().getContactNumberAsString());
             doctorAddress.setText(a.getDoctor().GetFullAddress());
 
             // Set click event
