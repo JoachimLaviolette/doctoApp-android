@@ -220,6 +220,10 @@ public class SignupProActivity
                 this.SignupPro();
 
                 return;
+            case R.id.signup_pro_login_link:
+                this.Login();
+
+                return;
             case R.id.signup_pro_private_account_link:
                 this.Signup();
 
@@ -547,6 +551,22 @@ public class SignupProActivity
     private void Signup() {
         // Create the intent
         Intent i = new Intent(SignupProActivity.this, SignupActivity.class);
+
+        // Put extra parameters
+        // The search bar content
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start Login activity
+     */
+    private void Login() {
+        // Create the intent
+        Intent i = new Intent(SignupProActivity.this, LoginActivity.class);
 
         // Put extra parameters
         // The search bar content

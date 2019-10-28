@@ -23,6 +23,7 @@ import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.ImageService;
 
@@ -30,7 +31,7 @@ public class DoctorProfileActivity
         extends AppCompatActivity
         implements View.OnClickListener {
     private Doctor doctor;
-    private Patient loggedUser;
+    private Resident loggedUser;
 
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
@@ -119,8 +120,11 @@ public class DoctorProfileActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
 
         // Get the doctor
         key = this.getResources().getString(R.string.intent_doctor);
@@ -264,7 +268,7 @@ public class DoctorProfileActivity
 
         // Create the appointment object
         Booking booking = new Booking(
-                this.loggedUser,
+                (Patient) this.loggedUser,
                 this.doctor,
                 null,
                 "",
@@ -427,8 +431,11 @@ public class DoctorProfileActivity
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
                 String key = this.getResources().getString(R.string.intent_logged_user);
-                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
 
             }
         }
@@ -439,8 +446,11 @@ public class DoctorProfileActivity
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
                 String key = this.getResources().getString(R.string.intent_logged_user);
-                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
                 this.BookAppointment();
             }
         }
