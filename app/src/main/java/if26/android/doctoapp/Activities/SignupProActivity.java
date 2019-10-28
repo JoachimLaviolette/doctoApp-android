@@ -89,6 +89,7 @@ public class SignupProActivity
     private static final String PREFIX_PROFILE_HEADER = "profile_header_";
 
     private static final int BLUR_AMOUNT = 2;
+    private static final int SCALE_AMOUNT = 400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -360,6 +361,15 @@ public class SignupProActivity
      */
     private boolean SavePictureBitmapToAppFolder(Intent data) {
         Bitmap pictureBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
+        int scaleFactor = Math.min(pictureBmp.getHeight() / SCALE_AMOUNT, pictureBmp.getWidth() / SCALE_AMOUNT);
+
+        pictureBmp = Bitmap.createScaledBitmap(
+                pictureBmp,
+                pictureBmp.getWidth() / scaleFactor,
+                pictureBmp.getHeight() / scaleFactor,
+                true
+        );
+
         File pictureFile = this.CreatePictureFile();
 
         if (pictureFile == null) return false;
@@ -383,6 +393,8 @@ public class SignupProActivity
      */
     private boolean SaveHeaderBitmapToAppFolder(Intent data) {
         Bitmap headerBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
+        headerBmp = Bitmap.createScaledBitmap(headerBmp, 1200, 720, true);
+
         File headerFile = this.CreateHeaderFile();
 
         if (headerFile == null) return false;

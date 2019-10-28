@@ -496,7 +496,7 @@ public class SearchActivity
 
         for (Doctor doctor: doctorsList) {
             Map<String, Object> doctorMap = new LinkedHashMap<>();
-            doctorMap.put(pictureKey, R.mipmap.ic_launcher);
+            doctorMap.put(pictureKey, doctor.getPicture());
             doctorMap.put(fullnameKey, doctor.getFullname());
             doctorMap.put(specialityKey, doctor.getSpeciality());
             doctorMap.put(addressKey, doctor.GetCityCountry());
@@ -540,9 +540,7 @@ public class SearchActivity
                 public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
                 @Override
-                public void afterTextChanged(Editable s) {
-                    Search();
-                }
+                public void afterTextChanged(Editable s) { Search(); }
             }
         );
     }
