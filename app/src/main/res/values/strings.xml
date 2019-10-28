@@ -15,7 +15,7 @@
     <string name="main_intent_search">search_content</string>
 
     <!-- Login -->
-    <string name="login_caption">Login and access your member profile</string>
+    <string name="login_caption">Login and access your profile</string>
     <string name="login_email_placeholder">Email</string>
     <string name="login_pwd_placeholder">Password</string>
     <string name="login_stay_logged">I want to stay connected</string>
@@ -24,8 +24,8 @@
     <string name="login_logout_btn">Logout</string>
     <string name="login_signup_caption">Not registered yet?</string>
     <string name="login_signup_link">Create your account now</string>
-    <string name="login_pro_account_caption">You are a professional?</string>
-    <string name="login_pro_account_link">Access your professional account</string>
+    <string name="login_signup_pro_caption">You are a professional?</string>
+    <string name="login_signup_pro_link">Create your professional account here</string>
     <string name="login_success_msg_title">Connexion succeeded</string>
     <string name="login_success_msg_content">You are now connected. You can view your bookings and update your personal information using the right sidebar.</string>
     <string name="login_error_msg_title">Connexion failed</string>
@@ -36,7 +36,7 @@
     <!-- Signup -->
     <string name="signup_picture_uri">signup_picture_uri</string>
 
-    <string name="signup_caption">Sign-up and access your member profile</string>
+    <string name="signup_caption">Sign-up and access your patient profile</string>
 
     <string name="signup_take_picture_from_camera">Take a picture</string>
     <string name="signup_select_picture_from_gallery">Select a picture</string>
@@ -83,6 +83,62 @@
     <string name="signup_patient_profile_section_label">Profile data</string>
     <string name="signup_patient_address_section_label">Address data</string>
 
+    <!-- Signup pro -->
+    <string name="signup_pro_picture_uri">signup_pro_picture_uri</string>
+
+    <string name="signup_pro_caption">Sign-up and access your professional profile</string>
+
+    <string name="signup_pro_take_picture_from_camera">Take a picture</string>
+    <string name="signup_pro_select_picture_from_gallery">Select a picture</string>
+    <string name="signup_pro_take_header_from_camera">Take a header</string>
+    <string name="signup_pro_select_header_from_gallery">Select a header</string>
+
+    <string name="signup_pro_lastname">Last name</string>
+    <string name="signup_pro_firstname">First name</string>
+    <string name="signup_pro_speciality">Speciality</string>
+    <string name="signup_pro_email">Email</string>
+    <string name="signup_pro_description">Description</string>
+    <string name="signup_pro_contact_number">Contact number</string>
+    <string name="signup_pro_pwd">Password</string>
+    <string name="signup_pro_confirm_pwd">Confirm your password</string>
+    <string name="signup_pro_is_under_agreement">Are you under agreement?</string>
+    <string name="signup_pro_is_health_insurance_card">Do you accept health insurance card?</string>
+    <string name="signup_pro_is_third_party_payment">Do you allow third party payment?</string>
+
+    <string name="signup_pro_street1">Street 1</string>
+    <string name="signup_pro_street2">Street 2</string>
+    <string name="signup_pro_city">City</string>
+    <string name="signup_pro_zip">Zip code</string>
+    <string name="signup_pro_country">Country</string>
+
+    <string name="signup_pro_lastname_placeholder">Last name</string>
+    <string name="signup_pro_firstname_placeholder">First name</string>
+    <string name="signup_pro_speciality_placeholder">Speciality</string>
+    <string name="signup_pro_email_placeholder">Email</string>
+    <string name="signup_pro_description_placeholder">Description</string>
+    <string name="signup_pro_contact_number_placeholder">Contact number</string>
+    <string name="signup_pro_pwd_placeholder">Password</string>
+    <string name="signup_pro_confirm_pwd_placeholder">Confirm your password</string>
+
+    <string name="signup_pro_street1_placeholder">Street 1</string>
+    <string name="signup_pro_street2_placeholder">Street 2</string>
+    <string name="signup_pro_city_placeholder">City</string>
+    <string name="signup_pro_zip_placeholder">Zip code</string>
+    <string name="signup_pro_country_placeholder">Country</string>
+
+    <string name="signup_pro_btn">sign up</string>
+    <string name="signup_pro_login_caption">Already have an account?</string>
+    <string name="signup_pro_login_link">Login now</string>
+    <string name="signup_pro_private_account_caption">You are a private?</string>
+    <string name="signup_pro_private_account_link">Access your patient account</string>
+    <string name="signup_pro_success_msg_title">Registration succeeded</string>
+    <string name="signup_pro_success_msg_content">You are now registered. You can login to your account using the email you provided to sign-up.</string>
+    <string name="signup_pro_error_msg_title">Registration failed</string>
+    <string name="signup_pro_error_msg_content">Impossible to sign-up. Please make sure your email is in a correct format and that all the fields are properly filled. Also check both passwords are corresponding. If your email is already associated to an existing account, login to your account using the link below.</string>
+    <string name="signup_pro_toast_signup_pro_content">You are now registered. Login to your account from the login page.</string>
+
+    <string name="signup_pro_doctor_profile_section_label">Profile data</string>
+    <string name="signup_pro_doctor_address_section_label">Address data</string>
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>
@@ -107,6 +163,7 @@
 
     <!-- Doctor profile -->
     <string name="doctor_profile_book_appointment">Book an appointment online</string>
+    <string name="doctor_profile_fullname">{doctor_fullname}</string>
     <string name="doctor_profile_address">Address</string>
     <string name="doctor_profile_prices_refunds">Prices and refunds</string>
     <string name="doctor_profile_is_under_agreement_true">Under agreement</string>
@@ -197,5 +254,6 @@
     <string name="intent_booking">booking</string>
     <string name="intent_reason">reason</string>
     <string name="intent_availability">availability</string>
+    <string name="doctor_profile_speciality">{doctor_speciality}</string>
 
 </resources>

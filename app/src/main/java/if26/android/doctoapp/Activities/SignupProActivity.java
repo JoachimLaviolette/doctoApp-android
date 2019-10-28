@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
+import com.jgabrielfreitas.core.BlurImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,35 +28,45 @@ import java.util.Date;
 import de.hdodenhof.circleimageview.CircleImageView;
 import if26.android.doctoapp.BuildConfig;
 import if26.android.doctoapp.Codes.RequestCode;
-import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
+import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
-import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
 import if26.android.doctoapp.Services.ImageService;
 
-public class SignupActivity
+public class SignupProActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-    private Patient loggedUser;
+    private Doctor loggedUser;
 
     private LinearLayout signupMsg;
     private TextView signupMsgTitle;
     private TextView signupMsgContent;
 
     private CircleImageView picture;
+    private BlurImageView header;
 
     private Button takePictureFromCamera;
     private Button selectPictureFromGallery;
     private String picturePath;
     private Uri pictureURI;
 
+    private Button takeHeaderFromCamera;
+    private Button selectHeaderFromGallery;
+    private String headerPath;
+    private Uri headerURI;
+
     private EditText lastnameInput;
     private EditText firstnameInput;
-    private EditText birthdateInput;
+    private EditText specialityInput;
     private EditText emailInput;
-    private EditText insuranceNumberInput;
+    private EditText descriptionInput;
+    private EditText contactNumberInput;
+    private CheckBox isUnderAgreement;
+    private CheckBox isHealthInsuranceCard;
+    private CheckBox isThirdPartyPayment;
     private EditText passwordInput;
     private EditText confirmPasswordInput;
 
@@ -63,21 +76,24 @@ public class SignupActivity
     private EditText zipInput;
     private EditText countryInput;
 
-    private LinearLayout patientProfileSection, patientAddressSection;
+    private LinearLayout doctorProfileSection, doctorAddressSection;
 
     private Button signupBtn;
 
     private TextView loginLink;
 
-    private TextView proAccountLink;
-    private LinearLayout professionalSection;
+    private TextView privateAccountLink;
+    private LinearLayout privateSection;
 
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
+    private static final String PREFIX_PROFILE_HEADER = "profile_header_";
+
+    private static final int BLUR_AMOUNT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_signup_pro);
 
         this.Instantiate();
         this.SubscribeEvents();
@@ -91,40 +107,50 @@ public class SignupActivity
     private void Instantiate() {
         this.loggedUser = null;
 
-        this.signupMsg = findViewById(R.id.signup_msg);
-        this.signupMsgTitle = findViewById(R.id.signup_msg_title);
-        this.signupMsgContent = findViewById(R.id.signup_msg_content);
+        this.signupMsg = findViewById(R.id.signup_pro_msg);
+        this.signupMsgTitle = findViewById(R.id.signup_pro_msg_title);
+        this.signupMsgContent = findViewById(R.id.signup_pro_msg_content);
 
-        this.picture = findViewById(R.id.signup_patient_picture);
+        this.picture = findViewById(R.id.signup_pro_doctor_picture);
+        this.header = findViewById(R.id.signup_pro_doctor_header);
 
-        this.takePictureFromCamera = findViewById(R.id.signup_take_picture_from_camera);
-        this.selectPictureFromGallery = findViewById(R.id.signup_select_picture_from_gallery);
+        this.takePictureFromCamera = findViewById(R.id.signup_pro_take_picture_from_camera);
+        this.selectPictureFromGallery = findViewById(R.id.signup_pro_select_picture_from_gallery);
         this.picturePath = null;
         this.pictureURI = null;
 
-        this.lastnameInput = findViewById(R.id.signup_lastname);
-        this.firstnameInput = findViewById(R.id.signup_firstname);
-        this.birthdateInput = findViewById(R.id.signup_birthdate);
-        this.emailInput = findViewById(R.id.signup_email);
-        this.insuranceNumberInput = findViewById(R.id.signup_insurance_number);
-        this.passwordInput = findViewById(R.id.signup_pwd);
-        this.confirmPasswordInput = findViewById(R.id.signup_confirm_pwd);
+        this.takeHeaderFromCamera = findViewById(R.id.signup_pro_take_header_from_camera);
+        this.selectHeaderFromGallery = findViewById(R.id.signup_pro_select_header_from_gallery);
+        this.headerPath = null;
+        this.headerURI = null;
 
-        this.street1Input = findViewById(R.id.signup_street1);
-        this.street2Input = findViewById(R.id.signup_street2);
-        this.cityInput = findViewById(R.id.signup_city);
-        this.zipInput = findViewById(R.id.signup_zip);
-        this.countryInput = findViewById(R.id.signup_country);
+        this.lastnameInput = findViewById(R.id.signup_pro_lastname);
+        this.firstnameInput = findViewById(R.id.signup_pro_firstname);
+        this.specialityInput = findViewById(R.id.signup_pro_speciality);
+        this.emailInput = findViewById(R.id.signup_pro_email);
+        this.descriptionInput = findViewById(R.id.signup_pro_description);
+        this.contactNumberInput = findViewById(R.id.signup_pro_contact_number);
+        this.isUnderAgreement = findViewById(R.id.signup_pro_is_under_agreement);
+        this.isHealthInsuranceCard = findViewById(R.id.signup_pro_is_health_insurance_card);
+        this.isThirdPartyPayment = findViewById(R.id.signup_pro_is_third_party_payment);
+        this.passwordInput = findViewById(R.id.signup_pro_pwd);
+        this.confirmPasswordInput = findViewById(R.id.signup_pro_confirm_pwd);
 
-        this.patientProfileSection = findViewById(R.id.signup_patient_profile_section);
-        this.patientAddressSection = findViewById(R.id.signup_patient_address_section);
+        this.street1Input = findViewById(R.id.signup_pro_street1);
+        this.street2Input = findViewById(R.id.signup_pro_street2);
+        this.cityInput = findViewById(R.id.signup_pro_city);
+        this.zipInput = findViewById(R.id.signup_pro_zip);
+        this.countryInput = findViewById(R.id.signup_pro_country);
 
-        this.signupBtn = findViewById(R.id.signup_btn);
+        this.doctorProfileSection = findViewById(R.id.signup_pro_doctor_profile_section);
+        this.doctorAddressSection = findViewById(R.id.signup_pro_doctor_address_section);
 
-        this.loginLink = findViewById(R.id.signup_login_link);
+        this.signupBtn = findViewById(R.id.signup_pro_btn);
 
-        this.proAccountLink = findViewById(R.id.signup_pro_account_link);
-        this.professionalSection = findViewById(R.id.signup_pro_account_section);
+        this.loginLink = findViewById(R.id.signup_pro_login_link);
+
+        this.privateAccountLink = findViewById(R.id.signup_pro_private_account_link);
+        this.privateSection = findViewById(R.id.signup_pro_private_section);
     }
 
     /**
@@ -133,9 +159,11 @@ public class SignupActivity
     private void SubscribeEvents() {
         this.takePictureFromCamera.setOnClickListener(this);
         this.selectPictureFromGallery.setOnClickListener(this);
+        this.takeHeaderFromCamera.setOnClickListener(this);
+        this.selectHeaderFromGallery.setOnClickListener(this);
         this.signupBtn.setOnClickListener(this);
         this.loginLink.setOnClickListener(this);
-        this.proAccountLink.setOnClickListener(this);
+        this.privateAccountLink.setOnClickListener(this);
     }
 
     /**
@@ -160,8 +188,8 @@ public class SignupActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ? (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = (Doctor) this.loggedUser.Update(this.getApplicationContext());
     }
 
     /**
@@ -171,24 +199,28 @@ public class SignupActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.signup_take_picture_from_camera:
+            case R.id.signup_pro_take_picture_from_camera:
                 this.TakePictureFromCamera();
 
                 return;
-            case R.id.signup_select_picture_from_gallery:
+            case R.id.signup_pro_select_picture_from_gallery:
                 this.SelectPictureFromGallery();
 
                 return;
-            case R.id.signup_btn:
-                this.Signup();
+            case R.id.signup_pro_take_header_from_camera:
+                this.TakeHeaderFromCamera();
 
                 return;
-            case R.id.signup_login_link:
-                this.Login();
+            case R.id.signup_pro_select_header_from_gallery:
+                this.SelectHeaderFromGallery();
 
                 return;
-            case R.id.signup_pro_account_link:
+            case R.id.signup_pro_btn:
                 this.SignupPro();
+
+                return;
+            case R.id.signup_pro_private_account_link:
+                this.Signup();
 
                 return;
         }
@@ -198,16 +230,18 @@ public class SignupActivity
      * Set Sign-up context
      */
     private void SetSignupContext() {
-        this.patientProfileSection.setVisibility(View.VISIBLE);
-        this.patientAddressSection.setVisibility(View.VISIBLE);
+        this.header.setBlur(BLUR_AMOUNT);
+        this.doctorProfileSection.setVisibility(View.VISIBLE);
+        this.doctorAddressSection.setVisibility(View.VISIBLE);
         this.signupBtn.setVisibility(View.VISIBLE);
-        this.professionalSection.setVisibility(View.VISIBLE);
+        this.privateSection.setVisibility(View.VISIBLE);
         this.signupMsg.setVisibility(View.GONE);
         this.lastnameInput.setText("");
         this.firstnameInput.setText("");
-        this.birthdateInput.setText("");
+        this.specialityInput.setText("");
         this.emailInput.setText("");
-        this.insuranceNumberInput.setText("");
+        this.descriptionInput.setText("");
+        this.contactNumberInput.setText("");
         this.passwordInput.setText("");
         this.confirmPasswordInput.setText("");
         this.street1Input.setText("");
@@ -247,6 +281,35 @@ public class SignupActivity
     }
 
     /**
+     * Ask the user to take a picture from the camera
+     */
+    private void TakeHeaderFromCamera() {
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (i.resolveActivity(getPackageManager()) == null) return;
+
+        File headerFile = this.CreateHeaderFile();
+
+        if (headerFile == null) return;
+
+        String authorities = BuildConfig.APPLICATION_ID + ".fileprovider";
+        Uri headerURI = FileProvider.getUriForFile(this, authorities, headerFile);
+        i.putExtra(MediaStore.EXTRA_OUTPUT, headerURI);
+        startActivityForResult(i, RequestCode.TAKE_HEADER_FROM_CAMERA);
+    }
+
+    /**
+     * Ask the user to load a header
+     */
+    private void SelectHeaderFromGallery() {
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        if (i.resolveActivity(getPackageManager()) == null) return;
+
+        startActivityForResult(i, RequestCode.SELECT_HEADER_FROM_GALLERY);
+    }
+
+    /**
      * Create a file using the uploaded picture
      * @return The created file
      */
@@ -270,9 +333,32 @@ public class SignupActivity
     }
 
     /**
-     * Save to uploaded image to app folder
+     * Create a file using the uploaded header
+     * @return The created file
      */
-    private boolean SaveBitmapToAppFolder(Intent data) {
+    private File CreateHeaderFile() {
+        File headerFile = null;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String headerFileName = PREFIX_PROFILE_HEADER + timeStamp + "_";
+
+        /**
+         * To store internally, use : getFilesDir()
+         */
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        try {
+            headerFile = File.createTempFile(headerFileName, ".jpg", storageDir);
+            this.headerPath = headerFile.getAbsolutePath();
+            this.headerURI = ImageService.GetURIFromFile(headerFile);
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        finally { return headerFile; }
+    }
+
+    /**
+     * Save to uploaded picture to app folder
+     */
+    private boolean SavePictureBitmapToAppFolder(Intent data) {
         Bitmap pictureBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
         File pictureFile = this.CreatePictureFile();
 
@@ -281,6 +367,29 @@ public class SignupActivity
         try {
             FileOutputStream out = new FileOutputStream(pictureFile);
             pictureBmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    /**
+     * Save to uploaded header to app folder
+     */
+    private boolean SaveHeaderBitmapToAppFolder(Intent data) {
+        Bitmap headerBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
+        File headerFile = this.CreateHeaderFile();
+
+        if (headerFile == null) return false;
+
+        try {
+            FileOutputStream out = new FileOutputStream(headerFile);
+            headerBmp.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
 
@@ -303,9 +412,19 @@ public class SignupActivity
 
                     return;
                 case RequestCode.SELECT_PICTURE_FROM_GALLERY:
-                    if (!this.SaveBitmapToAppFolder(data)) return;
+                    if (!this.SavePictureBitmapToAppFolder(data)) return;
 
                     this.picture.setImageURI(this.pictureURI);
+
+                    return;
+                case RequestCode.TAKE_HEADER_FROM_CAMERA:
+                    this.header.setImageURI(this.headerURI);
+
+                    return;
+                case RequestCode.SELECT_HEADER_FROM_GALLERY:
+                    if (!this.SaveHeaderBitmapToAppFolder(data)) return;
+
+                    this.header.setImageURI(this.headerURI);
 
                     return;
             }
@@ -315,14 +434,14 @@ public class SignupActivity
     /**
      * Execute signup process
      */
-    private void Signup() {
+    private void SignupPro() {
         if (!this.AllFieldsCorrect()) {
             this.DisplayErrorMsg();
 
             return;
         }
 
-        PatientDatabaseHelper patientDbHelper = new PatientDatabaseHelper(this.getApplicationContext());
+        DoctorDatabaseHelper doctorDbHelper = new DoctorDatabaseHelper(this.getApplicationContext());
 
         String lastLogin = DateTimeService.GetCurrentDateTime();
 
@@ -331,6 +450,7 @@ public class SignupActivity
         String pwd = EncryptionService.SHA1(inputPwd + pwdSalt);
 
         String picture = this.picturePath;
+        String header = this.headerPath;
 
         Address address = new Address(
                 -1,
@@ -341,21 +461,26 @@ public class SignupActivity
                 this.countryInput.getText().toString().trim()
         );
 
-        Patient patient = new Patient(
+        Doctor doctor = new Doctor(
                 -1,
                 this.lastnameInput.getText().toString().trim(),
                 this.firstnameInput.getText().toString().trim(),
-                this.birthdateInput.getText().toString().trim(),
+                this.specialityInput.getText().toString().trim(),
                 this.emailInput.getText().toString().trim(),
+                this.descriptionInput.getText().toString().trim(),
+                this.contactNumberInput.getText().toString().trim(),
                 pwd,
                 pwdSalt,
-                this.insuranceNumberInput.getText().toString().trim(),
+                this.isUnderAgreement.isChecked(),
+                this.isHealthInsuranceCard.isChecked(),
+                this.isThirdPartyPayment.isChecked(),
                 address,
                 lastLogin,
-                picture
+                picture,
+                header
         );
 
-        if (patientDbHelper.CreatePatient(patient)) {
+        if (doctorDbHelper.CreateDoctor(doctor)) {
             this.DisplaySuccessMsg();
             this.MakeToast();
             Intent i = new Intent();
@@ -376,19 +501,21 @@ public class SignupActivity
      */
     private boolean AllFieldsCorrect() {
         boolean allFieldsFilled =
-                        this.lastnameInput.getText().toString().trim().isEmpty()
+                this.lastnameInput.getText().toString().trim().isEmpty()
                         || this.firstnameInput.getText().toString().trim().isEmpty()
-                        || this.birthdateInput.getText().toString().trim().isEmpty()
+                        || this.specialityInput.getText().toString().trim().isEmpty()
                         || this.emailInput.getText().toString().trim().isEmpty()
                         || this.passwordInput.getText().toString().trim().isEmpty()
                         || this.confirmPasswordInput.getText().toString().trim().isEmpty()
-                        || this.insuranceNumberInput.getText().toString().trim().isEmpty()
+                        || this.descriptionInput.getText().toString().trim().isEmpty()
+                        || this.contactNumberInput.getText().toString().trim().isEmpty()
                         || this.street1Input.getText().toString().trim().isEmpty()
                         || this.street2Input.getText().toString().trim().isEmpty()
                         || this.cityInput.getText().toString().trim().isEmpty()
                         || this.zipInput.getText().toString().trim().isEmpty()
                         || this.countryInput.getText().toString().trim().isEmpty()
-                        || this.picturePath.trim().isEmpty();
+                        || this.picturePath.trim().isEmpty()
+                        || this.headerPath.trim().isEmpty();
 
         // One of the fields is empty
         if (allFieldsFilled) return false;
@@ -399,36 +526,15 @@ public class SignupActivity
         // Both passwords do not correspond
         if (!bothPwdEqual) return false;
 
-        boolean isBirthDateCorrectFormat = this.birthdateInput.getText().toString().trim().matches("\\d{4}-(01|02|03|04|05|06|07|08|09|10|11|12)-\\d{2}");
-
-        // The provided date not in the correct format (ie. 1996-01-27)
-        if (!isBirthDateCorrectFormat) return false;
-
         return true;
     }
 
     /**
-     * Start Login activity
+     * Start Signup activity
      */
-    private void Login() {
+    private void Signup() {
         // Create the intent
-        Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-
-        // Put extra parameters
-        // The search bar content
-        String key = this.getResources().getString(R.string.intent_logged_user);
-        i.putExtra(key, this.loggedUser);
-
-        // Start the activity
-        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
-    }
-
-    /**
-     * Start SignupPro activity
-     */
-    private void SignupPro() {
-        // Create the intent
-        Intent i = new Intent(SignupActivity.this, SignupProActivity.class);
+        Intent i = new Intent(SignupProActivity.this, SignupActivity.class);
 
         // Put extra parameters
         // The search bar content
@@ -444,13 +550,13 @@ public class SignupActivity
      */
     private void DisplaySuccessMsg() {
         this.signupMsg.setVisibility(View.VISIBLE);
-        this.signupMsg.setBackgroundResource(R.color.signup_success_msg);
-        this.signupMsgTitle.setText(this.getResources().getString(R.string.signup_success_msg_title));
-        this.signupMsgContent.setText(this.getResources().getString(R.string.signup_success_msg_content));
-        this.patientProfileSection.setVisibility(View.GONE);
-        this.patientAddressSection.setVisibility(View.GONE);
+        this.signupMsg.setBackgroundResource(R.color.signup_pro_success_msg);
+        this.signupMsgTitle.setText(this.getResources().getString(R.string.signup_pro_success_msg_title));
+        this.signupMsgContent.setText(this.getResources().getString(R.string.signup_pro_success_msg_content));
+        this.doctorProfileSection.setVisibility(View.GONE);
+        this.doctorAddressSection.setVisibility(View.GONE);
         this.signupBtn.setVisibility(View.GONE);
-        this.professionalSection.setVisibility(View.GONE);
+        this.privateSection.setVisibility(View.GONE);
     }
 
     /**
@@ -458,13 +564,13 @@ public class SignupActivity
      */
     private void DisplayErrorMsg() {
         this.signupMsg.setVisibility(View.VISIBLE);
-        this.signupMsg.setBackgroundResource(R.color.signup_error_msg);
-        this.signupMsgTitle.setText(this.getResources().getString(R.string.signup_error_msg_title));
-        this.signupMsgContent.setText(this.getResources().getString(R.string.signup_error_msg_content));
+        this.signupMsg.setBackgroundResource(R.color.signup_pro_error_msg);
+        this.signupMsgTitle.setText(this.getResources().getString(R.string.signup_pro_error_msg_title));
+        this.signupMsgContent.setText(this.getResources().getString(R.string.signup_pro_error_msg_content));
     }
 
     /**
-     * Show a toast after SIGN UP action
+     * Show a toast after SIGNUP PRO action
      */
     private void MakeToast() {
         Context context = getApplicationContext();
