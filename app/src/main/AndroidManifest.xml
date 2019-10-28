@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Activities.MyBookingsActivity"></activity>
+        <activity
+            android:name=".Activities.SignupProActivity"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        <activity android:name=".Activities.MyBookingsActivity" />
         <activity
             android:name=".Activities.SignupActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
@@ -46,8 +49,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
+
 </manifest>

@@ -27,9 +27,9 @@
     <color name="login_signup_background">#FFFFFF</color>
     <color name="login_signup_caption">#252525</color>
     <color name="login_signup_link">#1B86E4</color>
-    <color name="login_pro_account_background">#FFFFFF</color>
-    <color name="login_pro_account_caption">#252525</color>
-    <color name="login_pro_account_link">#1B86E4</color>
+    <color name="login_signup_pro_background">#FFFFFF</color>
+    <color name="login_signup_pro_caption">#252525</color>
+    <color name="login_signup_pro_link">#1B86E4</color>
     <color name="login_success_msg">#18965A</color>
     <color name="login_error_msg">#BE4A4A</color>
     <color name="login_success_msg_title">#FFFFFF</color>
@@ -38,24 +38,49 @@
     <!-- Signup -->
     <color name="signup_background">#E4E4E4</color>
     <color name="signup_caption">#696969</color>
+    <color name="signup_section_label">#696969</color>
     <color name="signup_input_text">#858585</color>
     <color name="signup_input_hint">#D8D8D8</color>
     <color name="signup_btn_background">#1B86E4</color>
     <color name="signup_btn_text">#FFFFFF</color>
     <color name="signup_login_background">#FFFFFF</color>
-    <color name="signup_login_caption">#252525</color>
     <color name="signup_login_link">#1B86E4</color>
     <color name="signup_pro_account_background">#FFFFFF</color>
-    <color name="signup_pro_account_caption">#252525</color>
     <color name="signup_pro_account_link">#1B86E4</color>
     <color name="signup_success_msg">#18965A</color>
     <color name="signup_error_msg">#BE4A4A</color>
     <color name="signup_success_msg_title">#FFFFFF</color>
     <color name="signup_success_msg_content">#FFFFFF</color>
-    <color name="signup_take_picture_from_camera">#1B86E4</color>
+    <color name="signup_take_picture_from_camera">#494949</color>
     <color name="signup_take_picture_from_camera_text">#FFFFFF</color>
-    <color name="signup_select_picture_from_gallery">#1B86E4</color>
+    <color name="signup_select_picture_from_gallery">#494949</color>
     <color name="signup_select_picture_from_gallery_text">#FFFFFF</color>
+
+    <!-- Signup pro -->
+    <color name="signup_pro_background">#E4E4E4</color>
+    <color name="signup_pro_caption">#696969</color>
+    <color name="signup_pro_section_label">#696969</color>
+    <color name="signup_pro_input_text">#858585</color>
+    <color name="signup_pro_input_hint">#D8D8D8</color>
+    <color name="signup_pro_btn_background">#1B86E4</color>
+    <color name="signup_pro_btn_text">#FFFFFF</color>
+    <color name="signup_pro_login_background">#FFFFFF</color>
+    <color name="signup_pro_login_link">#1B86E4</color>
+    <color name="signup_pro_private_account_background">#FFFFFF</color>
+    <color name="signup_pro_private_account_link">#1B86E4</color>
+    <color name="signup_pro_success_msg">#18965A</color>
+    <color name="signup_pro_error_msg">#BE4A4A</color>
+    <color name="signup_pro_success_msg_title">#FFFFFF</color>
+    <color name="signup_pro_success_msg_content">#FFFFFF</color>
+    <color name="signup_pro_take_picture_from_camera">#494949</color>
+    <color name="signup_pro_take_picture_from_camera_text">#FFFFFF</color>
+    <color name="signup_pro_select_picture_from_gallery">#494949</color>
+    <color name="signup_pro_select_picture_from_gallery_text">#FFFFFF</color>
+    <color name="signup_pro_take_header_from_camera">#494949</color>
+    <color name="signup_pro_take_header_from_camera_text">#FFFFFF</color>
+    <color name="signup_pro_select_header_from_gallery">#494949</color>
+    <color name="signup_pro_select_header_from_gallery_text">#FFFFFF</color>
+    <color name="signup_pro_option">#858585</color>
 
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>

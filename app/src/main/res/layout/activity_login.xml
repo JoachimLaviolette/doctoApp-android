@@ -111,8 +111,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto"
                     android:text="@string/login_stay_logged"
-                    android:textColor="@color/login_stay_logged"
-                    android:textColorHint="@color/login_forgot_pwd"/>
+                    android:textColor="@color/login_stay_logged" />
 
                 <TextView
                     android:id="@+id/login_forgot_pwd"
@@ -123,8 +122,7 @@
                     android:text="@string/login_forgot_pwd"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/login_forgot_pwd"
-                    android:textColorHint="@color/login_forgot_pwd"
-                    android:textStyle="normal" />
+                    android:textColorHint="@color/login_forgot_pwd" />
 
             </LinearLayout>
 
@@ -190,7 +188,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/login_pro_account_section"
+            android:id="@+id/login_signup_pro_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5sp"
@@ -200,25 +198,25 @@
             android:padding="20sp">
 
             <TextView
-                android:id="@+id/login_pro_account_caption"
+                android:id="@+id/login_signup_pro_caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:paddingBottom="5sp"
-                android:text="@string/login_pro_account_caption"
+                android:text="@string/login_signup_pro_caption"
                 android:textAlignment="center"
-                android:textStyle="normal|bold" />
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/login_pro_account_link"
+                android:id="@+id/login_signup_pro_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
                 android:paddingTop="5sp"
-                android:text="@string/login_pro_account_link"
+                android:text="@string/login_signup_pro_link"
                 android:textAlignment="center"
-                android:textColor="@color/login_pro_account_link"
-                android:textStyle="normal|bold" />
+                android:textColor="@color/login_signup_pro_link"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

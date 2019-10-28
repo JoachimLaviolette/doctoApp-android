@@ -22,13 +22,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
-                <ImageView
+                <com.jgabrielfreitas.core.BlurImageView
                     android:id="@+id/doctor_profile_header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/header_0" />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +42,7 @@
                         android:layout_height="130dp"
                         android:layout_gravity="center"
                         android:padding="15dp"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@mipmap/ic_launcher"
                         app:civ_border_width="0dp" />
 
                     <TextView
@@ -56,7 +55,7 @@
                         android:shadowDx="1"
                         android:shadowDy="1"
                         android:shadowRadius="3"
-                        android:text="{doctor_fullname}"
+                        android:text="@string/doctor_profile_fullname"
                         android:textColor="@color/doctor_profile_fullname"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -71,7 +70,7 @@
                         android:shadowDx="1"
                         android:shadowDy="1"
                         android:shadowRadius="3"
-                        android:text="{doctor_speciality}"
+                        android:text="@string/doctor_profile_speciality"
                         android:textColor="@color/doctor_profile_speciality"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -133,9 +132,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_address_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -204,9 +202,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_prices_refunds_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -275,9 +272,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_payment_options_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -356,9 +352,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_description_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -407,9 +402,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_hours_contacts_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -458,9 +452,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_education_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -509,9 +502,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_languages_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"
@@ -560,9 +552,8 @@
 
                             <ImageView
                                 android:id="@+id/doctor_profile_experiences_icon"
-                                android:layout_width="30dp"
+                                android:layout_width="0dp"
                                 android:layout_height="46dp"
-                                android:layout_centerVertical="false"
                                 android:layout_weight="1"
                                 android:padding="11sp"
                                 android:tint="@color/appointment_summary_icon_tint"

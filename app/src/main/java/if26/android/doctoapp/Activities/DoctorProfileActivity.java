@@ -15,6 +15,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.jgabrielfreitas.core.BlurImageView;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.Models.Booking;
@@ -32,6 +34,7 @@ public class DoctorProfileActivity
     private ConstraintLayout mainLayout;
     private Button bookAppointmentBtn;
     private CircleImageView doctorPicture;
+    private BlurImageView doctorHeader;
     private TextView
                 doctorFullname,
                 doctorSpeciality;
@@ -59,6 +62,8 @@ public class DoctorProfileActivity
     private RelativeLayout popupExternalBackground;
     private LinearLayout popupContentLayout;
 
+    private static final int BLUR_AMOUNT = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +82,7 @@ public class DoctorProfileActivity
         this.mainLayout = findViewById(R.id.doctor_profile_layout);
         this.bookAppointmentBtn = findViewById(R.id.doctor_profile_book_appointment);
         this.doctorPicture = findViewById(R.id.doctor_profile_picture);
+        this.doctorHeader = findViewById(R.id.doctor_profile_header);
         this.doctorFullname = findViewById(R.id.doctor_profile_fullname);
         this.doctorSpeciality = findViewById(R.id.doctor_profile_speciality);
 
@@ -126,9 +132,11 @@ public class DoctorProfileActivity
      */
     private void SetContent() {
         // Set doctor picture
-        // TODO : Remove this is a test with the logged-in own picture (working)
-        this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.loggedUser.getPicture()));
-        //this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
+        if (!this.doctor.getPicture().isEmpty()) this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
+
+        // Set doctor header
+        if (!this.doctor.getHeader().isEmpty()) this.doctorHeader.setImageURI(ImageService.GetURIFromPath(this.doctor.getHeader()));
+        this.doctorHeader.setBlur(BLUR_AMOUNT);
 
         // Set doctor fullname
         this.doctorFullname.setText(this.doctor.getFullname());

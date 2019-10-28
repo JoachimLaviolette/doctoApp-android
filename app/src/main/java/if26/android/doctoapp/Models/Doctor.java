@@ -371,6 +371,8 @@ public class Doctor extends Resident {
 
         for (PaymentOption po: this.paymentOptions) paymentOptions += po.toString().toLowerCase().replace("_", " ") + ", ";
 
+        if (paymentOptions.isEmpty()) return paymentOptions;
+
         paymentOptions = paymentOptions.substring(0, 1).toUpperCase() + paymentOptions.substring(1).toLowerCase().trim();
         paymentOptions = paymentOptions.substring(0, paymentOptions.lastIndexOf(","));
 

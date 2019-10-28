@@ -70,8 +70,8 @@ public class LoginActivity
         this.logoutBtn = findViewById(R.id.login_logout_btn);
         this.signupLink = findViewById(R.id.login_signup_link);
         this.signupSection = findViewById(R.id.login_signup_section);
-        this.proAccountLink = findViewById(R.id.login_pro_account_link);
-        this.professionalSection = findViewById(R.id.login_pro_account_section);
+        this.proAccountLink = findViewById(R.id.login_signup_pro_link);
+        this.professionalSection = findViewById(R.id.login_signup_pro_section);
     }
 
     /**
@@ -139,8 +139,8 @@ public class LoginActivity
                 this.Signup();
 
                 return;
-            case R.id.login_pro_account_link:
-                this.LoginProAccount();
+            case R.id.login_signup_pro_link:
+                this.SignupPro();
 
                 return;
             case R.id.login_msg:
@@ -261,10 +261,19 @@ public class LoginActivity
     }
 
     /**
-     * Start LoginProAccount activity
+     * Start SignupPro activity
      */
-    private void LoginProAccount() {
+    private void SignupPro() {
+        // Create the intent
+        Intent i = new Intent(LoginActivity.this, SignupProActivity.class);
 
+        // Put extra parameters
+        // The search bar content
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**
