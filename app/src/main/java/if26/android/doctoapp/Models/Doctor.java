@@ -15,6 +15,7 @@ import if26.android.doctoapp.DatabaseHelpers.DoctoAppDatabaseContract;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.StringFormatterService;
 
 public class Doctor extends Resident {
     private String speciality;
@@ -373,7 +374,7 @@ public class Doctor extends Resident {
 
         if (paymentOptions.isEmpty()) return paymentOptions;
 
-        paymentOptions = paymentOptions.substring(0, 1).toUpperCase() + paymentOptions.substring(1).toLowerCase().trim();
+        paymentOptions = StringFormatterService.Capitalize(paymentOptions);
         paymentOptions = paymentOptions.substring(0, paymentOptions.lastIndexOf(","));
 
         return paymentOptions;

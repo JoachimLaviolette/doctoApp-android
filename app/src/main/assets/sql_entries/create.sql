@@ -1,7 +1,7 @@
 CREATE TABLE address (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
- street1 TEXT DEFAULT NULL,
- street2 TEXT NOT NULL,
+ street1 TEXT NOT NULL,
+ street2 TEXT DEFAULT NULL,
  city TEXT NOT NULL,
  zip INTEGER NOT NULL,
  country TEXT NOT NULL
@@ -22,8 +22,8 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  is_third_party_payment INTEGER DEFAULT NULL,
  address_id INTEGER NOT NULL,
  last_login TEXT,
- picture TEXT,
- header TEXT,
+ picture TEXT DEFAULT NULL,
+ header TEXT DEFAULT NULL,
  FOREIGN KEY(address_id) REFERENCES address(id)
 );
 
@@ -69,7 +69,7 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  insurance_number TEXT NOT NULL UNIQUE,
  address_id INTEGER NOT NULL,
  last_login TEXT,
- picture TEXT,
+ picture TEXT DEFAULT NULL,
  FOREIGN KEY(address_id) REFERENCES address(id)
 );
 
