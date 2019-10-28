@@ -34,6 +34,7 @@ import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
 import if26.android.doctoapp.Services.ImageService;
+import if26.android.doctoapp.Services.StringFormatterService;
 
 public class SignupActivity
         extends AppCompatActivity
@@ -343,13 +344,13 @@ public class SignupActivity
                 this.street2Input.getText().toString().trim(),
                 this.cityInput.getText().toString().trim(),
                 this.zipInput.getText().toString().trim(),
-                this.countryInput.getText().toString().trim()
+                StringFormatterService.Capitalize(this.countryInput.getText().toString().trim())
         );
 
         Patient patient = new Patient(
                 -1,
-                this.lastnameInput.getText().toString().trim(),
-                this.firstnameInput.getText().toString().trim(),
+                StringFormatterService.Capitalize(this.lastnameInput.getText().toString().trim()),
+                StringFormatterService.Capitalize(this.firstnameInput.getText().toString().trim()),
                 this.birthdateInput.getText().toString().trim(),
                 this.emailInput.getText().toString().trim(),
                 pwd,
@@ -389,11 +390,11 @@ public class SignupActivity
                         || this.confirmPasswordInput.getText().toString().trim().isEmpty()
                         || this.insuranceNumberInput.getText().toString().trim().isEmpty()
                         || this.street1Input.getText().toString().trim().isEmpty()
-                        || this.street2Input.getText().toString().trim().isEmpty()
+                        // || this.street2Input.getText().toString().trim().isEmpty() // Street 2 is not a required field
                         || this.cityInput.getText().toString().trim().isEmpty()
                         || this.zipInput.getText().toString().trim().isEmpty()
-                        || this.countryInput.getText().toString().trim().isEmpty()
-                        || this.picturePath.trim().isEmpty();
+                        || this.countryInput.getText().toString().trim().isEmpty();
+                        // || this.picturePath.trim().isEmpty(); // Picture is not a required field
 
         // One of the fields is empty
         if (allFieldsFilled) return false;

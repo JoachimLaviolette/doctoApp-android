@@ -35,6 +35,7 @@ import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
 import if26.android.doctoapp.Services.ImageService;
+import if26.android.doctoapp.Services.StringFormatterService;
 
 public class SignupProActivity
         extends AppCompatActivity
@@ -474,15 +475,15 @@ public class SignupProActivity
                 this.street2Input.getText().toString().trim(),
                 this.cityInput.getText().toString().trim(),
                 this.zipInput.getText().toString().trim(),
-                this.countryInput.getText().toString().trim()
+                StringFormatterService.Capitalize(this.countryInput.getText().toString().trim())
         );
 
         Doctor doctor = new Doctor(
                 -1,
-                this.lastnameInput.getText().toString().trim(),
-                this.firstnameInput.getText().toString().trim(),
-                this.specialityInput.getText().toString().trim(),
-                this.emailInput.getText().toString().trim(),
+                StringFormatterService.Capitalize(this.lastnameInput.getText().toString().trim()),
+                StringFormatterService.Capitalize(this.firstnameInput.getText().toString().trim()),
+                StringFormatterService.Capitalize(this.specialityInput.getText().toString().trim()),
+                this.emailInput.getText().toString().trim().toLowerCase(),
                 this.descriptionInput.getText().toString().trim(),
                 this.contactNumberInput.getText().toString().trim(),
                 pwd,
@@ -517,21 +518,21 @@ public class SignupProActivity
      */
     private boolean AllFieldsCorrect() {
         boolean allFieldsFilled =
-                this.lastnameInput.getText().toString().trim().isEmpty()
+                        this.lastnameInput.getText().toString().trim().isEmpty()
                         || this.firstnameInput.getText().toString().trim().isEmpty()
                         || this.specialityInput.getText().toString().trim().isEmpty()
                         || this.emailInput.getText().toString().trim().isEmpty()
                         || this.passwordInput.getText().toString().trim().isEmpty()
                         || this.confirmPasswordInput.getText().toString().trim().isEmpty()
-                        || this.descriptionInput.getText().toString().trim().isEmpty()
+                        // || this.descriptionInput.getText().toString().trim().isEmpty() // Description is not a required field
                         || this.contactNumberInput.getText().toString().trim().isEmpty()
                         || this.street1Input.getText().toString().trim().isEmpty()
-                        || this.street2Input.getText().toString().trim().isEmpty()
+                        // || this.street2Input.getText().toString().trim().isEmpty() // Street 2 is not a required fields
                         || this.cityInput.getText().toString().trim().isEmpty()
                         || this.zipInput.getText().toString().trim().isEmpty()
-                        || this.countryInput.getText().toString().trim().isEmpty()
-                        || this.picturePath.trim().isEmpty()
-                        || this.headerPath.trim().isEmpty();
+                        || this.countryInput.getText().toString().trim().isEmpty();
+                        // || this.picturePath.trim().isEmpty() // Picture is not a required field
+                        // || this.headerPath.trim().isEmpty(); // Header is not a required field
 
         // One of the fields is empty
         if (allFieldsFilled) return false;
