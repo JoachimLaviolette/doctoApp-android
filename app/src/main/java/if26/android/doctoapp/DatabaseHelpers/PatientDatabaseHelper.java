@@ -152,7 +152,7 @@ public class PatientDatabaseHelper {
     /**
      * Get a patient by email
      * @param email The email
-     * @return A patient if found, null otherwise
+     * @return The matching patient if found, null otherwise
      */
     public Patient GetPatientByEmail(String email) {
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();

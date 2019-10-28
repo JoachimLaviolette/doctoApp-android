@@ -30,7 +30,8 @@
     <string name="login_success_msg_content">You are now connected. You can view your bookings and update your personal information using the right sidebar.</string>
     <string name="login_error_msg_title">Connexion failed</string>
     <string name="login_error_msg_content">Impossible to connect. Please check your email and/or your password. Make sure it exists, ask for renewing your password, or create an account using the links below.</string>
-    <string name="login_toast_login_content">You are now connected to your patient account</string>
+    <string name="login_toast_login_patient_content">You are now connected to your patient account</string>
+    <string name="login_toast_login_doctor_content">You are now connected to your doctor account</string>
     <string name="login_toast_logout_content">You are now disconnected from your patient account</string>
 
     <!-- Signup -->

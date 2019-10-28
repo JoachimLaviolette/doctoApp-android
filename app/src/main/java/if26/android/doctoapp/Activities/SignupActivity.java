@@ -27,7 +27,9 @@ import if26.android.doctoapp.BuildConfig;
 import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
+import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
@@ -36,7 +38,7 @@ import if26.android.doctoapp.Services.ImageService;
 public class SignupActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-    private Patient loggedUser;
+    private Resident loggedUser;
 
     private LinearLayout signupMsg;
     private TextView signupMsgTitle;
@@ -160,8 +162,11 @@ public class SignupActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
     }
 
     /**

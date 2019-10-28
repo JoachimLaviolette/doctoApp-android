@@ -279,6 +279,33 @@ public class DoctorDatabaseHelper {
     }
 
     /**
+     * Get a doctor by email
+     * @param email The email
+     * @return The matching doctor if found, null otherwise
+     */
+    public Doctor GetDoctorByEmail(String email) {
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        String query = String.format(
+                "SELECT * " +
+                        "FROM %s " +
+                        "WHERE %s = ?",
+                DoctoAppDatabaseContract.Doctor.TABLE_NAME,
+                DoctoAppDatabaseContract.Doctor.COLUMN_NAME_EMAIL
+        );
+
+        String[] args = {
+                email
+        };
+
+        Cursor c = database.rawQuery(query, args);
+        Doctor doctor = this.BuildDoctorsList(c).get(0);
+        c.close();
+
+        return doctor;
+    }
+
+    /**
      * Gather doctor table data in a map according to the given doctor data
      * @param doctorData The doctor data
      * @param c Cursor pointing on query results

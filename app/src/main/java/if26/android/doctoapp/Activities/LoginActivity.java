@@ -13,16 +13,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import if26.android.doctoapp.Codes.RequestCode;
+import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
+import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.EncryptionService;
-import if26.android.doctoapp.Codes.RequestCode;
 
 public class LoginActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-    private Patient loggedUser;
+    private Resident loggedUser;
 
     private LinearLayout loginMsg;
     private TextView loginMsgTitle;
@@ -40,7 +43,8 @@ public class LoginActivity
     private LinearLayout professionalSection;
 
     private static final int LOGOUT = 0;
-    private static final int LOGIN = 1;
+    private static final int LOGIN_PATIENT = 1;
+    private static final int LOGIN_DOCTOR = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +116,11 @@ public class LoginActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
     }
 
     /**
@@ -171,34 +178,81 @@ public class LoginActivity
      * Execute login process
      */
     private void Login() {
+        boolean success = this.TryLoginAsPatient();
+
+        if (!success) success = this.TryLoginAsDoctor();
+
+        if (!success) this.DisplayErrorMsg();
+    }
+
+    /**
+     * Try to login as a patient
+     * @return If any patient matched
+     */
+    private boolean TryLoginAsPatient() {
         String inputEmail = this.emailInput.getText().toString();
 
-        // Try to get a patient using the provided username
+        // Try to get a patient using the provided email
         Patient patient = (new PatientDatabaseHelper(this.getApplicationContext())).GetPatientByEmail(inputEmail);
 
-        if (patient != null) {
-            String inputPwd = this.passwordInput.getText().toString().trim();
-            String salt = patient.getPwdSalt();
-            String hashedInputPwd = EncryptionService.SHA1(inputPwd + salt);
-            String patientPwd = patient.getPwd();
+        // If the email isn't matched
+        if (patient == null) return false;
 
-            if (patientPwd.equals(hashedInputPwd)) {
-                // Logged-in
-                this.DisplaySuccessMsg();
-                this.MakeToast(this.LOGIN);
-                this.loggedUser = patient;
-                Intent i = new Intent();
-                String key = this.getResources().getString(R.string.intent_logged_user);
-                i.putExtra(key, this.loggedUser);
-                setResult(RESULT_OK, i);
-                finish();
+        // Check the password
+        String inputPwd = this.passwordInput.getText().toString().trim();
+        String salt = patient.getPwdSalt();
+        String hashedInputPwd = EncryptionService.SHA1(inputPwd + salt);
+        String patientPwd = patient.getPwd();
 
-                return;
-            }
-        }
+        // If the password isn't matched
+        if (!patientPwd.equals(hashedInputPwd)) return false;
 
-        // Display error message
-        this.DisplayErrorMsg();
+        // Logged-in
+        this.DisplaySuccessMsg();
+        this.MakeToast(LOGIN_PATIENT);
+        this.loggedUser = patient;
+        Intent i = new Intent();
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+
+        return true;
+    }
+
+    /**
+     * Try to login as a doctor
+     * @return If any doctor matched
+     */
+    private boolean TryLoginAsDoctor() {
+        String inputEmail = this.emailInput.getText().toString();
+
+        // Try to get a doctor using the provided email
+        Doctor doctor = (new DoctorDatabaseHelper(this.getApplicationContext())).GetDoctorByEmail(inputEmail);
+
+        // If the email isn't matched
+        if (doctor == null) return false;
+
+        // Check the password
+        String inputPwd = this.passwordInput.getText().toString().trim();
+        String salt = doctor.getPwdSalt();
+        String hashedInputPwd = EncryptionService.SHA1(inputPwd + salt);
+        String patientPwd = doctor.getPwd();
+
+        // If the password isn't matched
+        if (!patientPwd.equals(hashedInputPwd)) return false;
+
+        // Logged-in
+        this.DisplaySuccessMsg();
+        this.MakeToast(LOGIN_DOCTOR);
+        this.loggedUser = doctor;
+        Intent i = new Intent();
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+        setResult(RESULT_OK, i);
+        finish();
+
+        return true;
     }
 
     /**
@@ -309,8 +363,14 @@ public class LoginActivity
                 toast.show();
 
                 return;
-            case LOGIN:
-                content = this.getResources().getString(R.string.login_toast_login_content);
+            case LOGIN_PATIENT:
+                content = this.getResources().getString(R.string.login_toast_login_patient_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case LOGIN_DOCTOR:
+                content = this.getResources().getString(R.string.login_toast_login_doctor_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
@@ -339,8 +399,11 @@ public class LoginActivity
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
                 String key = this.getResources().getString(R.string.intent_logged_user);
-                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
         }
     }

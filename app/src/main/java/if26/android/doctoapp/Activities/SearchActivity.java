@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.DatabaseHelpers.PatientDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
@@ -32,15 +33,15 @@ import if26.android.doctoapp.Models.Language;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.PaymentOption;
 import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
 import if26.android.doctoapp.Services.EncryptionService;
-import if26.android.doctoapp.Codes.RequestCode;
 
 public class SearchActivity
         extends AppCompatActivity
         implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private Patient loggedUser;
+    private Resident loggedUser;
 
     private EditText searchBar;
     private Button searchBtn;
@@ -430,8 +431,11 @@ public class SearchActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
 
         // Get the search bar content
         key = this.getResources().getString(R.string.main_intent_search);
@@ -601,8 +605,11 @@ public class SearchActivity
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
                 String key = this.getResources().getString(R.string.intent_logged_user);
-                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
         }
     }

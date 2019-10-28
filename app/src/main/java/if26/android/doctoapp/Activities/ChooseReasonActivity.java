@@ -15,19 +15,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
-import if26.android.doctoapp.Codes.RequestCode;
 
 public class ChooseReasonActivity
         extends AppCompatActivity
         implements AdapterView.OnItemClickListener {
     private Doctor doctor;
     private Booking booking;
-    private Patient loggedUser;
+    private Resident loggedUser;
 
     private TextView doctorFullname;
     private ListView reasonsList;
@@ -68,8 +69,11 @@ public class ChooseReasonActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
 
         // Get the booking
         key = this.getResources().getString(R.string.intent_booking);
@@ -178,8 +182,11 @@ public class ChooseReasonActivity
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
                 String key = this.getResources().getString(R.string.intent_logged_user);
-                this.loggedUser = bundle.containsKey(key) ? (Patient) bundle.getSerializable(key) : null;
-                if (this.loggedUser != null) this.loggedUser = (Patient) this.loggedUser.Update(this.getApplicationContext());
+                this.loggedUser = bundle.containsKey(key) ?
+                        bundle.getSerializable(key) instanceof Patient ?
+                            (Patient) bundle.getSerializable(key) :
+                                (Doctor) bundle.getSerializable(key) : null;
+                if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
         }
     }
