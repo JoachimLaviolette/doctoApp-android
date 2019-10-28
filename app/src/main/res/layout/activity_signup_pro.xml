@@ -329,34 +329,412 @@
                             android:textStyle="bold"
                             tools:ignore="TextFields" />
 
-                        <CheckBox
-                            android:id="@+id/signup_pro_is_under_agreement"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/signup_pro_doctor_prices_refunds_section"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto"
-                            android:text="@string/signup_pro_is_under_agreement"
-                            android:textColor="@color/signup_pro_option" />
+                            android:background="@color/signup_pro_section"
+                            android:orientation="vertical"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="5sp">
 
-                        <CheckBox
-                            android:id="@+id/signup_pro_is_health_insurance_card"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto"
-                            android:text="@string/signup_pro_is_health_insurance_card"
-                            android:textColor="@color/signup_pro_option" />
+                            <TextView
+                                android:id="@+id/signup_pro_doctor_prices_refunds_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/signup_pro_doctor_prices_refunds_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/signup_pro_section_label" />
 
-                        <CheckBox
-                            android:id="@+id/signup_pro_is_third_party_payment"
-                            android:layout_width="wrap_content"
+                            <CheckBox
+                                android:id="@+id/signup_pro_is_under_agreement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/signup_pro_is_under_agreement"
+                                android:textColor="@color/signup_pro_option" />
+
+                            <CheckBox
+                                android:id="@+id/signup_pro_is_health_insurance_card"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/signup_pro_is_health_insurance_card"
+                                android:textColor="@color/signup_pro_option" />
+
+                            <CheckBox
+                                android:id="@+id/signup_pro_is_third_party_payment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/signup_pro_is_third_party_payment"
+                                android:textColor="@color/signup_pro_option" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/signup_pro_doctor_availabilities_section"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/roboto"
-                            android:text="@string/signup_pro_is_third_party_payment"
-                            android:textColor="@color/signup_pro_option" />
+                            android:background="@color/signup_pro_section"
+                            android:orientation="vertical"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/signup_pro_doctor_availabilities_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/signup_pro_doctor_availabilities_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/signup_pro_section_label" />
+
+                            <TextView
+                                android:id="@+id/signup_pro_availability_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:background="@drawable/info_msg"
+                                android:backgroundTint="@color/signup_pro_info_msg_background"
+                                android:drawableStart="@drawable/ic_info"
+                                android:layout_margin="5dp"
+                                android:drawableTint="@color/signup_pro_info_msg"
+                                android:text="@string/signup_pro_availability_info"
+                                android:textSize="13sp"
+                                android:textColor="@color/signup_pro_info_msg"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:layout_margin="5dp">
+
+                                <Spinner
+                                    android:id="@+id/signup_pro_availability_day_input"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/signup_pro_availability_day_input"
+                                    android:entries="@array/signup_pro_days"
+                                    android:prompt="@string/signup_pro_days_placeholder"
+                                    android:fontFamily="@font/roboto"
+                                    android:padding="6sp"
+                                    android:textSize="15sp"
+                                    android:gravity="center"
+                                    android:spinnerMode="dropdown" />
+
+                                <EditText
+                                    android:id="@+id/signup_pro_availability_time_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_availability_input_placeholder"
+                                    android:inputType="time"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/signup_pro_add_availability_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:backgroundTint="@color/signup_pro_add_availability_btn"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/signup_pro_add_availability_btn_text"
+                                android:textColor="@color/signup_pro_add_availability_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/signup_pro_doctor_reason_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/signup_pro_section"
+                            android:orientation="vertical"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/signup_pro_doctor_reason_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/signup_pro_doctor_reason_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/signup_pro_section_label" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:layout_margin="5dp">
+
+                                <EditText
+                                    android:id="@+id/signup_pro_reason_description_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_reason_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/signup_pro_add_reason_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:backgroundTint="@color/signup_pro_add_reason_btn"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/signup_pro_add_reason_btn_text"
+                                android:textColor="@color/signup_pro_add_reason_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/signup_pro_doctor_experience_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/signup_pro_section"
+                            android:orientation="vertical"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/signup_pro_doctor_experience_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/signup_pro_doctor_experience_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/signup_pro_section_label" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:layout_margin="5dp">
+
+                                <EditText
+                                    android:id="@+id/signup_pro_experience_year_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_experience_year_input_placeholder"
+                                    android:inputType="number"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+
+                                <EditText
+                                    android:id="@+id/signup_pro_experience_description_input"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_experience_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/signup_pro_experience_warning"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:background="@drawable/warning_msg"
+                                android:backgroundTint="@color/signup_pro_warning_msg_background"
+                                android:drawableStart="@drawable/ic_warning"
+                                android:layout_margin="5dp"
+                                android:drawableTint="@color/signup_pro_warning_msg"
+                                android:text="@string/signup_pro_experience_warning"
+                                android:textSize="13sp"
+                                android:textColor="@color/signup_pro_warning_msg"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"/>
+
+                            <Button
+                                android:id="@+id/signup_pro_add_experience_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:backgroundTint="@color/signup_pro_add_experience_btn"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/signup_pro_add_experience_btn_text"
+                                android:textColor="@color/signup_pro_add_experience_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/signup_pro_doctor_education_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/signup_pro_section"
+                            android:orientation="vertical"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginBottom="10sp"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/signup_pro_doctor_education_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/signup_pro_doctor_education_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/signup_pro_section_label" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:layout_margin="5dp">
+
+                                <EditText
+                                    android:id="@+id/signup_pro_training_year_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_training_year_input_placeholder"
+                                    android:inputType="number"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+
+                                <EditText
+                                    android:id="@+id/signup_pro_training_description_input"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/signup_pro_training_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textColor="@color/signup_pro_input_text"
+                                    android:textColorHint="@color/signup_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/signup_pro_training_warning"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:background="@drawable/warning_msg"
+                                android:backgroundTint="@color/signup_pro_warning_msg_background"
+                                android:drawableStart="@drawable/ic_warning"
+                                android:layout_margin="5dp"
+                                android:drawableTint="@color/signup_pro_warning_msg"
+                                android:text="@string/signup_pro_training_warning"
+                                android:textSize="13sp"
+                                android:textColor="@color/signup_pro_warning_msg"
+                                android:textAlignment="center"
+                                android:layout_gravity="center"/>
+
+                            <Button
+                                android:id="@+id/signup_pro_add_training_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:backgroundTint="@color/signup_pro_add_training_btn"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/signup_pro_add_training_btn_text"
+                                android:textColor="@color/signup_pro_add_training_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -502,7 +880,7 @@
                     android:text="@string/signup_pro_login_link"
                     android:textAlignment="center"
                     android:textColor="@color/signup_pro_login_link"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout

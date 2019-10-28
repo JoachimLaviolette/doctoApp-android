@@ -77,7 +77,15 @@ public class SignupProActivity
     private EditText zipInput;
     private EditText countryInput;
 
-    private LinearLayout doctorProfileSection, doctorAddressSection;
+    private LinearLayout
+            doctorProfileSection,
+            doctorAddressSection;
+
+    private Button
+            addAvailabilityBtn,
+            addReasonBtn,
+            addExperience,
+            addTrainingBtn;
 
     private Button signupBtn;
 
@@ -147,6 +155,11 @@ public class SignupProActivity
         this.doctorProfileSection = findViewById(R.id.signup_pro_doctor_profile_section);
         this.doctorAddressSection = findViewById(R.id.signup_pro_doctor_address_section);
 
+        this.addAvailabilityBtn = findViewById(R.id.signup_pro_add_availability_btn);
+        this.addReasonBtn = findViewById(R.id.signup_pro_add_reason_btn);
+        this.addExperience = findViewById(R.id.signup_pro_add_experience_btn);
+        this.addTrainingBtn = findViewById(R.id.signup_pro_add_training_btn);
+
         this.signupBtn = findViewById(R.id.signup_pro_btn);
 
         this.loginLink = findViewById(R.id.signup_pro_login_link);
@@ -163,6 +176,10 @@ public class SignupProActivity
         this.selectPictureFromGallery.setOnClickListener(this);
         this.takeHeaderFromCamera.setOnClickListener(this);
         this.selectHeaderFromGallery.setOnClickListener(this);
+        this.addAvailabilityBtn.setOnClickListener(this);
+        this.addReasonBtn.setOnClickListener(this);
+        this.addExperience.setOnClickListener(this);
+        this.addTrainingBtn.setOnClickListener(this);
         this.signupBtn.setOnClickListener(this);
         this.loginLink.setOnClickListener(this);
         this.privateAccountLink.setOnClickListener(this);
@@ -215,6 +232,22 @@ public class SignupProActivity
                 return;
             case R.id.signup_pro_select_header_from_gallery:
                 this.SelectHeaderFromGallery();
+
+                return;
+            case R.id.signup_pro_add_availability_btn:
+                this.AddAvailability();
+
+                return;
+            case R.id.signup_pro_add_reason_btn:
+                this.AddReason();
+
+                return;
+            case R.id.signup_pro_add_experience_btn:
+                this.AddExperience();
+
+                return;
+            case R.id.signup_pro_add_training_btn:
+                this.AddTraining();
 
                 return;
             case R.id.signup_pro_btn:
@@ -446,6 +479,34 @@ public class SignupProActivity
                     return;
             }
         }
+    }
+
+    /**
+     * Add the availability chosen by the doctor
+     */
+    private void AddAvailability() {
+
+    }
+
+    /**
+     * Add the reason chosen by the doctor
+     */
+    private void AddReason() {
+
+    }
+
+    /**
+     * Add the experience chosen by the doctor
+     */
+    private void AddExperience() {
+
+    }
+
+    /**
+     * Add the training chosen by the doctor
+     */
+    private void AddTraining() {
+
     }
 
     /**
