@@ -81,6 +81,21 @@
     <color name="signup_pro_select_header_from_gallery">#494949</color>
     <color name="signup_pro_select_header_from_gallery_text">#FFFFFF</color>
     <color name="signup_pro_option">#858585</color>
+    <color name="signup_pro_option_selected">#1B86E4</color>
+    <color name="signup_pro_section">#FFFFFF</color>
+    <color name="signup_pro_add_availability_btn">#1B86E4</color>
+    <color name="signup_pro_add_reason_btn">#1B86E4</color>
+    <color name="signup_pro_add_training_btn">#1B86E4</color>
+    <color name="signup_pro_add_experience_btn">#1B86E4</color>
+    <color name="signup_pro_add_availability_btn_text">#FFFFFF</color>
+    <color name="signup_pro_add_reason_btn_text">#FFFFFF</color>
+    <color name="signup_pro_add_training_btn_text">#FFFFFF</color>
+    <color name="signup_pro_add_experience_btn_text">#FFFFFF</color>
+    <color name="signup_pro_availability_day_input">#F8F8F8</color>
+    <color name="signup_pro_info_msg">#3081C7</color>
+    <color name="signup_pro_info_msg_background">#EDF2F5</color>
+    <color name="signup_pro_warning_msg">#BE4A4A</color>
+    <color name="signup_pro_warning_msg_background">#ECDEDE</color>
 
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>
@@ -196,5 +211,9 @@
     <color name="my_bookings_no_booking_msg">#444444</color>
     <color name="my_bookings_no_booking_msg_title">#FFFFFF</color>
     <color name="my_bookings_no_booking_msg_content">#FFFFFF</color>
+
+    <!-- Shape -->
+    <color name="shape_info_msg_border">#1B86E4</color>
+    <color name="shape_info_msg_text">#494949</color>
 
 </resources>
