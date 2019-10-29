@@ -80,12 +80,18 @@
     <string name="signup_error_msg_title">Registration failed</string>
     <string name="signup_error_msg_content">Impossible to sign-up. Please make sure your email is in a correct format and that all the fields are properly filled. Also check both passwords are corresponding. If your email is already associated to an existing account, login to your account using the link below.</string>
     <string name="signup_toast_signup_content">You are now registered. Login to your account from the login page.</string>
-    <string name="signup_toast_availability_content">Availability successfully added.</string>
-    <string name="signup_toast_reason_content">Reason successfully added.</string>
-    <string name="signup_toast_experience_content">Experience successfully added.</string>
-    <string name="signup_toast_training_content">Training successfully added.</string>
-    <string name="signup_toast_language_content">Language successfully added.</string>
-    <string name="signup_toast_payment_option_content">Payment option successfully added.</string>
+    <string name="signup_toast_add_availability_content">Availability successfully added.</string>
+    <string name="signup_toast_add_reason_content">Reason successfully added.</string>
+    <string name="signup_toast_add_experience_content">Experience successfully added.</string>
+    <string name="signup_toast_add_training_content">Training successfully added.</string>
+    <string name="signup_toast_add_language_content">Language successfully added.</string>
+    <string name="signup_toast_add_payment_option_content">Payment option successfully added.</string>
+    <string name="signup_toast_remove_availability_content">Availability successfully removed.</string>
+    <string name="signup_toast_remove_reason_content">Reason successfully removed.</string>
+    <string name="signup_toast_remove_experience_content">Experience successfully removed.</string>
+    <string name="signup_toast_remove_training_content">Training successfully removed.</string>
+    <string name="signup_toast_remove_language_content">Language successfully removed.</string>
+    <string name="signup_toast_remove_payment_option_content">Payment option successfully removed.</string>
 
     <string name="signup_patient_profile_section_label">Profile data</string>
     <string name="signup_patient_address_section_label">Address data</string>
@@ -185,6 +191,30 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
+
+    <!-- Signup list item -->
+    <string name="signup_list_item_pipe">|</string>
+
+    <!-- Availability signup list item -->
+    <string name="availability_signup_list_item_day">{day}</string>
+    <string name="availability_signup_list_item_time">[time}</string>
+
+    <!-- Reason signup list item -->
+    <string name="reason_signup_list_item_description">{description}</string>
+
+    <!-- Education signup list item -->
+    <string name="education_signup_list_item_year">[year}</string>
+    <string name="education_signup_list_item_degree">{degree}</string>
+
+    <!-- Experience signup list item -->
+    <string name="experience_signup_list_item_year">{year}</string>
+    <string name="experience_signup_list_item_description">{description}</string>
+
+    <!-- Language signup list item -->
+    <string name="language_signup_list_item_description">{description}</string>
+
+    <!-- Payment option signup list item -->
+    <string name="payment_option_signup_list_item_description">{description}</string>
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>

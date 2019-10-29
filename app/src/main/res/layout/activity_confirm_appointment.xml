@@ -79,7 +79,7 @@
                 android:layout_margin="15sp"
                 android:orientation="vertical">
 
-                <include layout="@layout/appointment_summary" />
+                <include layout="@layout/template_appointment_summary" />
 
             </LinearLayout>
 

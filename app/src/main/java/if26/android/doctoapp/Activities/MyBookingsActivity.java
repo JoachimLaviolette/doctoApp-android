@@ -84,7 +84,7 @@ public class MyBookingsActivity
         LayoutInflater inflater = this.getLayoutInflater();
 
         for (final Booking a: this.loggedUser.getAppointments()) {
-            View appointmentItemLayout = inflater.inflate(R.layout.appointment_item, this.appointmentList, false);
+            View appointmentItemLayout = inflater.inflate(R.layout.template_appointment_item, this.appointmentList, false);
             TextView fullDay = appointmentItemLayout.findViewById(R.id.appointment_item_fullday);
             TextView time = appointmentItemLayout.findViewById(R.id.appointment_item_time);
             CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_picture);

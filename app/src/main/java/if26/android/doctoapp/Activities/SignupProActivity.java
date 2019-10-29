@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -99,6 +101,14 @@ public class SignupProActivity
             doctorProfileSection,
             doctorAddressSection;
 
+    private LinearLayout
+            availabilitySignupList,
+            reasonSignupList,
+            experienceSignupList,
+            educationSignupList,
+            paymentOptionSignupList,
+            languageSignupList;
+
     private Button
             addAvailabilityBtn,
             addReasonBtn,
@@ -116,7 +126,7 @@ public class SignupProActivity
             availabilityTime,
             reasonDescription,
             experienceYear,
-            experienceDescription,
+            experienceDegree,
             trainingYear,
             trainingDescription;
 
@@ -151,7 +161,15 @@ public class SignupProActivity
     private static final int ADD_TRAINING = 3;
     private static final int ADD_LANGUAGE = 4;
     private static final int ADD_PAYMENT_OPTION = 5;
-    private static final int SIGNUP = 6;
+
+    private static final int REMOVE_AVAILABILITY = 6;
+    private static final int REMOVE_REASON = 7;
+    private static final int REMOVE_EXPERIENCE = 8;
+    private static final int REMOVE_TRAINING = 9;
+    private static final int REMOVE_LANGUAGE = 10;
+    private static final int REMOVE_PAYMENT_OPTION = 11;
+
+    private static final int SIGNUP = 12;
 
     private static final int BLUR_AMOUNT = 2;
     private static final int SCALE_AMOUNT_PICTURE = 400;
@@ -212,6 +230,13 @@ public class SignupProActivity
         this.doctorProfileSection = findViewById(R.id.signup_pro_doctor_profile_section);
         this.doctorAddressSection = findViewById(R.id.signup_pro_doctor_address_section);
 
+        this.availabilitySignupList = findViewById(R.id.availability_signup_list);
+        this.reasonSignupList = findViewById(R.id.reason_signup_list);
+        this.experienceSignupList = findViewById(R.id.experience_signup_list);
+        this.educationSignupList = findViewById(R.id.education_signup_list);
+        this.languageSignupList = findViewById(R.id.language_signup_list);
+        this.paymentOptionSignupList = findViewById(R.id.payment_option_signup_list);
+
         this.addAvailabilityBtn = findViewById(R.id.signup_pro_add_availability_btn);
         this.addReasonBtn = findViewById(R.id.signup_pro_add_reason_btn);
         this.addExperience = findViewById(R.id.signup_pro_add_experience_btn);
@@ -223,7 +248,7 @@ public class SignupProActivity
         this.availabilityTime = findViewById(R.id.signup_pro_availability_time_input);
         this.reasonDescription = findViewById(R.id.signup_pro_reason_description_input);
         this.experienceYear = findViewById(R.id.signup_pro_experience_year_input);
-        this.experienceDescription = findViewById(R.id.signup_pro_experience_description_input);
+        this.experienceDegree = findViewById(R.id.signup_pro_experience_degree_input);
         this.trainingYear = findViewById(R.id.signup_pro_training_year_input);
         this.trainingDescription = findViewById(R.id.signup_pro_training_description_input);
         this.languagesList = findViewById(R.id.signup_pro_languages_list);
@@ -652,6 +677,9 @@ public class SignupProActivity
         // Add it to the list of availabilities
         this.availabilities.add(a);
 
+        // Add it to the view's list of availabilities
+        this.FeedAvailabilityViewList(a);
+
         // Display a toast msg
         this.MakeToast(ADD_AVAILABILITY);
     }
@@ -665,11 +693,45 @@ public class SignupProActivity
     }
 
     /**
+     * Add the provided availability to the availability view list
+     * @param a The availability to add to the availability view list
+     */
+    private void FeedAvailabilityViewList(final Availability a) {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View availabilityListItemLayout = inflater.inflate(R.layout.template_availability_signup_list_item_layout, this.availabilitySignupList, false);
+
+        View day = inflater.inflate(R.layout.template_availability_signup_list_item_day, (LinearLayout) availabilityListItemLayout, false);
+        ((TextView) day).setText(a.getDate());
+
+        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) availabilityListItemLayout, false);
+
+        View time = inflater.inflate(R.layout.template_availability_signup_list_item_time, (LinearLayout) availabilityListItemLayout, false);
+        ((TextView) time).setText(a.getTime());
+
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) availabilityListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) availabilityListItemLayout.getParent()).removeView(availabilityListItemLayout);
+                availabilities.remove(a);
+                MakeToast(REMOVE_AVAILABILITY);
+            }
+        });
+
+        ((LinearLayout) availabilityListItemLayout).addView(day);
+        ((LinearLayout) availabilityListItemLayout).addView(pipe);
+        ((LinearLayout) availabilityListItemLayout).addView(time);
+        ((LinearLayout) availabilityListItemLayout).addView(remove);
+
+        this.availabilitySignupList.addView(availabilityListItemLayout);
+    }
+
+    /**
      * Add the reason chosen by the doctor
      */
     private void AddReason() {
         if (!this.CheckReasonFields()) {
-            this.availabilityErrorMsg.setVisibility(View.VISIBLE);
+            this.reasonErrorMsg.setVisibility(View.VISIBLE);
 
             return;
         }
@@ -693,6 +755,9 @@ public class SignupProActivity
         // Add it to the list of reasons
         this.reasons.add(r);
 
+        // Add it to the view's list of reasons
+        this.FeedReasonViewList(r);
+
         // Display a toast msg
         this.MakeToast(ADD_REASON);
     }
@@ -706,47 +771,30 @@ public class SignupProActivity
     }
 
     /**
-     * Add the experience chosen by the doctor
+     * Add the provided reason to the reason view list
+     * @param r The reason to add to the reason view list
      */
-    private void AddExperience() {
-        if (!this.CheckExperienceFields()) {
-            this.experienceErrorMsg.setVisibility(View.VISIBLE);
+    private void FeedReasonViewList(final Reason r) {
+        LayoutInflater inflater = this.getLayoutInflater();
 
-            return;
-        }
+        final View reasonListItemLayout = inflater.inflate(R.layout.template_reason_signup_list_item_layout, this.reasonSignupList, false);
 
-        String year = this.experienceYear.getText().toString().trim();
-        String desc = this.experienceDescription.getText().toString().trim();
+        View description = inflater.inflate(R.layout.template_reason_signup_list_item_description, (LinearLayout) reasonListItemLayout, false);
+        ((TextView) description).setText(r.getDescription());
 
-        // Create a new Experience object
-        Experience e = new Experience(null, year, desc);
-
-        // If already added
-        if (this.experiences.contains(e)) {
-            // Reference comparison is not enough to say if the list actually contains the same object
-            // So we need to use a personalize method using the appropriate service
-            if (ExperienceService.Contains(this.experiences, e)) {
-                this.experienceErrorMsg.setVisibility(View.VISIBLE);
-
-                return;
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) reasonListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) reasonListItemLayout.getParent()).removeView(reasonListItemLayout);
+                reasons.remove(r);
+                MakeToast(REMOVE_REASON);
             }
-        }
+        });
 
-        this.experienceErrorMsg.setVisibility(View.GONE);
+        ((LinearLayout) reasonListItemLayout).addView(description);
+        ((LinearLayout) reasonListItemLayout).addView(remove);
 
-        // Add it to the list of experiences
-        this.experiences.add(e);
-
-        // Display a toast msg
-        this.MakeToast(ADD_EXPERIENCE);
-    }
-
-    /**
-     * Check if the experience fields are correctly filled
-     * @return If the fields are correctly filled
-     */
-    private boolean CheckExperienceFields() {
-        return this.experienceYear.getText().toString().trim().matches("\\d{4}");
+        this.reasonSignupList.addView(reasonListItemLayout);
     }
 
     /**
@@ -781,6 +829,9 @@ public class SignupProActivity
         // Add it to the list of trainings
         this.trainings.add(e);
 
+        // Add it to the view's list of trainings
+        this.FeedEducationViewList(e);
+
         // Display a toast msg
         this.MakeToast(ADD_TRAINING);
     }
@@ -790,7 +841,124 @@ public class SignupProActivity
      * @return If the fields are correctly filled
      */
     private boolean CheckTrainingFields() {
-        return this.trainingYear.getText().toString().trim().matches("\\d{4}");
+        return this.trainingYear.getText().toString().trim().matches("\\d{4}")
+                && !this.trainingDescription.getText().toString().trim().isEmpty();
+    }
+
+    /**
+     * Add the provided training to the education view list
+     * @param e The training to add to the education view list
+     */
+    private void FeedEducationViewList(final Education e) {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View educationListItemLayout = inflater.inflate(R.layout.template_education_signup_list_item_layout, this.educationSignupList, false);
+
+        View year = inflater.inflate(R.layout.template_education_signup_list_item_year, (LinearLayout) educationListItemLayout, false);
+        ((TextView) year).setText(e.getYear());
+
+        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) educationListItemLayout, false);
+
+        View degree = inflater.inflate(R.layout.template_education_signup_list_item_degree, (LinearLayout) educationListItemLayout, false);
+        ((TextView) degree).setText(e.getDegree());
+
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) educationListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) educationListItemLayout.getParent()).removeView(educationListItemLayout);
+                reasons.remove(e);
+                MakeToast(REMOVE_TRAINING);
+            }
+        });
+
+        ((LinearLayout) educationListItemLayout).addView(year);
+        ((LinearLayout) educationListItemLayout).addView(pipe);
+        ((LinearLayout) educationListItemLayout).addView(degree);
+        ((LinearLayout) educationListItemLayout).addView(remove);
+
+        this.educationSignupList.addView(educationListItemLayout);
+    }
+
+    /**
+     * Add the experience chosen by the doctor
+     */
+    private void AddExperience() {
+        if (!this.CheckExperienceFields()) {
+            this.experienceErrorMsg.setVisibility(View.VISIBLE);
+
+            return;
+        }
+
+        String year = this.experienceYear.getText().toString().trim();
+        String desc = this.experienceDegree.getText().toString().trim();
+
+        // Create a new Experience object
+        Experience e = new Experience(null, year, desc);
+
+        // If already added
+        if (this.experiences.contains(e)) {
+            // Reference comparison is not enough to say if the list actually contains the same object
+            // So we need to use a personalize method using the appropriate service
+            if (ExperienceService.Contains(this.experiences, e)) {
+                this.experienceErrorMsg.setVisibility(View.VISIBLE);
+
+                return;
+            }
+        }
+
+        this.experienceErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of experiences
+        this.experiences.add(e);
+
+        // Add it to the view's list of experiences
+        this.FeedExperienceViewList(e);
+
+        // Display a toast msg
+        this.MakeToast(ADD_EXPERIENCE);
+    }
+
+    /**
+     * Check if the experience fields are correctly filled
+     * @return If the fields are correctly filled
+     */
+    private boolean CheckExperienceFields() {
+        return this.experienceYear.getText().toString().trim().matches("\\d{4}")
+                && !this.experienceDegree.getText().toString().trim().isEmpty();
+    }
+
+    /**
+     * Add the provided experience to the experience view list
+     * @param e The experience to add to the experience view list
+     */
+    private void FeedExperienceViewList(final Experience e) {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View experienceListItemLayout = inflater.inflate(R.layout.template_experience_signup_list_item_layout, this.experienceSignupList, false);
+
+        View year = inflater.inflate(R.layout.template_experience_signup_list_item_year, (LinearLayout) experienceListItemLayout, false);
+        ((TextView) year).setText(e.getYear());
+
+        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) experienceListItemLayout, false);
+
+        View description = inflater.inflate(R.layout.template_experience_signup_list_item_description, (LinearLayout) experienceListItemLayout, false);
+        ((TextView) description).setText(e.getDescription());
+
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) experienceListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) experienceListItemLayout.getParent()).removeView(experienceListItemLayout);
+                experiences.remove(e);
+                MakeToast(REMOVE_EXPERIENCE);
+            }
+        });
+
+        ((LinearLayout) experienceListItemLayout).addView(year);
+        ((LinearLayout) experienceListItemLayout).addView(pipe);
+        ((LinearLayout) experienceListItemLayout).addView(description);
+        ((LinearLayout) experienceListItemLayout).addView(remove);
+
+        this.experienceSignupList.addView(experienceListItemLayout);
     }
 
     /**
@@ -798,7 +966,7 @@ public class SignupProActivity
      */
     private void AddLanguage() {
         // Create a new Language object
-        Language l = Language.valueOf(this.languagesList.getSelectedItem().toString().trim());
+        Language l = Language.GetValueOf(this.languagesList.getSelectedItem().toString());
 
         // If already added
         if (this.languages.contains(l)) {
@@ -812,8 +980,38 @@ public class SignupProActivity
         // Add it to the list of languages
         this.languages.add(l);
 
+        // Add it to the view's list of languages
+        this.FeedLanguageViewList(l);
+
         // Display a toast msg
         this.MakeToast(ADD_LANGUAGE);
+    }
+
+    /**
+     * Add the provided language to the language view list
+     * @param l The language to add to the language view list
+     */
+    private void FeedLanguageViewList(final Language l) {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View languageListItemLayout = inflater.inflate(R.layout.template_language_signup_list_item_layout, this.languageSignupList, false);
+
+        View description = inflater.inflate(R.layout.template_language_signup_list_item_description, (LinearLayout) languageListItemLayout, false);
+        ((TextView) description).setText(l.toString());
+
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) languageListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) languageListItemLayout.getParent()).removeView(languageListItemLayout);
+                languages.remove(l);
+                MakeToast(REMOVE_LANGUAGE);
+            }
+        });
+
+        ((LinearLayout) languageListItemLayout).addView(description);
+        ((LinearLayout) languageListItemLayout).addView(remove);
+
+        this.languageSignupList.addView(languageListItemLayout);
     }
 
     /**
@@ -821,7 +1019,7 @@ public class SignupProActivity
      */
     private void AddPaymentOption() {
         // Create a new PaymentOption object
-        PaymentOption po = PaymentOption.valueOf(this.paymentOptionsList.getSelectedItem().toString().trim());
+        PaymentOption po = PaymentOption.GetValueOf(this.paymentOptionsList.getSelectedItem().toString());
 
         // If already added
         if (this.paymentOptions.contains(po)) {
@@ -835,8 +1033,38 @@ public class SignupProActivity
         // Add it to the list of payment options
         this.paymentOptions.add(po);
 
+        // Add it to the view's list of payment options
+        this.FeedPaymentOptionViewList(po);
+
         // Display a toast msg
         this.MakeToast(ADD_PAYMENT_OPTION);
+    }
+
+    /**
+     * Add the provided payment option to the payment option view list
+     * @param po The payment option to add to the payment option view list
+     */
+    private void FeedPaymentOptionViewList(final PaymentOption po) {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        final View paymentOptionListItemLayout = inflater.inflate(R.layout.template_payment_option_signup_list_item_layout, this.paymentOptionSignupList, false);
+
+        View description = inflater.inflate(R.layout.template_payment_option_signup_list_item_description, (LinearLayout) paymentOptionListItemLayout, false);
+        ((TextView) description).setText(po.toString());
+
+        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) paymentOptionListItemLayout, false);
+        remove.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ((ViewGroup) paymentOptionListItemLayout.getParent()).removeView(paymentOptionListItemLayout);
+                paymentOptions.remove(po);
+                MakeToast(REMOVE_PAYMENT_OPTION);
+            }
+        });
+
+        ((LinearLayout) paymentOptionListItemLayout).addView(description);
+        ((LinearLayout) paymentOptionListItemLayout).addView(remove);
+
+        this.paymentOptionSignupList.addView(paymentOptionListItemLayout);
     }
 
     /**
@@ -1015,37 +1243,73 @@ public class SignupProActivity
 
                 return;
             case ADD_AVAILABILITY:
-                content = this.getResources().getString(R.string.signup_toast_availability_content);
+                content = this.getResources().getString(R.string.signup_toast_add_availability_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_REASON:
-                content = this.getResources().getString(R.string.signup_toast_reason_content);
+                content = this.getResources().getString(R.string.signup_toast_add_reason_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_EXPERIENCE:
-                content = this.getResources().getString(R.string.signup_toast_experience_content);
+                content = this.getResources().getString(R.string.signup_toast_add_experience_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_TRAINING:
-                content = this.getResources().getString(R.string.signup_toast_training_content);
+                content = this.getResources().getString(R.string.signup_toast_add_training_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_LANGUAGE:
-                content = this.getResources().getString(R.string.signup_toast_language_content);
+                content = this.getResources().getString(R.string.signup_toast_add_language_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_PAYMENT_OPTION:
-                content = this.getResources().getString(R.string.signup_toast_payment_option_content);
+                content = this.getResources().getString(R.string.signup_toast_add_payment_option_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_AVAILABILITY:
+                content = this.getResources().getString(R.string.signup_toast_remove_availability_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_REASON:
+                content = this.getResources().getString(R.string.signup_toast_remove_reason_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_EXPERIENCE:
+                content = this.getResources().getString(R.string.signup_toast_remove_experience_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_TRAINING:
+                content = this.getResources().getString(R.string.signup_toast_remove_training_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_LANGUAGE:
+                content = this.getResources().getString(R.string.signup_toast_remove_language_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case REMOVE_PAYMENT_OPTION:
+                content = this.getResources().getString(R.string.signup_toast_remove_payment_option_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 

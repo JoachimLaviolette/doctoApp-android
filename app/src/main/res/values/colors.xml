@@ -102,6 +102,31 @@
     <color name="signup_pro_error_msg">#BE4A4A</color>
     <color name="signup_pro_error_msg_background">#ECDEDE</color>
 
+    <!-- Signup list item -->
+    <color name="signup_list_item_remove">#BE4A4A</color>
+    <color name="signup_list_item_pipe">#696969</color>
+
+    <!-- Availability signup list item -->
+    <color name="availability_signup_list_item_day">#696969</color>
+    <color name="availability_signup_list_item_time">#B3B3B3</color>
+
+    <!-- Reason signup list item -->
+    <color name="reason_signup_list_item_description">#696969</color>
+
+    <!-- Education signup list item -->
+    <color name="education_signup_list_item_year">#696969</color>
+    <color name="education_signup_list_item_degree">#B3B3B3</color>
+
+    <!-- Experience signup list item -->
+    <color name="experience_signup_list_item_year">#696969</color>
+    <color name="experience_signup_list_item_description">#B3B3B3</color>
+
+    <!-- Language signup list item -->
+    <color name="language_signup_list_item_description">#696969</color>
+
+    <!-- Payment option signup list item -->
+    <color name="payment_option_signup_list_item_description">#696969</color>
+
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>
     <color name="search_bar_text">#858585</color>

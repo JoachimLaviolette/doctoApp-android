@@ -102,7 +102,7 @@ public class DoctorProfileActivity
         this.doctorPricesRefundsContent = findViewById(R.id.doctor_profile_prices_refunds_content);
         this.doctorPaymentOptionsContent = findViewById(R.id.doctor_profile_payment_options_content);
 
-        // Popup
+        // Popups
         this.currentPopup = null;
         this.popupClose = null;
         this.popupExternalBackground = null;
@@ -327,11 +327,11 @@ public class DoctorProfileActivity
     private View CreateNewPopupContext(String title) {
         // Initialize a new instance of LayoutInflater service
         LayoutInflater inflater = getLayoutInflater();
-        int popupLayout = R.layout.doctor_profile_popup_layout;
+        int popupLayout = R.layout.popup_doctor_profile_layout;
 
         // Inflate the popup layout
         if (title == this.getResources().getString(R.string.doctor_profile_prices_refunds))
-            popupLayout = R.layout.doctor_profile_popup_prices_refunds_layout;
+            popupLayout = R.layout.popup_doctor_profile_prices_refunds_layout;
 
         View popupSampleView = inflater.inflate(popupLayout, null);
 

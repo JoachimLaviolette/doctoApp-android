@@ -512,7 +512,7 @@ public class SearchActivity
         SimpleAdapter simpleAdapter = new SimpleAdapter(
                 this,
                 doctorsMapList,
-                R.layout.search_list,
+                R.layout.template_search_list,
                 new String[] {
                         pictureKey,
                         fullnameKey,

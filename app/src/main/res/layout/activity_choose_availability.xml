@@ -64,7 +64,7 @@
                 android:layout_marginRight="15sp"
                 android:layout_marginLeft="15sp">
 
-                <include layout="@layout/date_time_list" />
+                <include layout="@layout/template_date_time_list" />
 
             </ScrollView>
         </LinearLayout>

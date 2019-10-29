@@ -108,12 +108,12 @@ public class ChooseAvailabilityActivity
         LayoutInflater inflater = this.getLayoutInflater();
 
         for (String d: availabilitiesPerDay.keySet()) {
-            View dateTimeLayout = inflater.inflate(R.layout.date_time_datetime_layout, this.dateTimeListGlobalLayout, false);
+            View dateTimeLayout = inflater.inflate(R.layout.template_date_time_datetime_layout, this.dateTimeListGlobalLayout, false);
 
-            View day = inflater.inflate(R.layout.date_time_day, (LinearLayout) dateTimeLayout, false);
+            View day = inflater.inflate(R.layout.template_date_time_day, (LinearLayout) dateTimeLayout, false);
             ((TextView) day).setText(d);
 
-            View timeLayout = inflater.inflate(R.layout.date_time_time_layout, (LinearLayout) dateTimeLayout, false);
+            View timeLayout = inflater.inflate(R.layout.template_date_time_time_layout, (LinearLayout) dateTimeLayout, false);
 
             ((LinearLayout) dateTimeLayout).addView(day);
 
@@ -121,7 +121,7 @@ public class ChooseAvailabilityActivity
 
             for (Availability a: availabilities) {
                 String hour = a.getTime();
-                View time = inflater.inflate(R.layout.date_time_time, (GridLayout) timeLayout, false);
+                View time = inflater.inflate(R.layout.template_date_time_time, (GridLayout) timeLayout, false);
                 ((Button) time).setText(hour);
                 time.setTag(dateTimeService.CreateTimeTag(hour, a.getDate()));
                 time.setOnClickListener(this);

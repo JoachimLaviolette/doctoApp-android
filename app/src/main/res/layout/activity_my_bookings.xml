@@ -82,7 +82,7 @@
             android:layout_marginLeft="15sp"
             android:layout_marginTop="7.5sp">
 
-            <include layout="@layout/appointment_list" />
+            <include layout="@layout/template_appointment_list" />
 
         </ScrollView>
     </LinearLayout>
