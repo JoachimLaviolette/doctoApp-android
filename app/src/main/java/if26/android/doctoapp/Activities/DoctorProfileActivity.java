@@ -255,7 +255,9 @@ public class DoctorProfileActivity
      */
     private void BookAppointment() {
         if(this.loggedUser == null) {
-            startActivityForResult(new Intent(DoctorProfileActivity.this, LoginActivity.class), RequestCode.CONNECT_PATIENT);
+            Intent i = new Intent(DoctorProfileActivity.this, LoginActivity.class);
+            i.putExtra(getString(R.string.request_code), RequestCode.CONNECT_PATIENT);
+            startActivityForResult(i, RequestCode.CONNECT_PATIENT);
 
             return;
         }

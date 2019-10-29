@@ -143,7 +143,8 @@ public class PatientDatabaseHelper {
         String[] args = { patientId };
 
         Cursor c = database.rawQuery(query, args);
-        Patient patient = this.BuildPatientsList(c).get(0);
+        List<Patient> patients = this.BuildPatientsList(c);
+        Patient patient = patients.isEmpty() ? null : patients.get(0);
         c.close();
 
         return patient;
@@ -168,8 +169,8 @@ public class PatientDatabaseHelper {
         String[] args = { email };
 
         Cursor c = database.rawQuery(query, args);
-        List<Patient> patientsList = this.BuildPatientsList(c);
-        Patient patient = patientsList.size() > 0 ? patientsList.get(0) : null;
+        List<Patient> patients = this.BuildPatientsList(c);
+        Patient patient = patients.isEmpty() ? null : patients.get(0);
         c.close();
 
         return patient;
