@@ -1,7 +1,6 @@
 package if26.android.doctoapp.Activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -140,10 +139,8 @@ public class DoctorProfileActivity
         if (!this.doctor.getPicture().isEmpty()) this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
 
         // Set doctor header
-        boolean hasHeader = !this.doctor.getHeader().isEmpty();
-        String headerPath = this.doctor.getHeader();
-        Uri headerURI= ImageService.GetURIFromPath(headerPath);
-        if (hasHeader) this.doctorHeader.setImageURI(headerURI);
+        if (!this.doctor.getHeader().isEmpty()) this.doctorHeader.setImageURI(ImageService.GetURIFromPath(this.doctor.getHeader()));
+        else this.doctorHeader.setImageResource(R.drawable.beach_2);
         this.doctorHeader.setBlur(BLUR_AMOUNT);
 
         // Set doctor fullname

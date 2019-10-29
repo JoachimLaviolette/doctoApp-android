@@ -77,6 +77,8 @@ public class SignupActivity
 
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
 
+    private static final int SCALE_AMOUNT_PICTURE = 400;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -276,10 +278,19 @@ public class SignupActivity
     }
 
     /**
-     * Save to uploaded image to app folder
+     * Save to uploaded picture to app folder
      */
-    private boolean SaveBitmapToAppFolder(Intent data) {
+    private boolean SavePictureBitmapToAppFolder(Intent data) {
         Bitmap pictureBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
+        int scaleFactor = Math.min(pictureBmp.getHeight() / SCALE_AMOUNT_PICTURE, pictureBmp.getWidth() / SCALE_AMOUNT_PICTURE);
+
+        pictureBmp = Bitmap.createScaledBitmap(
+                pictureBmp,
+                pictureBmp.getWidth() / scaleFactor,
+                pictureBmp.getHeight() / scaleFactor,
+                true
+        );
+
         File pictureFile = this.CreatePictureFile();
 
         if (pictureFile == null) return false;
@@ -309,7 +320,7 @@ public class SignupActivity
 
                     return;
                 case RequestCode.SELECT_PICTURE_FROM_GALLERY:
-                    if (!this.SaveBitmapToAppFolder(data)) return;
+                    if (!this.SavePictureBitmapToAppFolder(data)) return;
 
                     this.picture.setImageURI(this.pictureURI);
 
@@ -336,21 +347,19 @@ public class SignupActivity
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1(inputPwd + pwdSalt);
 
-        String picture = this.picturePath;
-
         Address address = new Address(
                 -1,
-                this.street1Input.getText().toString().trim(),
-                this.street2Input.getText().toString().trim(),
-                this.cityInput.getText().toString().trim(),
+                StringFormatterService.CapitalizeOnly(this.street1Input.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.street2Input.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.cityInput.getText().toString().trim()),
                 this.zipInput.getText().toString().trim(),
                 StringFormatterService.Capitalize(this.countryInput.getText().toString().trim())
         );
 
         Patient patient = new Patient(
                 -1,
-                StringFormatterService.Capitalize(this.lastnameInput.getText().toString().trim()),
-                StringFormatterService.Capitalize(this.firstnameInput.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.lastnameInput.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.firstnameInput.getText().toString().trim()),
                 this.birthdateInput.getText().toString().trim(),
                 this.emailInput.getText().toString().trim(),
                 pwd,
@@ -358,7 +367,7 @@ public class SignupActivity
                 this.insuranceNumberInput.getText().toString().trim(),
                 address,
                 lastLogin,
-                picture
+                this.picturePath == null ? "" : this.picturePath
         );
 
         if (patientDbHelper.CreatePatient(patient)) {

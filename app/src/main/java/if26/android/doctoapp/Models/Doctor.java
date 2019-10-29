@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,9 +56,9 @@ public class Doctor extends Resident {
         this.availabilities = new ArrayList<>();
         this.languages = new LinkedHashSet<>();
         this.paymentOptions = new LinkedHashSet<>();
-        this.reasons = new ArrayList<>();
-        this.trainings = new ArrayList<>();
-        this.experiences = new ArrayList<>();
+        this.reasons = new LinkedList<>();
+        this.trainings = new LinkedList<>();
+        this.experiences = new LinkedList<>();
     }
 
     public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String contactNumber, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, String picture, String header, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences, Set<Booking> appointments) {
@@ -70,7 +71,8 @@ public class Doctor extends Resident {
                 pwdSalt,
                 address,
                 lastLogin,
-                picture
+                picture,
+                appointments
         );
         this.speciality = speciality;
         this.description = description;
@@ -85,7 +87,6 @@ public class Doctor extends Resident {
         this.reasons = reasons;
         this.trainings = trainings;
         this.experiences = experiences;
-        this.appointments = appointments;
     }
 
     public Doctor(long id, String lastname, String firstname, String speciality, String email, String description, String contactNumber, String pwd, String pwdSalt, boolean isUnderAgreement, boolean isHealthInsuranceCard, boolean isThirdPartyPayment, Address address, String lastLogin, String picture, String header, List<Availability> availabilities, Set<Language> languages, Set<PaymentOption> paymentOptions, List<Reason> reasons, List<Education> trainings, List<Experience> experiences) {
@@ -113,7 +114,6 @@ public class Doctor extends Resident {
         this.reasons = reasons;
         this.trainings = trainings;
         this.experiences = experiences;
-        this.appointments = new LinkedHashSet<>();
     }
 
     public Doctor(Map<String, Object> doctorData) {

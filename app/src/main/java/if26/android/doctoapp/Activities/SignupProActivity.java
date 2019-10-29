@@ -41,8 +41,10 @@ import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Education;
 import if26.android.doctoapp.Models.Experience;
 import if26.android.doctoapp.Models.Language;
+import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.PaymentOption;
 import if26.android.doctoapp.Models.Reason;
+import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.AvailabilityService;
 import if26.android.doctoapp.Services.DateTimeService;
@@ -56,7 +58,7 @@ import if26.android.doctoapp.Services.StringFormatterService;
 public class SignupProActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-    private Doctor loggedUser;
+    private Resident loggedUser;
 
     private LinearLayout signupMsg;
     private TextView signupMsgTitle;
@@ -152,7 +154,8 @@ public class SignupProActivity
     private static final int SIGNUP = 6;
 
     private static final int BLUR_AMOUNT = 2;
-    private static final int SCALE_AMOUNT = 400;
+    private static final int SCALE_AMOUNT_PICTURE = 400;
+    private static final int SCALE_AMOUNT_HEADER = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -291,8 +294,11 @@ public class SignupProActivity
         // Retrieve the params
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
-        this.loggedUser = bundle.containsKey(key) ? (Doctor) bundle.getSerializable(key) : null;
-        if (this.loggedUser != null) this.loggedUser = (Doctor) this.loggedUser.Update(this.getApplicationContext());
+        this.loggedUser = bundle.containsKey(key) ?
+                bundle.getSerializable(key) instanceof Patient ?
+                        (Patient) bundle.getSerializable(key) :
+                        (Doctor) bundle.getSerializable(key) : null;
+        if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
     }
 
     /**
@@ -525,7 +531,7 @@ public class SignupProActivity
      */
     private boolean SavePictureBitmapToAppFolder(Intent data) {
         Bitmap pictureBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
-        int scaleFactor = Math.min(pictureBmp.getHeight() / SCALE_AMOUNT, pictureBmp.getWidth() / SCALE_AMOUNT);
+        int scaleFactor = Math.min(pictureBmp.getHeight() / SCALE_AMOUNT_PICTURE, pictureBmp.getWidth() / SCALE_AMOUNT_PICTURE);
 
         pictureBmp = Bitmap.createScaledBitmap(
                 pictureBmp,
@@ -557,7 +563,14 @@ public class SignupProActivity
      */
     private boolean SaveHeaderBitmapToAppFolder(Intent data) {
         Bitmap headerBmp = (new ImageService(this)).GetBmpFromURI(data.getData());
-        headerBmp = Bitmap.createScaledBitmap(headerBmp, 1200, 720, true);
+        int scaleFactor = Math.min(headerBmp.getHeight() / SCALE_AMOUNT_HEADER, headerBmp.getWidth() / SCALE_AMOUNT_HEADER);
+
+        headerBmp = Bitmap.createScaledBitmap(
+                headerBmp,
+                headerBmp.getWidth() / scaleFactor,
+                headerBmp.getHeight() / scaleFactor,
+                true
+        );
 
         File headerFile = this.CreateHeaderFile();
 
@@ -662,7 +675,7 @@ public class SignupProActivity
         }
 
         // Create a new Reason object
-        Reason r = new Reason(-1, null, this.reasonDescription.toString().trim());
+        Reason r = new Reason(-1, null, this.reasonDescription.getText().toString().trim());
 
         // If already added
         if (this.reasons.contains(r)) {
@@ -702,7 +715,7 @@ public class SignupProActivity
             return;
         }
 
-        String year = this.experienceYear.toString().trim();
+        String year = this.experienceYear.getText().toString().trim();
         String desc = this.experienceDescription.getText().toString().trim();
 
         // Create a new Experience object
@@ -746,7 +759,7 @@ public class SignupProActivity
             return;
         }
 
-        String year = this.trainingYear.toString().trim();
+        String year = this.trainingYear.getText().toString().trim();
         String desc = this.trainingDescription.getText().toString().trim();
 
         // Create a new Education object
@@ -844,22 +857,19 @@ public class SignupProActivity
         String pwdSalt = EncryptionService.SALT();
         String pwd = EncryptionService.SHA1(inputPwd + pwdSalt);
 
-        String picture = this.picturePath;
-        String header = this.headerPath;
-
         Address address = new Address(
                 -1,
-                this.street1Input.getText().toString().trim(),
-                this.street2Input.getText().toString().trim(),
-                this.cityInput.getText().toString().trim(),
+                StringFormatterService.CapitalizeOnly(this.street1Input.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.street2Input.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.cityInput.getText().toString().trim()),
                 this.zipInput.getText().toString().trim(),
                 StringFormatterService.Capitalize(this.countryInput.getText().toString().trim())
         );
 
         Doctor doctor = new Doctor(
                 -1,
-                StringFormatterService.Capitalize(this.lastnameInput.getText().toString().trim()),
-                StringFormatterService.Capitalize(this.firstnameInput.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.lastnameInput.getText().toString().trim()),
+                StringFormatterService.CapitalizeOnly(this.firstnameInput.getText().toString().trim()),
                 StringFormatterService.Capitalize(this.specialityInput.getText().toString().trim()),
                 this.emailInput.getText().toString().trim().toLowerCase(),
                 this.descriptionInput.getText().toString().trim(),
@@ -871,8 +881,15 @@ public class SignupProActivity
                 this.isThirdPartyPayment.isChecked(),
                 address,
                 lastLogin,
-                picture,
-                header
+                this.picturePath == null ? "" : this.picturePath,
+                this.headerPath == null ? "" : this.headerPath,
+                this.availabilities,
+                this.languages,
+                this.paymentOptions,
+                this.reasons,
+                this.trainings,
+                this.experiences
+
         );
 
         if (doctorDbHelper.CreateDoctor(doctor)) {

@@ -139,10 +139,10 @@
     <string name="signup_pro_reason_description_input_placeholder">ie. I am depressed</string>
     <string name="signup_pro_reason_error">An error occurred when adding the reason.\nPlease make sure you have not already added it.</string>
     <string name="signup_pro_experience_year_input_placeholder">ie. 2009</string>
-    <string name="signup_pro_experience_description_input_placeholder">ie. MSc in Psychology</string>
+    <string name="signup_pro_experience_description_input_placeholder">ie. 3 years in a Paris Hospital</string>
     <string name="signup_pro_experience_error">An error occurred when adding the experience.\nPlease check the fields.\nMake sure you have not already added it.</string>
     <string name="signup_pro_training_year_input_placeholder">ie. 2013</string>
-    <string name="signup_pro_training_description_input_placeholder">ie. 3 years in therapeutic office in Paris</string>
+    <string name="signup_pro_training_description_input_placeholder">ie. MSc in Medicine and Psychology</string>
     <string name="signup_pro_training_error">An error occurred when adding the training.\nPlease check the fields.\nMake sure you have not already added it.</string>
     <string name="signup_pro_language_error">An error occurred when adding the language.\nPlease make sure you have not already added it.</string>
     <string name="signup_pro_payment_option_error">An error occurred when adding the payment option.\nPlease make sure you have not already added it.</string>

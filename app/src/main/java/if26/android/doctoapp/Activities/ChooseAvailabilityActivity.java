@@ -150,10 +150,6 @@ public class ChooseAvailabilityActivity
         // Prepare date time data
         String timeTag = time.getTag().toString();
 
-        // For some reason, a number is added at the end of the previously-built time tag
-        // So we need to clean it ...
-        timeTag = this.CleanTimeTag(timeTag);
-
         // Get datetime data from the time tag
         Map<String,String> dateData = dateTimeService.GetDateTimeDataFromTimeTag(timeTag);
 
@@ -174,17 +170,6 @@ public class ChooseAvailabilityActivity
 
         // Start the activity
         startActivityForResult(i, RequestCode.LOGGED_PATIENT);
-    }
-
-    /**
-     * Clean the tag of a text view displaying a time
-     * @param timeTag The time tag to clean
-     * @return The time tag cleaned
-     */
-    private String CleanTimeTag(String timeTag) {
-        if (!timeTag.contains(" ")) return timeTag;
-
-        return timeTag.substring(0, timeTag.indexOf(" "));
     }
 
     @Override
