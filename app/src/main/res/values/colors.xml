@@ -69,7 +69,6 @@
     <color name="signup_pro_private_account_background">#FFFFFF</color>
     <color name="signup_pro_private_account_link">#1B86E4</color>
     <color name="signup_pro_success_msg">#18965A</color>
-    <color name="signup_pro_error_msg">#BE4A4A</color>
     <color name="signup_pro_success_msg_title">#FFFFFF</color>
     <color name="signup_pro_success_msg_content">#FFFFFF</color>
     <color name="signup_pro_take_picture_from_camera">#494949</color>
@@ -87,15 +86,21 @@
     <color name="signup_pro_add_reason_btn">#1B86E4</color>
     <color name="signup_pro_add_training_btn">#1B86E4</color>
     <color name="signup_pro_add_experience_btn">#1B86E4</color>
+    <color name="signup_pro_add_language_btn">#1B86E4</color>
+    <color name="signup_pro_add_payment_option_btn">#1B86E4</color>
     <color name="signup_pro_add_availability_btn_text">#FFFFFF</color>
     <color name="signup_pro_add_reason_btn_text">#FFFFFF</color>
     <color name="signup_pro_add_training_btn_text">#FFFFFF</color>
     <color name="signup_pro_add_experience_btn_text">#FFFFFF</color>
-    <color name="signup_pro_availability_day_input">#F8F8F8</color>
+    <color name="signup_pro_add_language_btn_text">#FFFFFF</color>
+    <color name="signup_pro_add_payment_option_btn_text">#FFFFFF</color>
+    <color name="signup_pro_days_list">#F8F8F8</color>
+    <color name="signup_pro_languages_list">#F8F8F8</color>
+    <color name="signup_pro_payment_options_list">#F8F8F8</color>
     <color name="signup_pro_info_msg">#3081C7</color>
     <color name="signup_pro_info_msg_background">#EDF2F5</color>
-    <color name="signup_pro_warning_msg">#BE4A4A</color>
-    <color name="signup_pro_warning_msg_background">#ECDEDE</color>
+    <color name="signup_pro_error_msg">#BE4A4A</color>
+    <color name="signup_pro_error_msg_background">#ECDEDE</color>
 
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>

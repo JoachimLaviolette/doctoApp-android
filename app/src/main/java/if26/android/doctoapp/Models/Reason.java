@@ -1,5 +1,7 @@
 package if26.android.doctoapp.Models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Reason implements Serializable {
@@ -37,5 +39,21 @@ public class Reason implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Reason)) return false;
+
+        Reason r = (Reason) obj;
+
+        if (r.getDoctor() != null && this.getDoctor() != null) {
+            if (!r.getDoctor().equals(this.getDoctor())) return false;
+        }
+
+        if ((r.getDoctor() == null && this.getDoctor() != null)
+                || (r.getDoctor() != null && this.getDoctor() == null)) return false;
+
+        return r.getDescription().equals(this.getDescription());
     }
 }

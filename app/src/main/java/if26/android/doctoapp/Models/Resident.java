@@ -2,6 +2,8 @@ package if26.android.doctoapp.Models;
 
 import android.content.Context;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -188,4 +190,17 @@ public abstract class Resident implements Serializable {
     protected abstract void UpdateAppointmentsResidentId();
 
     public abstract Resident Update(Context context);
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Resident)) return false;
+
+        Resident r = (Resident) obj;
+
+        // Because the id is unique
+        // It's enough to compare Doctor objects
+        if (r.getId() != this.getId()) return false;
+
+        return true;
+    }
 }
