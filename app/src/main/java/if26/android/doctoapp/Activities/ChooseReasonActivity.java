@@ -124,7 +124,7 @@ public class ChooseReasonActivity
         SimpleAdapter simpleAdapter = new SimpleAdapter(
             this,
             reasonsMapList,
-            R.layout.reason_list,
+            R.layout.template_reason_list,
             new String[] { reasonItemKey },
             new int[] { R.id.reason_list_item_reason }
         );

@@ -54,7 +54,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/search_list"/>
+            <include layout="@layout/template_search_list"/>
 
         </LinearLayout>
 

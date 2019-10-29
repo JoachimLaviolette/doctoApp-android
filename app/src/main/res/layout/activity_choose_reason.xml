@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/reason_list" />
+                <include layout="@layout/template_reason_list" />
 
             </LinearLayout>
         </LinearLayout>

@@ -370,7 +370,7 @@ public class Doctor extends Resident {
     public String getPaymentOptionsAsString() {
         String paymentOptions = "";
 
-        for (PaymentOption po: this.paymentOptions) paymentOptions += po.toString().toLowerCase().replace("_", " ") + ", ";
+        for (PaymentOption po: this.paymentOptions) paymentOptions += po.toString() + ", ";
 
         if (paymentOptions.isEmpty()) return paymentOptions;
 
@@ -387,7 +387,7 @@ public class Doctor extends Resident {
     public String getLanguagesAsString() {
         String languages = "";
 
-        for (Language l: this.languages) languages += "- " + l.toString().toUpperCase() + "\n";
+        for (Language l: this.languages) languages += "- " + l.toString() + "\n";
 
         return languages.trim();
     }
