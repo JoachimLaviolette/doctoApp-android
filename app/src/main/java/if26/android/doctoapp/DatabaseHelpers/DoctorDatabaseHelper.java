@@ -272,7 +272,8 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        Doctor doctor = this.BuildDoctorsList(c).get(0);
+        List<Doctor> doctors = this.BuildDoctorsList(c);
+        Doctor doctor = doctors.isEmpty() ? null : doctors.get(0);
         c.close();
 
         return doctor;
@@ -299,7 +300,8 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        Doctor doctor = this.BuildDoctorsList(c).get(0);
+        List<Doctor> doctors = this.BuildDoctorsList(c);
+        Doctor doctor = doctors.isEmpty() ? null : doctors.get(0);
         c.close();
 
         return doctor;

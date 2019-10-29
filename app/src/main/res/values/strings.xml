@@ -331,5 +331,6 @@
     <string name="intent_reason">reason</string>
     <string name="intent_availability">availability</string>
     <string name="doctor_profile_speciality">{doctor_speciality}</string>
+    <string name="request_code">request_code</string>
 
 </resources>

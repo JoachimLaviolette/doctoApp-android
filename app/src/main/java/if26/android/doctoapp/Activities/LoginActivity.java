@@ -26,6 +26,7 @@ public class LoginActivity
         extends AppCompatActivity
         implements View.OnClickListener {
     private Resident loggedUser;
+    private boolean toRedirect;
 
     private LinearLayout loginMsg;
     private TextView loginMsgTitle;
@@ -62,6 +63,7 @@ public class LoginActivity
      */
     private void Instantiate() {
         this.loggedUser = null;
+        this.toRedirect = false;
         this.loginMsg = findViewById(R.id.login_msg);
         this.loginMsgTitle = findViewById(R.id.login_msg_title);
         this.loginMsgContent = findViewById(R.id.login_msg_content);
@@ -151,7 +153,7 @@ public class LoginActivity
 
                 return;
             case R.id.login_msg:
-                this.MyBookings();
+                if (this.loggedUser != null) this.MyBookings();
 
                 return;
         }
@@ -178,11 +180,28 @@ public class LoginActivity
      * Execute login process
      */
     private void Login() {
+        this.CheckIfRedirect();
+
         boolean success = this.TryLoginAsPatient();
-
-        if (!success) success = this.TryLoginAsDoctor();
-
+        if (!this.toRedirect) if (!success) success = this.TryLoginAsDoctor();
         if (!success) this.DisplayErrorMsg();
+    }
+
+    /**
+     * Check if the activity has been called to login a patient for a booking or not
+     */
+    private void CheckIfRedirect() {
+        Intent i = getIntent();
+        Bundle b = i.getExtras();
+
+        if (b == null) return;
+
+        // Check if a request code has been sent
+        if (!b.containsKey(getString(R.string.request_code))) return;
+
+        // Check if the request code is for logging-in a patient for a booking
+        // So we know if we later have to redirect or not
+        this.toRedirect = b.getInt(getString(R.string.request_code)) == RequestCode.CONNECT_PATIENT;
     }
 
     /**
@@ -211,11 +230,14 @@ public class LoginActivity
         this.DisplaySuccessMsg();
         this.MakeToast(LOGIN_PATIENT);
         this.loggedUser = patient;
-        Intent i = new Intent();
-        String key = this.getResources().getString(R.string.intent_logged_user);
-        i.putExtra(key, this.loggedUser);
-        setResult(RESULT_OK, i);
-        finish();
+
+        if (this.toRedirect) {
+            Intent i = new Intent();
+            String key = this.getResources().getString(R.string.intent_logged_user);
+            i.putExtra(key, this.loggedUser);
+            setResult(RESULT_OK, i);
+            finish();
+        }
 
         return true;
     }
@@ -246,11 +268,14 @@ public class LoginActivity
         this.DisplaySuccessMsg();
         this.MakeToast(LOGIN_DOCTOR);
         this.loggedUser = doctor;
-        Intent i = new Intent();
-        String key = this.getResources().getString(R.string.intent_logged_user);
-        i.putExtra(key, this.loggedUser);
-        setResult(RESULT_OK, i);
-        finish();
+
+        if (this.toRedirect) {
+            Intent i = new Intent();
+            String key = this.getResources().getString(R.string.intent_logged_user);
+            i.putExtra(key, this.loggedUser);
+            setResult(RESULT_OK, i);
+            finish();
+        }
 
         return true;
     }
