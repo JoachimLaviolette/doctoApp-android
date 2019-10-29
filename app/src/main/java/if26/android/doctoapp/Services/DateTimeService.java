@@ -150,7 +150,7 @@ public class DateTimeService {
     private String GetMonthNameFromFullDay(String fullDay) {
         String monthName = fullDay.substring(fullDay.indexOf(" ") + 1);
 
-        return monthName.substring(0, fullDay.indexOf(" ")).trim();
+        return monthName.substring(0, monthName.indexOf(" ")).trim();
     }
 
     /**

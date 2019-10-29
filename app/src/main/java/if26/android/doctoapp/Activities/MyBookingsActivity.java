@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
+import if26.android.doctoapp.Services.ImageService;
 
 public class MyBookingsActivity
         extends AppCompatActivity {
@@ -85,6 +87,7 @@ public class MyBookingsActivity
             View appointmentItemLayout = inflater.inflate(R.layout.appointment_item, this.appointmentList, false);
             TextView fullDay = appointmentItemLayout.findViewById(R.id.appointment_item_fullday);
             TextView time = appointmentItemLayout.findViewById(R.id.appointment_item_time);
+            CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_picture);
             TextView doctorFullname = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_fullname);
             TextView doctorSpeciality = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_speciality);
             TextView doctorChevron = appointmentItemLayout.findViewById(R.id.appointment_item_chevron);
@@ -95,6 +98,7 @@ public class MyBookingsActivity
             // Set data
             fullDay.setText(a.getDate());
             time.setText(a.getTime());
+            if (!a.getDoctor().getPicture().isEmpty()) doctorPicture.setImageURI(ImageService.GetURIFromPath(a.getDoctor().getPicture()));
             doctorFullname.setText(a.getDoctor().getFullname());
             doctorSpeciality.setText(a.getDoctor().getSpeciality());
             reason.setText(a.getReason().getDescription());

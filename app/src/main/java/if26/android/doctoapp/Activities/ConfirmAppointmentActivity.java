@@ -18,6 +18,7 @@ import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.Resident;
 import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.ImageService;
 
 public class ConfirmAppointmentActivity
         extends AppCompatActivity
@@ -148,7 +149,7 @@ public class ConfirmAppointmentActivity
         this.appointmentTime.setText(this.booking.getTime());
 
         // Set doctor picture
-        //this.doctorPicture.setImageResource(doctorService.GetDoctorPicture());
+        if (!this.doctor.getPicture().isEmpty()) this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
 
         // Set doctor fullname
         this.doctorFullname.setText(this.doctor.getFullname());
@@ -164,6 +165,9 @@ public class ConfirmAppointmentActivity
 
         // Set doctor address
         this.doctorAddress.setText(this.doctor.GetFullAddress());
+
+        // Set patient picture
+        if (!this.patient.getPicture().isEmpty()) this.patientPicture.setImageURI(ImageService.GetURIFromPath(this.patient.getPicture()));
 
         // Set patient fullname
         this.patientFullname.setText(this.patient.getFullname());
