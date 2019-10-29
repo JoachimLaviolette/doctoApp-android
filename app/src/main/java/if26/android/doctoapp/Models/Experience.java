@@ -1,5 +1,7 @@
 package if26.android.doctoapp.Models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Experience implements Serializable {
@@ -37,5 +39,22 @@ public class Experience implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Experience)) return false;
+
+        Experience e = (Experience) obj;
+
+        if (e.getDoctor() != null && this.getDoctor() != null) {
+            if (!e.getDoctor().equals(this.getDoctor())) return false;
+        }
+
+        if ((e.getDoctor() == null && this.getDoctor() != null)
+                || (e.getDoctor() != null && this.getDoctor() == null)) return false;
+        if (!e.getYear().equals(this.getYear())) return false;
+
+        return e.getDescription().equals(this.getDescription());
     }
 }

@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,17 +26,31 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import if26.android.doctoapp.BuildConfig;
 import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
 import if26.android.doctoapp.Models.Address;
+import if26.android.doctoapp.Models.Availability;
 import if26.android.doctoapp.Models.Doctor;
+import if26.android.doctoapp.Models.Education;
+import if26.android.doctoapp.Models.Experience;
+import if26.android.doctoapp.Models.Language;
+import if26.android.doctoapp.Models.PaymentOption;
+import if26.android.doctoapp.Models.Reason;
 import if26.android.doctoapp.R;
+import if26.android.doctoapp.Services.AvailabilityService;
 import if26.android.doctoapp.Services.DateTimeService;
+import if26.android.doctoapp.Services.EducationService;
 import if26.android.doctoapp.Services.EncryptionService;
+import if26.android.doctoapp.Services.ExperienceService;
 import if26.android.doctoapp.Services.ImageService;
+import if26.android.doctoapp.Services.ReasonService;
 import if26.android.doctoapp.Services.StringFormatterService;
 
 public class SignupProActivity
@@ -85,7 +101,37 @@ public class SignupProActivity
             addAvailabilityBtn,
             addReasonBtn,
             addExperience,
-            addTrainingBtn;
+            addTrainingBtn,
+            addLanguageBtn,
+            addPaymentOptionBtn;
+
+    private Spinner
+            daysList,
+            languagesList,
+            paymentOptionsList;
+
+    private TextView
+            availabilityTime,
+            reasonDescription,
+            experienceYear,
+            experienceDescription,
+            trainingYear,
+            trainingDescription;
+
+    private List<Availability> availabilities;
+    private List<Reason> reasons;
+    private List<Experience> experiences;
+    private List<Education> trainings;
+    private Set<Language> languages;
+    private Set<PaymentOption> paymentOptions;
+
+    private TextView
+            availabilityErrorMsg,
+            reasonErrorMsg,
+            experienceErrorMsg,
+            trainingErrorMsg,
+            languageErrorMsg,
+            paymentOptionErrorMsg;
 
     private Button signupBtn;
 
@@ -96,6 +142,14 @@ public class SignupProActivity
 
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String PREFIX_PROFILE_HEADER = "profile_header_";
+
+    private static final int ADD_AVAILABILITY = 0;
+    private static final int ADD_REASON = 1;
+    private static final int ADD_EXPERIENCE = 2;
+    private static final int ADD_TRAINING = 3;
+    private static final int ADD_LANGUAGE = 4;
+    private static final int ADD_PAYMENT_OPTION = 5;
+    private static final int SIGNUP = 6;
 
     private static final int BLUR_AMOUNT = 2;
     private static final int SCALE_AMOUNT = 400;
@@ -159,6 +213,32 @@ public class SignupProActivity
         this.addReasonBtn = findViewById(R.id.signup_pro_add_reason_btn);
         this.addExperience = findViewById(R.id.signup_pro_add_experience_btn);
         this.addTrainingBtn = findViewById(R.id.signup_pro_add_training_btn);
+        this.addLanguageBtn = findViewById(R.id.signup_pro_add_language_btn);
+        this.addPaymentOptionBtn = findViewById(R.id.signup_pro_add_payment_option_btn);
+
+        this.daysList = findViewById(R.id.signup_pro_days_list);
+        this.availabilityTime = findViewById(R.id.signup_pro_availability_time_input);
+        this.reasonDescription = findViewById(R.id.signup_pro_reason_description_input);
+        this.experienceYear = findViewById(R.id.signup_pro_experience_year_input);
+        this.experienceDescription = findViewById(R.id.signup_pro_experience_description_input);
+        this.trainingYear = findViewById(R.id.signup_pro_training_year_input);
+        this.trainingDescription = findViewById(R.id.signup_pro_training_description_input);
+        this.languagesList = findViewById(R.id.signup_pro_languages_list);
+        this.paymentOptionsList = findViewById(R.id.signup_pro_payment_options_list);
+
+        this.availabilities = new LinkedList<>();
+        this.reasons = new LinkedList<>();
+        this.experiences = new LinkedList<>();
+        this.trainings = new LinkedList<>();
+        this.languages = new LinkedHashSet<>();
+        this.paymentOptions = new LinkedHashSet<>();
+
+        this.availabilityErrorMsg = findViewById(R.id.signup_pro_availability_error);
+        this.reasonErrorMsg = findViewById(R.id.signup_pro_reason_error);
+        this.experienceErrorMsg = findViewById(R.id.signup_pro_experience_error);
+        this.trainingErrorMsg = findViewById(R.id.signup_pro_training_error);
+        this.languageErrorMsg = findViewById(R.id.signup_pro_language_error);
+        this.paymentOptionErrorMsg = findViewById(R.id.signup_pro_payment_option_error);
 
         this.signupBtn = findViewById(R.id.signup_pro_btn);
 
@@ -180,6 +260,8 @@ public class SignupProActivity
         this.addReasonBtn.setOnClickListener(this);
         this.addExperience.setOnClickListener(this);
         this.addTrainingBtn.setOnClickListener(this);
+        this.addLanguageBtn.setOnClickListener(this);
+        this.addPaymentOptionBtn.setOnClickListener(this);
         this.signupBtn.setOnClickListener(this);
         this.loginLink.setOnClickListener(this);
         this.privateAccountLink.setOnClickListener(this);
@@ -191,6 +273,8 @@ public class SignupProActivity
     private void SetContent() {
         setTitle(R.string.title_signup);
         this.SetSignupContext();
+        this.SetLanguagesList();
+        this.SetPaymentOptionsList();
     }
 
     /**
@@ -209,6 +293,40 @@ public class SignupProActivity
         String key = this.getResources().getString(R.string.intent_logged_user);
         this.loggedUser = bundle.containsKey(key) ? (Doctor) bundle.getSerializable(key) : null;
         if (this.loggedUser != null) this.loggedUser = (Doctor) this.loggedUser.Update(this.getApplicationContext());
+    }
+
+    /**
+     * Set the languages list options
+     */
+    private void SetLanguagesList() {
+        List<String> languages = new LinkedList<>();
+        for (Language l : Language.values()) languages.add(l.toString());
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                languages
+        );
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.languagesList.setAdapter(dataAdapter);
+    }
+
+    /**
+     * Set the payment options list options
+     */
+    private void SetPaymentOptionsList() {
+        List<String> paymentOptions = new LinkedList<>();
+        for (PaymentOption po : PaymentOption.values()) paymentOptions.add(po.toString());
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                paymentOptions
+        );
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.paymentOptionsList.setAdapter(dataAdapter);
     }
 
     /**
@@ -248,6 +366,14 @@ public class SignupProActivity
                 return;
             case R.id.signup_pro_add_training_btn:
                 this.AddTraining();
+
+                return;
+            case R.id.signup_pro_add_language_btn:
+                this.AddLanguage();
+
+                return;
+            case R.id.signup_pro_add_payment_option_btn:
+                this.AddPaymentOption();
 
                 return;
             case R.id.signup_pro_btn:
@@ -485,28 +611,219 @@ public class SignupProActivity
      * Add the availability chosen by the doctor
      */
     private void AddAvailability() {
+        if (!this.CheckAvailabilityFields()) {
+            this.availabilityErrorMsg.setVisibility(View.VISIBLE);
 
+            return;
+        }
+
+        String day = this.daysList.getSelectedItem().toString().trim();
+        String time = this.availabilityTime.getText().toString().trim();
+
+        // Create a new Availability object
+        Availability a = new Availability(null, day, time);
+
+        // If already added
+        if (this.availabilities.contains(a)) {
+            // Reference comparison is not enough to say if the list actually contains the same object
+            // So we need to use a personalize method using the appropriate service
+            if (AvailabilityService.Contains(this.availabilities, a)) {
+                this.availabilityErrorMsg.setVisibility(View.VISIBLE);
+
+                return;
+            }
+        }
+
+        this.availabilityErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of availabilities
+        this.availabilities.add(a);
+
+        // Display a toast msg
+        this.MakeToast(ADD_AVAILABILITY);
+    }
+
+    /**
+     * Check if the availability fields are correctly filled
+     * @return If the fields are correctly filled
+     */
+    private boolean CheckAvailabilityFields() {
+        return this.availabilityTime.getText().toString().trim().matches("(0|1)(0|1|2|3|4|5|6|7|8|9):(0|1|2|3|4|5)(0|1|2|3|4|5|6|7|8|9)");
     }
 
     /**
      * Add the reason chosen by the doctor
      */
     private void AddReason() {
+        if (!this.CheckReasonFields()) {
+            this.availabilityErrorMsg.setVisibility(View.VISIBLE);
 
+            return;
+        }
+
+        // Create a new Reason object
+        Reason r = new Reason(-1, null, this.reasonDescription.toString().trim());
+
+        // If already added
+        if (this.reasons.contains(r)) {
+            // Reference comparison is not enough to say if the list actually contains the same object
+            // So we need to use a personalize method using the appropriate service
+            if (ReasonService.Contains(this.reasons, r)) {
+                this.reasonErrorMsg.setVisibility(View.VISIBLE);
+
+                return;
+            }
+        }
+
+        this.reasonErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of reasons
+        this.reasons.add(r);
+
+        // Display a toast msg
+        this.MakeToast(ADD_REASON);
+    }
+
+    /**
+     * Check if the reason fields are correctly filled
+     * @return If the fields are correctly filled
+     */
+    private boolean CheckReasonFields() {
+        return !this.reasonDescription.getText().toString().trim().isEmpty();
     }
 
     /**
      * Add the experience chosen by the doctor
      */
     private void AddExperience() {
+        if (!this.CheckExperienceFields()) {
+            this.experienceErrorMsg.setVisibility(View.VISIBLE);
 
+            return;
+        }
+
+        String year = this.experienceYear.toString().trim();
+        String desc = this.experienceDescription.getText().toString().trim();
+
+        // Create a new Experience object
+        Experience e = new Experience(null, year, desc);
+
+        // If already added
+        if (this.experiences.contains(e)) {
+            // Reference comparison is not enough to say if the list actually contains the same object
+            // So we need to use a personalize method using the appropriate service
+            if (ExperienceService.Contains(this.experiences, e)) {
+                this.experienceErrorMsg.setVisibility(View.VISIBLE);
+
+                return;
+            }
+        }
+
+        this.experienceErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of experiences
+        this.experiences.add(e);
+
+        // Display a toast msg
+        this.MakeToast(ADD_EXPERIENCE);
+    }
+
+    /**
+     * Check if the experience fields are correctly filled
+     * @return If the fields are correctly filled
+     */
+    private boolean CheckExperienceFields() {
+        return this.experienceYear.getText().toString().trim().matches("\\d{4}");
     }
 
     /**
      * Add the training chosen by the doctor
      */
     private void AddTraining() {
+        if (!this.CheckTrainingFields()) {
+            this.trainingErrorMsg.setVisibility(View.VISIBLE);
 
+            return;
+        }
+
+        String year = this.trainingYear.toString().trim();
+        String desc = this.trainingDescription.getText().toString().trim();
+
+        // Create a new Education object
+        Education e = new Education(null, year, desc);
+
+        // If already added
+        if (this.trainings.contains(e)) {
+            // Reference comparison is not enough to say if the list actually contains the same object
+            // So we need to use a personalize method using the appropriate service
+            if (EducationService.Contains(this.trainings, e)) {
+                this.trainingErrorMsg.setVisibility(View.VISIBLE);
+
+                return;
+            }
+        }
+
+        this.trainingErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of trainings
+        this.trainings.add(e);
+
+        // Display a toast msg
+        this.MakeToast(ADD_TRAINING);
+    }
+
+    /**
+     * Check if the training fields are correctly filled
+     * @return If the fields are correctly filled
+     */
+    private boolean CheckTrainingFields() {
+        return this.trainingYear.getText().toString().trim().matches("\\d{4}");
+    }
+
+    /**
+     * Add the language chosen by the doctor
+     */
+    private void AddLanguage() {
+        // Create a new Language object
+        Language l = Language.valueOf(this.languagesList.getSelectedItem().toString().trim());
+
+        // If already added
+        if (this.languages.contains(l)) {
+            this.languageErrorMsg.setVisibility(View.VISIBLE);
+
+            return;
+        }
+
+        this.languageErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of languages
+        this.languages.add(l);
+
+        // Display a toast msg
+        this.MakeToast(ADD_LANGUAGE);
+    }
+
+    /**
+     * Add the payment option chosen by the doctor
+     */
+    private void AddPaymentOption() {
+        // Create a new PaymentOption object
+        PaymentOption po = PaymentOption.valueOf(this.paymentOptionsList.getSelectedItem().toString().trim());
+
+        // If already added
+        if (this.paymentOptions.contains(po)) {
+            this.paymentOptionErrorMsg.setVisibility(View.VISIBLE);
+
+            return;
+        }
+
+        this.paymentOptionErrorMsg.setVisibility(View.GONE);
+
+        // Add it to the list of payment options
+        this.paymentOptions.add(po);
+
+        // Display a toast msg
+        this.MakeToast(ADD_PAYMENT_OPTION);
     }
 
     /**
@@ -560,7 +877,7 @@ public class SignupProActivity
 
         if (doctorDbHelper.CreateDoctor(doctor)) {
             this.DisplaySuccessMsg();
-            this.MakeToast();
+            this.MakeToast(SIGNUP);
             Intent i = new Intent();
             String key = this.getResources().getString(R.string.intent_logged_user);
             i.putExtra(key, this.loggedUser);
@@ -664,13 +981,58 @@ public class SignupProActivity
     }
 
     /**
-     * Show a toast after SIGNUP PRO action
+     * Show a toast after one action
+     * @param action The action performed
      */
-    private void MakeToast() {
+    private void MakeToast(int action) {
         Context context = getApplicationContext();
-        CharSequence content = this.getResources().getString(R.string.signup_toast_signup_content);
+        CharSequence content;
+        Toast toast;
         int duration = Toast.LENGTH_LONG;
-        Toast toast = Toast.makeText(context, content, duration);
-        toast.show();
+
+        switch (action) {
+            case SIGNUP:
+                content = this.getResources().getString(R.string.signup_toast_signup_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_AVAILABILITY:
+                content = this.getResources().getString(R.string.signup_toast_availability_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_REASON:
+                content = this.getResources().getString(R.string.signup_toast_reason_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_EXPERIENCE:
+                content = this.getResources().getString(R.string.signup_toast_experience_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_TRAINING:
+                content = this.getResources().getString(R.string.signup_toast_training_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_LANGUAGE:
+                content = this.getResources().getString(R.string.signup_toast_language_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case ADD_PAYMENT_OPTION:
+                content = this.getResources().getString(R.string.signup_toast_payment_option_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+        }
     }
 }

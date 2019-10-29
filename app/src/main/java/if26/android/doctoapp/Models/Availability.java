@@ -1,5 +1,7 @@
 package if26.android.doctoapp.Models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Availability implements Serializable {
@@ -37,5 +39,22 @@ public class Availability implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Availability)) return false;
+
+        Availability a = (Availability) obj;
+
+        if (a.getDoctor() != null && this.getDoctor() != null) {
+            if (!a.getDoctor().equals(this.getDoctor())) return false;
+        }
+
+        if ((a.getDoctor() == null && this.getDoctor() != null)
+                || (a.getDoctor() != null && this.getDoctor() == null)) return false;
+        if (!a.getDate().equals(this.getDate())) return false;
+
+        return a.getTime().equals(this.getTime());
     }
 }

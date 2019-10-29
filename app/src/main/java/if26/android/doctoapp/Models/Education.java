@@ -1,5 +1,7 @@
 package if26.android.doctoapp.Models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class Education implements Serializable {
@@ -36,5 +38,22 @@ public class Education implements Serializable {
 
     public void setDegree(String degree) {
         this.degree = degree;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Education)) return false;
+
+        Education e = (Education) obj;
+
+        if (e.getDoctor() != null && this.getDoctor() != null) {
+            if (!e.getDoctor().equals(this.getDoctor())) return false;
+        }
+
+        if ((e.getDoctor() == null && this.getDoctor() != null)
+                || (e.getDoctor() != null && this.getDoctor() == null)) return false;
+        if (!e.getYear().equals(this.getYear())) return false;
+
+        return e.getDegree().equals(this.getDegree());
     }
 }
