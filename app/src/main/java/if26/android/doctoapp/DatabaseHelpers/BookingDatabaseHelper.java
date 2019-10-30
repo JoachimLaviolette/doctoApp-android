@@ -119,10 +119,10 @@ public class BookingDatabaseHelper {
 
     /**
      * Get the appointments associated to the given doctor
-     * @param doctorId The doctor id
+     * @param doctor The doctor object
      * @return The matching appointments
      */
-    public Set<Booking> GetAppointmentsByDoctor(String doctorId) {
+    public Set<Booking> GetAppointmentsByDoctor(Doctor doctor) {
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
 
         String query = String.format(
@@ -133,10 +133,10 @@ public class BookingDatabaseHelper {
                 DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR
         );
 
-        String[] args = { doctorId };
+        String[] args = { doctor.getId() + "" };
 
         Cursor c = database.rawQuery(query, args);
-        Set<Booking> appointments = this.BuildDoctorAppointmentsList(c);
+        Set<Booking> appointments = this.BuildDoctorAppointmentsList(c, doctor);
         c.close();
 
         return appointments;
@@ -170,9 +170,12 @@ public class BookingDatabaseHelper {
     /**
      * Build the list of appointments iterating on the given cursor
      * @param c Cursor pointing search query results
+     * @param doctor The doctor object to complete
      * @return The list of matching appointments
      */
-    private Set<Booking> BuildDoctorAppointmentsList(Cursor c) {
+    private Set<Booking> BuildDoctorAppointmentsList(Cursor c, Doctor doctor) {
+        PatientDatabaseHelper patientDatabaseHelper = new PatientDatabaseHelper(this.context);
+        ReasonDatabaseHelper reasonDatabaseHelper = new ReasonDatabaseHelper(this.context);
         Set<Booking> appointments = new LinkedHashSet<>();
 
         if (c.moveToFirst()) {
@@ -186,11 +189,24 @@ public class BookingDatabaseHelper {
                     );
                 }
 
+                // Create the doctor object from the doctor id
+                Patient patient = patientDatabaseHelper.GetPatientById(
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT).toString(),
+                        true
+                );
+                patient.setAppointments(appointments);
+
+                // Create the reason object from the reason id
+                Reason reason = reasonDatabaseHelper.GetReasonById(
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON).toString()
+                );
+                reason.setDoctor(doctor);
+
                 Booking a = new Booking(
-                        null,
-                        null,
-                        null,
-                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE).toString(),
+                        patient,
+                        doctor,
+                        reason,
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE).toString()
                 );
@@ -205,6 +221,7 @@ public class BookingDatabaseHelper {
     /**
      * Build the list of appointments iterating on the given cursor
      * @param c Cursor pointing search query results
+     * @param patient The patient object to complete
      * @return The list of matching appointments
      */
     private Set<Booking> BuildPatientAppointmentsList(Cursor c, Patient patient) {
@@ -225,7 +242,8 @@ public class BookingDatabaseHelper {
 
                 // Create the doctor object from the doctor id
                 Doctor doctor = doctorDatabaseHelper.GetDoctorById(
-                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR).toString()
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR).toString(),
+                        true
                 );
                 doctor.setAppointments(appointments);
 
@@ -237,9 +255,9 @@ public class BookingDatabaseHelper {
 
                 // Create the appointment
                 Booking a = new Booking(
-                        patient, // get the patient model
-                        doctor, // get the doctor model
-                        reason, // get the reason model
+                        patient,
+                        doctor,
+                        reason,
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE).toString()

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
 
 public class DoctorDatabaseHelper {
@@ -193,7 +195,7 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        List<Doctor> doctors = this.BuildDoctorsList(c);
+        List<Doctor> doctors = this.BuildDoctorsList(c, false);
         c.close();
 
         return doctors;
@@ -202,9 +204,10 @@ public class DoctorDatabaseHelper {
     /**
      * Build the list of doctors iterating on the given cursor
      * @param c Cursor pointing search query results
+     * @param fromPatient If the request comes from patient building process
      * @return The list of matching doctors
      */
-    private List<Doctor> BuildDoctorsList(Cursor c) {
+    private List<Doctor> BuildDoctorsList(Cursor c, boolean fromPatient) {
         List<Doctor> doctors = new ArrayList<>();
 
         if (c.moveToFirst()) {
@@ -239,11 +242,13 @@ public class DoctorDatabaseHelper {
                 // Get data from experience table for the current doctor
                 doctorData = this.GetExperienceTableData(doctorData, doctorId);
 
-                // Get data from booking table for the current doctor
-                doctorData = this.GetBookingTableData(doctorData, doctorId);
-
+                // Create the doctor object
                 Doctor doctor = new Doctor(doctorData);
-                doctor.UpdateRelatedData();
+
+                // Get data from booking table for the current doctor
+                if (!fromPatient) doctor = this.GetBookingTableData(doctor);
+
+                // Add the doctor to the list
                 doctors.add(doctor);
             } while (c.moveToNext());
         }
@@ -254,9 +259,10 @@ public class DoctorDatabaseHelper {
     /**
      * Get a doctor by id
      * @param doctorId The id of the doctor to retrieve
+     * @param fromPatient If the request comes from patient building process
      * @return The matching doctor
      */
-    public Doctor GetDoctorById(String doctorId) {
+    public Doctor GetDoctorById(String doctorId, boolean fromPatient) {
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
 
         String query = String.format(
@@ -272,7 +278,7 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        List<Doctor> doctors = this.BuildDoctorsList(c);
+        List<Doctor> doctors = this.BuildDoctorsList(c, fromPatient);
         Doctor doctor = doctors.isEmpty() ? null : doctors.get(0);
         c.close();
 
@@ -300,7 +306,7 @@ public class DoctorDatabaseHelper {
         };
 
         Cursor c = database.rawQuery(query, args);
-        List<Doctor> doctors = this.BuildDoctorsList(c);
+        List<Doctor> doctors = this.BuildDoctorsList(c, false);
         Doctor doctor = doctors.isEmpty() ? null : doctors.get(0);
         c.close();
 
@@ -437,18 +443,15 @@ public class DoctorDatabaseHelper {
     }
 
     /**
-     * Gather booking table data in a map according to the given doctor data
-     * @param doctorData The doctor data
-     * @param doctorId The doctor id
-     * @return A map containing booking table data for the given doctor
+     * Get booking table data associated to the given doctor
+     * @param doctor The doctor object
+     * @return The doctor object completed
      */
-    private Map<String, Object> GetBookingTableData(Map<String, Object> doctorData, String doctorId) {
+    private Doctor GetBookingTableData(Doctor doctor) {
         BookingDatabaseHelper bookingDatabaseHelper = new BookingDatabaseHelper(this.context);
+        Set<Booking> appointments = bookingDatabaseHelper.GetAppointmentsByDoctor(doctor);
+        doctor.setAppointments(appointments);
 
-        doctorData.put(
-                DoctoAppDatabaseContract.Booking.TABLE_NAME,
-                bookingDatabaseHelper.GetAppointmentsByDoctor(doctorId));
-
-        return doctorData;
+        return doctor;
     }
 }
