@@ -93,7 +93,6 @@ public class Patient extends Resident {
      * @return The patient with refreshed data
      */
     public Resident Update(Context context) {
-        PatientDatabaseHelper patientDatabaseHelper = new PatientDatabaseHelper(context);
-        return patientDatabaseHelper.GetPatientById(this.id + "");
+        return new PatientDatabaseHelper(context).GetPatientById(this.id + "", false);
     }
 }

@@ -308,19 +308,28 @@
     <string name="appointment_summary_contact_number">{doctor_contact_number}</string>
     <string name="appointment_summary_address_content">{doctor_address_content}</string>
 
-    <!-- Appointment item -->
-    <string name="appointment_item_fullday">{Day, Month X}</string>
-    <string name="appointment_item_time">{hh:mm}</string>
-    <string name="appointment_item_doctor_fullname">{doctor_fullname}</string>
-    <string name="appointment_item_doctor_speciality">{doctor_speciality}</string>
-    <string name="appointment_item_chevron">></string>
-    <string name="appointment_item_reason">{reason}</string>
-    <string name="appointment_item_contact_number">{doctor_contact_number}</string>
-    <string name="appointment_item_address_content">{doctor_address_content}</string>
+    <!-- Patient appointment item -->
+    <string name="patient_appointment_item_fullday">{Day, Month X}</string>
+    <string name="patient_appointment_item_time">{hh:mm}</string>
+    <string name="patient_appointment_item_doctor_fullname">{doctor_fullname}</string>
+    <string name="patient_appointment_item_doctor_speciality">{doctor_speciality}</string>
+    <string name="patient_appointment_item_chevron">></string>
+    <string name="patient_appointment_item_reason">{reason}</string>
+    <string name="patient_appointment_item_contact_number">{doctor_contact_number}</string>
+    <string name="patient_appointment_item_address_content">{doctor_address_content}</string>
+
+    <!-- Doctor appointment item -->
+    <string name="doctor_appointment_item_fullday">{Day, Month X}</string>
+    <string name="doctor_appointment_item_time">{hh:mm}</string>
+    <string name="doctor_appointment_item_patient_fullname">{patient_fullname}</string>
+    <string name="doctor_appointment_item_patient_birthdate">{patient_birthdate}</string>
+    <string name="doctor_appointment_item_reason">{reason}</string>
+    <string name="doctor_appointment_item_address_content">{patient_address_content}</string>
 
     <!-- My bookings -->
-    <string name="my_bookings_title_1">My bookings</string>
-    <string name="my_bookings_view_appointments">See all the appointments</string>
+    <string name="my_bookings_title_patient">My bookings</string>
+    <string name="my_bookings_title_doctor">My appointments</string>
+    <string name="my_bookings_subtitle">See all the appointments</string>
     <string name="my_bookings_no_booking_msg_title">No booking to display</string>
     <string name="my_bookings_no_booking_msg_content">It appears you have no booking registered yet in the system.\nTo book an appointment with a doctor, use the search system from the main screen of the app.</string>
 

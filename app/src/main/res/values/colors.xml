@@ -218,25 +218,34 @@
     <color name="appointment_summary_address_content">#727272</color>
     <color name="appointment_summary_icon_tint">#DBDBDB</color>
 
-    <!-- Appointments item -->
-    <color name="appointment_item_header">#444444</color>
-    <color name="appointment_item_body">#FFFFFF</color>
-    <color name="appointment_item_fullday">#FFFFFF</color>
-    <color name="appointment_item_time">#FFFFFF</color>
-    <color name="appointment_item_doctor_fullname">#444444</color>
-    <color name="appointment_item_doctor_speciality">#727272</color>
-    <color name="appointment_item_chevron">#E9E9E9</color>
-    <color name="appointment_item_patient_title">#444444</color>
-    <color name="appointment_item_patient_fullname">#727272</color>
-    <color name="appointment_item_contact_number">#1B86E4</color>
-    <color name="appointment_item_address_content">#727272</color>
-    <color name="appointment_item_reason">#BE4A4A</color>
-    <color name="appointment_item_icon_tint">#DBDBDB</color>
+    <!-- Patient appointment item -->
+    <color name="patient_appointment_item_header">#444444</color>
+    <color name="patient_appointment_item_body">#FFFFFF</color>
+    <color name="patient_appointment_item_fullday">#FFFFFF</color>
+    <color name="patient_appointment_item_time">#FFFFFF</color>
+    <color name="patient_appointment_item_doctor_fullname">#444444</color>
+    <color name="patient_appointment_item_doctor_speciality">#727272</color>
+    <color name="patient_appointment_item_chevron">#E9E9E9</color>
+    <color name="patient_appointment_item_contact_number">#1B86E4</color>
+    <color name="patient_appointment_item_address_content">#727272</color>
+    <color name="patient_appointment_item_reason">#BE4A4A</color>
+    <color name="patient_appointment_item_icon_tint">#DBDBDB</color>
+
+    <!-- Doctor appointment item -->
+    <color name="doctor_appointment_item_header">#444444</color>
+    <color name="doctor_appointment_item_body">#FFFFFF</color>
+    <color name="doctor_appointment_item_fullday">#FFFFFF</color>
+    <color name="doctor_appointment_item_time">#FFFFFF</color>
+    <color name="doctor_appointment_item_patient_fullname">#444444</color>
+    <color name="doctor_appointment_item_patient_birthdate">#727272</color>
+    <color name="doctor_appointment_item_address_content">#727272</color>
+    <color name="doctor_appointment_item_reason">#BE4A4A</color>
+    <color name="doctor_appointment_item_icon_tint">#DBDBDB</color>
 
     <!-- My bookings -->
     <color name="my_bookings_header">#1B86E4</color>
-    <color name="my_bookings_title_1">#66A8E2</color>
-    <color name="my_bookings_view_appointments">#FFFFFF</color>
+    <color name="my_bookings_title">#66A8E2</color>
+    <color name="my_bookings_subtitle">#FFFFFF</color>
     <color name="my_bookings_body">#E9E9E9</color>
     <color name="my_bookings_no_booking_msg">#444444</color>
     <color name="my_bookings_no_booking_msg_title">#FFFFFF</color>

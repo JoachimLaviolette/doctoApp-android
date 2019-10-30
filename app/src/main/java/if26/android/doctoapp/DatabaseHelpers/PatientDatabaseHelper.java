@@ -118,7 +118,7 @@ public class PatientDatabaseHelper {
         );
 
         Cursor c = database.rawQuery(query, null);
-        List<Patient> patients = this.BuildPatientsList(c);
+        List<Patient> patients = this.BuildPatientsList(c, false);
         c.close();
 
         return patients;
@@ -127,9 +127,10 @@ public class PatientDatabaseHelper {
     /**
      * Get a patient by id
      * @param patientId The id of the patient to retrieve
+     * @param fromDoctor If the request comes from doctor building process
      * @return The matching patient
      */
-    public Patient GetPatientById(String patientId) {
+    public Patient GetPatientById(String patientId, boolean fromDoctor) {
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
 
         String query = String.format(
@@ -143,7 +144,7 @@ public class PatientDatabaseHelper {
         String[] args = { patientId };
 
         Cursor c = database.rawQuery(query, args);
-        List<Patient> patients = this.BuildPatientsList(c);
+        List<Patient> patients = this.BuildPatientsList(c, fromDoctor);
         Patient patient = patients.isEmpty() ? null : patients.get(0);
         c.close();
 
@@ -169,7 +170,7 @@ public class PatientDatabaseHelper {
         String[] args = { email };
 
         Cursor c = database.rawQuery(query, args);
-        List<Patient> patients = this.BuildPatientsList(c);
+        List<Patient> patients = this.BuildPatientsList(c, false);
         Patient patient = patients.isEmpty() ? null : patients.get(0);
         c.close();
 
@@ -179,9 +180,10 @@ public class PatientDatabaseHelper {
     /**
      * Build the list of patients iterating on the given cursor
      * @param c Cursor pointing search query results
+     * @param fromDoctor If the request comes from doctor building process
      * @return The list of matching patients
      */
-    private List<Patient> BuildPatientsList(Cursor c) {
+    private List<Patient> BuildPatientsList(Cursor c, boolean fromDoctor) {
         List<Patient> patients = new ArrayList<>();
 
         if (c.moveToFirst()) {
@@ -201,7 +203,7 @@ public class PatientDatabaseHelper {
                 Patient patient = new Patient(patientData);
 
                 // Get data from booking table for the current patient
-                patient = this.GetBookingTableData(patient);
+                if (!fromDoctor) patient = this.GetBookingTableData(patient);
 
                 // Add the patient to the list
                 patients.add(patient);

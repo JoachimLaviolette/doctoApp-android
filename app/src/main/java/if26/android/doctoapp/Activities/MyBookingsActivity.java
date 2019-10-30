@@ -23,6 +23,7 @@ public class MyBookingsActivity
         extends AppCompatActivity {
     private Resident loggedUser;
 
+    private TextView title;
     private GridLayout appointmentList;
     private LinearLayout noBookingMsg;
 
@@ -31,8 +32,8 @@ public class MyBookingsActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_bookings);
 
-        this.Instantiate();
         this.RetrieveExtraParams();
+        this.Instantiate();
         this.SetContent();
     }
 
@@ -40,8 +41,7 @@ public class MyBookingsActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
-        this.loggedUser = null;
-
+        this.title = findViewById(R.id.my_bookings_title);
         this.appointmentList = findViewById(R.id.appointment_list);
         this.noBookingMsg = findViewById(R.id.my_bookings_no_booking_msg);
     }
@@ -75,25 +75,67 @@ public class MyBookingsActivity
             this.noBookingMsg.setVisibility(View.GONE);
             this.DisplayAppointments();
         }
+
+        if (this.loggedUser instanceof Doctor) {
+            this.title.setText(getString(R.string.my_bookings_title_doctor));
+        }
     }
 
     /**
-     * Display procedurally all the appointments of the logged patient
+     * Display procedurally all the appointments of the logged user
      */
     private void DisplayAppointments() {
+        if (this.loggedUser instanceof Doctor) this.DisplayAppointmentsForDoctor();
+        else this.DisplayAppointmentsForPatient();
+    }
+
+    /**
+     * Display appointments for doctor
+     */
+    private void DisplayAppointmentsForDoctor() {
         LayoutInflater inflater = this.getLayoutInflater();
 
         for (final Booking a: this.loggedUser.getAppointments()) {
-            View appointmentItemLayout = inflater.inflate(R.layout.template_appointment_item, this.appointmentList, false);
-            TextView fullDay = appointmentItemLayout.findViewById(R.id.appointment_item_fullday);
-            TextView time = appointmentItemLayout.findViewById(R.id.appointment_item_time);
-            CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_picture);
-            TextView doctorFullname = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_fullname);
-            TextView doctorSpeciality = appointmentItemLayout.findViewById(R.id.appointment_item_doctor_speciality);
-            TextView doctorChevron = appointmentItemLayout.findViewById(R.id.appointment_item_chevron);
-            TextView reason = appointmentItemLayout.findViewById(R.id.appointment_item_reason);
-            TextView doctorContactNumber = appointmentItemLayout.findViewById(R.id.appointment_item_contact_number);
-            TextView doctorAddress = appointmentItemLayout.findViewById(R.id.appointment_item_address_content);
+            View appointmentItemLayout = inflater.inflate(R.layout.template_doctor_appointment_item, this.appointmentList, false);
+            TextView fullDay = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_fullday);
+            TextView time = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_time);
+            CircleImageView patientPicture = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_picture);
+            TextView patientFullname = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_fullname);
+            TextView patientBirthdate = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_birthdate);
+            TextView reason = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_reason);
+            TextView doctorAddress = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_address_content);
+
+            // Set data
+            fullDay.setText(a.getDate());
+            time.setText(a.getTime());
+            if (!a.getPatient().getPicture().isEmpty()) patientPicture.setImageURI(ImageService.GetURIFromPath(a.getPatient().getPicture()));
+            patientFullname.setText(a.getPatient().getFullname());
+            patientBirthdate.setText(a.getPatient().getBirthdate());
+            reason.setText(a.getReason().getDescription());
+            doctorAddress.setText(a.getPatient().GetFullAddress());
+
+            // Add the appointment item to the list of appointments
+            this.appointmentList.addView(appointmentItemLayout);
+        }
+    }
+
+    /**
+     * Display appointments for patient
+     */
+    private void DisplayAppointmentsForPatient() {
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        for (final Booking a: this.loggedUser.getAppointments()) {
+            View appointmentItemLayout = inflater.inflate(R.layout.template_patient_appointment_item, this.appointmentList, false);
+            TextView fullDay = appointmentItemLayout.findViewById(R.id.patient_appointment_item_fullday);
+            TextView time = appointmentItemLayout.findViewById(R.id.patient_appointment_item_time);
+            CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_picture);
+            TextView doctorFullname = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_fullname);
+            TextView doctorSpeciality = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_speciality);
+            TextView doctorChevron = appointmentItemLayout.findViewById(R.id.patient_appointment_item_chevron);
+            TextView reason = appointmentItemLayout.findViewById(R.id.patient_appointment_item_reason);
+            TextView doctorContactNumber = appointmentItemLayout.findViewById(R.id.patient_appointment_item_contact_number);
+            TextView doctorAddress = appointmentItemLayout.findViewById(R.id.patient_appointment_item_address_content);
 
             // Set data
             fullDay.setText(a.getDate());

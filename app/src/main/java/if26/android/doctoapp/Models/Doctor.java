@@ -498,7 +498,7 @@ public class Doctor extends Resident {
      * @param context The calling activity
      * @return The doctor with refreshed data
      */
-    public Resident Update(Context context) { return new DoctorDatabaseHelper(context).GetDoctorById(this.id + ""); }
+    public Resident Update(Context context) { return new DoctorDatabaseHelper(context).GetDoctorById(this.id + "", false); }
 
     // Transitive getters and setters
     public void SetReasonId(Reason r, long reasonId) { if (this.reasons.contains(r)) r.setId(reasonId); }

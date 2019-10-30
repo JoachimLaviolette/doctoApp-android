@@ -188,7 +188,6 @@ public abstract class Resident implements Serializable {
     // Update methods
     public abstract void UpdateRelatedData();
     protected abstract void UpdateAppointmentsResidentId();
-
     public abstract Resident Update(Context context);
 
     @Override

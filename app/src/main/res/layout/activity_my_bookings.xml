@@ -22,21 +22,21 @@
             android:padding="20sp">
 
             <TextView
-                android:id="@+id/my_bookings_title_1"
+                android:id="@+id/my_bookings_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="@string/my_bookings_title_1"
-                android:textColor="@color/my_bookings_title_1"
+                android:text="@string/my_bookings_title_patient"
+                android:textColor="@color/my_bookings_title"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/my_bookings_view_appointments"
+                android:id="@+id/my_bookings_subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="@string/my_bookings_view_appointments"
-                android:textColor="@color/my_bookings_view_appointments"
+                android:text="@string/my_bookings_subtitle"
+                android:textColor="@color/my_bookings_subtitle"
                 android:textSize="16sp" />
 
         </LinearLayout>

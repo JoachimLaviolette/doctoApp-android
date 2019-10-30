@@ -8,46 +8,46 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/appointment_item_header"
+        android:id="@+id/doctor_appointment_item_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/appointment_item_header"
+        android:background="@color/doctor_appointment_item_header"
         android:orientation="horizontal"
         android:padding="10sp">
 
         <ImageView
-            android:id="@+id/appointment_item_fullday_icon"
+            android:id="@+id/doctor_appointment_item_fullday_icon"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginRight="4sp"
+            android:layout_marginEnd="4sp"
             android:tint="#FFF"
             app:srcCompat="@drawable/ic_calendar" />
 
         <TextView
-            android:id="@+id/appointment_item_fullday"
+            android:id="@+id/doctor_appointment_item_fullday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10sp"
+            android:layout_marginEnd="10sp"
             android:fontFamily="@font/roboto"
-            android:text="@string/appointment_item_fullday"
-            android:textColor="@color/appointment_item_fullday"
+            android:text="@string/doctor_appointment_item_fullday"
+            android:textColor="@color/doctor_appointment_item_fullday"
             android:textSize="15sp" />
 
         <ImageView
-            android:id="@+id/appointment_item_time_icon"
+            android:id="@+id/doctor_appointment_item_time_icon"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginRight="2sp"
+            android:layout_marginEnd="2sp"
             android:tint="#FFF"
             app:srcCompat="@drawable/ic_time_2" />
 
         <TextView
-            android:id="@+id/appointment_item_time"
+            android:id="@+id/doctor_appointment_item_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="@string/appointment_item_time"
-            android:textColor="@color/appointment_item_time"
+            android:text="@string/doctor_appointment_item_time"
+            android:textColor="@color/doctor_appointment_item_time"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -56,14 +56,14 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/appointment_item_body"
+            android:id="@+id/doctor_appointment_item_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/appointment_item_body"
+            android:background="@color/doctor_appointment_item_body"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/appointment_item_section_doctor"
+                android:id="@+id/doctor_appointment_item_section_patient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -73,26 +73,25 @@
                     android:layout_height="match_parent">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/appointment_item_doctor_picture"
+                        android:id="@+id/doctor_appointment_item_patient_picture"
                         android:layout_width="60dp"
                         android:layout_height="45dp"
-                        android:layout_alignParentTop="true"
                         android:layout_centerVertical="true"
                         android:padding="5dp"
                         android:src="@mipmap/ic_launcher_round"
                         app:civ_border_width="0dp" />
 
                     <TextView
-                        android:id="@+id/appointment_item_doctor_fullname"
+                        android:id="@+id/doctor_appointment_item_patient_fullname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@id/appointment_item_doctor_picture"
+                        android:layout_toEndOf="@id/doctor_appointment_item_patient_picture"
                         android:fontFamily="@font/roboto"
                         android:paddingTop="10sp"
                         android:paddingBottom="10sp"
-                        android:text="@string/appointment_item_doctor_fullname"
-                        android:textColor="@color/appointment_item_doctor_fullname"
+                        android:text="@string/doctor_appointment_item_patient_fullname"
+                        android:textColor="@color/doctor_appointment_item_patient_fullname"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -100,42 +99,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="35sp"
-                        android:layout_toEndOf="@id/appointment_item_doctor_picture"
+                        android:layout_toEndOf="@id/doctor_appointment_item_patient_picture"
                         android:orientation="vertical"
                         android:paddingTop="10sp"
                         android:paddingBottom="10sp">
 
                         <TextView
-                            android:id="@+id/appointment_item_doctor_speciality"
+                            android:id="@+id/doctor_appointment_item_patient_birthdate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
                             android:lineSpacingExtra="6sp"
-                            android:text="@string/appointment_item_doctor_speciality"
-                            android:textColor="@color/appointment_item_doctor_speciality"
+                            android:text="@string/doctor_appointment_item_patient_birthdate"
+                            android:textColor="@color/doctor_appointment_item_patient_birthdate"
                             android:textSize="13sp"
                             android:textStyle="normal" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/appointment_item_chevron"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginEnd="15sp"
-                        android:layout_toEndOf="@id/appointment_item_doctor_picture"
-                        android:fontFamily="@font/acme"
-                        android:gravity="end"
-                        android:padding="10sp"
-                        android:text="@string/appointment_item_chevron"
-                        android:textColor="@color/appointment_item_chevron"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/appointment_item_section_reason"
+                android:id="@+id/doctor_appointment_item_section_reason"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -145,26 +129,26 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/appointment_item_reason_icon"
+                        android:id="@+id/doctor_appointment_item_reason_icon"
                         android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerVertical="true"
                         android:padding="10sp"
-                        android:tint="@color/appointment_item_icon_tint"
+                        android:tint="@color/doctor_appointment_item_icon_tint"
                         app:srcCompat="@android:drawable/ic_dialog_info" />
 
                     <TextView
-                        android:id="@+id/appointment_item_reason"
+                        android:id="@+id/doctor_appointment_item_reason"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/appointment_item_reason_icon"
+                        android:layout_toEndOf="@id/doctor_appointment_item_reason_icon"
                         android:fontFamily="@font/roboto"
                         android:paddingTop="10sp"
                         android:paddingBottom="10sp"
-                        android:text="@string/appointment_item_reason"
-                        android:textColor="@color/appointment_item_reason"
+                        android:text="@string/doctor_appointment_item_reason"
+                        android:textColor="@color/doctor_appointment_item_reason"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -172,7 +156,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/appointment_item_section_contact"
+                android:id="@+id/doctor_appointment_item_section_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -182,74 +166,33 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/appointment_item_contact_icon"
-                        android:layout_width="60dp"
-                        android:layout_height="46dp"
-                        android:layout_centerVertical="true"
-                        android:padding="10sp"
-                        android:tint="@color/appointment_item_icon_tint"
-                        app:srcCompat="@drawable/ic_contact" />
-
-                    <TextView
-                        android:id="@+id/appointment_item_contact_number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/appointment_item_contact_icon"
-                        android:fontFamily="@font/roboto"
-                        android:paddingTop="10sp"
-                        android:paddingBottom="10sp"
-                        android:text="@string/appointment_item_contact_number"
-                        android:textColor="@color/appointment_item_contact_number"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/appointment_item_section_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/appointment_item_address_icon"
+                        android:id="@+id/doctor_appointment_item_address_icon"
                         android:layout_width="60dp"
                         android:layout_height="46dp"
                         android:layout_alignParentTop="true"
                         android:layout_centerVertical="true"
                         android:padding="10sp"
-                        android:tint="@color/appointment_item_icon_tint"
+                        android:tint="@color/doctor_appointment_item_icon_tint"
                         app:srcCompat="@android:drawable/ic_dialog_map" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/appointment_item_address_icon"
+                        android:layout_toEndOf="@id/doctor_appointment_item_address_icon"
                         android:orientation="vertical"
                         android:paddingTop="10sp"
                         android:paddingBottom="10sp">
 
                         <TextView
-                            android:id="@+id/appointment_item_address_content"
+                            android:id="@+id/doctor_appointment_item_address_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/roboto"
                             android:lineSpacingExtra="6sp"
-                            android:text="@string/appointment_item_address_content"
-                            android:textColor="@color/appointment_item_address_content"
+                            android:text="@string/doctor_appointment_item_address_content"
+                            android:textColor="@color/doctor_appointment_item_address_content"
                             android:textSize="13sp"
                             android:textStyle="normal" />
-
-                        <com.google.android.gms.maps.MapView
-                            android:id="@+id/appointment_item_address_mapview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
