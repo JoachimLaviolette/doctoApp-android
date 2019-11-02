@@ -21,6 +21,9 @@
     <string name="login_stay_logged">I want to stay connected</string>
     <string name="login_forgot_pwd">Forgot password?</string>
     <string name="login_btn">Login</string>
+    <string name="login_my_profile_btn">My profile</string>
+    <string name="login_my_bookings_btn">My bookings</string>
+    <string name="login_delete_account_btn">Delete my account</string>
     <string name="login_logout_btn">Logout</string>
     <string name="login_signup_caption">Not registered yet?</string>
     <string name="login_signup_link">Create your account now</string>

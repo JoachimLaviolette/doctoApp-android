@@ -21,6 +21,12 @@
     <color name="login_forgot_pwd">#1B86E4</color>
     <color name="login_btn_background">#1B86E4</color>
     <color name="login_btn_text">#FFFFFF</color>
+    <color name="login_my_profile_btn_background">#1B86E4</color>
+    <color name="login_my_profile_btn_text">#FFFFFF</color>
+    <color name="login_my_bookings_btn_background">#1B86E4</color>
+    <color name="login_my_bookings_btn_text">#FFFFFF</color>
+    <color name="login_delete_account_btn_background">#1B86E4</color>
+    <color name="login_delete_account_btn_text">#FFFFFF</color>
     <color name="login_logout_btn_background">#BE4A4A</color>
     <color name="login_logout_btn_text">#FFFFFF</color>
     <color name="login_stay_logged">#858585</color>
@@ -198,8 +204,8 @@
     <color name="confirm_appointment_error_msg">#BE4A4A</color>
     <color name="confirm_appointment_success_msg_title">#FFFFFF</color>
     <color name="confirm_appointment_success_msg_content">#FFFFFF</color>
-    <color name="confirm_appointment_see_my_bookings_background">#BE4A4A</color>
-    <color name="confirm_appointment_see_my_bookings_text">#FFFFFF</color>
+    <color name="confirm_appointment_my_bookings_background">#7A4ABE</color>
+    <color name="confirm_appointment_my_bookings_text">#FFFFFF</color>
 
     <!-- Appointment summary -->
     <color name="appointment_summary_header">#444444</color>

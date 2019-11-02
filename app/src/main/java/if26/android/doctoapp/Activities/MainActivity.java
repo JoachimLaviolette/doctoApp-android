@@ -97,7 +97,6 @@ public class MainActivity
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        // This is to copy the exact behaviour of Doctolib's Main view
         if (v.getId() == R.id.main_search_bar
             &&  event.getAction() == MotionEvent.ACTION_DOWN) {
             this.Search();

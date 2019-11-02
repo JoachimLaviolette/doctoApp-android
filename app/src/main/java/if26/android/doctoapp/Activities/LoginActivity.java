@@ -37,6 +37,9 @@ public class LoginActivity
     private TextView forgotPwd;
     private LinearLayout optionsSection;
     private Button loginBtn;
+    private Button myProfileBtn;
+    private Button myBookingsBtn;
+    private Button deleteMyAccountBtn;
     private Button logoutBtn;
     private TextView signupLink;
     private LinearLayout signupSection;
@@ -65,6 +68,9 @@ public class LoginActivity
         this.loggedUser = null;
         this.toRedirect = false;
         this.loginMsg = findViewById(R.id.login_msg);
+        this.myProfileBtn = findViewById(R.id.login_my_profile_btn);
+        this.myBookingsBtn = findViewById(R.id.login_my_bookings_btn);
+        this.deleteMyAccountBtn = findViewById(R.id.login_delete_account_btn);
         this.loginMsgTitle = findViewById(R.id.login_msg_title);
         this.loginMsgContent = findViewById(R.id.login_msg_content);
         this.emailInput = findViewById(R.id.login_email);
@@ -84,9 +90,11 @@ public class LoginActivity
      * Listen to the events
      */
     private void SubscribeEvents() {
-        this.loginMsg.setOnClickListener(this);
         this.forgotPwd.setOnClickListener(this);
         this.loginBtn.setOnClickListener(this);
+        this.myProfileBtn.setOnClickListener(this);
+        this.myBookingsBtn.setOnClickListener(this);
+        this.deleteMyAccountBtn.setOnClickListener(this);
         this.logoutBtn.setOnClickListener(this);
         this.signupLink.setOnClickListener(this);
         this.proAccountLink.setOnClickListener(this);
@@ -99,9 +107,7 @@ public class LoginActivity
         setTitle(R.string.title_login);
         this.SetLoginContext();
 
-        if (this.loggedUser != null) {
-            this.DisplaySuccessMsg();
-        }
+        if (this.loggedUser != null) this.DisplaySuccessMsg();
     }
 
     /**
@@ -152,10 +158,16 @@ public class LoginActivity
                 this.SignupPro();
 
                 return;
-            case R.id.login_msg:
+            case R.id.login_my_profile_btn:
+                if (this.loggedUser != null) this.MyProfile();
+
+                return;
+            case R.id.login_my_bookings_btn:
                 if (this.loggedUser != null) this.MyBookings();
 
                 return;
+            case R.id.login_delete_account_btn:
+                if (this.loggedUser != null) this.DeleteAccount();
         }
     }
 
@@ -167,6 +179,9 @@ public class LoginActivity
         this.passwordInput.setVisibility(View.VISIBLE);
         this.optionsSection.setVisibility(View.VISIBLE);
         this.loginBtn.setVisibility(View.VISIBLE);
+        this.myProfileBtn.setVisibility(View.GONE);
+        this.myBookingsBtn.setVisibility(View.GONE);
+        this.deleteMyAccountBtn.setVisibility(View.GONE);
         this.logoutBtn.setVisibility(View.GONE);
         this.signupSection.setVisibility(View.VISIBLE);
         this.professionalSection.setVisibility(View.VISIBLE);
@@ -292,6 +307,9 @@ public class LoginActivity
         this.passwordInput.setVisibility(View.GONE);
         this.optionsSection.setVisibility(View.GONE);
         this.loginBtn.setVisibility(View.GONE);
+        this.myProfileBtn.setVisibility(View.VISIBLE);
+        this.myBookingsBtn.setVisibility(View.VISIBLE);
+        this.deleteMyAccountBtn.setVisibility(View.VISIBLE);
         this.logoutBtn.setVisibility(View.VISIBLE);
         this.signupSection.setVisibility(View.GONE);
         this.professionalSection.setVisibility(View.GONE);
@@ -313,7 +331,7 @@ public class LoginActivity
     private void Logout() {
         this.loggedUser = null;
         this.SetLoginContext();
-        this.MakeToast(this.LOGOUT);
+        this.MakeToast(LOGOUT);
     }
 
     /**
@@ -356,6 +374,13 @@ public class LoginActivity
     }
 
     /**
+     * Start MyProfile activity
+     */
+    private void MyProfile() {
+
+    }
+
+    /**
      * Start MyBookings activity
      */
     private void MyBookings() {
@@ -369,6 +394,13 @@ public class LoginActivity
 
         // Start the activity
         startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start DeleteAccount activity
+     */
+    private void DeleteAccount() {
+
     }
 
     /**
