@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,13 +26,17 @@ import if26.android.doctoapp.Services.DateTimeService;
 
 public class ChooseAvailabilityActivity
         extends AppCompatActivity
-        implements AdapterView.OnClickListener {
+        implements View.OnClickListener {
     private Doctor doctor;
     private Booking booking;
     private Resident loggedUser;
 
+    private ImageButton homeBtn;
+    private ImageButton dashboardBtn;
+
     private TextView doctorFullname;
     private GridLayout dateTimeListGlobalLayout;
+
     private static DateTimeService dateTimeService;
 
     private static int WEEKS_NUMBER = 1;
@@ -44,6 +48,7 @@ public class ChooseAvailabilityActivity
 
         this.RetrieveExtraParams();
         this.Instantiate();
+        this.SubscribeEvents();
         this.SetContent();
     }
 
@@ -52,8 +57,18 @@ public class ChooseAvailabilityActivity
      */
     private void Instantiate() {
         dateTimeService = new DateTimeService(this);
+        this.homeBtn = findViewById(R.id.home);
+        this.dashboardBtn = findViewById(R.id.dashboard);
         this.doctorFullname = findViewById(R.id.choose_date_time_doctor_fullname);
         this.dateTimeListGlobalLayout = findViewById(R.id.date_time_list_global_layout);
+    }
+
+    /**
+     * Listen to the events
+     */
+    private void SubscribeEvents() {
+        this.homeBtn.setOnClickListener(this);
+        this.dashboardBtn.setOnClickListener(this);
     }
 
     /**
@@ -139,7 +154,42 @@ public class ChooseAvailabilityActivity
      */
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.home) { this.Home();return; }
+        if (v.getId() == R.id.dashboard) { this.Dashboard();return; }
+
         if (v instanceof TextView) this.ConfirmAppointment((TextView) v);
+    }
+
+    /**
+     * Start Main activity
+     */
+    private void Home() {
+        // Create the intent
+        Intent i = new Intent(ChooseAvailabilityActivity.this, MainActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start Dashboard activity
+     */
+    private void Dashboard() {
+        // Create the intent
+        Intent i = new Intent(ChooseAvailabilityActivity.this, LoginActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**

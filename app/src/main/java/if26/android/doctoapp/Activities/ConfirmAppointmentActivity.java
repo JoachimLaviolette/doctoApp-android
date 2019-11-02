@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +28,9 @@ public class ConfirmAppointmentActivity
     private Patient patient;
     private Booking booking;
     private Resident loggedUser;
+
+    private ImageButton homeBtn;
+    private ImageButton dashboardBtn;
 
     private LinearLayout confirmAppointmentSummary;
     private LinearLayout confirmAppointmentMsg;
@@ -73,6 +77,8 @@ public class ConfirmAppointmentActivity
      */
     private void Instantiate() {
         dateTimeService = new DateTimeService(this);
+        this.homeBtn = findViewById(R.id.home);
+        this.dashboardBtn = findViewById(R.id.dashboard);
         this.confirmAppointmentSummary = findViewById(R.id.confirm_appointment_summary);
         this.confirmAppointmentMsg = findViewById(R.id.confirm_appointment_msg);
         this.confirmAppointmentMsgTitle = findViewById(R.id.confirm_appointment_msg_title);
@@ -95,6 +101,8 @@ public class ConfirmAppointmentActivity
      * Listen to the events
      */
     private void SubscribeEvents() {
+        this.homeBtn.setOnClickListener(this);
+        this.dashboardBtn.setOnClickListener(this);
         this.doctorChevron.setOnClickListener(this);
         this.seeMyBookings.setOnClickListener(this);
     }
@@ -190,14 +198,20 @@ public class ConfirmAppointmentActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.home:
+                this.Home();
+
+                return;
+            case R.id.dashboard:
+                this.Dashboard();
+
+                return;
             case R.id.appointment_summary_chevron:
                 this.ShowDoctorProfile();
 
                 return;
             case R.id.confirm_appointment_see_my_bookings:
                 this.MyBookings();
-
-                return;
         }
     }
 
@@ -237,15 +251,41 @@ public class ConfirmAppointmentActivity
         startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent i = new Intent();
-        // Put extra parameters
-        // The logged user
+    /**
+     * Start Main activity
+     */
+    private void Home() {
+        // Create the intent
+        Intent i = new Intent(ConfirmAppointmentActivity.this, MainActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
         String key = this.getResources().getString(R.string.intent_logged_user);
         i.putExtra(key, this.loggedUser);
-        setResult(RESULT_OK, i);
-        finish();
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start Dashboard activity
+     */
+    private void Dashboard() {
+        // Create the intent
+        Intent i = new Intent(ConfirmAppointmentActivity.this, LoginActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.Home();
     }
 
     @Override

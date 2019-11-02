@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,12 +21,14 @@ import if26.android.doctoapp.R;
 import if26.android.doctoapp.Services.ImageService;
 
 public class MyBookingsActivity
-        extends AppCompatActivity {
+        extends AppCompatActivity
+        implements View.OnClickListener {
     private Resident loggedUser;
 
     private TextView title;
     private GridLayout appointmentList;
     private LinearLayout noBookingMsg;
+    private ImageButton homeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class MyBookingsActivity
 
         this.RetrieveExtraParams();
         this.Instantiate();
+        this.SubscribeEvents();
         this.SetContent();
     }
 
@@ -44,6 +48,14 @@ public class MyBookingsActivity
         this.title = findViewById(R.id.my_bookings_title);
         this.appointmentList = findViewById(R.id.appointment_list);
         this.noBookingMsg = findViewById(R.id.my_bookings_no_booking_msg);
+        this.homeBtn = findViewById(R.id.home);
+    }
+
+    /**
+     * Listen to the events
+     */
+    private void SubscribeEvents() {
+        this.homeBtn.setOnClickListener(this);
     }
 
     /**
@@ -174,6 +186,33 @@ public class MyBookingsActivity
 
         // The logged user
         key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Handle click events
+     * @param v The view that has been clicked
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.home) {
+            this.Home();
+        }
+    }
+
+    /**
+     * Start Main activity
+     */
+    private void Home() {
+        // Create the intent
+        Intent i = new Intent(MyBookingsActivity.this, MainActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
         i.putExtra(key, this.loggedUser);
 
         // Start the activity

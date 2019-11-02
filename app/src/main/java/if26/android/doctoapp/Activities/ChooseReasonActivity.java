@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -25,10 +26,13 @@ import if26.android.doctoapp.R;
 
 public class ChooseReasonActivity
         extends AppCompatActivity
-        implements AdapterView.OnItemClickListener {
+        implements AdapterView.OnItemClickListener, View.OnClickListener {
     private Doctor doctor;
     private Booking booking;
     private Resident loggedUser;
+
+    private ImageButton homeBtn;
+    private ImageButton dashboardBtn;
 
     private TextView doctorFullname;
     private ListView reasonsList;
@@ -48,6 +52,8 @@ public class ChooseReasonActivity
      * Retrieve the view components references
      */
     private void Instantiate() {
+        this.homeBtn = findViewById(R.id.home);
+        this.dashboardBtn = findViewById(R.id.dashboard);
         this.doctorFullname = findViewById(R.id.choose_reason_doctor_fullname);
         this.reasonsList = findViewById(R.id.reasons_list);
     }
@@ -56,6 +62,8 @@ public class ChooseReasonActivity
      * Listen to the events
      */
     private void SubscribeEvents() {
+        this.homeBtn.setOnClickListener(this);
+        this.dashboardBtn.setOnClickListener(this);
         this.reasonsList.setOnItemClickListener(this);
     }
 
@@ -189,5 +197,47 @@ public class ChooseReasonActivity
                 if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
         }
+    }
+
+    /**
+     * Handle click events
+     * @param v The view that has been clicked
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.home) { this.Home();return; }
+        if (v.getId() == R.id.dashboard) this.Dashboard();
+    }
+
+    /**
+     * Start Main activity
+     */
+    private void Home() {
+        // Create the intent
+        Intent i = new Intent(ChooseReasonActivity.this, MainActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Start Dashboard activity
+     */
+    private void Dashboard() {
+        // Create the intent
+        Intent i = new Intent(ChooseReasonActivity.this, LoginActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 }
