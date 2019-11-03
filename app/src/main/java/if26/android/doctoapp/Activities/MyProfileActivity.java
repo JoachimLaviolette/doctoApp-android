@@ -275,8 +275,8 @@ public class MyProfileActivity
             i.putExtra(key, this.loggedUser);
             setResult(RESULT_OK, i);
             // To refresh the activity
-            finish();
-            startActivity(getIntent());
+            //finish();
+            //startActivity(getIntent());
 
             return;
         }
@@ -309,9 +309,12 @@ public class MyProfileActivity
         if (!this.oldPasswordInput.getText().toString().trim().isEmpty()
                 || !this.newPasswordInput.getText().toString().trim().isEmpty()
                 || !this.confirmPasswordInput.getText().toString().trim().isEmpty()) {
+            String sha1Pwd = EncryptionService.SHA1(this.oldPasswordInput.getText().toString().trim() + this.loggedUser.getPwdSalt());
+
+            if (sha1Pwd == null) return false;
+
             // Check if the current password verification is ok
-            boolean oldPwdEqual = this.oldPasswordInput.getText().toString().trim().
-                    equals(this.loggedUser.getPwd());
+            boolean oldPwdEqual = sha1Pwd.equals(this.loggedUser.getPwd());
 
             // Check if both new password do correspond
             boolean bothNewPwdEqual = this.newPasswordInput.getText().toString().trim().
@@ -333,9 +336,9 @@ public class MyProfileActivity
         this.myProfileMsg.setBackgroundResource(R.color.my_profile_success_msg);
         this.myProfileMsgTitle.setText(this.getResources().getString(R.string.my_profile_success_msg_title));
         this.myProfileMsgContent.setText(this.getResources().getString(R.string.my_profile_success_msg_content));
-        this.patientProfileSection.setVisibility(View.GONE);
-        this.patientAddressSection.setVisibility(View.GONE);
-        this.myProfileUpdateBtn.setVisibility(View.GONE);
+        this.patientProfileSection.setVisibility(View.VISIBLE);
+        this.patientAddressSection.setVisibility(View.VISIBLE);
+        this.myProfileUpdateBtn.setVisibility(View.VISIBLE);
     }
 
     /**
