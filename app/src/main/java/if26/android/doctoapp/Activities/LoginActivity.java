@@ -377,7 +377,19 @@ public class LoginActivity
      * Start MyProfile activity
      */
     private void MyProfile() {
+        Intent i;
 
+        // Create the intent
+        if (this.loggedUser instanceof Patient) i = new Intent(LoginActivity.this, MyProfileActivity.class);
+        else i = new Intent(LoginActivity.this, MyProfileProActivity.class);
+
+        // Put extra parameters
+        // The search bar content
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**
@@ -430,8 +442,6 @@ public class LoginActivity
                 content = this.getResources().getString(R.string.login_toast_login_doctor_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
-
-                return;
         }
     }
 
@@ -455,6 +465,9 @@ public class LoginActivity
             if (resultCode == RESULT_OK) {
                 // Get the logged user
                 Bundle bundle = intent.getExtras();
+
+                if (bundle == null) return;
+
                 String key = this.getResources().getString(R.string.intent_logged_user);
                 this.loggedUser = bundle.containsKey(key) ?
                         bundle.getSerializable(key) instanceof Patient ?

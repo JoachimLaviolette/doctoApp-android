@@ -1,13 +1,20 @@
 package if26.android.doctoapp.Models;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
 public enum Language implements Serializable {
-    FR { public String toString() { return "French"; } },
-    EN { public String toString() { return "English"; } },
-    ES { public String toString() { return "Spanish"; } },
-    GER { public String toString() { return "German"; } },
-    IT { public String toString() { return "Italian"; } };
+    FR { @NotNull
+    public String toString() { return "French"; } },
+    EN { @NotNull
+    public String toString() { return "English"; } },
+    ES { @NotNull
+    public String toString() { return "Spanish"; } },
+    GER { @NotNull
+    public String toString() { return "German"; } },
+    IT { @NotNull
+    public String toString() { return "Italian"; } };
 
     /**
      * Get the Language value of the given string representation

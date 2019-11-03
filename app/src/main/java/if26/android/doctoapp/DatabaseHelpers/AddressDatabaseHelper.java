@@ -55,6 +55,32 @@ public class AddressDatabaseHelper {
     }
 
     /**
+     * Update the given resident model-associated address in the db using the given resident model data
+     * @param resident The Resident model
+     * @return The resident model completed
+     */
+    public boolean UpdateAddress(Resident resident) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+
+        String[] addressData = this.CreateAddressData(resident);
+
+        ContentValues addressContentValues = new ContentValues();
+        String[] addressTableKeys = DoctoAppDatabaseContract.Address.TABLE_KEYS_INSERT;
+
+        for (int i = 0; i < addressTableKeys.length; i++)
+            addressContentValues.put(addressTableKeys[i], addressData[i]);
+
+         String[] args = { resident.GetAddressId() + "" };
+
+        return database.update(
+                DoctoAppDatabaseContract.Address.TABLE_NAME,
+                addressContentValues,
+                DoctoAppDatabaseContract.Address.COLUMN_NAME_ID + " = ?",
+                args
+        ) == 1;
+    }
+
+    /**
      * Create data struct for address using the given resident
      * @param resident The Resident model
      * @return The data struct
@@ -88,7 +114,8 @@ public class AddressDatabaseHelper {
         String[] args = { addressId };
 
         Cursor c = database.rawQuery(query, args);
-        Address address = this.BuildAddressesList(c).get(0);
+        List<Address> addressList = this.BuildAddressesList(c);
+        Address address = addressList.isEmpty() ? null : addressList.get(0);
         c.close();
 
         return address;

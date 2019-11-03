@@ -114,7 +114,7 @@ public class PaymentOptionDatabaseHelper {
                     );
                 }
 
-                PaymentOption po = PaymentOption.valueOf(paymentOptionData.get(DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_PAYMENT_OPTION).toString());
+                PaymentOption po = PaymentOption.GetValueOf(paymentOptionData.get(DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_PAYMENT_OPTION).toString());
 
                 paymentOptions.add(po);
             } while (c.moveToNext());

@@ -1,7 +1,6 @@
 package if26.android.doctoapp.Services;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -11,11 +10,9 @@ import java.io.File;
 
 public class ImageService {
     private Context context;
-    private Resources resources;
 
     public ImageService(Context context) {
         this.context = context;
-        this.resources = this.context.getResources();
     }
 
     /**
@@ -24,7 +21,11 @@ public class ImageService {
      * @return The URI
      */
     public static Uri GetURIFromPath(String path) {
-        return Uri.fromFile(new File(path));
+        File f = new File(path);
+
+        if (!f.exists()) return null;
+
+        return Uri.fromFile(f);
     }
 
     /**
@@ -33,7 +34,9 @@ public class ImageService {
      * @return The URI
      */
     public static Uri GetURIFromFile(File file) {
-        return Uri.fromFile(new File(file.getAbsolutePath()));
+        if (!file.exists()) return null;
+
+        return Uri.fromFile(file);
     }
 
     /**

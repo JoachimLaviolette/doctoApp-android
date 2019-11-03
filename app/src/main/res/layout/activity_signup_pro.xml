@@ -249,22 +249,6 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_pro_confirm_pwd"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2sp"
-                            android:layout_marginBottom="2sp"
-                            android:background="@android:drawable/editbox_background_normal"
-                            android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_pro_confirm_pwd_placeholder"
-                            android:inputType="textPassword"
-                            android:padding="10sp"
-                            android:textColor="@color/signup_pro_input_text"
-                            android:textColorHint="@color/signup_pro_input_hint"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <EditText
                             android:id="@+id/signup_pro_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -273,6 +257,22 @@
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
                             android:hint="@string/signup_pro_pwd_placeholder"
+                            android:inputType="textPassword"
+                            android:padding="10sp"
+                            android:textColor="@color/signup_pro_input_text"
+                            android:textColorHint="@color/signup_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/signup_pro_confirm_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/signup_pro_confirm_pwd_placeholder"
                             android:inputType="textPassword"
                             android:padding="10sp"
                             android:textColor="@color/signup_pro_input_text"

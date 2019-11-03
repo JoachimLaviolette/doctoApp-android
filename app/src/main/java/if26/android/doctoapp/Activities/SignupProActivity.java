@@ -25,7 +25,9 @@ import androidx.core.content.FileProvider;
 import com.jgabrielfreitas.core.BlurImageView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -154,6 +156,7 @@ public class SignupProActivity
 
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String PREFIX_PROFILE_HEADER = "profile_header_";
+    private static final String FILE_EXT = ".png";
 
     private static final int ADD_AVAILABILITY = 0;
     private static final int ADD_REASON = 1;
@@ -417,8 +420,6 @@ public class SignupProActivity
                 return;
             case R.id.signup_pro_private_account_link:
                 this.Signup();
-
-                return;
         }
     }
 
@@ -514,18 +515,22 @@ public class SignupProActivity
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String pictureFileName = PREFIX_PROFILE_PICTURE + timeStamp + "_";
 
-        /**
+        /*
          * To store internally, use : getFilesDir()
          */
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         try {
-            pictureFile = File.createTempFile(pictureFileName, ".jpg", storageDir);
+            pictureFile = File.createTempFile(pictureFileName, FILE_EXT, storageDir);
+
+            if (this.picturePath != null) if (!this.picturePath.isEmpty()) this.RemoveCurrentPictureFile();
+
             this.picturePath = pictureFile.getAbsolutePath();
             this.pictureURI = ImageService.GetURIFromFile(pictureFile);
         }
         catch (Exception e) { e.printStackTrace(); }
-        finally { return pictureFile; }
+
+        return pictureFile;
     }
 
     /**
@@ -537,18 +542,39 @@ public class SignupProActivity
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String headerFileName = PREFIX_PROFILE_HEADER + timeStamp + "_";
 
-        /**
-         * To store internally, use : getFilesDir()
-         */
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         try {
-            headerFile = File.createTempFile(headerFileName, ".jpg", storageDir);
+            headerFile = File.createTempFile(headerFileName, FILE_EXT, storageDir);
+
+            if (this.headerPath != null) if (!this.headerPath.isEmpty()) this.RemoveCurrentHeaderFile();
+
             this.headerPath = headerFile.getAbsolutePath();
             this.headerURI = ImageService.GetURIFromFile(headerFile);
         }
         catch (Exception e) { e.printStackTrace(); }
-        finally { return headerFile; }
+
+        return headerFile;
+    }
+
+    /**
+     * Remove the current picture file saved on the phone
+     */
+    private void RemoveCurrentPictureFile() throws IOException {
+        File currentPictureFile = new File(this.picturePath);
+
+        if (currentPictureFile.getPath().isEmpty()) throw new FileNotFoundException();
+        if (! currentPictureFile.delete()) throw new IOException("Impossible to delete the picture file.");
+    }
+
+    /**
+     * Remove the current patient header file saved on the phone
+     */
+    private void RemoveCurrentHeaderFile() throws IOException {
+        File currentHeaderFile = new File(this.headerPath);
+
+        if (currentHeaderFile.getPath().isEmpty()) throw new FileNotFoundException();
+        if (! currentHeaderFile.delete()) throw new IOException("Impossible to delete the header file.");
     }
 
     /**
@@ -639,8 +665,6 @@ public class SignupProActivity
                     if (!this.SaveHeaderBitmapToAppFolder(data)) return;
 
                     this.header.setImageURI(this.headerURI);
-
-                    return;
             }
         }
     }
@@ -689,7 +713,7 @@ public class SignupProActivity
      * @return If the fields are correctly filled
      */
     private boolean CheckAvailabilityFields() {
-        return this.availabilityTime.getText().toString().trim().matches("(0|1)(0|1|2|3|4|5|6|7|8|9):(0|1|2|3|4|5)(0|1|2|3|4|5|6|7|8|9)");
+        return this.availabilityTime.getText().toString().trim().matches("([01])([0123456789]):([012345])([0123456789])");
     }
 
     /**
@@ -1140,7 +1164,7 @@ public class SignupProActivity
      * @return If all the fields are correctly filled
      */
     private boolean AllFieldsCorrect() {
-        boolean allFieldsFilled =
+        boolean isOneFieldEmpty =
                         this.lastnameInput.getText().toString().trim().isEmpty()
                         || this.firstnameInput.getText().toString().trim().isEmpty()
                         || this.specialityInput.getText().toString().trim().isEmpty()
@@ -1158,15 +1182,11 @@ public class SignupProActivity
                         // || this.headerPath.trim().isEmpty(); // Header is not a required field
 
         // One of the fields is empty
-        if (allFieldsFilled) return false;
-
-        boolean bothPwdEqual = this.passwordInput.getText().toString().trim().
-                equals(this.confirmPasswordInput.getText().toString().trim());
+        if (isOneFieldEmpty) return false;
 
         // Both passwords do not correspond
-        if (!bothPwdEqual) return false;
-
-        return true;
+        return this.passwordInput.getText().toString().trim().
+                equals(this.confirmPasswordInput.getText().toString().trim());
     }
 
     /**
@@ -1243,77 +1263,85 @@ public class SignupProActivity
 
                 return;
             case ADD_AVAILABILITY:
-                content = this.getResources().getString(R.string.signup_toast_add_availability_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_availability_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_REASON:
-                content = this.getResources().getString(R.string.signup_toast_add_reason_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_reason_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_EXPERIENCE:
-                content = this.getResources().getString(R.string.signup_toast_add_experience_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_experience_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_TRAINING:
-                content = this.getResources().getString(R.string.signup_toast_add_training_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_training_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_LANGUAGE:
-                content = this.getResources().getString(R.string.signup_toast_add_language_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_language_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case ADD_PAYMENT_OPTION:
-                content = this.getResources().getString(R.string.signup_toast_add_payment_option_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_add_payment_option_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_AVAILABILITY:
-                content = this.getResources().getString(R.string.signup_toast_remove_availability_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_availability_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_REASON:
-                content = this.getResources().getString(R.string.signup_toast_remove_reason_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_reason_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_EXPERIENCE:
-                content = this.getResources().getString(R.string.signup_toast_remove_experience_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_experience_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_TRAINING:
-                content = this.getResources().getString(R.string.signup_toast_remove_training_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_training_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_LANGUAGE:
-                content = this.getResources().getString(R.string.signup_toast_remove_language_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_language_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
 
                 return;
             case REMOVE_PAYMENT_OPTION:
-                content = this.getResources().getString(R.string.signup_toast_remove_payment_option_content);
+                content = this.getResources().getString(R.string.signup_pro_toast_remove_payment_option_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
-
-                return;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            if (this.picturePath != null) if (!this.picturePath.isEmpty()) this.RemoveCurrentPictureFile();
+            if (this.headerPath != null) if (!this.headerPath.isEmpty()) this.RemoveCurrentHeaderFile();
+            finish();
+        }
+        catch (Exception e) { e.printStackTrace(); }
     }
 }

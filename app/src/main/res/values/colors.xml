@@ -62,6 +62,27 @@
     <color name="signup_select_picture_from_gallery">#494949</color>
     <color name="signup_select_picture_from_gallery_text">#FFFFFF</color>
 
+    <!-- My profile -->
+    <color name="my_profile_background">#E4E4E4</color>
+    <color name="my_profile_caption">#696969</color>
+    <color name="my_profile_section_label">#696969</color>
+    <color name="my_profile_input_text">#858585</color>
+    <color name="my_profile_input_hint">#D8D8D8</color>
+    <color name="my_profile_update_btn_background">#1B86E4</color>
+    <color name="my_profile_update_btn_text">#FFFFFF</color>
+    <color name="my_profile_login_background">#FFFFFF</color>
+    <color name="my_profile_login_link">#1B86E4</color>
+    <color name="my_profile_pro_account_background">#FFFFFF</color>
+    <color name="my_profile_pro_account_link">#1B86E4</color>
+    <color name="my_profile_success_msg">#18965A</color>
+    <color name="my_profile_error_msg">#BE4A4A</color>
+    <color name="my_profile_success_msg_title">#FFFFFF</color>
+    <color name="my_profile_success_msg_content">#FFFFFF</color>
+    <color name="my_profile_take_picture_from_camera">#494949</color>
+    <color name="my_profile_take_picture_from_camera_text">#FFFFFF</color>
+    <color name="my_profile_select_picture_from_gallery">#494949</color>
+    <color name="my_profile_select_picture_from_gallery_text">#FFFFFF</color>
+
     <!-- Signup pro -->
     <color name="signup_pro_background">#E4E4E4</color>
     <color name="signup_pro_caption">#696969</color>

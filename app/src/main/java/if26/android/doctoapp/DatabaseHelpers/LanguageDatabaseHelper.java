@@ -114,7 +114,7 @@ public class LanguageDatabaseHelper {
                     );
                 }
 
-                Language l = Language.valueOf(languageData.get(DoctoAppDatabaseContract.Language.COLUMN_NAME_LANGUAGE).toString());
+                Language l = Language.GetValueOf(languageData.get(DoctoAppDatabaseContract.Language.COLUMN_NAME_LANGUAGE).toString());
 
                 languages.add(l);
             } while (c.moveToNext());

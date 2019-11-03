@@ -5,6 +5,7 @@
     <string name="title_search">Search</string>
     <string name="title_login">Login</string>
     <string name="title_signup">Sign-up</string>
+    <string name="title_my_profile">My profile</string>
 
     <!-- Main -->
     <string name="main_caption">Book an appointment with a specialized doctor online</string>
@@ -83,21 +84,57 @@
     <string name="signup_error_msg_title">Registration failed</string>
     <string name="signup_error_msg_content">Impossible to sign-up. Please make sure your email is in a correct format and that all the fields are properly filled. Also check both passwords are corresponding. If your email is already associated to an existing account, login to your account using the link below.</string>
     <string name="signup_toast_signup_content">You are now registered. Login to your account from the login page.</string>
-    <string name="signup_toast_add_availability_content">Availability successfully added.</string>
-    <string name="signup_toast_add_reason_content">Reason successfully added.</string>
-    <string name="signup_toast_add_experience_content">Experience successfully added.</string>
-    <string name="signup_toast_add_training_content">Training successfully added.</string>
-    <string name="signup_toast_add_language_content">Language successfully added.</string>
-    <string name="signup_toast_add_payment_option_content">Payment option successfully added.</string>
-    <string name="signup_toast_remove_availability_content">Availability successfully removed.</string>
-    <string name="signup_toast_remove_reason_content">Reason successfully removed.</string>
-    <string name="signup_toast_remove_experience_content">Experience successfully removed.</string>
-    <string name="signup_toast_remove_training_content">Training successfully removed.</string>
-    <string name="signup_toast_remove_language_content">Language successfully removed.</string>
-    <string name="signup_toast_remove_payment_option_content">Payment option successfully removed.</string>
 
     <string name="signup_patient_profile_section_label">Profile data</string>
     <string name="signup_patient_address_section_label">Address data</string>
+
+    <!-- My profile -->
+    <string name="my_profile_picture_uri">my_profile_picture_uri</string>
+
+    <string name="my_profile_caption">Update your patient profile</string>
+
+    <string name="my_profile_take_picture_from_camera">Take a picture</string>
+    <string name="my_profile_select_picture_from_gallery">Select a picture</string>
+
+    <string name="my_profile_lastname">Last name</string>
+    <string name="my_profile_firstname">First name</string>
+    <string name="my_profile_birthdate">Birth date</string>
+    <string name="my_profile_email">Email</string>
+    <string name="my_profile_insurance_number">Insurance number</string>
+    <string name="my_profile_old_pwd">Old (current) password</string>
+    <string name="my_profile_new_pwd">Password</string>
+    <string name="my_profile_confirm_pwd">Confirm your password</string>
+
+    <string name="my_profile_street1">Street 1</string>
+    <string name="my_profile_street2">Street 2</string>
+    <string name="my_profile_city">City</string>
+    <string name="my_profile_zip">Zip code</string>
+    <string name="my_profile_country">Country</string>
+
+    <string name="my_profile_lastname_placeholder">Last name</string>
+    <string name="my_profile_firstname_placeholder">First name</string>
+    <string name="my_profile_birthdate_placeholder">Birth date (ie. 1995–05–28)</string>
+    <string name="my_profile_email_placeholder">Email</string>
+    <string name="my_profile_insurance_number_placeholder">Insurance number</string>
+    <string name="my_profile_old_pwd_placeholder">Old password</string>
+    <string name="my_profile_new_pwd_placeholder">New password</string>
+    <string name="my_profile_confirm_pwd_placeholder">Confirm your new password</string>
+
+    <string name="my_profile_street1_placeholder">Street 1</string>
+    <string name="my_profile_street2_placeholder">Street 2</string>
+    <string name="my_profile_city_placeholder">City</string>
+    <string name="my_profile_zip_placeholder">Zip code</string>
+    <string name="my_profile_country_placeholder">Country</string>
+
+    <string name="my_profile_update_btn">update my profile</string>
+    <string name="my_profile_success_msg_title">Profile update succeeded</string>
+    <string name="my_profile_success_msg_content">Your profile has been successfully updated with the provided information. You can anytime change the information of your profile.</string>
+    <string name="my_profile_error_msg_title">Profile update failed</string>
+    <string name="my_profile_error_msg_content">Impossible to update your profile. Please make sure your email is in a correct format and that all the fields are properly filled. Also check old password and both new passwords are corresponding, if modified. In case you changed your email address make sure it is available.</string>
+    <string name="my_profile_toast_my_profile_content">Your profile was successfully updated.</string>
+
+    <string name="my_profile_patient_profile_section_label">Profile data</string>
+    <string name="my_profile_patient_address_section_label">Address data</string>
 
     <!-- Signup pro -->
     <string name="signup_pro_picture_uri">signup_pro_picture_uri</string>
@@ -184,6 +221,19 @@
     <string name="signup_pro_add_language_btn_text">Add language</string>
     <string name="signup_pro_add_payment_option_btn_text">Add payment option</string>
 
+    <string name="signup_pro_toast_add_availability_content">Availability successfully added.</string>
+    <string name="signup_pro_toast_add_reason_content">Reason successfully added.</string>
+    <string name="signup_pro_toast_add_experience_content">Experience successfully added.</string>
+    <string name="signup_pro_toast_add_training_content">Training successfully added.</string>
+    <string name="signup_pro_toast_add_language_content">Language successfully added.</string>
+    <string name="signup_pro_toast_add_payment_option_content">Payment option successfully added.</string>
+    <string name="signup_pro_toast_remove_availability_content">Availability successfully removed.</string>
+    <string name="signup_pro_toast_remove_reason_content">Reason successfully removed.</string>
+    <string name="signup_pro_toast_remove_experience_content">Experience successfully removed.</string>
+    <string name="signup_pro_toast_remove_training_content">Training successfully removed.</string>
+    <string name="signup_pro_toast_remove_language_content">Language successfully removed.</string>
+    <string name="signup_pro_toast_remove_payment_option_content">Payment option successfully removed.</string>
+
     <string name="signup_pro_days_placeholder">Choose a day</string>
     <string-array name="signup_pro_days_list">
         <item>Monday</item>
@@ -218,6 +268,25 @@
 
     <!-- Payment option signup list item -->
     <string name="payment_option_signup_list_item_description">{description}</string>
+
+    <!-- My profile -->
+    <string name="my_profile_x">Content</string>
+    <string name="my_profile_a">Content</string>
+    <string name="my_profile_c">Content</string>
+    <string name="my_profile_v">Content</string>
+    <string name="my_profile_b">Content</string>
+    <string name="my_profile_f">Content</string>
+    <string name="my_profile_d">Content</string>
+    <string name="my_profile_s">Content</string>
+    <string name="my_profile_q">Content</string>
+    <string name="my_profile_z">Content</string>
+    <string name="my_profile_toast_update_content">Your profile was successfully updated.</string>
+
+    <!-- My profile pro -->
+    <string name="my_profile_pro_x">Content</string>
+    <string name="my_profile_pro_a">Content</string>
+    <string name="my_profile_pro_c">Content</string>
+    <string name="my_profile_pro_toast_update_content">Your profile was successfully updated.</string>
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>

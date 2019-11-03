@@ -55,6 +55,41 @@ public class PatientDatabaseHelper {
     }
 
     /**
+     * Update the given patient model-related patient in the database using the given Patient model data
+     * @param patient The patient model
+     * @return If the patient has successfully been updated in the database
+     */
+    public boolean UpdatePatient(Patient patient) {
+        AddressDatabaseHelper addressDatabaseHelper = new AddressDatabaseHelper(this.context);
+
+        // Update the address of the patient in the DB
+        if(!addressDatabaseHelper.UpdateAddress(patient)) return false;
+
+        // Update the patient in the DB
+        ContentValues patientContentValues = new ContentValues();
+        String[] patientTableKeys = DoctoAppDatabaseContract.Patient.TABLE_KEYS_INSERT;
+        Object[] patientData = this.CreatePatientData(patient);
+
+        for (int i = 0; i < patientTableKeys.length; i++) {
+            if (patientData[i] instanceof Long)
+                patientContentValues.put(patientTableKeys[i], (Long) patientData[i]);
+            else
+                patientContentValues.put(patientTableKeys[i], patientData[i].toString());
+        }
+
+        String[] args = { patient.getId() + "" };
+
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        return (database.update(
+                DoctoAppDatabaseContract.Patient.TABLE_NAME,
+                patientContentValues,
+                DoctoAppDatabaseContract.Patient.COLUMN_NAME_ID + " = ?",
+                args
+        ) == 1);
+    }
+
+    /**
      * Create a data struct to gather patient information
      * @param patient The patient model
      * @return The data struct

@@ -13,13 +13,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="729dp"
-            android:background="@color/signup_background"
+            android:background="@color/my_profile_background"
             android:orientation="vertical"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="1dp">
 
             <TextView
-                android:id="@+id/signup_caption"
+                android:id="@+id/my_profile_caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
@@ -27,9 +27,9 @@
                 android:fontFamily="@font/roboto"
                 android:paddingLeft="10sp"
                 android:paddingRight="10sp"
-                android:text="@string/signup_caption"
+                android:text="@string/my_profile_caption"
+                android:textColor="@color/my_profile_caption"
                 android:textAlignment="center"
-                android:textColor="@color/signup_caption"
                 android:textStyle="italic" />
 
             <LinearLayout
@@ -37,69 +37,70 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="10sp"
-                android:paddingRight="10sp">
+                android:paddingRight="10sp"
+                android:paddingBottom="25sp">
 
                 <LinearLayout
-                    android:id="@+id/signup_msg"
+                    android:id="@+id/my_profile_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20sp"
-                    android:background="@color/signup_success_msg"
+                    android:background="@color/my_profile_success_msg"
                     android:orientation="vertical"
                     android:padding="10sp"
                     android:textAlignment="center">
 
                     <TextView
-                        android:id="@+id/signup_msg_title"
+                        android:id="@+id/my_profile_msg_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10sp"
                         android:fontFamily="@font/roboto"
-                        android:text="@string/signup_success_msg_title"
+                        android:text="@string/my_profile_success_msg_title"
                         android:textAlignment="center"
-                        android:textColor="@color/signup_success_msg_title"
+                        android:textColor="@color/my_profile_success_msg_title"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/signup_msg_content"
+                        android:id="@+id/my_profile_msg_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10sp"
                         android:fontFamily="@font/roboto"
-                        android:text="@string/signup_success_msg_content"
+                        android:text="@string/my_profile_success_msg_content"
                         android:textAlignment="center"
-                        android:textColor="@color/signup_success_msg_content"
+                        android:textColor="@color/my_profile_success_msg_content"
                         android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/signup_patient_profile_section"
+                    android:id="@+id/my_profile_patient_profile_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20sp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/signup_patient_profile_section_label"
+                        android:id="@+id/my_profile_patient_profile_section_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
                         android:padding="10dp"
-                        android:text="@string/signup_patient_profile_section_label"
-                        android:textColor="@color/signup_section_label"
+                        android:text="@string/my_profile_patient_profile_section_label"
+                        android:textColor="@color/my_profile_section_label"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <RelativeLayout
-                        android:id="@+id/signup_patient_picture_header_section"
+                        android:id="@+id/my_profile_patient_picture_header_section"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:orientation="vertical">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/signup_patient_picture"
+                            android:id="@+id/my_profile_patient_picture"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:layout_centerInParent="true"
@@ -116,32 +117,32 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/signup_take_picture_from_camera"
+                            android:id="@+id/my_profile_take_picture_from_camera"
                             android:layout_width="wrap_content"
                             android:layout_height="54dp"
-                            android:backgroundTint="@color/signup_take_picture_from_camera"
+                            android:backgroundTint="@color/my_profile_take_picture_from_camera"
                             android:drawableStart="@drawable/ic_take_picture"
                             android:drawablePadding="10sp"
                             android:fontFamily="@font/roboto"
                             android:paddingStart="26sp"
                             android:paddingEnd="26sp"
-                            android:text="@string/signup_take_picture_from_camera"
-                            android:textColor="@color/signup_take_picture_from_camera_text"
+                            android:text="@string/my_profile_take_picture_from_camera"
+                            android:textColor="@color/my_profile_take_picture_from_camera_text"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/signup_select_picture_from_gallery"
+                            android:id="@+id/my_profile_select_picture_from_gallery"
                             android:layout_width="wrap_content"
                             android:layout_height="54dp"
-                            android:backgroundTint="@color/signup_select_picture_from_gallery"
+                            android:backgroundTint="@color/my_profile_select_picture_from_gallery"
                             android:drawableStart="@drawable/ic_add_image"
                             android:drawablePadding="10sp"
                             android:fontFamily="@font/roboto"
                             android:paddingStart="25sp"
                             android:paddingEnd="26sp"
-                            android:text="@string/signup_select_picture_from_gallery"
-                            android:textColor="@color/signup_select_picture_from_gallery_text"
+                            android:text="@string/my_profile_select_picture_from_gallery"
+                            android:textColor="@color/my_profile_select_picture_from_gallery_text"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
@@ -154,114 +155,130 @@
                         android:padding="5dp">
 
                         <EditText
-                            android:id="@+id/signup_email"
+                            android:id="@+id/my_profile_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_email_placeholder"
+                            android:hint="@string/my_profile_email_placeholder"
                             android:inputType="textEmailAddress"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_firstname"
+                            android:id="@+id/my_profile_firstname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_firstname_placeholder"
+                            android:hint="@string/my_profile_firstname_placeholder"
                             android:inputType="textPersonName"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_lastname"
+                            android:id="@+id/my_profile_lastname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_lastname_placeholder"
+                            android:hint="@string/my_profile_lastname_placeholder"
                             android:inputType="textPersonName"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_pwd"
+                            android:id="@+id/my_profile_old_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_pwd_placeholder"
+                            android:hint="@string/my_profile_old_pwd_placeholder"
                             android:inputType="textPassword"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_confirm_pwd"
+                            android:id="@+id/my_profile_new_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_confirm_pwd_placeholder"
+                            android:hint="@string/my_profile_new_pwd_placeholder"
                             android:inputType="textPassword"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_birthdate"
+                            android:id="@+id/my_profile_confirm_pwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_birthdate_placeholder"
+                            android:hint="@string/my_profile_confirm_pwd_placeholder"
+                            android:inputType="textPassword"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_birthdate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_birthdate_placeholder"
                             android:inputType="datetime"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/signup_insurance_number"
+                            android:id="@+id/my_profile_insurance_number"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2sp"
                             android:layout_marginBottom="2sp"
                             android:background="@android:drawable/editbox_background_normal"
                             android:fontFamily="@font/roboto"
-                            android:hint="@string/signup_insurance_number_placeholder"
+                            android:hint="@string/my_profile_insurance_number_placeholder"
                             android:inputType="numberSigned"
                             android:padding="10sp"
-                            android:textColor="@color/signup_input_text"
-                            android:textColorHint="@color/signup_input_hint"
+                            android:textColor="@color/my_profile_input_text"
+                            android:textColorHint="@color/my_profile_input_hint"
                             android:textSize="15sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -269,7 +286,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/signup_patient_address_section"
+                    android:id="@+id/my_profile_patient_address_section"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20sp"
@@ -277,174 +294,108 @@
                     android:padding="5dp">
 
                     <TextView
-                        android:id="@+id/signup_patient_address_section_label"
+                        android:id="@+id/my_profile_patient_address_section_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
                         android:padding="5sp"
-                        android:text="@string/signup_patient_address_section_label"
-                        android:textColor="@color/signup_section_label"
+                        android:text="@string/my_profile_patient_address_section_label"
+                        android:textColor="@color/my_profile_section_label"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/signup_street1"
+                        android:id="@+id/my_profile_street1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2sp"
                         android:layout_marginBottom="2sp"
                         android:background="@android:drawable/editbox_background_normal"
                         android:fontFamily="@font/roboto"
-                        android:hint="@string/signup_street1_placeholder"
+                        android:hint="@string/my_profile_street1_placeholder"
                         android:inputType="textPersonName"
                         android:padding="10sp"
-                        android:textColor="@color/signup_input_text"
-                        android:textColorHint="@color/signup_input_hint"
+                        android:textColor="@color/my_profile_input_text"
+                        android:textColorHint="@color/my_profile_input_hint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/signup_street2"
+                        android:id="@+id/my_profile_street2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2sp"
                         android:layout_marginBottom="2sp"
                         android:background="@android:drawable/editbox_background_normal"
                         android:fontFamily="@font/roboto"
-                        android:hint="@string/signup_street2_placeholder"
+                        android:hint="@string/my_profile_street2_placeholder"
                         android:inputType="textPersonName"
                         android:padding="10sp"
-                        android:textColor="@color/signup_input_text"
-                        android:textColorHint="@color/signup_input_hint"
+                        android:textColor="@color/my_profile_input_text"
+                        android:textColorHint="@color/my_profile_input_hint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/signup_city"
+                        android:id="@+id/my_profile_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2sp"
                         android:layout_marginBottom="2sp"
                         android:background="@android:drawable/editbox_background_normal"
                         android:fontFamily="@font/roboto"
-                        android:hint="@string/signup_city_placeholder"
+                        android:hint="@string/my_profile_city_placeholder"
                         android:inputType="textPersonName"
                         android:padding="10sp"
-                        android:textColor="@color/signup_input_text"
-                        android:textColorHint="@color/signup_input_hint"
+                        android:textColor="@color/my_profile_input_text"
+                        android:textColorHint="@color/my_profile_input_hint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/signup_zip"
+                        android:id="@+id/my_profile_zip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2sp"
                         android:layout_marginBottom="2sp"
                         android:background="@android:drawable/editbox_background_normal"
                         android:fontFamily="@font/roboto"
-                        android:hint="@string/signup_zip_placeholder"
+                        android:hint="@string/my_profile_zip_placeholder"
                         android:inputType="numberSigned"
                         android:padding="10sp"
-                        android:textColor="@color/signup_input_text"
-                        android:textColorHint="@color/signup_input_hint"
+                        android:textColor="@color/my_profile_input_text"
+                        android:textColorHint="@color/my_profile_input_hint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/signup_country"
+                        android:id="@+id/my_profile_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2sp"
                         android:background="@android:drawable/editbox_background_normal"
                         android:fontFamily="@font/roboto"
-                        android:hint="@string/signup_country_placeholder"
+                        android:hint="@string/my_profile_country_placeholder"
                         android:inputType="textPersonName"
                         android:padding="10sp"
-                        android:textColor="@color/signup_input_text"
-                        android:textColorHint="@color/signup_input_hint"
+                        android:textColor="@color/my_profile_input_text"
+                        android:textColorHint="@color/my_profile_input_hint"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/signup_btn"
+                    android:id="@+id/my_profile_update_btn"
                     android:layout_width="200dp"
                     android:layout_height="54dp"
                     android:layout_gravity="center"
-                    android:backgroundTint="@color/signup_btn_background"
+                    android:backgroundTint="@color/my_profile_update_btn_background"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
-                    android:text="@string/signup_btn"
-                    android:textColor="@color/signup_btn_text"
+                    android:text="@string/my_profile_update_btn"
+                    android:textColor="@color/my_profile_update_btn_text"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/signup_login_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="5sp"
-                android:background="@color/signup_login_background"
-                android:orientation="vertical"
-                android:padding="20sp">
-
-                <TextView
-                    android:id="@+id/signup_login_caption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:paddingBottom="5sp"
-                    android:text="@string/signup_login_caption"
-                    android:textAlignment="center"
-                    android:textColor="@color/signup_caption"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/signup_login_link"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:paddingTop="5sp"
-                    android:text="@string/signup_login_link"
-                    android:textAlignment="center"
-                    android:textColor="@color/signup_login_link"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/signup_pro_account_section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5sp"
-                android:layout_marginBottom="15sp"
-                android:background="@color/signup_login_background"
-                android:orientation="vertical"
-                android:padding="20sp">
-
-                <TextView
-                    android:id="@+id/signup_pro_account_caption"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:paddingBottom="5sp"
-                    android:text="@string/signup_pro_account_caption"
-                    android:textAlignment="center"
-                    android:textColor="@color/signup_caption"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/signup_pro_account_link"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:paddingTop="5sp"
-                    android:text="@string/signup_pro_account_link"
-                    android:textAlignment="center"
-                    android:textColor="@color/signup_pro_account_link"
                     android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
