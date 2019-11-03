@@ -18,7 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -76,6 +78,7 @@ public class SignupActivity
     private LinearLayout professionalSection;
 
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
+    private static final String FILE_EXT = ".png";
 
     private static final int SCALE_AMOUNT_PICTURE = 400;
 
@@ -197,8 +200,6 @@ public class SignupActivity
                 return;
             case R.id.signup_pro_account_link:
                 this.SignupPro();
-
-                return;
         }
     }
 
@@ -263,18 +264,32 @@ public class SignupActivity
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String pictureFileName = PREFIX_PROFILE_PICTURE + timeStamp + "_";
 
-        /**
+        /*
          * To store internally, use : getFilesDir()
          */
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         try {
-            pictureFile = File.createTempFile(pictureFileName, ".jpg", storageDir);
+            pictureFile = File.createTempFile(pictureFileName, FILE_EXT, storageDir);
+
+            if (this.picturePath != null) if (!this.picturePath.isEmpty()) this.RemoveCurrentPictureFile();
+
             this.picturePath = pictureFile.getAbsolutePath();
             this.pictureURI = ImageService.GetURIFromFile(pictureFile);
         }
         catch (Exception e) { e.printStackTrace(); }
-        finally { return pictureFile; }
+
+        return pictureFile;
+    }
+
+    /**
+     * Remove the current picture file saved on the phone
+     */
+    private void RemoveCurrentPictureFile() throws IOException {
+        File currentPictureFile = new File(this.picturePath);
+
+        if (currentPictureFile.getPath().isEmpty()) throw new FileNotFoundException();
+        if (! currentPictureFile.delete()) throw new IOException("Impossible to delete the picture file.");
     }
 
     /**
@@ -323,8 +338,6 @@ public class SignupActivity
                     if (!this.SavePictureBitmapToAppFolder(data)) return;
 
                     this.picture.setImageURI(this.pictureURI);
-
-                    return;
             }
         }
     }
@@ -390,7 +403,7 @@ public class SignupActivity
      * @return If all the fields are correctly filled
      */
     private boolean AllFieldsCorrect() {
-        boolean allFieldsFilled =
+        boolean isOneFieldEmpty =
                         this.lastnameInput.getText().toString().trim().isEmpty()
                         || this.firstnameInput.getText().toString().trim().isEmpty()
                         || this.birthdateInput.getText().toString().trim().isEmpty()
@@ -406,7 +419,7 @@ public class SignupActivity
                         // || this.picturePath.trim().isEmpty(); // Picture is not a required field
 
         // One of the fields is empty
-        if (allFieldsFilled) return false;
+        if (isOneFieldEmpty) return false;
 
         boolean bothPwdEqual = this.passwordInput.getText().toString().trim().
                 equals(this.confirmPasswordInput.getText().toString().trim());
@@ -417,9 +430,7 @@ public class SignupActivity
         boolean isBirthDateCorrectFormat = this.birthdateInput.getText().toString().trim().matches("\\d{4}-(01|02|03|04|05|06|07|08|09|10|11|12)-\\d{2}");
 
         // The provided date not in the correct format (ie. 1996-01-27)
-        if (!isBirthDateCorrectFormat) return false;
-
-        return true;
+        return isBirthDateCorrectFormat;
     }
 
     /**
@@ -487,5 +498,14 @@ public class SignupActivity
         int duration = Toast.LENGTH_LONG;
         Toast toast = Toast.makeText(context, content, duration);
         toast.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        try {
+            if (this.picturePath != null) if (!this.picturePath.isEmpty()) this.RemoveCurrentPictureFile();
+            finish();
+        }
+        catch (Exception e) { e.printStackTrace(); }
     }
 }
