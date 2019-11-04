@@ -94,6 +94,73 @@ public class DoctorDatabaseHelper {
     }
 
     /**
+     * Update the given doctor model-related doctor in the database using the given Doctor model data
+     * @param doctor The doctor model
+     * @return If the doctor has successfully been updated in the database
+     */
+    public boolean UpdateDoctor(Doctor doctor) {
+        AddressDatabaseHelper addressDatabaseHelper = new AddressDatabaseHelper(this.context);
+        AvailabilityDatabaseHelper availabilityDatabaseHelper = new AvailabilityDatabaseHelper(this.context);
+        EducationDatabaseHelper educationDatabaseHelper = new EducationDatabaseHelper(this.context);
+        ExperienceDatabaseHelper experienceDatabaseHelper = new ExperienceDatabaseHelper(this.context);
+        LanguageDatabaseHelper languageDatabaseHelper = new LanguageDatabaseHelper(this.context);
+        PaymentOptionDatabaseHelper paymentOptionDatabaseHelper = new PaymentOptionDatabaseHelper(this.context);
+        ReasonDatabaseHelper reasonDatabaseHelper = new ReasonDatabaseHelper(this.context);
+
+        // Update the address of the doctor in the DB
+        if(!addressDatabaseHelper.UpdateAddress(doctor)) return false;
+
+        // Update the doctor in the DB
+        ContentValues doctorContentValues = new ContentValues();
+        String[] doctorTableKeys = DoctoAppDatabaseContract.Doctor.TABLE_KEYS_INSERT;
+        Object[] doctorData = this.CreateDoctorData(doctor);
+
+        for (int i = 0; i < doctorTableKeys.length; i++) {
+            if (doctorData[i] instanceof Long) doctorContentValues.put(doctorTableKeys[i], (Long) doctorData[i]);
+            else doctorContentValues.put(doctorTableKeys[i], doctorData[i].toString());
+        }
+
+        String[] args = { doctor.getId() + "" };
+
+        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+
+        if (database.update(
+                DoctoAppDatabaseContract.Doctor.TABLE_NAME,
+                doctorContentValues,
+                DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ID + " = ?",
+                args
+        ) != 1) return false;
+
+        // Update the availabilities of the doc in the DB
+        if (!availabilityDatabaseHelper.UpdateAvailabilities(doctor)) return false;
+
+        // TODO : check if any has not been added
+
+        // Update the trainings of the doc in the DB
+        if (!educationDatabaseHelper.UpdateTrainings(doctor)) return false;
+
+        // TODO : check if any has not been added
+
+        // Update the experiences of the doc in the DB
+        if (!experienceDatabaseHelper.UpdateExperiences(doctor)) return false;
+
+        // TODO : check if any has not been added
+
+        // Update the languages of the doc in the DB
+        if (!languageDatabaseHelper.UpdateLanguages(doctor)) return false;
+
+        // TODO : check if any has not been added
+
+        // Update the payment options of the doc in the DB
+        if (!paymentOptionDatabaseHelper.UpdatePaymentOptions(doctor)) return false;
+
+        // TODO : check if any has not been added
+
+        // Update the reasons of the doc in the DB
+        return reasonDatabaseHelper.UpdateReasons(doctor);
+    }
+
+    /**
      * Create a data struct to gather doctor information
      * @param doctor The doctor model
      * @return The data struct

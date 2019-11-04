@@ -1,9 +1,1072 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MyProfileActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.MyProfileProActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_profile_pro_background"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
+
+            <TextView
+                android:id="@+id/my_profile_pro_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:fontFamily="@font/roboto"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:text="@string/my_profile_pro_caption"
+                android:textAlignment="center"
+                android:textColor="@color/my_profile_pro_caption"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp">
+
+                <LinearLayout
+                    android:id="@+id/my_profile_pro_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20sp"
+                    android:background="@color/my_profile_pro_success_msg"
+                    android:orientation="vertical"
+                    android:padding="10sp"
+                    android:textAlignment="center">
+
+                    <TextView
+                        android:id="@+id/my_profile_pro_msg_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/my_profile_pro_success_msg_title"
+                        android:textAlignment="center"
+                        android:textColor="@color/my_profile_pro_success_msg_title"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/my_profile_pro_msg_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10sp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/my_profile_pro_success_msg_content"
+                        android:textAlignment="center"
+                        android:textColor="@color/my_profile_pro_success_msg_content"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/my_profile_pro_doctor_profile_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/my_profile_pro_doctor_profile_section_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:padding="10dp"
+                        android:text="@string/my_profile_pro_doctor_profile_section_label"
+                        android:textColor="@color/my_profile_pro_section_label"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:id="@+id/my_profile_pro_doctor_picture_header_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:orientation="vertical">
+
+                        <com.jgabrielfreitas.core.BlurImageView
+                            android:id="@+id/my_profile_pro_doctor_header"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:adjustViewBounds="true"
+                            android:padding="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beach_2" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/my_profile_pro_doctor_picture"
+                            android:layout_width="150dp"
+                            android:layout_height="150dp"
+                            android:layout_centerInParent="true"
+                            android:padding="15dp"
+                            android:src="@mipmap/ic_launcher"
+                            app:civ_border_width="0dp" />
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/my_profile_pro_take_picture_from_camera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/my_profile_pro_take_picture_from_camera"
+                            android:drawableStart="@drawable/ic_take_picture"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/roboto"
+                            android:paddingStart="26sp"
+                            android:paddingEnd="26sp"
+                            android:text="@string/my_profile_pro_take_picture_from_camera"
+                            android:textColor="@color/my_profile_pro_take_picture_from_camera_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/my_profile_pro_select_picture_from_gallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/my_profile_pro_select_picture_from_gallery"
+                            android:drawableStart="@drawable/ic_add_image"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/roboto"
+                            android:paddingStart="25sp"
+                            android:paddingEnd="26sp"
+                            android:text="@string/my_profile_pro_select_picture_from_gallery"
+                            android:textColor="@color/my_profile_pro_select_picture_from_gallery_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/my_profile_pro_take_header_from_camera"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/my_profile_pro_take_header_from_camera"
+                            android:drawableStart="@drawable/ic_take_picture"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/roboto"
+                            android:paddingStart="26sp"
+                            android:paddingEnd="26sp"
+                            android:text="@string/my_profile_pro_take_header_from_camera"
+                            android:textColor="@color/my_profile_pro_take_header_from_camera_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/my_profile_pro_select_header_from_gallery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="54dp"
+                            android:backgroundTint="@color/my_profile_pro_select_header_from_gallery"
+                            android:drawableStart="@drawable/ic_add_image"
+                            android:drawablePadding="10sp"
+                            android:fontFamily="@font/roboto"
+                            android:paddingStart="25sp"
+                            android:paddingEnd="26sp"
+                            android:text="@string/my_profile_pro_select_header_from_gallery"
+                            android:textColor="@color/my_profile_pro_select_header_from_gallery_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_email_placeholder"
+                            android:inputType="textEmailAddress"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_firstname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_firstname_placeholder"
+                            android:inputType="textPersonName"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_lastname_placeholder"
+                            android:inputType="textPersonName"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_old_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_old_pwd_placeholder"
+                            android:inputType="textPassword"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_new_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_new_pwd_placeholder"
+                            android:inputType="textPassword"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_confirm_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_confirm_pwd_placeholder"
+                            android:inputType="textPassword"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_speciality"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_speciality_placeholder"
+                            android:inputType="textPersonName"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_description_placeholder"
+                            android:inputType="textPersonName"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/my_profile_pro_contact_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2sp"
+                            android:layout_marginBottom="2sp"
+                            android:background="@android:drawable/editbox_background_normal"
+                            android:fontFamily="@font/roboto"
+                            android:hint="@string/my_profile_pro_contact_number_placeholder"
+                            android:inputType="phone"
+                            android:padding="10sp"
+                            android:textColor="@color/my_profile_pro_input_text"
+                            android:textColorHint="@color/my_profile_pro_input_hint"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="TextFields" />
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_prices_refunds_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_prices_refunds_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_prices_refunds_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <CheckBox
+                                android:id="@+id/my_profile_pro_is_under_agreement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_is_under_agreement"
+                                android:textColor="@color/my_profile_pro_option" />
+
+                            <CheckBox
+                                android:id="@+id/my_profile_pro_is_health_insurance_card"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_is_health_insurance_card"
+                                android:textColor="@color/my_profile_pro_option" />
+
+                            <CheckBox
+                                android:id="@+id/my_profile_pro_is_third_party_payment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_is_third_party_payment"
+                                android:textColor="@color/my_profile_pro_option" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_availabilities_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_availabilities_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_availabilities_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_availability_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/info_msg"
+                                android:backgroundTint="@color/my_profile_pro_info_msg_background"
+                                android:drawableStart="@drawable/ic_info"
+                                android:drawableTint="@color/my_profile_pro_info_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_availability_info"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_info_msg"
+                                android:textSize="13sp" />
+
+                            <include layout="@layout/template_availability_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/my_profile_pro_days_list"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/my_profile_pro_days_list"
+                                    android:entries="@array/my_profile_pro_days_list"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center"
+                                    android:padding="6sp"
+                                    android:spinnerMode="dropdown"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_availability_time_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_availability_input_placeholder"
+                                    android:inputType="time"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_availability_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_availability_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_availability_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_availability_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_availability_btn_text"
+                                android:textColor="@color/my_profile_pro_add_availability_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_reason_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_reason_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_reason_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <include layout="@layout/template_reason_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_reason_description_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_reason_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_reason_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_reason_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_reason_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_reason_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_reason_btn_text"
+                                android:textColor="@color/my_profile_pro_add_reason_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_education_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_education_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_education_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <include layout="@layout/template_education_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_training_year_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_training_year_input_placeholder"
+                                    android:inputType="number"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_training_description_input"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_training_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_training_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_training_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_training_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_training_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_training_btn_text"
+                                android:textColor="@color/my_profile_pro_add_training_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_experience_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_experience_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_experience_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <include layout="@layout/template_experience_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_experience_year_input"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_experience_year_input_placeholder"
+                                    android:inputType="number"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/my_profile_pro_experience_degree_input"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2sp"
+                                    android:layout_marginBottom="2sp"
+                                    android:background="@android:drawable/editbox_background_normal"
+                                    android:fontFamily="@font/roboto"
+                                    android:hint="@string/my_profile_pro_experience_description_input_placeholder"
+                                    android:inputType="textPersonName"
+                                    android:padding="10sp"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/my_profile_pro_input_text"
+                                    android:textColorHint="@color/my_profile_pro_input_hint"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_experience_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_experience_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_experience_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_experience_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_experience_btn_text"
+                                android:textColor="@color/my_profile_pro_add_experience_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_languages_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_languages_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_languages_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <include layout="@layout/template_language_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/my_profile_pro_languages_list"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/my_profile_pro_languages_list"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center"
+                                    android:padding="6sp"
+                                    android:spinnerMode="dropdown"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_language_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_language_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_language_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_language_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_language_btn_text"
+                                android:textColor="@color/my_profile_pro_add_language_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/my_profile_pro_doctor_payment_options_section"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3sp"
+                            android:layout_marginTop="10sp"
+                            android:layout_marginEnd="3sp"
+                            android:layout_marginBottom="10sp"
+                            android:background="@color/my_profile_pro_section"
+                            android:orientation="vertical"
+                            android:padding="5sp">
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_doctor_payment_options_section_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/roboto"
+                                android:padding="5sp"
+                                android:text="@string/my_profile_pro_doctor_payment_options_section_label"
+                                android:textColor="@color/my_profile_pro_section_label"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <include layout="@layout/template_payment_option_my_profile_pro_list" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/my_profile_pro_payment_options_list"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/my_profile_pro_payment_options_list"
+                                    android:fontFamily="@font/roboto"
+                                    android:gravity="center"
+                                    android:padding="6sp"
+                                    android:spinnerMode="dropdown"
+                                    android:textSize="15sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/my_profile_pro_payment_option_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/error_msg"
+                                android:backgroundTint="@color/my_profile_pro_error_msg_background"
+                                android:drawableStart="@drawable/ic_error"
+                                android:drawableTint="@color/my_profile_pro_error_msg"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/my_profile_pro_payment_option_error"
+                                android:textAlignment="center"
+                                android:textColor="@color/my_profile_pro_error_msg"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <Button
+                                android:id="@+id/my_profile_pro_add_payment_option_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="54dp"
+                                android:layout_gravity="center"
+                                android:layout_margin="5dp"
+                                android:backgroundTint="@color/my_profile_pro_add_payment_option_btn"
+                                android:drawableStart="@drawable/ic_add"
+                                android:drawablePadding="10sp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/my_profile_pro_add_payment_option_btn_text"
+                                android:textColor="@color/my_profile_pro_add_payment_option_btn_text"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/my_profile_pro_doctor_address_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10sp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/my_profile_pro_doctor_address_section_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:padding="5sp"
+                        android:text="@string/my_profile_pro_doctor_address_section_label"
+                        android:textColor="@color/my_profile_pro_section_label"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/my_profile_pro_street1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2sp"
+                        android:layout_marginBottom="2sp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/my_profile_pro_street1_placeholder"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textColor="@color/my_profile_pro_input_text"
+                        android:textColorHint="@color/my_profile_pro_input_hint"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/my_profile_pro_street2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2sp"
+                        android:layout_marginBottom="2sp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/my_profile_pro_street2_placeholder"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textColor="@color/my_profile_pro_input_text"
+                        android:textColorHint="@color/my_profile_pro_input_hint"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/my_profile_pro_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2sp"
+                        android:layout_marginBottom="2sp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/my_profile_pro_city_placeholder"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textColor="@color/my_profile_pro_input_text"
+                        android:textColorHint="@color/my_profile_pro_input_hint"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/my_profile_pro_zip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2sp"
+                        android:layout_marginBottom="2sp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/my_profile_pro_zip_placeholder"
+                        android:inputType="numberSigned"
+                        android:padding="10sp"
+                        android:textColor="@color/my_profile_pro_input_text"
+                        android:textColorHint="@color/my_profile_pro_input_hint"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/my_profile_pro_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2sp"
+                        android:background="@android:drawable/editbox_background_normal"
+                        android:fontFamily="@font/roboto"
+                        android:hint="@string/my_profile_pro_country_placeholder"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textColor="@color/my_profile_pro_input_text"
+                        android:textColorHint="@color/my_profile_pro_input_hint"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/my_profile_pro_update_btn"
+                    android:layout_width="200dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/my_profile_pro_btn_background"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="@string/my_profile_pro_update_btn"
+                    android:textColor="@color/my_profile_pro_btn_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

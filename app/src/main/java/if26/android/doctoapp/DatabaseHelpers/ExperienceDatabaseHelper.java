@@ -61,6 +61,28 @@ public class ExperienceDatabaseHelper {
     }
 
     /**
+     * Update doctor experiences
+     * @param doctor The doctor to update experiences of
+     * @return If experiences have correctly been updated
+     */
+    public boolean UpdateExperiences(Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctor.getId() + "" };
+
+        if (database.delete(
+                DoctoAppDatabaseContract.Experience.TABLE_NAME,
+                DoctoAppDatabaseContract.Experience.COLUMN_NAME_DOCTOR + " = ?",
+                args
+        ) >= 0) {
+            this.InsertExperiences(doctor);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Create data struct for experience using the given doctor model
      * @param doctor The doctor model
      * @return The data struct

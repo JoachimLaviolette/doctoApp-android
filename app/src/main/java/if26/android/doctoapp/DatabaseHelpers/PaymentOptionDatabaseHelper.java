@@ -59,6 +59,28 @@ public class PaymentOptionDatabaseHelper {
     }
 
     /**
+     * Update doctor payment options
+     * @param doctor The doctor to update payment options of
+     * @return If payment options have correctly been updated
+     */
+    public boolean UpdatePaymentOptions(Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctor.getId() + "" };
+
+        if (database.delete(
+                DoctoAppDatabaseContract.PaymentOption.TABLE_NAME,
+                DoctoAppDatabaseContract.PaymentOption.COLUMN_NAME_DOCTOR + " = ?",
+                args
+        ) >= 0) {
+            this.InsertPaymentOptions(doctor);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Create data struct for payment option using the given doctor model
      * @param doctor The doctor model
      * @return The data struct
@@ -122,5 +144,4 @@ public class PaymentOptionDatabaseHelper {
 
         return paymentOptions;
     }
-
 }

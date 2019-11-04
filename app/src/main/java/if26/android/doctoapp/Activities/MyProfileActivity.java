@@ -103,8 +103,6 @@ public class MyProfileActivity
 
         this.takePictureFromCamera = findViewById(R.id.my_profile_take_picture_from_camera);
         this.selectPictureFromGallery = findViewById(R.id.my_profile_select_picture_from_gallery);
-        this.picturePath = null;
-        this.pictureURI = null;
 
         this.lastnameInput = findViewById(R.id.my_profile_lastname);
         this.firstnameInput = findViewById(R.id.my_profile_firstname);
@@ -173,14 +171,19 @@ public class MyProfileActivity
         this.patientAddressSection.setVisibility(View.VISIBLE);
         this.myProfileUpdateBtn.setVisibility(View.VISIBLE);
         this.myProfileMsg.setVisibility(View.GONE);
-        if (this.loggedUser.getPicture() != null) if (!this.loggedUser.getPicture().isEmpty()) {
-            Uri uri = ImageService.GetURIFromPath(this.loggedUser.getPicture());
-            if (uri != null) {
-                this.picture.setImageURI(uri);
-                this.picturePath = this.loggedUser.getPicture();
-                this.pictureURI = uri;
+
+        if (this.loggedUser.getPicture() != null) {
+            if (!this.loggedUser.getPicture().isEmpty()) {
+                Uri uri = ImageService.GetURIFromPath(this.loggedUser.getPicture());
+
+                if (uri != null) {
+                    this.picture.setImageURI(uri);
+                    this.picturePath = this.loggedUser.getPicture();
+                    this.pictureURI = uri;
+                }
             }
         }
+
         this.lastnameInput.setText(this.loggedUser.getLastname());
         this.firstnameInput.setText(this.loggedUser.getFirstname());
         this.birthdateInput.setText(((Patient) this.loggedUser).getBirthdate());
@@ -265,7 +268,12 @@ public class MyProfileActivity
         );
 
         if (patientDbHelper.UpdatePatient(patient)) {
-            try { if (this.picturePath != null) if (!this.picturePath.isEmpty()) if (!this.picturePath.equals(this.loggedUser.getPicture())) this.RemoveOldPictureFile(); }
+            try {
+                if (this.picturePath != null)
+                    if (!this.picturePath.isEmpty())
+                        if (!this.picturePath.equals(this.loggedUser.getPicture()))
+                            this.RemoveOldPictureFile();
+            }
             catch (Exception e) { e.printStackTrace(); }
 
             this.DisplaySuccessMsg();
@@ -275,8 +283,8 @@ public class MyProfileActivity
             i.putExtra(key, this.loggedUser);
             setResult(RESULT_OK, i);
             // To refresh the activity
-            //finish();
-            //startActivity(getIntent());
+            finish();
+            startActivity(getIntent());
 
             return;
         }
@@ -389,7 +397,7 @@ public class MyProfileActivity
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String pictureFileName = PREFIX_PROFILE_PICTURE + timeStamp + "_";
 
-        /**
+        /*
          * To store internally, use : getFilesDir()
          */
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -397,7 +405,10 @@ public class MyProfileActivity
         try {
             pictureFile = File.createTempFile(pictureFileName, FILE_EXT, storageDir);
 
-            if (this.picturePath != null) if (!this.picturePath.isEmpty()) if (!this.picturePath.equals(this.loggedUser.getPicture())) this.RemoveCurrentPictureFile();
+            if (this.picturePath != null)
+                if (!this.picturePath.isEmpty())
+                    if (!this.picturePath.equals(this.loggedUser.getPicture()))
+                        this.RemoveCurrentPictureFile();
 
             this.picturePath = pictureFile.getAbsolutePath();
             this.pictureURI = ImageService.GetURIFromFile(pictureFile);
@@ -491,7 +502,11 @@ public class MyProfileActivity
     @Override
     public void onBackPressed() {
         try {
-            if (this.picturePath != null) if (!this.picturePath.isEmpty()) if (!this.picturePath.equals(this.loggedUser.getPicture())) this.RemoveCurrentPictureFile();
+            if (this.picturePath != null)
+                if (!this.picturePath.isEmpty())
+                    if (!this.picturePath.equals(this.loggedUser.getPicture()))
+                        this.RemoveCurrentPictureFile();
+
             finish();
         }
         catch (Exception e) { e.printStackTrace(); }

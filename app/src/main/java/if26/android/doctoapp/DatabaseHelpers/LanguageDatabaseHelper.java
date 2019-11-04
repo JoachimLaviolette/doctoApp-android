@@ -59,6 +59,28 @@ public class LanguageDatabaseHelper {
     }
 
     /**
+     * Update doctor languages
+     * @param doctor The doctor to update languages of
+     * @return If languages have correctly been updated
+     */
+    public boolean UpdateLanguages(Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctor.getId() + "" };
+
+        if (database.delete(
+                DoctoAppDatabaseContract.Language.TABLE_NAME,
+                DoctoAppDatabaseContract.Language.COLUMN_NAME_DOCTOR + " = ?",
+                args
+        ) >= 0) {
+            this.InsertLanguages(doctor);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Create data struct for language using the given doctor model
      * @param doctor The doctor model
      * @return The data struct

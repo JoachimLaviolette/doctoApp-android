@@ -61,6 +61,59 @@ public class ReasonDatabaseHelper {
     }
 
     /**
+     * Update doctor reasons
+     * @param doctor The doctor to update reasons of
+     * @return If reasons have correctly been updated
+     */
+    public boolean UpdateReasons(Doctor doctor) {
+        for (Reason r: doctor.getReasons()) { if (!this.UpdateReason(r)) if (!this.InsertReason(r, doctor)) return false; }
+
+        return true;
+    }
+
+    /**
+     * Update the given reason
+     * @param reason The reason to update
+     * @return If the reason has correctly been updated
+     */
+    private boolean UpdateReason(Reason reason) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        ContentValues reasonContentValues = new ContentValues();
+        reasonContentValues.put(DoctoAppDatabaseContract.Reason.COLUMN_NAME_DESCRIPTION, reason.getDescription());
+        String[] args = { reason.getId() + "" };
+
+        return database.update(
+                DoctoAppDatabaseContract.Reason.TABLE_NAME,
+                reasonContentValues,
+                DoctoAppDatabaseContract.Reason.COLUMN_NAME_ID + " = ?",
+                args
+        ) == 1;
+    }
+
+    /**
+     * Insert a new reason in the db using the given reason and doctor models
+     * @param reason The reason model
+     * @param doctor The doctor model
+     * @return If the reason was successfully added
+     */
+    private boolean InsertReason(Reason reason, Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        ContentValues reasonContentValues = new ContentValues();
+        reasonContentValues.put(DoctoAppDatabaseContract.Reason.COLUMN_NAME_DOCTOR, doctor.getId());
+        reasonContentValues.put(DoctoAppDatabaseContract.Reason.COLUMN_NAME_DESCRIPTION, reason.getDescription());
+
+        long reasonId = database.insert(
+                DoctoAppDatabaseContract.Reason.TABLE_NAME,
+                null,
+                reasonContentValues
+        );
+
+        doctor.SetReasonId(reason, reasonId);
+
+        return reasonId != -1;
+    }
+
+    /**
      * Create data struct for reason using the given doctor model
      * @param doctor The doctor model
      * @return The data struct

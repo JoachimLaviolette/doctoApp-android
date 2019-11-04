@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dp"
+    android:fontFamily="@font/roboto"
+    android:text="@string/reason_my_profile_pro_list_item_description"
+    android:textAlignment="center"
+    android:textColor="@color/reason_my_profile_pro_list_item_description"
+    android:textSize="13sp" />

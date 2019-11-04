@@ -61,6 +61,29 @@ public class EducationDatabaseHelper {
     }
 
     /**
+     * Update doctor trainings
+     * @param doctor The doctor to update trainings of
+     * @return If trainings have correctly been updated
+     */
+    public boolean UpdateTrainings(Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctor.getId() + "" };
+
+        if (database.delete(
+                DoctoAppDatabaseContract.Education.TABLE_NAME,
+                DoctoAppDatabaseContract.Education.COLUMN_NAME_DOCTOR + " = ?",
+                args
+        ) >= 0) {
+            this.InsertTrainings(doctor);
+
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
      * Create data struct for education using the given doctor model
      * @param doctor The doctor model
      * @return The data struct
