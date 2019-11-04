@@ -1,6 +1,7 @@
 package if26.android.doctoapp.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -136,11 +137,24 @@ public class DoctorProfileActivity
      */
     private void SetContent() {
         // Set doctor picture
-        if (!this.doctor.getPicture().isEmpty()) this.doctorPicture.setImageURI(ImageService.GetURIFromPath(this.doctor.getPicture()));
+        if (this.doctor.getPicture() != null) {
+            if (!this.doctor.getPicture().isEmpty()) {
+                Uri uri = ImageService.GetURIFromPath(this.doctor.getPicture());
+
+                if (uri != null) this.doctorPicture.setImageURI(uri);
+                else this.doctorPicture.setImageResource(R.mipmap.ic_launcher);
+            }
+        } else this.doctorPicture.setImageResource(R.mipmap.ic_launcher);
 
         // Set doctor header
-        if (!this.doctor.getHeader().isEmpty()) this.doctorHeader.setImageURI(ImageService.GetURIFromPath(this.doctor.getHeader()));
-        else this.doctorHeader.setImageResource(R.drawable.beach_2);
+        if (this.doctor.getHeader() != null) {
+            if (!this.doctor.getHeader().isEmpty()) {
+                Uri uri = ImageService.GetURIFromPath(this.doctor.getHeader());
+
+                if (uri != null) this.doctorHeader.setImageURI(uri);
+                else this.doctorHeader.setImageResource(R.drawable.beach_2);
+            }
+        } else this.doctorHeader.setImageResource(R.drawable.beach_2);
         this.doctorHeader.setBlur(BLUR_AMOUNT);
 
         // Set doctor fullname

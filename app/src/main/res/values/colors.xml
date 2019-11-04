@@ -130,29 +130,100 @@
     <color name="signup_pro_error_msg_background">#ECDEDE</color>
 
     <!-- Signup list item -->
-    <color name="signup_list_item_remove">#BE4A4A</color>
-    <color name="signup_list_item_pipe">#696969</color>
+    <color name="signup_pro_list_item_remove">#BE4A4A</color>
+    <color name="signup_pro_list_item_pipe">#696969</color>
 
     <!-- Availability signup list item -->
-    <color name="availability_signup_list_item_day">#696969</color>
-    <color name="availability_signup_list_item_time">#B3B3B3</color>
+    <color name="availability_signup_pro_list_item_day">#696969</color>
+    <color name="availability_signup_pro_list_item_time">#B3B3B3</color>
 
     <!-- Reason signup list item -->
-    <color name="reason_signup_list_item_description">#696969</color>
+    <color name="reason_signup_pro_list_item_description">#696969</color>
 
     <!-- Education signup list item -->
-    <color name="education_signup_list_item_year">#696969</color>
-    <color name="education_signup_list_item_degree">#B3B3B3</color>
+    <color name="education_signup_pro_list_item_year">#696969</color>
+    <color name="education_signup_pro_list_item_degree">#B3B3B3</color>
 
     <!-- Experience signup list item -->
-    <color name="experience_signup_list_item_year">#696969</color>
-    <color name="experience_signup_list_item_description">#B3B3B3</color>
+    <color name="experience_signup_pro_list_item_year">#696969</color>
+    <color name="experience_signup_pro_list_item_description">#B3B3B3</color>
 
     <!-- Language signup list item -->
-    <color name="language_signup_list_item_description">#696969</color>
+    <color name="language_signup_pro_list_item_description">#696969</color>
 
     <!-- Payment option signup list item -->
-    <color name="payment_option_signup_list_item_description">#696969</color>
+    <color name="payment_option_signup_pro_list_item_description">#696969</color>
+
+    <!-- My profile pro -->
+    <color name="my_profile_pro_background">#E4E4E4</color>
+    <color name="my_profile_pro_caption">#696969</color>
+    <color name="my_profile_pro_section_label">#696969</color>
+    <color name="my_profile_pro_input_text">#858585</color>
+    <color name="my_profile_pro_input_hint">#D8D8D8</color>
+    <color name="my_profile_pro_btn_background">#1B86E4</color>
+    <color name="my_profile_pro_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_login_background">#FFFFFF</color>
+    <color name="my_profile_pro_login_link">#1B86E4</color>
+    <color name="my_profile_pro_private_account_background">#FFFFFF</color>
+    <color name="my_profile_pro_private_account_link">#1B86E4</color>
+    <color name="my_profile_pro_success_msg">#18965A</color>
+    <color name="my_profile_pro_success_msg_title">#FFFFFF</color>
+    <color name="my_profile_pro_success_msg_content">#FFFFFF</color>
+    <color name="my_profile_pro_take_picture_from_camera">#494949</color>
+    <color name="my_profile_pro_take_picture_from_camera_text">#FFFFFF</color>
+    <color name="my_profile_pro_select_picture_from_gallery">#494949</color>
+    <color name="my_profile_pro_select_picture_from_gallery_text">#FFFFFF</color>
+    <color name="my_profile_pro_take_header_from_camera">#494949</color>
+    <color name="my_profile_pro_take_header_from_camera_text">#FFFFFF</color>
+    <color name="my_profile_pro_select_header_from_gallery">#494949</color>
+    <color name="my_profile_pro_select_header_from_gallery_text">#FFFFFF</color>
+    <color name="my_profile_pro_option">#858585</color>
+    <color name="my_profile_pro_option_selected">#1B86E4</color>
+    <color name="my_profile_pro_section">#FFFFFF</color>
+    <color name="my_profile_pro_add_availability_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_reason_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_training_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_experience_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_language_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_payment_option_btn">#1B86E4</color>
+    <color name="my_profile_pro_add_availability_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_add_reason_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_add_training_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_add_experience_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_add_language_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_add_payment_option_btn_text">#FFFFFF</color>
+    <color name="my_profile_pro_days_list">#F8F8F8</color>
+    <color name="my_profile_pro_languages_list">#F8F8F8</color>
+    <color name="my_profile_pro_payment_options_list">#F8F8F8</color>
+    <color name="my_profile_pro_info_msg">#3081C7</color>
+    <color name="my_profile_pro_info_msg_background">#EDF2F5</color>
+    <color name="my_profile_pro_error_msg">#BE4A4A</color>
+    <color name="my_profile_pro_error_msg_background">#ECDEDE</color>
+
+    <!-- My profile pro list item -->
+    <color name="my_profile_pro_list_item_remove">#BE4A4A</color>
+    <color name="my_profile_pro_list_item_pipe">#696969</color>
+
+    <!-- Availability my profile pro list item -->
+    <color name="availability_my_profile_pro_list_item_day">#696969</color>
+    <color name="availability_my_profile_pro_list_item_time">#B3B3B3</color>
+
+    <!-- Reason my profile pro list item -->
+    <color name="reason_my_profile_pro_list_item_description">#696969</color>
+
+    <!-- Education my profile pro list item -->
+    <color name="education_my_profile_pro_list_item_year">#696969</color>
+    <color name="education_my_profile_pro_list_item_degree">#B3B3B3</color>
+
+    <!-- Experience my profile pro list item -->
+    <color name="experience_my_profile_pro_list_item_year">#696969</color>
+    <color name="experience_my_profile_pro_list_item_description">#B3B3B3</color>
+
+    <!-- Language my profile pro list item -->
+    <color name="language_my_profile_pro_list_item_description">#696969</color>
+
+    <!-- Payment option my profile pro list item -->
+    <color name="payment_option_my_profile_pro_list_item_description">#696969</color>
 
     <!-- Search -->
     <color name="search_background">#FFFFFF</color>

@@ -5,4 +5,4 @@
     android:layout_height="wrap_content"
     android:src="@drawable/ic_remove"
     android:padding="5dp"
-    android:tint="@color/signup_list_item_remove" />
+    android:tint="@color/my_profile_pro_list_item_remove" />

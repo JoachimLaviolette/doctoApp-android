@@ -131,7 +131,7 @@
     <string name="my_profile_success_msg_content">Your profile has been successfully updated with the provided information. You can anytime change the information of your profile.</string>
     <string name="my_profile_error_msg_title">Profile update failed</string>
     <string name="my_profile_error_msg_content">Impossible to update your profile. Please make sure your email is in a correct format and that all the fields are properly filled. Also check old password and both new passwords are corresponding, if modified. In case you changed your email address make sure it is available.</string>
-    <string name="my_profile_toast_my_profile_content">Your profile was successfully updated.</string>
+    <string name="my_profile_toast_update_content">Your profile was successfully updated.</string>
 
     <string name="my_profile_patient_profile_section_label">Profile data</string>
     <string name="my_profile_patient_address_section_label">Address data</string>
@@ -202,7 +202,7 @@
     <string name="signup_pro_success_msg_content">You are now registered. You can login to your account using the email you provided to sign-up.</string>
     <string name="signup_pro_error_msg_title">Registration failed</string>
     <string name="signup_pro_error_msg_content">Impossible to sign-up. Please make sure your email is in a correct format and that all the fields are properly filled. Also check both passwords are corresponding. If your email is already associated to an existing account, login to your account using the link below.</string>
-    <string name="signup_pro_toast_signup_pro_content">You are now registered. Login to your account from the login page.</string>
+    <string name="signup_pro_toast_signup_content">You are now registered. Login to your account from the login page.</string>
 
     <string name="signup_pro_doctor_profile_section_label">Profile data</string>
     <string name="signup_pro_doctor_address_section_label">Address data</string>
@@ -246,47 +246,158 @@
     </string-array>
 
     <!-- Signup list item -->
-    <string name="signup_list_item_pipe">|</string>
+    <string name="signup_pro_list_item_pipe">|</string>
 
     <!-- Availability signup list item -->
-    <string name="availability_signup_list_item_day">{day}</string>
-    <string name="availability_signup_list_item_time">[time}</string>
+    <string name="availability_signup_pro_list_item_day">{day}</string>
+    <string name="availability_signup_pro_list_item_time">[time}</string>
 
     <!-- Reason signup list item -->
-    <string name="reason_signup_list_item_description">{description}</string>
+    <string name="reason_signup_pro_list_item_description">{description}</string>
 
     <!-- Education signup list item -->
-    <string name="education_signup_list_item_year">[year}</string>
-    <string name="education_signup_list_item_degree">{degree}</string>
+    <string name="education_signup_pro_list_item_year">[year}</string>
+    <string name="education_signup_pro_list_item_degree">{degree}</string>
 
     <!-- Experience signup list item -->
-    <string name="experience_signup_list_item_year">{year}</string>
-    <string name="experience_signup_list_item_description">{description}</string>
+    <string name="experience_signup_pro_list_item_year">{year}</string>
+    <string name="experience_signup_pro_list_item_description">{description}</string>
 
     <!-- Language signup list item -->
-    <string name="language_signup_list_item_description">{description}</string>
+    <string name="language_signup_pro_list_item_description">{description}</string>
 
     <!-- Payment option signup list item -->
-    <string name="payment_option_signup_list_item_description">{description}</string>
-
-    <!-- My profile -->
-    <string name="my_profile_x">Content</string>
-    <string name="my_profile_a">Content</string>
-    <string name="my_profile_c">Content</string>
-    <string name="my_profile_v">Content</string>
-    <string name="my_profile_b">Content</string>
-    <string name="my_profile_f">Content</string>
-    <string name="my_profile_d">Content</string>
-    <string name="my_profile_s">Content</string>
-    <string name="my_profile_q">Content</string>
-    <string name="my_profile_z">Content</string>
-    <string name="my_profile_toast_update_content">Your profile was successfully updated.</string>
+    <string name="payment_option_signup_pro_list_item_description">{description}</string>
 
     <!-- My profile pro -->
-    <string name="my_profile_pro_x">Content</string>
-    <string name="my_profile_pro_a">Content</string>
-    <string name="my_profile_pro_c">Content</string>
-    <string name="my_profile_pro_toast_update_content">Your profile was successfully updated.</string>
+    <string name="my_profile_pro_picture_uri">my_profile_pro_picture_uri</string>
+
+    <string name="my_profile_pro_caption">Update your professional profile</string>
+
+    <string name="my_profile_pro_take_picture_from_camera">Take a picture</string>
+    <string name="my_profile_pro_select_picture_from_gallery">Select a picture</string>
+    <string name="my_profile_pro_take_header_from_camera">Take a header</string>
+    <string name="my_profile_pro_select_header_from_gallery">Select a header</string>
+
+    <string name="my_profile_pro_lastname">Last name</string>
+    <string name="my_profile_pro_firstname">First name</string>
+    <string name="my_profile_pro_speciality">Speciality</string>
+    <string name="my_profile_pro_email">Email</string>
+    <string name="my_profile_pro_description">Description</string>
+    <string name="my_profile_pro_contact_number">Contact number</string>
+    <string name="my_profile_pro_pwd">Password</string>
+    <string name="my_profile_pro_confirm_pwd">Confirm your password</string>
+    <string name="my_profile_pro_is_under_agreement">Are you under agreement?</string>
+    <string name="my_profile_pro_is_health_insurance_card">Do you accept health insurance card?</string>
+    <string name="my_profile_pro_is_third_party_payment">Do you allow third party payment?</string>
+
+    <string name="my_profile_pro_street1">Street 1</string>
+    <string name="my_profile_pro_street2">Street 2</string>
+    <string name="my_profile_pro_city">City</string>
+    <string name="my_profile_pro_zip">Zip code</string>
+    <string name="my_profile_pro_country">Country</string>
+
+    <string name="my_profile_pro_lastname_placeholder">Last name</string>
+    <string name="my_profile_pro_firstname_placeholder">First name</string>
+    <string name="my_profile_pro_speciality_placeholder">Speciality</string>
+    <string name="my_profile_pro_email_placeholder">Email</string>
+    <string name="my_profile_pro_description_placeholder">Description</string>
+    <string name="my_profile_pro_contact_number_placeholder">Contact number</string>
+    <string name="my_profile_pro_old_pwd_placeholder">Old password</string>
+    <string name="my_profile_pro_new_pwd_placeholder">New password</string>
+    <string name="my_profile_pro_confirm_pwd_placeholder">Confirm your password</string>
+
+    <string name="my_profile_pro_street1_placeholder">Street 1</string>
+    <string name="my_profile_pro_street2_placeholder">Street 2</string>
+    <string name="my_profile_pro_city_placeholder">City</string>
+    <string name="my_profile_pro_zip_placeholder">Zip code</string>
+    <string name="my_profile_pro_country_placeholder">Country</string>
+
+    <string name="my_profile_pro_availability_info">Warning about time.\nMust be in 24h format.</string>
+    <string name="my_profile_pro_availability_input_placeholder">ie. 15:00</string>
+    <string name="my_profile_pro_availability_error">An error occurred when adding the availability.\nPlease check the fields.\nMake sure you have not already added it.</string>
+    <string name="my_profile_pro_reason_description_input_placeholder">ie. I am depressed</string>
+    <string name="my_profile_pro_reason_error">An error occurred when adding the reason.\nPlease make sure you have not already added it.</string>
+    <string name="my_profile_pro_experience_year_input_placeholder">ie. 2009</string>
+    <string name="my_profile_pro_experience_description_input_placeholder">ie. 3 years in a Paris Hospital</string>
+    <string name="my_profile_pro_experience_error">An error occurred when adding the experience.\nPlease check the fields.\nMake sure you have not already added it.</string>
+    <string name="my_profile_pro_training_year_input_placeholder">ie. 2013</string>
+    <string name="my_profile_pro_training_description_input_placeholder">ie. MSc in Medicine and Psychology</string>
+    <string name="my_profile_pro_training_error">An error occurred when adding the training.\nPlease check the fields.\nMake sure you have not already added it.</string>
+    <string name="my_profile_pro_language_error">An error occurred when adding the language.\nPlease make sure you have not already added it.</string>
+    <string name="my_profile_pro_payment_option_error">An error occurred when adding the payment option.\nPlease make sure you have not already added it.</string>
+
+    <string name="my_profile_pro_update_btn">Update profile</string>
+    <string name="my_profile_pro_success_msg_title">Update succeeded</string>
+    <string name="my_profile_pro_success_msg_content">Your professional profile has been successfully updated with the provided information. You can anytime change the information of your profile.</string>
+    <string name="my_profile_pro_error_msg_title">Update failed</string>
+    <string name="my_profile_pro_error_msg_content">Impossible to update your profile. Please make sure your email is in a correct format and that all the fields are properly filled. Also check old password and both new passwords are corresponding, if modified. In case you changed your email address make sure it is available.</string>
+    <string name="my_profile_pro_toast_update_content">Your professional profile was successfully updated.</string>
+
+    <string name="my_profile_pro_doctor_profile_section_label">Profile data</string>
+    <string name="my_profile_pro_doctor_address_section_label">Address data</string>
+    <string name="my_profile_pro_doctor_prices_refunds_section_label">Prices and refunds options</string>
+    <string name="my_profile_pro_doctor_availabilities_section_label">Availabilities</string>
+    <string name="my_profile_pro_doctor_reason_section_label">Consultation reasons</string>
+    <string name="my_profile_pro_doctor_experience_section_label">Experience</string>
+    <string name="my_profile_pro_doctor_education_section_label">Education</string>
+    <string name="my_profile_pro_doctor_languages_section_label">Spoken languages</string>
+    <string name="my_profile_pro_doctor_payment_options_section_label">Allowed payment options</string>
+
+    <string name="my_profile_pro_add_availability_btn_text">Add availability</string>
+    <string name="my_profile_pro_add_reason_btn_text">Add reason</string>
+    <string name="my_profile_pro_add_training_btn_text">Add training</string>
+    <string name="my_profile_pro_add_experience_btn_text">Add experience</string>
+    <string name="my_profile_pro_add_language_btn_text">Add language</string>
+    <string name="my_profile_pro_add_payment_option_btn_text">Add payment option</string>
+
+    <string name="my_profile_pro_toast_add_availability_content">Availability successfully added.</string>
+    <string name="my_profile_pro_toast_add_reason_content">Reason successfully added.</string>
+    <string name="my_profile_pro_toast_add_experience_content">Experience successfully added.</string>
+    <string name="my_profile_pro_toast_add_training_content">Training successfully added.</string>
+    <string name="my_profile_pro_toast_add_language_content">Language successfully added.</string>
+    <string name="my_profile_pro_toast_add_payment_option_content">Payment option successfully added.</string>
+    <string name="my_profile_pro_toast_remove_availability_content">Availability successfully removed.</string>
+    <string name="my_profile_pro_toast_remove_reason_content">Reason successfully removed.</string>
+    <string name="my_profile_pro_toast_remove_experience_content">Experience successfully removed.</string>
+    <string name="my_profile_pro_toast_remove_training_content">Training successfully removed.</string>
+    <string name="my_profile_pro_toast_remove_language_content">Language successfully removed.</string>
+    <string name="my_profile_pro_toast_remove_payment_option_content">Payment option successfully removed.</string>
+
+    <string name="my_profile_pro_days_placeholder">Choose a day</string>
+    <string-array name="my_profile_pro_days_list">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
+    <!-- My profile pro list item -->
+    <string name="my_profile_pro_list_item_pipe">|</string>
+
+    <!-- Availability my profile pro list item -->
+    <string name="availability_my_profile_pro_list_item_day">{day}</string>
+    <string name="availability_my_profile_pro_list_item_time">[time}</string>
+
+    <!-- Reason my profile pro list item -->
+    <string name="reason_my_profile_pro_list_item_description">{description}</string>
+
+    <!-- Education my profile pro list item -->
+    <string name="education_my_profile_pro_list_item_year">[year}</string>
+    <string name="education_my_profile_pro_list_item_degree">{degree}</string>
+
+    <!-- Experience my profile pro list item -->
+    <string name="experience_my_profile_pro_list_item_year">{year}</string>
+    <string name="experience_my_profile_pro_list_item_description">{description}</string>
+
+    <!-- Language my profile pro list item -->
+    <string name="language_my_profile_pro_list_item_description">{description}</string>
+
+    <!-- Payment option my profile pro list item -->
+    <string name="payment_option_my_profile_pro_list_item_description">{description}</string>
 
     <!-- Search -->
     <string name="search_bar_placeholder">Doctor, place, speciality...</string>

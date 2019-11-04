@@ -61,6 +61,28 @@ public class AvailabilityDatabaseHelper {
     }
 
     /**
+     * Update doctor availabilities
+     * @param doctor The doctor to update availabilities of
+     * @return If availabilities have correctly been updated
+     */
+    public boolean UpdateAvailabilities(Doctor doctor) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctor.getId() + "" };
+
+        if (database.delete(
+                DoctoAppDatabaseContract.Availability.TABLE_NAME,
+                DoctoAppDatabaseContract.Availability.COLUMN_NAME_DOCTOR + " = ?",
+                args
+        ) >= 0) {
+            this.InsertAvailabilities(doctor);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Create data struct for availability using the given doctor model
      * @param doctor The doctor model
      * @return The data struct

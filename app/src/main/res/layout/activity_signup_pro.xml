@@ -419,7 +419,7 @@
                                 android:textColor="@color/signup_pro_info_msg"
                                 android:textSize="13sp" />
 
-                            <include layout="@layout/template_availability_signup_list" />
+                            <include layout="@layout/template_availability_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -515,7 +515,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <include layout="@layout/template_reason_signup_list" />
+                            <include layout="@layout/template_reason_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -599,7 +599,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <include layout="@layout/template_education_signup_list" />
+                            <include layout="@layout/template_education_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -700,7 +700,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <include layout="@layout/template_experience_signup_list" />
+                            <include layout="@layout/template_experience_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -801,7 +801,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <include layout="@layout/template_language_signup_list" />
+                            <include layout="@layout/template_language_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -879,7 +879,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
-                            <include layout="@layout/template_payment_option_signup_list" />
+                            <include layout="@layout/template_payment_option_signup_pro_list" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"

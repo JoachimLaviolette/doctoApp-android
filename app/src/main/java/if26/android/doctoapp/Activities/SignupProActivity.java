@@ -233,12 +233,12 @@ public class SignupProActivity
         this.doctorProfileSection = findViewById(R.id.signup_pro_doctor_profile_section);
         this.doctorAddressSection = findViewById(R.id.signup_pro_doctor_address_section);
 
-        this.availabilitySignupList = findViewById(R.id.availability_signup_list);
-        this.reasonSignupList = findViewById(R.id.reason_signup_list);
-        this.experienceSignupList = findViewById(R.id.experience_signup_list);
-        this.educationSignupList = findViewById(R.id.education_signup_list);
-        this.languageSignupList = findViewById(R.id.language_signup_list);
-        this.paymentOptionSignupList = findViewById(R.id.payment_option_signup_list);
+        this.availabilitySignupList = findViewById(R.id.availability_signup_pro_list);
+        this.reasonSignupList = findViewById(R.id.reason_signup_pro_list);
+        this.experienceSignupList = findViewById(R.id.experience_signup_pro_list);
+        this.educationSignupList = findViewById(R.id.education_signup_pro_list);
+        this.languageSignupList = findViewById(R.id.language_signup_pro_list);
+        this.paymentOptionSignupList = findViewById(R.id.payment_option_signup_pro_list);
 
         this.addAvailabilityBtn = findViewById(R.id.signup_pro_add_availability_btn);
         this.addReasonBtn = findViewById(R.id.signup_pro_add_reason_btn);
@@ -723,17 +723,17 @@ public class SignupProActivity
     private void FeedAvailabilityViewList(final Availability a) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View availabilityListItemLayout = inflater.inflate(R.layout.template_availability_signup_list_item_layout, this.availabilitySignupList, false);
+        final View availabilityListItemLayout = inflater.inflate(R.layout.template_availability_signup_pro_list_item_layout, this.availabilitySignupList, false);
 
-        View day = inflater.inflate(R.layout.template_availability_signup_list_item_day, (LinearLayout) availabilityListItemLayout, false);
+        View day = inflater.inflate(R.layout.template_availability_signup_pro_list_item_day, (LinearLayout) availabilityListItemLayout, false);
         ((TextView) day).setText(a.getDate());
 
-        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) availabilityListItemLayout, false);
+        View pipe = inflater.inflate(R.layout.template_signup_pro_list_item_pipe, (LinearLayout) availabilityListItemLayout, false);
 
-        View time = inflater.inflate(R.layout.template_availability_signup_list_item_time, (LinearLayout) availabilityListItemLayout, false);
+        View time = inflater.inflate(R.layout.template_availability_signup_pro_list_item_time, (LinearLayout) availabilityListItemLayout, false);
         ((TextView) time).setText(a.getTime());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) availabilityListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) availabilityListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) availabilityListItemLayout.getParent()).removeView(availabilityListItemLayout);
@@ -801,12 +801,12 @@ public class SignupProActivity
     private void FeedReasonViewList(final Reason r) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View reasonListItemLayout = inflater.inflate(R.layout.template_reason_signup_list_item_layout, this.reasonSignupList, false);
+        final View reasonListItemLayout = inflater.inflate(R.layout.template_reason_signup_pro_list_item_layout, this.reasonSignupList, false);
 
-        View description = inflater.inflate(R.layout.template_reason_signup_list_item_description, (LinearLayout) reasonListItemLayout, false);
+        View description = inflater.inflate(R.layout.template_reason_signup_pro_list_item_description, (LinearLayout) reasonListItemLayout, false);
         ((TextView) description).setText(r.getDescription());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) reasonListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) reasonListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) reasonListItemLayout.getParent()).removeView(reasonListItemLayout);
@@ -876,17 +876,17 @@ public class SignupProActivity
     private void FeedEducationViewList(final Education e) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View educationListItemLayout = inflater.inflate(R.layout.template_education_signup_list_item_layout, this.educationSignupList, false);
+        final View educationListItemLayout = inflater.inflate(R.layout.template_education_signup_pro_list_item_layout, this.educationSignupList, false);
 
-        View year = inflater.inflate(R.layout.template_education_signup_list_item_year, (LinearLayout) educationListItemLayout, false);
+        View year = inflater.inflate(R.layout.template_education_signup_pro_list_item_year, (LinearLayout) educationListItemLayout, false);
         ((TextView) year).setText(e.getYear());
 
-        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) educationListItemLayout, false);
+        View pipe = inflater.inflate(R.layout.template_signup_pro_list_item_pipe, (LinearLayout) educationListItemLayout, false);
 
-        View degree = inflater.inflate(R.layout.template_education_signup_list_item_degree, (LinearLayout) educationListItemLayout, false);
+        View degree = inflater.inflate(R.layout.template_education_signup_pro_list_item_degree, (LinearLayout) educationListItemLayout, false);
         ((TextView) degree).setText(e.getDegree());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) educationListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) educationListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) educationListItemLayout.getParent()).removeView(educationListItemLayout);
@@ -958,17 +958,17 @@ public class SignupProActivity
     private void FeedExperienceViewList(final Experience e) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View experienceListItemLayout = inflater.inflate(R.layout.template_experience_signup_list_item_layout, this.experienceSignupList, false);
+        final View experienceListItemLayout = inflater.inflate(R.layout.template_experience_signup_pro_list_item_layout, this.experienceSignupList, false);
 
-        View year = inflater.inflate(R.layout.template_experience_signup_list_item_year, (LinearLayout) experienceListItemLayout, false);
+        View year = inflater.inflate(R.layout.template_experience_signup_pro_list_item_year, (LinearLayout) experienceListItemLayout, false);
         ((TextView) year).setText(e.getYear());
 
-        View pipe = inflater.inflate(R.layout.template_signup_list_item_pipe, (LinearLayout) experienceListItemLayout, false);
+        View pipe = inflater.inflate(R.layout.template_signup_pro_list_item_pipe, (LinearLayout) experienceListItemLayout, false);
 
-        View description = inflater.inflate(R.layout.template_experience_signup_list_item_description, (LinearLayout) experienceListItemLayout, false);
+        View description = inflater.inflate(R.layout.template_experience_signup_pro_list_item_description, (LinearLayout) experienceListItemLayout, false);
         ((TextView) description).setText(e.getDescription());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) experienceListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) experienceListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) experienceListItemLayout.getParent()).removeView(experienceListItemLayout);
@@ -1018,12 +1018,12 @@ public class SignupProActivity
     private void FeedLanguageViewList(final Language l) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View languageListItemLayout = inflater.inflate(R.layout.template_language_signup_list_item_layout, this.languageSignupList, false);
+        final View languageListItemLayout = inflater.inflate(R.layout.template_language_signup_pro_list_item_layout, this.languageSignupList, false);
 
-        View description = inflater.inflate(R.layout.template_language_signup_list_item_description, (LinearLayout) languageListItemLayout, false);
+        View description = inflater.inflate(R.layout.template_language_signup_pro_list_item_description, (LinearLayout) languageListItemLayout, false);
         ((TextView) description).setText(l.toString());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) languageListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) languageListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) languageListItemLayout.getParent()).removeView(languageListItemLayout);
@@ -1071,12 +1071,12 @@ public class SignupProActivity
     private void FeedPaymentOptionViewList(final PaymentOption po) {
         LayoutInflater inflater = this.getLayoutInflater();
 
-        final View paymentOptionListItemLayout = inflater.inflate(R.layout.template_payment_option_signup_list_item_layout, this.paymentOptionSignupList, false);
+        final View paymentOptionListItemLayout = inflater.inflate(R.layout.template_payment_option_signup_pro_list_item_layout, this.paymentOptionSignupList, false);
 
-        View description = inflater.inflate(R.layout.template_payment_option_signup_list_item_description, (LinearLayout) paymentOptionListItemLayout, false);
+        View description = inflater.inflate(R.layout.template_payment_option_signup_pro_list_item_description, (LinearLayout) paymentOptionListItemLayout, false);
         ((TextView) description).setText(po.toString());
 
-        View remove = inflater.inflate(R.layout.template_signup_list_item_remove, (LinearLayout) paymentOptionListItemLayout, false);
+        View remove = inflater.inflate(R.layout.template_signup_pro_list_item_remove, (LinearLayout) paymentOptionListItemLayout, false);
         remove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((ViewGroup) paymentOptionListItemLayout.getParent()).removeView(paymentOptionListItemLayout);
