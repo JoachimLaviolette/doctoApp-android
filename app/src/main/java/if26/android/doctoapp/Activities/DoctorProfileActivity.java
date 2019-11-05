@@ -328,16 +328,22 @@ public class DoctorProfileActivity
      * Clear the current popup context
      */
     private void ClearCurrentPopupContext() {
-        if (this.currentPopup != null) this.currentPopup.dismiss();
+        if (this.currentPopup != null) {
+            this.currentPopup.dismiss();
+            this.currentPopup = null;
+        }
+
         if (this.popupClose != null) {
             this.popupClose = null;
         }
+
         if (this.popupExternalBackground != null) this.popupExternalBackground = null;
         if (this.popupContentLayout != null) this.popupContentLayout = null;
     }
 
     /**
      * Create a new popup context
+     * @param title The title of the popup
      * @return The popup sample view
      */
     private View CreateNewPopupContext(String title) {
@@ -394,7 +400,7 @@ public class DoctorProfileActivity
 
     /**
      * Format prices and refunds popup view data
-     * @param popupSampleView
+     * @param popupSampleView The popup sample view
      */
     private void FormatPricesRefundsPopupViewData(View popupSampleView) {
         this.isUnderAgreementPopupSection = popupSampleView.findViewById(R.id.doctor_profile_popup_section_is_under_agreement);

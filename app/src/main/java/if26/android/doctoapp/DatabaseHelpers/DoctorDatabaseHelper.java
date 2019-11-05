@@ -381,6 +381,22 @@ public class DoctorDatabaseHelper {
     }
 
     /**
+     * Remove a doctor by id
+     * @param doctorId The id of the doctor to remove
+     * @return If the doctor was successfully removed
+     */
+    public boolean DeleteDoctorById(String doctorId) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { doctorId };
+
+        return database.delete(
+                DoctoAppDatabaseContract.Doctor.TABLE_NAME,
+                DoctoAppDatabaseContract.Doctor.COLUMN_NAME_ID + " = ?",
+                args
+        ) == 1;
+    }
+
+    /**
      * Gather doctor table data in a map according to the given doctor data
      * @param doctorData The doctor data
      * @param c Cursor pointing on query results

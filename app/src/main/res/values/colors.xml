@@ -40,6 +40,17 @@
     <color name="login_error_msg">#BE4A4A</color>
     <color name="login_success_msg_title">#FFFFFF</color>
     <color name="login_success_msg_content">#FFFFFF</color>
+    <color name="login_delete_account_msg">#BE4A4A</color>
+    <color name="login_delete_account_msg_title">#FFFFFF</color>
+    <color name="login_delete_account_msg_content">#FFFFFF</color>
+    <color name="login_delete_account_popup_external_background">#000000</color>
+    <color name="login_delete_account_popup_background">#FFFFFF</color>
+    <color name="login_delete_account_popup_title">#FFFFFF</color>
+    <color name="login_delete_account_popup_title_background">#1B86E4</color>
+    <color name="login_delete_account_popup_section_title">#444444</color>
+    <color name="login_delete_account_popup_section_content">#727272</color>
+    <color name="login_delete_account_popup_close">#FFFFFF</color>
+    <color name="login_delete_account_popup_btn_text">#FFFFFF</color>
 
     <!-- Signup -->
     <color name="signup_background">#E4E4E4</color>

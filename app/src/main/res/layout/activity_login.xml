@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/login_background"
@@ -64,6 +65,40 @@
                     android:text="@string/login_success_msg_content"
                     android:textAlignment="center"
                     android:textColor="@color/login_success_msg_content"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/login_delete_account_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:background="@color/login_delete_account_msg"
+                android:orientation="vertical"
+                android:padding="10sp"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/login_delete_account_msg_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/login_delete_account_msg_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/login_delete_account_msg_title"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/login_delete_account_msg_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/login_delete_account_msg_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/login_delete_account_msg_content"
                     android:textSize="14sp" />
             </LinearLayout>
 
