@@ -3,15 +3,21 @@ package if26.android.doctoapp.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import if26.android.doctoapp.Codes.RequestCode;
 import if26.android.doctoapp.DatabaseHelpers.DoctorDatabaseHelper;
@@ -28,7 +34,8 @@ public class LoginActivity
     private Resident loggedUser;
     private boolean toRedirect;
 
-    private LinearLayout loginMsg;
+    private ConstraintLayout mainLayout;
+    private LinearLayout loginMsg, deleteAccountMsg;
     private TextView loginMsgTitle;
     private TextView loginMsgContent;
     private EditText emailInput;
@@ -46,9 +53,17 @@ public class LoginActivity
     private TextView proAccountLink;
     private LinearLayout professionalSection;
 
+    private PopupWindow currentDeleteAccountPopup;
+    private TextView popupClose;
+    private RelativeLayout popupExternalBackground;
+    private LinearLayout popupContentLayout;
+    private Button discardBtn;
+    private Button confirmBtn;
+
     private static final int LOGOUT = 0;
     private static final int LOGIN_PATIENT = 1;
     private static final int LOGIN_DOCTOR = 2;
+    private static final int USER_REMOVED = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +82,9 @@ public class LoginActivity
     private void Instantiate() {
         this.loggedUser = null;
         this.toRedirect = false;
+        this.mainLayout = findViewById(R.id.login_layout);
         this.loginMsg = findViewById(R.id.login_msg);
+        this.deleteAccountMsg = findViewById(R.id.login_delete_account_msg);
         this.myProfileBtn = findViewById(R.id.login_my_profile_btn);
         this.myBookingsBtn = findViewById(R.id.login_my_bookings_btn);
         this.deleteMyAccountBtn = findViewById(R.id.login_delete_account_btn);
@@ -84,6 +101,14 @@ public class LoginActivity
         this.signupSection = findViewById(R.id.login_signup_section);
         this.proAccountLink = findViewById(R.id.login_signup_pro_link);
         this.professionalSection = findViewById(R.id.login_signup_pro_section);
+
+        // Popup
+        this.currentDeleteAccountPopup = null;
+        this.popupClose = null;
+        this.popupExternalBackground = null;
+        this.popupContentLayout = null;
+        this.discardBtn = null;
+        this.confirmBtn = null;
     }
 
     /**
@@ -168,6 +193,20 @@ public class LoginActivity
                 return;
             case R.id.login_delete_account_btn:
                 if (this.loggedUser != null) this.DeleteAccount();
+
+                return;
+            case R.id.login_delete_account_popup_close:
+            case R.id.login_delete_account_popup_discard_btn:
+                if (this.loggedUser != null) this.ClearCurrentDeleteAccountPopupContext();
+
+                return;
+            case R.id.login_delete_account_popup_external_background:
+                if (v.getId() != R.id.login_delete_account_popup_content_layout)
+                    this.ClearCurrentDeleteAccountPopupContext();
+
+                return;
+            case R.id.login_delete_account_popup_confirm_btn:
+                this.DeleteAccount();
         }
     }
 
@@ -186,6 +225,7 @@ public class LoginActivity
         this.signupSection.setVisibility(View.VISIBLE);
         this.professionalSection.setVisibility(View.VISIBLE);
         this.loginMsg.setVisibility(View.GONE);
+        this.deleteAccountMsg.setVisibility(View.GONE);
         this.emailInput.setText("");
         this.passwordInput.setText("");
         this.stayLogged.setChecked(false);
@@ -409,10 +449,60 @@ public class LoginActivity
     }
 
     /**
+     * Start Main activity
+     */
+    private void Home() {
+        // Create the intent
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.removeExtra(key);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
+    /**
+     * Display error message in case account removal failed
+     */
+    private void DisplayDeleteAccountErrorMsg() {
+        this.deleteAccountMsg.setVisibility(View.VISIBLE);
+    }
+
+    /**
      * Start DeleteAccount activity
      */
     private void DeleteAccount() {
+        if (this.currentDeleteAccountPopup == null) {
+            this.CreateDeleteAccountPopup();
 
+            return;
+        }
+
+        // Clear current delete account popup
+        this.ClearCurrentDeleteAccountPopupContext();
+
+        // Run delete account process
+        String userId = this.loggedUser.getId() + "";
+        boolean isRemoved = false;
+
+        if (this.loggedUser instanceof Patient)
+            isRemoved = (new PatientDatabaseHelper(this)).DeletePatientById(userId);
+        else
+            isRemoved = (new DoctorDatabaseHelper(this)).DeleteDoctorById(userId);
+
+        // If the removal was successful
+        if (isRemoved) {
+            this.MakeToast(USER_REMOVED);
+            this.Home();
+
+            return;
+        }
+
+        // Else, display error message
+        this.DisplayDeleteAccountErrorMsg();
     }
 
     /**
@@ -440,6 +530,12 @@ public class LoginActivity
                 return;
             case LOGIN_DOCTOR:
                 content = this.getResources().getString(R.string.login_toast_login_doctor_content);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case USER_REMOVED:
+                content = this.getResources().getString(R.string.login_toast_user_removed_content);
                 toast = Toast.makeText(context, content, duration);
                 toast.show();
         }
@@ -476,5 +572,70 @@ public class LoginActivity
                 if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
         }
+    }
+
+    /**
+     * Open the delete account popup
+     */
+    private void CreateDeleteAccountPopup() {
+        // Clear the current delete account popup context if any
+        this.ClearCurrentDeleteAccountPopupContext();
+
+        // Create the new popup context
+        this.CreateNewDeleteAccountPopupContext();
+
+        // Attach the appropriate events to the current popup
+        this.SubscribeEventsPopup();
+
+        // Display the popup
+        this.currentDeleteAccountPopup.showAtLocation(this.mainLayout, Gravity.NO_GRAVITY, 0, 0);
+    }
+
+    /**
+     * Clear the current delete account popup context
+     */
+    private void ClearCurrentDeleteAccountPopupContext() {
+        if (this.currentDeleteAccountPopup != null) {
+            this.currentDeleteAccountPopup.dismiss();
+            this.currentDeleteAccountPopup = null;
+        }
+
+        if (this.popupClose != null) {
+            this.popupClose = null;
+            this.discardBtn = null;
+            this.confirmBtn = null;
+        }
+
+        if (this.popupExternalBackground != null) this.popupExternalBackground = null;
+        if (this.popupContentLayout != null) this.popupContentLayout = null;
+    }
+
+    /**
+     * Create a new delete account popup context
+     */
+    private void CreateNewDeleteAccountPopupContext() {
+        // Initialize a new instance of LayoutInflater service
+        LayoutInflater inflater = getLayoutInflater();
+        int popupLayout = R.layout.popup_login_delete_account_layout;
+        View popupSampleView = inflater.inflate(popupLayout, null);
+
+        // Create the popup window
+        this.currentDeleteAccountPopup = new PopupWindow(popupSampleView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        this.popupClose = popupSampleView.findViewById(R.id.login_delete_account_popup_close);
+        this.popupExternalBackground = popupSampleView.findViewById(R.id.login_delete_account_popup_external_background);
+        this.popupContentLayout = popupSampleView.findViewById(R.id.login_delete_account_popup_content_layout);
+        this.discardBtn = popupSampleView.findViewById(R.id.login_delete_account_popup_discard_btn);
+        this.confirmBtn = popupSampleView.findViewById(R.id.login_delete_account_popup_confirm_btn);
+    }
+
+    /**
+     * Attach the appropriate events to the current delete account popup components
+     */
+    private void SubscribeEventsPopup() {
+        this.popupClose.setOnClickListener(this);
+        this.popupExternalBackground.setOnClickListener(this);
+        this.popupContentLayout.setOnClickListener(this);
+        this.discardBtn.setOnClickListener(this);
+        this.confirmBtn.setOnClickListener(this);
     }
 }

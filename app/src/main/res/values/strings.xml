@@ -34,9 +34,17 @@
     <string name="login_success_msg_content">You are now connected. You can view your bookings and update your personal information using the right sidebar.</string>
     <string name="login_error_msg_title">Connexion failed</string>
     <string name="login_error_msg_content">Impossible to connect. Please check your email and/or your password. Make sure it exists, ask for renewing your password, or create an account using the links below.</string>
+    <string name="login_delete_account_msg_title">Account removal failed</string>
+    <string name="login_delete_account_msg_content">Something went wrong when removing your account.\nPlease contact the admin.</string>
     <string name="login_toast_login_patient_content">You are now connected to your patient account</string>
     <string name="login_toast_login_doctor_content">You are now connected to your doctor account</string>
     <string name="login_toast_logout_content">You are now disconnected from your patient account</string>
+    <string name="login_toast_user_removed_content">Your account was successfully removed.</string>
+    <string name="login_delete_account_popup_content">If you delete your account, you will not be able to access it anymore. However, the system will keep your data.\nYou still can ask for its removal in which case all your information will be deleted.</string>
+    <string name="login_delete_account_popup_title">Delete your account</string>
+    <string name="login_delete_account_popup_close">x</string>
+    <string name="login_delete_account_popup_discard_btn_text">Discard</string>
+    <string name="login_delete_account_popup_confirm_btn_text">Confirm</string>
 
     <!-- Signup -->
     <string name="signup_picture_uri">signup_picture_uri</string>
