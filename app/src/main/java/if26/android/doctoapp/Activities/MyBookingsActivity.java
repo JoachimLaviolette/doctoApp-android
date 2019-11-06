@@ -114,17 +114,23 @@ public class MyBookingsActivity
             CircleImageView patientPicture = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_picture);
             TextView patientFullname = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_fullname);
             TextView patientBirthdate = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_birthdate);
-            TextView reason = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_reason);
-            TextView doctorAddress = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_address_content);
+            TextView patientChevron = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_chevron);
 
             // Set data
             fullDay.setText(a.getDate());
             time.setText(a.getTime());
             if (!a.getPatient().getPicture().isEmpty()) patientPicture.setImageURI(ImageService.GetURIFromPath(a.getPatient().getPicture()));
             patientFullname.setText(a.getPatient().getFullname());
-            patientBirthdate.setText(a.getPatient().getBirthdate());
-            reason.setText(a.getReason().getDescription());
-            doctorAddress.setText(a.getPatient().GetFullAddress());
+            String birthdate = getString(R.string.show_booking_appointment_patient_birthdate_prefix) + a.getPatient().getBirthdate();
+            patientBirthdate.setText(birthdate);
+
+            // Set click event
+            patientChevron.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShowBooking(a);
+                }
+            });
 
             // Add the appointment item to the list of appointments
             this.appointmentList.addView(appointmentItemLayout);
@@ -138,16 +144,13 @@ public class MyBookingsActivity
         LayoutInflater inflater = this.getLayoutInflater();
 
         for (final Booking a: this.loggedUser.getAppointments()) {
-            View appointmentItemLayout = inflater.inflate(R.layout.template_patient_appointment_item, this.appointmentList, false);
+            View appointmentItemLayout = inflater.inflate(R.layout.template_patient_appointment_item_compact , this.appointmentList, false);
             TextView fullDay = appointmentItemLayout.findViewById(R.id.patient_appointment_item_fullday);
             TextView time = appointmentItemLayout.findViewById(R.id.patient_appointment_item_time);
             CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_picture);
             TextView doctorFullname = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_fullname);
             TextView doctorSpeciality = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_speciality);
             TextView doctorChevron = appointmentItemLayout.findViewById(R.id.patient_appointment_item_chevron);
-            TextView reason = appointmentItemLayout.findViewById(R.id.patient_appointment_item_reason);
-            TextView doctorContactNumber = appointmentItemLayout.findViewById(R.id.patient_appointment_item_contact_number);
-            TextView doctorAddress = appointmentItemLayout.findViewById(R.id.patient_appointment_item_address_content);
 
             // Set data
             fullDay.setText(a.getDate());
@@ -155,15 +158,12 @@ public class MyBookingsActivity
             if (!a.getDoctor().getPicture().isEmpty()) doctorPicture.setImageURI(ImageService.GetURIFromPath(a.getDoctor().getPicture()));
             doctorFullname.setText(a.getDoctor().getFullname());
             doctorSpeciality.setText(a.getDoctor().getSpeciality());
-            reason.setText(a.getReason().getDescription());
-            doctorContactNumber.setText(a.getDoctor().getContactNumberAsString());
-            doctorAddress.setText(a.getDoctor().GetFullAddress());
 
             // Set click event
             doctorChevron.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowDoctorProfile(a.getDoctor());
+                    ShowBooking(a);
                 }
             });
 
@@ -173,16 +173,17 @@ public class MyBookingsActivity
     }
 
     /**
-     * Show the appointment doctor's profile
+     * Show the details of the given booking
+     * @param booking The booking to show the details of
      */
-    private void ShowDoctorProfile(Doctor doctor) {
+    private void ShowBooking(Booking booking) {
         // Create the intent
-        Intent i = new Intent(MyBookingsActivity.this, DoctorProfileActivity.class);
+        Intent i = new Intent(MyBookingsActivity.this, ShowBooking.class);
 
         // Prepare the intent parameters
-        // The doctor
-        String key = this.getResources().getString(R.string.intent_doctor);
-        i.putExtra(key, doctor);
+        // The booking
+        String key = this.getResources().getString(R.string.intent_booking);
+        i.putExtra(key, booking);
 
         // The logged user
         key = this.getResources().getString(R.string.intent_logged_user);

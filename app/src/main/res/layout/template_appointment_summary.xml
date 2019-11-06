@@ -231,7 +231,8 @@
                 android:id="@+id/appointment_summary_section_warning_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingRight="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -245,7 +246,7 @@
                         android:layout_centerVertical="true"
                         android:padding="10sp"
                         android:tint="@color/appointment_summary_icon_tint"
-                        app:srcCompat="@android:drawable/stat_sys_warning" />
+                        app:srcCompat="@drawable/ic_warning" />
 
                     <TextView
                         android:id="@+id/appointment_summary_warning_msg_title"
@@ -357,8 +358,122 @@
                             android:text="@string/appointment_summary_address_content"
                             android:textColor="@color/appointment_summary_address_content"
                             android:textSize="13sp"
-                            android:textStyle="normal" />
+                            android:textStyle="bold" />
 
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/appointment_summary_section_payment_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/appointment_summary_payment_options_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="46dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        android:padding="10sp"
+                        android:tint="@color/appointment_summary_icon_tint"
+                        app:srcCompat="@drawable/ic_payment" />
+
+                    <TextView
+                        android:id="@+id/appointment_summary_payment_options_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@id/appointment_summary_payment_options_icon"
+                        android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
+                        android:text="@string/appointment_summary_payment_options_title"
+                        android:textColor="@color/appointment_summary_payment_options_title"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35sp"
+                        android:layout_toEndOf="@id/appointment_summary_payment_options_icon"
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
+
+                        <TextView
+                            android:id="@+id/appointment_summary_payment_options_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
+                            android:text="@string/appointment_summary_payment_options_content"
+                            android:textColor="@color/appointment_summary_payment_options_content"
+                            android:textSize="13sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/appointment_summary_section_prices_refunds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/appointment_summary_prices_refunds_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="46dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerVertical="true"
+                        android:padding="10sp"
+                        android:tint="@color/appointment_summary_icon_tint"
+                        app:srcCompat="@drawable/ic_money" />
+
+                    <TextView
+                        android:id="@+id/appointment_summary_prices_refunds_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@id/appointment_summary_prices_refunds_icon"
+                        android:fontFamily="@font/roboto"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp"
+                        android:text="@string/appointment_summary_prices_refunds_title"
+                        android:textColor="@color/appointment_summary_prices_refunds_title"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35sp"
+                        android:layout_toEndOf="@id/appointment_summary_prices_refunds_icon"
+                        android:orientation="vertical"
+                        android:paddingTop="10sp"
+                        android:paddingBottom="10sp">
+
+                        <TextView
+                            android:id="@+id/appointment_summary_prices_refunds_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto"
+                            android:lineSpacingExtra="6sp"
+                            android:text="@string/appointment_summary_prices_refunds_content"
+                            android:textColor="@color/appointment_summary_prices_refunds_content"
+                            android:textSize="13sp"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>

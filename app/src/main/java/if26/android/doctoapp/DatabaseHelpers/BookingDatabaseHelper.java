@@ -106,6 +106,25 @@ public class BookingDatabaseHelper {
     }
 
     /**
+     * Remove the given booking from the db
+     * @param booking The booking model of the booking to remove
+     * @return If the booking was successfully removed
+     */
+    public boolean DeleteBooking(Booking booking) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { booking.GetPatientId() + "", booking.GetDoctorId() + "", booking.GetReasonId() + "", booking.getBookingDate() };
+
+        return database.delete(
+                DoctoAppDatabaseContract.Booking.TABLE_NAME,
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT + " = ? AND "
+                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR + " = ? AND "
+                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON + " = ? AND "
+                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE + " = ?",
+                args
+        ) == 1;
+    }
+
+    /**
      * Create data struct for booking using the given resident model
      * @param resident The resident model
      * @return The data struct

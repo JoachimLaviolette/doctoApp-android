@@ -179,8 +179,9 @@ public abstract class Resident implements Serializable {
     }
 
     public String GetFullAddress() {
-        return this.GetStreet1() + ", " + this.GetStreet2() + "\n"
-                + this.GetZip() + ", " + this.GetCity() + "\n"
+        return this.GetStreet1()
+                + (this.GetStreet2().trim().isEmpty() ? "" : ", " + this.GetStreet2()) + "\n"
+                + this.GetZip() + " " + this.GetCity() + "\n"
                 + this.GetCountry();
     }
 

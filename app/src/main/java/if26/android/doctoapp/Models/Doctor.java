@@ -341,6 +341,18 @@ public class Doctor extends Resident {
     }
 
     /**
+     * Return the appropriate warning message
+     * @return The warning message
+     */
+    public String getWarningMessage(Context context) {
+        Resources resources = context.getResources();
+
+        return this.isThirdPartyPayment ?
+                resources.getString(R.string.appointment_summary_warning_msg_third_party_payment_true) :
+                resources.getString(R.string.appointment_summary_warning_msg_third_party_payment_false);
+    }
+
+    /**
      * Return prices and refunds data as a string
      * @return The prices and refunds data
      */
