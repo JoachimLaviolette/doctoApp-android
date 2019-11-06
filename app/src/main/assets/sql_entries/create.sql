@@ -24,7 +24,7 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  last_login TEXT,
  picture TEXT DEFAULT NULL,
  header TEXT DEFAULT NULL,
- FOREIGN KEY(address_id) REFERENCES address(id)
+ FOREIGN KEY(address_id) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE availability (
@@ -32,7 +32,7 @@ doctor_id INTEGER NOT NULL,
  date TEXT NOT NULL,
  time TEXT NOT NULL,
  PRIMARY KEY (doctor_id,date,time),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE education (
@@ -40,7 +40,7 @@ doctor_id INTEGER NOT NULL,
  year TEXT NOT NULL,
  degree TEXT NOT NULL,
  PRIMARY KEY (doctor_id,year,degree),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE experience (
@@ -48,14 +48,14 @@ doctor_id INTEGER NOT NULL,
  year TEXT NOT NULL,
  description TEXT NOT NULL,
  PRIMARY KEY (doctor_id,year,description),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE language (
 doctor_id INTEGER NOT NULL,
  language TEXT NOT NULL,
  PRIMARY KEY (doctor_id,language),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE patient (
@@ -70,21 +70,21 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  address_id INTEGER NOT NULL,
  last_login TEXT,
  picture TEXT DEFAULT NULL,
- FOREIGN KEY(address_id) REFERENCES address(id)
+ FOREIGN KEY(address_id) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE payment_option (
 doctor_id INTEGER NOT NULL,
  payment_option TEXT NOT NULL,
  PRIMARY KEY (doctor_id,payment_option),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE reason (
 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
  doctor_id INTEGER NOT NULL,
  description TEXT NOT NULL,
- FOREIGN KEY(doctor_id) REFERENCES doctor(id)
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE booking (
@@ -95,7 +95,7 @@ CREATE TABLE booking (
  time TEXT NOT NULL,
  booking_date TEXT NOT NULL,
  PRIMARY KEY (patient_id,doctor_id,date,time),
- FOREIGN KEY(patient_id) REFERENCES patient(id),
- FOREIGN KEY(doctor_id) REFERENCES doctor(id),
- FOREIGN KEY(reason_id) REFERENCES reason(id)
+ FOREIGN KEY(patient_id) REFERENCES patient(id) ON UPDATE CASCADE ON DELETE CASCADE,
+ FOREIGN KEY(doctor_id) REFERENCES doctor(id) ON UPDATE CASCADE ON DELETE CASCADE,
+ FOREIGN KEY(reason_id) REFERENCES reason(id) ON UPDATE CASCADE ON DELETE CASCADE
 );

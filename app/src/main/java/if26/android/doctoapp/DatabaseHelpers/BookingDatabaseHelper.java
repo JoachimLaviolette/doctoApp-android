@@ -189,7 +189,7 @@ public class BookingDatabaseHelper {
                     );
                 }
 
-                // Create the doctor object from the doctor id
+                // Create the patient object from the patient id
                 Patient patient = patientDatabaseHelper.GetPatientById(
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT).toString(),
                         true

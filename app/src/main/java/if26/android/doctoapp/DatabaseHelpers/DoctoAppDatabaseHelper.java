@@ -71,16 +71,24 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        // Crucial statement
+        // By default, foreign_keys = OFF
+        db.execSQL("PRAGMA foreign_keys = ON");
+    }
+
     /**
      * Instantiate the app database
      * @param db The app database
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if (this.SQL_CREATE_ENTRIES == null) return;
+        if (SQL_CREATE_ENTRIES == null) return;
 
         // Execute each create statement found in the create entries file
-        String[] createStatements = this.SQL_CREATE_ENTRIES.split(";");
+        String[] createStatements = SQL_CREATE_ENTRIES.split(";");
         for (String createStatement: createStatements)
             db.execSQL(createStatement);
     }
@@ -93,10 +101,10 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (this.SQL_DELETE_ENTRIES == null) return;
+        if (SQL_DELETE_ENTRIES == null) return;
 
         // Execute each delete statement found in the delete entries file
-        String[] deleteStatements = this.SQL_DELETE_ENTRIES.split(";");
+        String[] deleteStatements = SQL_DELETE_ENTRIES.split(";");
         for (String deleteStatement: deleteStatements)
             db.execSQL(deleteStatement);
 
