@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".Activities.ShowBooking"></activity>
         <activity
             android:name=".Activities.MyProfileProActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />

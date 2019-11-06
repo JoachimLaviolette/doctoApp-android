@@ -18,8 +18,8 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
     private static String SQL_DELETE_ENTRIES = null;
 
     // To increment if the database version schema
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "docto_app.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "docto_app.db";
 
     /**
      * Constructor
@@ -35,8 +35,8 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
      * Instantiate default entries
      */
     private void Instantiate() {
-        this.SQL_CREATE_ENTRIES = this.ReadFileEntries(this.SQL_CREATE_ENTRIES_FILE);
-        this.SQL_DELETE_ENTRIES = this.ReadFileEntries(this.SQL_DELETE_ENTRIES_FILE);
+        SQL_CREATE_ENTRIES = this.ReadFileEntries(SQL_CREATE_ENTRIES_FILE);
+        SQL_DELETE_ENTRIES = this.ReadFileEntries(SQL_DELETE_ENTRIES_FILE);
     }
 
     /**

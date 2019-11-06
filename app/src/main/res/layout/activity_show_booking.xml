@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/show_booking_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ShowBooking">
+
+    <LinearLayout
+        android:id="@+id/show_booking_sublayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/show_booking_layout"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/show_booking_header"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_home" />
+
+            <LinearLayout
+                android:id="@+id/show_booking_header"
+                android:layout_width="349dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20sp">
+
+                <TextView
+                    android:id="@+id/show_booking_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/show_booking_title"
+                    android:textColor="@color/show_booking_title"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/show_booking_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/show_booking_subtitle"
+                    android:textColor="@color/show_booking_subtitle"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15sp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/show_booking_appointment_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/show_booking_appointment_header"
+                android:orientation="horizontal"
+                android:padding="10sp">
+
+                <ImageView
+                    android:id="@+id/show_booking_appointment_fullday_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginEnd="4sp"
+                    android:tint="#FFF"
+                    app:srcCompat="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/show_booking_appointment_fullday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/show_booking_appointment_fullday"
+                    android:textColor="@color/show_booking_appointment_fullday"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/show_booking_appointment_time_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginEnd="2sp"
+                    android:tint="#FFF"
+                    app:srcCompat="@drawable/ic_time_2" />
+
+                <TextView
+                    android:id="@+id/show_booking_appointment_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/show_booking_appointment_time"
+                    android:textColor="@color/show_booking_appointment_time"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/show_booking_appointment_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/show_booking_appointment_body"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_doctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/show_booking_appointment_doctor_picture"
+                                android:layout_width="60dp"
+                                android:layout_height="45dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="5dp"
+                                android:src="@mipmap/ic_launcher_round"
+                                app:civ_border_width="0dp" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_doctor_fullname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_doctor_picture"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_doctor_fullname"
+                                android:textColor="@color/show_booking_appointment_doctor_fullname"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="35sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_doctor_picture"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_doctor_speciality"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_doctor_speciality"
+                                    android:textColor="@color/show_booking_appointment_doctor_speciality"
+                                    android:textSize="13sp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_chevron"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="15sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_doctor_picture"
+                                android:fontFamily="@font/acme"
+                                android:gravity="end"
+                                android:padding="10sp"
+                                android:text="@string/show_booking_appointment_chevron"
+                                android:textColor="@color/show_booking_appointment_chevron"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/show_booking_appointment_patient_picture"
+                                android:layout_width="60dp"
+                                android:layout_height="45dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="5dp"
+                                android:src="@mipmap/ic_launcher_round"
+                                app:civ_border_width="0dp" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_patient_fullname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_patient_picture"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_patient_fullname"
+                                android:textColor="@color/show_booking_appointment_patient_fullname"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="35sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_patient_picture"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_patient_birthdate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_patient_birthdate"
+                                    android:textColor="@color/show_booking_appointment_patient_birthdate"
+                                    android:textSize="13sp"
+                                    android:textStyle="italic" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_manage_booking"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/show_booking_appointment_update_booking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/show_booking_appointment_update_appointment_background"
+                            android:drawableStart="@drawable/ic_update"
+                            android:drawablePadding="5dp"
+                            android:drawableTint="@color/show_booking_appointment_update_appointment"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10sp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="10sp"
+                            android:text="@string/show_booking_appointment_update_appointment"
+                            android:textAllCaps="true"
+                            android:textColor="@color/show_booking_appointment_update_appointment"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/show_booking_appointment_cancel_booking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/show_booking_appointment_cancel_appointment_background"
+                            android:drawableStart="@drawable/ic_cancel"
+                            android:drawablePadding="5dp"
+                            android:drawableTint="@color/show_booking_appointment_cancel_appointment"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10sp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="10sp"
+                            android:text="@string/show_booking_appointment_cancel_appointment"
+                            android:textAllCaps="true"
+                            android:textColor="@color/show_booking_appointment_cancel_appointment"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_reason_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@android:drawable/ic_dialog_info" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_reason"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_reason_icon"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_reason"
+                                android:textColor="@color/show_booking_appointment_reason"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_warning_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingEnd="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_warning_msg_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@drawable/ic_warning" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_warning_msg_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_warning_msg_icon"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_warning_msg_title"
+                                android:textColor="@color/show_booking_appointment_warning_msg_title"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="35sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_warning_msg_icon"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_warning_msg_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_warning_msg_content"
+                                    android:textColor="@color/show_booking_appointment_warning_msg_content"
+                                    android:textSize="13sp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_contact_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@drawable/ic_contact" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_contact_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_contact_icon"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_contact_number"
+                                android:textColor="@color/show_booking_appointment_contact_number"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_address_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@android:drawable/ic_dialog_map" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/show_booking_appointment_address_icon"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_address_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_address_content"
+                                    android:textColor="@color/show_booking_appointment_address_content"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_payment_options"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_payment_options_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@drawable/ic_payment" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_payment_options_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_payment_options_icon"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_payment_options_title"
+                                android:textColor="@color/show_booking_appointment_payment_options_title"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="35sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_payment_options_icon"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_payment_options_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_payment_options_content"
+                                    android:textColor="@color/show_booking_appointment_payment_options_content"
+                                    android:textSize="13sp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/show_booking_appointment_section_prices_refunds"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/show_booking_appointment_prices_refunds_icon"
+                                android:layout_width="60dp"
+                                android:layout_height="46dp"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:padding="10sp"
+                                android:tint="@color/show_booking_appointment_icon_tint"
+                                app:srcCompat="@drawable/ic_money" />
+
+                            <TextView
+                                android:id="@+id/show_booking_appointment_prices_refunds_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_toEndOf="@id/show_booking_appointment_prices_refunds_icon"
+                                android:fontFamily="@font/roboto"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp"
+                                android:text="@string/show_booking_appointment_prices_refunds_title"
+                                android:textColor="@color/show_booking_appointment_prices_refunds_title"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="35sp"
+                                android:layout_toEndOf="@id/show_booking_appointment_prices_refunds_icon"
+                                android:orientation="vertical"
+                                android:paddingTop="10sp"
+                                android:paddingBottom="10sp">
+
+                                <TextView
+                                    android:id="@+id/show_booking_appointment_prices_refunds_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/roboto"
+                                    android:lineSpacingExtra="6sp"
+                                    android:text="@string/show_booking_appointment_prices_refunds_content"
+                                    android:textColor="@color/show_booking_appointment_prices_refunds_content"
+                                    android:textSize="13sp"
+                                    android:textStyle="normal" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

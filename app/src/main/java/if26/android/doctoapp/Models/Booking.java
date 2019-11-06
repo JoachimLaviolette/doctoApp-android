@@ -81,4 +81,8 @@ public class Booking implements Serializable {
     public long GetReasonId() {
         return this.reason.getId();
     }
+
+    public String GetDoctorFullname() {
+        return this.doctor.getFullname();
+    }
 }

@@ -184,20 +184,20 @@ public class LoginActivity
 
                 return;
             case R.id.login_my_profile_btn:
-                if (this.loggedUser != null) this.MyProfile();
+                this.MyProfile();
 
                 return;
             case R.id.login_my_bookings_btn:
-                if (this.loggedUser != null) this.MyBookings();
+                this.MyBookings();
 
                 return;
             case R.id.login_delete_account_btn:
-                if (this.loggedUser != null) this.DeleteAccount();
+                this.DeleteAccount();
 
                 return;
             case R.id.login_delete_account_popup_close:
             case R.id.login_delete_account_popup_discard_btn:
-                if (this.loggedUser != null) this.ClearCurrentDeleteAccountPopupContext();
+                this.ClearCurrentDeleteAccountPopupContext();
 
                 return;
             case R.id.login_delete_account_popup_external_background:
@@ -506,8 +506,8 @@ public class LoginActivity
     }
 
     /**
-     * Show a toast after LOGIN or LOGOUT action
-     * @param action LOGIN or LOGOUT action
+     * Show a toast after a specific action
+     * @param action The action that was performed
      */
     private void MakeToast(int action) {
         Context context = getApplicationContext();

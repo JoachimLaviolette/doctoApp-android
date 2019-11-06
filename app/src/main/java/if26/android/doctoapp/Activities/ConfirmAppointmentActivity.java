@@ -47,17 +47,15 @@ public class ConfirmAppointmentActivity
     private TextView doctorChevron;
 
     private TextView appointmentReason;
-
     private ImageView patientPicture;
     private TextView patientFullname;
-
     private TextView warningMessage;
-
     private TextView doctorContactNumber;
-
     private TextView doctorAddress;
+    private TextView doctorPaymentOptions;
+    private TextView doctorPricesRefunds;
 
-    private Button seeMyBookings;
+    private Button seeMyBookingsBtn;
 
     private static DateTimeService dateTimeService;
 
@@ -94,7 +92,9 @@ public class ConfirmAppointmentActivity
         this.patientFullname = findViewById(R.id.appointment_summary_patient_fullname);
         this.doctorContactNumber = findViewById(R.id.appointment_summary_contact_number);
         this.doctorAddress = findViewById(R.id.appointment_summary_address_content);
-        this.seeMyBookings = findViewById(R.id.confirm_appointment_see_my_bookings);
+        this.doctorPaymentOptions = findViewById(R.id.appointment_summary_payment_options_content);
+        this.doctorPricesRefunds = findViewById(R.id.appointment_summary_prices_refunds_content);
+        this.seeMyBookingsBtn = findViewById(R.id.confirm_appointment_see_my_bookings);
     }
 
     /**
@@ -104,7 +104,7 @@ public class ConfirmAppointmentActivity
         this.homeBtn.setOnClickListener(this);
         this.dashboardBtn.setOnClickListener(this);
         this.doctorChevron.setOnClickListener(this);
-        this.seeMyBookings.setOnClickListener(this);
+        this.seeMyBookingsBtn.setOnClickListener(this);
     }
 
     /**
@@ -174,11 +174,20 @@ public class ConfirmAppointmentActivity
         // Set doctor address
         this.doctorAddress.setText(this.doctor.GetFullAddress());
 
+        // Set doctor payment options
+        this.doctorPaymentOptions.setText(this.doctor.getPaymentOptionsAsString());
+
+        // Set doctor prices and refunds
+        this.doctorPricesRefunds.setText(this.doctor.getPricesAndRefundsAsString(this));
+
         // Set patient picture
         if (!this.patient.getPicture().isEmpty()) this.patientPicture.setImageURI(ImageService.GetURIFromPath(this.patient.getPicture()));
 
         // Set patient fullname
         this.patientFullname.setText(this.patient.getFullname());
+
+        // Set the warning message
+        this.warningMessage.setText(this.doctor.getWarningMessage(this));
     }
 
     /**

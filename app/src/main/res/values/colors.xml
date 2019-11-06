@@ -324,7 +324,11 @@
     <color name="appointment_summary_warning_msg_title">#444444</color>
     <color name="appointment_summary_warning_msg_content">#727272</color>
     <color name="appointment_summary_contact_number">#1B86E4</color>
-    <color name="appointment_summary_address_content">#727272</color>
+    <color name="appointment_summary_address_content">#1B86E4</color>
+    <color name="appointment_summary_payment_options_title">#444444</color>
+    <color name="appointment_summary_payment_options_content">#727272</color>
+    <color name="appointment_summary_prices_refunds_title">#444444</color>
+    <color name="appointment_summary_prices_refunds_content">#727272</color>
     <color name="appointment_summary_icon_tint">#DBDBDB</color>
 
     <!-- Patient appointment item -->
@@ -335,10 +339,47 @@
     <color name="patient_appointment_item_doctor_fullname">#444444</color>
     <color name="patient_appointment_item_doctor_speciality">#727272</color>
     <color name="patient_appointment_item_chevron">#E9E9E9</color>
-    <color name="patient_appointment_item_contact_number">#1B86E4</color>
-    <color name="patient_appointment_item_address_content">#727272</color>
-    <color name="patient_appointment_item_reason">#BE4A4A</color>
-    <color name="patient_appointment_item_icon_tint">#DBDBDB</color>
+
+    <!-- Show booking -->
+    <color name="show_booking_layout">#E4E4E4</color>
+    <color name="show_booking_header">#1B86E4</color>
+    <color name="show_booking_title">#66A8E2</color>
+    <color name="show_booking_subtitle">#FFFFFF</color>
+    <color name="show_booking_appointment_header">#444444</color>
+    <color name="show_booking_appointment_body">#FFFFFF</color>
+    <color name="show_booking_appointment_fullday">#FFFFFF</color>
+    <color name="show_booking_appointment_time">#FFFFFF</color>
+    <color name="show_booking_appointment_doctor_fullname">#444444</color>
+    <color name="show_booking_appointment_doctor_speciality">#727272</color>
+    <color name="show_booking_appointment_patient_fullname">#444444</color>
+    <color name="show_booking_appointment_patient_birthdate">#727272</color>
+    <color name="show_booking_appointment_update_appointment">#1B86E4</color>
+    <color name="show_booking_appointment_update_appointment_background">#ECF1F5</color>
+    <color name="show_booking_appointment_cancel_appointment">#BE4A4A</color>
+    <color name="show_booking_appointment_cancel_appointment_background">#F5ECEC</color>
+    <color name="show_booking_appointment_chevron">#E9E9E9</color>
+    <color name="show_booking_appointment_warning_msg_title">#444444</color>
+    <color name="show_booking_appointment_warning_msg_content">#727272</color>
+    <color name="show_booking_appointment_contact_number">#1B86E4</color>
+    <color name="show_booking_appointment_address_content">#1B86E4</color>
+    <color name="show_booking_appointment_payment_options_title">#444444</color>
+    <color name="show_booking_appointment_payment_options_content">#727272</color>
+    <color name="show_booking_appointment_prices_refunds_title">#444444</color>
+    <color name="show_booking_appointment_prices_refunds_content">#727272</color>
+    <color name="show_booking_appointment_reason">#BE4A4A</color>
+    <color name="show_booking_appointment_icon_tint">#DBDBDB</color>
+    <color name="show_booking_appointment_cancel_appointment_msg">#BE4A4A</color>
+    <color name="show_booking_appointment_cancel_appointment_msg_title">#FFFFFF</color>
+    <color name="show_booking_appointment_cancel_appointment_msg_content">#FFFFFF</color>
+    <color name="show_booking_appointment_cancel_appointment_msg_content_details">#1B86E4</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_external_background">#000000</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_background">#FFFFFF</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_title">#FFFFFF</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_title_background">#1B86E4</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_section_title">#444444</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_section_content">#727272</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_close">#FFFFFF</color>
+    <color name="show_booking_appointment_cancel_appointment_popup_btn_text">#FFFFFF</color>
 
     <!-- Doctor appointment item -->
     <color name="doctor_appointment_item_header">#444444</color>
@@ -347,7 +388,8 @@
     <color name="doctor_appointment_item_time">#FFFFFF</color>
     <color name="doctor_appointment_item_patient_fullname">#444444</color>
     <color name="doctor_appointment_item_patient_birthdate">#727272</color>
-    <color name="doctor_appointment_item_address_content">#727272</color>
+    <color name="doctor_appointment_item_chevron">#E9E9E9</color>
+    <color name="doctor_appointment_item_address_content">#1B86E4</color>
     <color name="doctor_appointment_item_reason">#BE4A4A</color>
     <color name="doctor_appointment_item_icon_tint">#DBDBDB</color>
 

@@ -496,24 +496,71 @@
     <string name="appointment_summary_patient_fullname">{patient_fullname}</string>
     <string name="appointment_summary_warning_msg_title">Important message to read before your appointment</string>
     <string name="appointment_summary_warning_msg_content">{warning_msg}</string>
+    <string name="appointment_summary_warning_msg_third_party_payment_false">No third party payment.\nYou pay the consultation costs in the whole and handle their refunding by yourself.</string>
+    <string name="appointment_summary_warning_msg_third_party_payment_true">Third party payment allowed.</string>
     <string name="appointment_summary_contact_number">{doctor_contact_number}</string>
     <string name="appointment_summary_address_content">{doctor_address_content}</string>
+    <string name="appointment_summary_payment_options_title">Payment options</string>
+    <string name="appointment_summary_payment_options_content">{doctor_payment_options}</string>
+    <string name="appointment_summary_prices_refunds_title">Prices and refunds</string>
+    <string name="appointment_summary_prices_refunds_content">{doctor_prices_refunds}</string>
 
     <!-- Patient appointment item -->
     <string name="patient_appointment_item_fullday">{Day, Month X}</string>
     <string name="patient_appointment_item_time">{hh:mm}</string>
     <string name="patient_appointment_item_doctor_fullname">{doctor_fullname}</string>
     <string name="patient_appointment_item_doctor_speciality">{doctor_speciality}</string>
+    <string name="patient_appointment_item_update_appointment">Update appointment</string>
+    <string name="patient_appointment_item_cancel_appointment">Cancel appointment</string>
     <string name="patient_appointment_item_chevron">></string>
-    <string name="patient_appointment_item_reason">{reason}</string>
-    <string name="patient_appointment_item_contact_number">{doctor_contact_number}</string>
-    <string name="patient_appointment_item_address_content">{doctor_address_content}</string>
+
+    <!-- Show booking -->
+    <string name="show_booking_title">Booking - Appointment</string>
+    <string name="show_booking_subtitle">Booking details</string>
+    <string name="show_booking_appointment_fullday">{Day, Month X}</string>
+    <string name="show_booking_appointment_time">{hh:mm}</string>
+    <string name="show_booking_appointment_doctor_fullname">{doctor_fullname}</string>
+    <string name="show_booking_appointment_doctor_speciality">{doctor_speciality}</string>
+    <string name="show_booking_appointment_patient_fullname">{patient_fullname}</string>
+    <string name="show_booking_appointment_patient_birthdate">Born on the {patient_birthdate}</string>
+    <string name="show_booking_appointment_patient_birthdate_prefix">Born on the \</string>
+    <string name="show_booking_appointment_update_appointment">Update appointment</string>
+    <string name="show_booking_appointment_cancel_appointment">Cancel appointment</string>
+    <string name="show_booking_appointment_chevron">></string>
+    <string name="show_booking_appointment_reason">{reason}</string>
+    <string name="show_booking_appointment_warning_msg_title">Important message to read before your appointment</string>
+    <string name="show_booking_appointment_warning_msg_content">{warning_msg}</string>
+    <string name="show_booking_appointment_warning_msg_third_party_payment_false">No third party payment.\nYou pay the consultation costs in the whole and handle their refunding by yourself.</string>
+    <string name="show_booking_appointment_warning_msg_third_party_payment_true">Third party payment allowed.</string>
+    <string name="show_booking_appointment_contact_number">{doctor_contact_number}</string>
+    <string name="show_booking_appointment_address_content">{doctor_address_content}</string>
+    <string name="show_booking_appointment_payment_options_title">Payment options</string>
+    <string name="show_booking_appointment_payment_options_content">{doctor_payment_options}</string>
+    <string name="show_booking_appointment_prices_refunds_title">Prices and refunds</string>
+    <string name="show_booking_appointment_prices_refunds_content">{doctor_prices_refunds}</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_1">Do you want to cancel the following appointment?</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_appointment_date">{appointment_date}</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_appointment_date_prefix">on \</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_appointment_time">{appointment_time}</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_appointment_time_prefix">at \</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_doctor_fullname">{doctor_fullname}</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_content_doctor_fullname_prefix">with Dr \</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_title">Cancel your appointment</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_close">x</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_discard_btn_text">Discard</string>
+    <string name="show_booking_appointment_cancel_appointment_popup_confirm_btn_text">Confirm cancellation</string>
+    <string name="show_booking_toast_booking_cancelled_success_content">Booking successfully cancelled.</string>
+    <string name="show_booking_toast_booking_cancelled_fail_content">Something went wrong when cancelling the booking. Please retry.</string>
+    <string name="show_booking_toast_booking_updated_success_content">Booking successfully updated.</string>
+    <string name="show_booking_toast_booking_updated_fail_content">Something went wrong when updating the booking. Please retry.</string>
 
     <!-- Doctor appointment item -->
     <string name="doctor_appointment_item_fullday">{Day, Month X}</string>
     <string name="doctor_appointment_item_time">{hh:mm}</string>
     <string name="doctor_appointment_item_patient_fullname">{patient_fullname}</string>
-    <string name="doctor_appointment_item_patient_birthdate">{patient_birthdate}</string>
+    <string name="doctor_appointment_item_patient_birthdate">Born on the {patient_birthdate}</string>
+    <string name="doctor_appointment_item_patient_birthdate_prefix">Born on the \</string>
+    <string name="doctor_appointment_item_chevron">></string>
     <string name="doctor_appointment_item_reason">{reason}</string>
     <string name="doctor_appointment_item_address_content">{patient_address_content}</string>
 
