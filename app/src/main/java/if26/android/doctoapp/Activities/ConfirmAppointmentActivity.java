@@ -88,6 +88,7 @@ public class ConfirmAppointmentActivity
         this.doctorSpeciality = findViewById(R.id.appointment_summary_doctor_speciality);
         this.doctorChevron = findViewById(R.id.appointment_summary_chevron);
         this.appointmentReason = findViewById(R.id.appointment_summary_reason);
+        this.warningMessage = findViewById(R.id.appointment_summary_warning_msg_content);
         this.patientPicture = findViewById(R.id.appointment_summary_patient_picture);
         this.patientFullname = findViewById(R.id.appointment_summary_patient_fullname);
         this.doctorContactNumber = findViewById(R.id.appointment_summary_contact_number);
