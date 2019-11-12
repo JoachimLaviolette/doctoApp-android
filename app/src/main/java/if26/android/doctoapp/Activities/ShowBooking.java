@@ -295,7 +295,20 @@ public class ShowBooking
      * Start UpdateBooking activity
      */
     private void UpdateBooking() {
+        // Create the intent
+        Intent i = new Intent(ShowBooking.this, ChooseAvailabilityActivity.class);
 
+        // Prepare the intent parameters
+        // The patient
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // The booking
+        key = this.getResources().getString(R.string.intent_booking);
+        i.putExtra(key, this.booking);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**

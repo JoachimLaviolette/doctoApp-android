@@ -470,7 +470,7 @@ public class Doctor extends Resident {
                 for (Availability a: availabilitiesPerDayRef.get(day)) {
                     availabilitiesPerDay.get(date).add(
                             new Availability(
-                                    a.getDoctor(),
+                                    this,
                                     date,
                                     a.getTime()
                             )
@@ -480,6 +480,28 @@ public class Doctor extends Resident {
         }
 
         return availabilitiesPerDay;
+    }
+
+    /**
+     * Organize the availabilities for the given day
+     * @param bookingFullDate The date of the booking, in {Day, Month X} format
+     * @return A map containing all the availabilities for the day of the booking
+     */
+    public Map<String, List<Availability>> getAvailabilitiesForDay(String bookingFullDate) {
+        Map<String, List<Availability>> availabilitiesForDay = new LinkedHashMap<>();
+        availabilitiesForDay.put(bookingFullDate, new ArrayList<Availability>());
+
+        for (Availability a : this.availabilities) {
+            if (a.getDate().equals(DateTimeService.GetDayFromDate(bookingFullDate)))
+                availabilitiesForDay.get(bookingFullDate).add(
+                    new Availability(
+                        this,
+                        bookingFullDate,
+                        a.getTime()
+                ));
+        }
+
+        return availabilitiesForDay;
     }
 
     // Update methods

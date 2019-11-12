@@ -480,6 +480,8 @@
     <string name="choose_date_time_dr">Dr</string>
     <string name="date_time_day_content">{Day, Month Number}</string>
     <string name="date_time_time_content">{hh:mm}</string>
+    <string name="choose_date_time_toast_booking_updated_success">Your booking was successfully updated</string>
+    <string name="choose_date_time_toast_booking_updated_error">Something went wrong when updating your booking</string>
 
     <!-- Date service -->
     <string name="date_service_time">time</string>
@@ -496,7 +498,7 @@
     <string name="confirm_appointment_header_title">Booking summary</string>
     <string name="confirm_appointment_success_msg_title">Your booking is confirmed</string>
     <string name="confirm_appointment_success_msg_content">We just sent you a confirmation email for your appointment. You will also receive an SMS the day before your appointment.</string>
-    <string name="confirm_appointment_error_msg_title">Something went wrong with your booking...</string>
+    <string name="confirm_appointment_error_msg_title">Something went wrong with your booking…</string>
     <string name="confirm_appointment_error_msg_content">Your booking could not be confirmed. It appears you already have a booking scheduled at this date with the doctor.</string>
     <string name="confirm_appointment_see_my_bookings">See my bookings</string>
 

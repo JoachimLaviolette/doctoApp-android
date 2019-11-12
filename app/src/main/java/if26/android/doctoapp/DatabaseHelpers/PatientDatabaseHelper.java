@@ -81,12 +81,12 @@ public class PatientDatabaseHelper {
 
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
 
-        return (database.update(
+        return database.update(
                 DoctoAppDatabaseContract.Patient.TABLE_NAME,
                 patientContentValues,
                 DoctoAppDatabaseContract.Patient.COLUMN_NAME_ID + " = ?",
                 args
-        ) == 1);
+        ) == 1;
     }
 
     /**
