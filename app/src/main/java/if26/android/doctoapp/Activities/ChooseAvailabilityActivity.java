@@ -1,5 +1,6 @@
 package if26.android.doctoapp.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import if26.android.doctoapp.Codes.RequestCode;
+import if26.android.doctoapp.DatabaseHelpers.BookingDatabaseHelper;
 import if26.android.doctoapp.Models.Availability;
 import if26.android.doctoapp.Models.Booking;
 import if26.android.doctoapp.Models.Doctor;
@@ -39,7 +42,12 @@ public class ChooseAvailabilityActivity
 
     private static DateTimeService dateTimeService;
 
+    private boolean isBookingUpdate;
+
     private static int WEEKS_NUMBER = 1;
+
+    private static final int BOOKING_UPDATED_SUCCESS = 0;
+    private static final int BOOKING_UPDATED_ERROR = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +98,7 @@ public class ChooseAvailabilityActivity
         // Get the booking
         key = this.getResources().getString(R.string.intent_booking);
         this.booking = (Booking) bundle.getSerializable(key);
+        this.isBookingUpdate = this.booking.getDate() != null;
 
         // Get the doctor
         this.doctor = this.booking.getDoctor();
@@ -108,8 +117,14 @@ public class ChooseAvailabilityActivity
      * Fill the date times list with the date times available
      */
     private void FillDateTimesList() {
-        // Fetch the availabilities
-        Map<String, List<Availability>> availabilitiesPerDay = this.doctor.getAvailabilitiesPerDay(this.WEEKS_NUMBER);
+        Map<String, List<Availability>> availabilitiesPerDay;
+
+        if (!this.isBookingUpdate)
+            // Fetch the availabilities
+            availabilitiesPerDay = this.doctor.getAvailabilitiesPerDay(this.WEEKS_NUMBER);
+        else
+            // Fetch the availabilities for the booking day
+            availabilitiesPerDay = this.doctor.getAvailabilitiesForDay(this.booking.getFullDate());
 
         // Build the date times list view procedurally
         this.BuildDateTimesListView(availabilitiesPerDay);
@@ -157,7 +172,10 @@ public class ChooseAvailabilityActivity
         if (v.getId() == R.id.home) { this.Home();return; }
         if (v.getId() == R.id.dashboard) { this.Dashboard();return; }
 
-        if (v instanceof TextView) this.ConfirmAppointment((TextView) v);
+        if (v instanceof TextView) {
+            if (!this.isBookingUpdate) this.ConfirmAppointment((TextView) v);
+            else this.ConfirmBookingUpdate((TextView) v);
+        }
     }
 
     /**
@@ -223,6 +241,40 @@ public class ChooseAvailabilityActivity
         startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
+    /**
+     * Confirm booking update
+     * @param time The time that was chosen
+     */
+    public void ConfirmBookingUpdate(TextView time) {
+        // Prepare date time data
+        String timeTag = time.getTag().toString();
+
+        // Get datetime data from the time tag
+        Map<String,String> dateData = dateTimeService.GetDateTimeDataFromTimeTag(timeTag);
+
+        // Create the intent
+        Intent i = new Intent(ChooseAvailabilityActivity.this, MyBookingsActivity.class);
+
+        // Prepare the intent parameters
+        // The completed booking
+        String key = this.getResources().getString(R.string.intent_booking);
+        this.booking.setTime(dateData.get(this.getResources().getString(R.string.date_service_time)));
+        String oldBookingDate = this.booking.getBookingDate(); // Todo : we should use a booking id for update rather than processing like this
+        this.booking.setBookingDate(DateTimeService.GetCurrentDateTime());
+        i.putExtra(key, this.booking);
+
+        // The logged user
+        key = this.getResources().getString(R.string.intent_logged_user);
+        i.putExtra(key, this.loggedUser);
+
+        // Notify the user the update has been done
+        if ((new BookingDatabaseHelper(this).UpdateBooking(this.booking, oldBookingDate))) this.MakeToast(BOOKING_UPDATED_SUCCESS);
+        else this.MakeToast(BOOKING_UPDATED_ERROR);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
+    }
+
     @Override
     public void onBackPressed() {
         Intent i = new Intent();
@@ -250,6 +302,30 @@ public class ChooseAvailabilityActivity
                                 (Doctor) bundle.getSerializable(key) : null;
                 if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
             }
+        }
+    }
+
+    /**
+     * Show a toast after one action
+     * @param action The action performed
+     */
+    private void MakeToast(int action) {
+        Context context = getApplicationContext();
+        CharSequence content;
+        Toast toast;
+        int duration = Toast.LENGTH_LONG;
+
+        switch (action) {
+            case BOOKING_UPDATED_SUCCESS:
+                content = this.getResources().getString(R.string.choose_date_time_toast_booking_updated_success);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
+
+                return;
+            case BOOKING_UPDATED_ERROR:
+                content = this.getResources().getString(R.string.choose_date_time_toast_booking_updated_error);
+                toast = Toast.makeText(context, content, duration);
+                toast.show();
         }
     }
 }

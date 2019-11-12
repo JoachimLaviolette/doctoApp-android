@@ -1246,7 +1246,7 @@ public class SignupProActivity
     }
 
     /**
-     * Show a toast after one action
+     * Show a toast after an action
      * @param action The action performed
      */
     private void MakeToast(int action) {

@@ -111,6 +111,31 @@ public class BookingDatabaseHelper {
     }
 
     /**
+     * Update the given booking in the db
+     * @param booking The booking model of the booking to update
+     * @param oldBookingDate The former booking date of the booking to update
+     * @return If the booking was successfully updated
+     */
+    public boolean UpdateBooking(Booking booking, String oldBookingDate) {
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
+        String[] args = { booking.GetPatientId() + "", booking.GetDoctorId() + "", booking.GetReasonId() + "", oldBookingDate };
+
+        ContentValues bookingContentValues = new ContentValues();
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME, booking.getTime());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE, booking.getBookingDate());
+
+        return database.update(
+                DoctoAppDatabaseContract.Booking.TABLE_NAME,
+                bookingContentValues,
+        DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT + " = ? AND "
+                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR + " = ? AND "
+                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON + " = ? AND "
+                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE + " = ?",
+                args
+        ) == 1;
+    }
+
+    /**
      * Remove the given booking from the db
      * @param booking The booking model of the booking to remove
      * @return If the booking was successfully removed
