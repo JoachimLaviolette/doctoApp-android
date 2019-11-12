@@ -58,6 +58,7 @@ public final class DoctoAppDatabaseContract {
 
     public static class Booking implements BaseColumns {
         public static final String TABLE_NAME = "booking";
+        public static final String COLUMN_NAME_ID = "id";
         public static final String COLUMN_NAME_PATIENT = "patient_id";
         public static final String COLUMN_NAME_DOCTOR = "doctor_id";
         public static final String COLUMN_NAME_REASON = "reason_id";
@@ -66,6 +67,7 @@ public final class DoctoAppDatabaseContract {
         public static final String COLUMN_NAME_TIME = "time";
         public static final String COLUMN_NAME_BOOKING_DATE = "booking_date";
         public static final String[] TABLE_KEYS = {
+                COLUMN_NAME_ID,
                 COLUMN_NAME_PATIENT,
                 COLUMN_NAME_DOCTOR,
                 COLUMN_NAME_REASON,
@@ -82,6 +84,7 @@ public final class DoctoAppDatabaseContract {
                 4,
                 5,
                 6,
+                7,
         };
     }
 

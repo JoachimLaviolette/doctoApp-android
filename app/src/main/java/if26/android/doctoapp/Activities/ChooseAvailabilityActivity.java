@@ -259,7 +259,6 @@ public class ChooseAvailabilityActivity
         // The completed booking
         String key = this.getResources().getString(R.string.intent_booking);
         this.booking.setTime(dateData.get(this.getResources().getString(R.string.date_service_time)));
-        String oldBookingDate = this.booking.getBookingDate(); // Todo : we should use a booking id for update rather than processing like this
         this.booking.setBookingDate(DateTimeService.GetCurrentDateTime());
         i.putExtra(key, this.booking);
 
@@ -268,7 +267,7 @@ public class ChooseAvailabilityActivity
         i.putExtra(key, this.loggedUser);
 
         // Notify the user the update has been done
-        if ((new BookingDatabaseHelper(this).UpdateBooking(this.booking, oldBookingDate))) this.MakeToast(BOOKING_UPDATED_SUCCESS);
+        if ((new BookingDatabaseHelper(this).UpdateBooking(this.booking))) this.MakeToast(BOOKING_UPDATED_SUCCESS);
         else this.MakeToast(BOOKING_UPDATED_ERROR);
 
         // Start the activity
