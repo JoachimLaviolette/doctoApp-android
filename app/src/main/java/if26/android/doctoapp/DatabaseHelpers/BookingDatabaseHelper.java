@@ -47,31 +47,34 @@ public class BookingDatabaseHelper {
 
             for (int i = 0; i < bookingTableKeys.length; i++) {
                 switch (i) {
-                    case 0: // patient
+                    case 0: // id
+                        bookingContentValues.put(bookingTableKeys[i], a.getId());
+                        break;
+                    case 1: // patient
                         if (resident instanceof Patient)
                             bookingContentValues.put(bookingTableKeys[i], resident.getId());
                         else
                             bookingContentValues.put(bookingTableKeys[i], a.GetPatientId());
                         break;
-                    case 1: // doctor
+                    case 2: // doctor
                         if (resident instanceof Doctor)
                             bookingContentValues.put(bookingTableKeys[i], resident.getId());
                         else
                             bookingContentValues.put(bookingTableKeys[i], a.GetDoctorId());
                         break;
-                    case 2: // reason
+                    case 3: // reason
                         bookingContentValues.put(bookingTableKeys[i], a.GetReasonId());
                         break;
-                    case 3:
+                    case 4:
                         bookingContentValues.put(bookingTableKeys[i], a.getFullDate());
                         break;
-                    case 4:
+                    case 5:
                         bookingContentValues.put(bookingTableKeys[i], a.getDate());
                         break;
-                    case 5:
+                    case 6:
                         bookingContentValues.put(bookingTableKeys[i], a.getTime());
                         break;
-                    case 6:
+                    case 7:
                         bookingContentValues.put(bookingTableKeys[i], a.getBookingDate());
                         break;
                 }
@@ -103,22 +106,25 @@ public class BookingDatabaseHelper {
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME, booking.getTime());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE, booking.getBookingDate());
 
-        return database.insert(
+        long id = database.insert(
                 DoctoAppDatabaseContract.Booking.TABLE_NAME,
                 null,
                 bookingContentValues
-        ) != -1;
+        );
+
+        booking.setId(id);
+
+        return booking.getId() != -1;
     }
 
     /**
      * Update the given booking in the db
      * @param booking The booking model of the booking to update
-     * @param oldBookingDate The former booking date of the booking to update
      * @return If the booking was successfully updated
      */
-    public boolean UpdateBooking(Booking booking, String oldBookingDate) {
+    public boolean UpdateBooking(Booking booking) {
         SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
-        String[] args = { booking.GetPatientId() + "", booking.GetDoctorId() + "", booking.GetReasonId() + "", oldBookingDate };
+        String[] args = { booking.getId() + "" };
 
         ContentValues bookingContentValues = new ContentValues();
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME, booking.getTime());
@@ -127,10 +133,7 @@ public class BookingDatabaseHelper {
         return database.update(
                 DoctoAppDatabaseContract.Booking.TABLE_NAME,
                 bookingContentValues,
-        DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT + " = ? AND "
-                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR + " = ? AND "
-                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON + " = ? AND "
-                    + DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE + " = ?",
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_ID + " = ?",
                 args
         ) == 1;
     }
@@ -142,14 +145,11 @@ public class BookingDatabaseHelper {
      */
     public boolean DeleteBooking(Booking booking) {
         SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
-        String[] args = { booking.GetPatientId() + "", booking.GetDoctorId() + "", booking.GetReasonId() + "", booking.getBookingDate() };
+        String[] args = { booking.getId() + "" };
 
         return database.delete(
                 DoctoAppDatabaseContract.Booking.TABLE_NAME,
-                DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT + " = ? AND "
-                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR + " = ? AND "
-                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON + " = ? AND "
-                + DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE + " = ?",
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_ID + " = ?",
                 args
         ) == 1;
     }
@@ -264,6 +264,7 @@ public class BookingDatabaseHelper {
                 reason.setDoctor(doctor);
 
                 Booking a = new Booking(
+                        Long.parseLong(bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_ID).toString()),
                         patient,
                         doctor,
                         reason,
@@ -317,6 +318,7 @@ public class BookingDatabaseHelper {
 
                 // Create the appointment
                 Booking a = new Booking(
+                        Long.parseLong(bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_ID).toString()),
                         patient,
                         doctor,
                         reason,

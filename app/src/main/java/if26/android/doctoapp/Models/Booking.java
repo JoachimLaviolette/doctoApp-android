@@ -3,6 +3,7 @@ package if26.android.doctoapp.Models;
 import java.io.Serializable;
 
 public class Booking implements Serializable {
+    private long id;
     private Patient patient;
     private Doctor doctor;
     private Reason reason;
@@ -12,7 +13,8 @@ public class Booking implements Serializable {
     private String bookingDate; // when the booking has been made
 
     // Constructor
-    public Booking(Patient patient, Doctor doctor, Reason reason, String fullDate, String date, String time, String bookingDate) {
+    public Booking(long id, Patient patient, Doctor doctor, Reason reason, String fullDate, String date, String time, String bookingDate) {
+        this.id = id;
         this.patient = patient;
         this.doctor = doctor;
         this.reason = reason;
@@ -23,6 +25,14 @@ public class Booking implements Serializable {
     }
 
     // Getters and setters
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Patient getPatient() {
         return this.patient;
     }

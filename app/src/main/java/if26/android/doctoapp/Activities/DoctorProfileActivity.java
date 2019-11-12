@@ -281,13 +281,14 @@ public class DoctorProfileActivity
 
         // Create the appointment object
         Booking booking = new Booking(
+                -1,
                 (Patient) this.loggedUser,
                 this.doctor,
                 null,
-                "",
-                "",
-                "",
-                ""
+                null,
+                null,
+                null,
+                null
         );
 
         // Prepare the intent parameters

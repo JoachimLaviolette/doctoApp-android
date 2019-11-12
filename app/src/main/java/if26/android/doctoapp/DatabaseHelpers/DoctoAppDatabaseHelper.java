@@ -18,7 +18,7 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
     private static String SQL_DELETE_ENTRIES = null;
 
     // To increment if the database version schema
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "docto_app.db";
 
     /**

@@ -475,6 +475,10 @@ public class ShowBooking
         String key = this.getResources().getString(R.string.intent_logged_user);
         i.putExtra(key, this.loggedUser);
 
+        // Remove the booking from the extra params
+        key = this.getResources().getString(R.string.intent_booking);
+        i.removeExtra(key);
+
         // Start the activity
         startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
