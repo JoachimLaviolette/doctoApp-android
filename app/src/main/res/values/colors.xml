@@ -52,6 +52,19 @@
     <color name="login_delete_account_popup_close">#FFFFFF</color>
     <color name="login_delete_account_popup_btn_text">#FFFFFF</color>
 
+    <!-- Forgot password -->
+    <color name="forgot_password_background">#E4E4E4</color>
+    <color name="forgot_password_caption">#696969</color>
+    <color name="forgot_password_input_text">#858585</color>
+    <color name="forgot_password_input_hint">#D8D8D8</color>
+    <color name="forgot_password_forgot_pwd">#1B86E4</color>
+    <color name="forgot_password_btn_background">#1B86E4</color>
+    <color name="forgot_password_btn_text">#FFFFFF</color>
+    <color name="forgot_password_success_msg">#18965A</color>
+    <color name="forgot_password_error_msg">#BE4A4A</color>
+    <color name="forgot_password_password_updated_msg_title">#FFFFFF</color>
+    <color name="forgot_password_password_updated_msg_content">#FFFFFF</color>
+
     <!-- Signup -->
     <color name="signup_background">#E4E4E4</color>
     <color name="signup_caption">#696969</color>
