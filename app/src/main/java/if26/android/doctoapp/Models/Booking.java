@@ -6,15 +6,17 @@ public class Booking implements Serializable {
     private Patient patient;
     private Doctor doctor;
     private Reason reason;
-    private String date; // appointment date
+    private String fullDate; // appointment date, as Day, Month X
+    private String date; // appointment date, as YYYY-MM-DD
     private String time; // appointment time
     private String bookingDate; // when the booking has been made
 
     // Constructor
-    public Booking(Patient patient, Doctor doctor, Reason reason, String date, String time, String bookingDate) {
+    public Booking(Patient patient, Doctor doctor, Reason reason, String fullDate, String date, String time, String bookingDate) {
         this.patient = patient;
         this.doctor = doctor;
         this.reason = reason;
+        this.fullDate = fullDate;
         this.date = date;
         this.time = time;
         this.bookingDate = bookingDate;
@@ -43,6 +45,14 @@ public class Booking implements Serializable {
 
     public void setReason(Reason reason) {
         this.reason = reason;
+    }
+
+    public String getFullDate() {
+        return this.fullDate;
+    }
+
+    public void setFullDate(String fullDate) {
+        this.fullDate = fullDate;
     }
 
     public String getDate() {

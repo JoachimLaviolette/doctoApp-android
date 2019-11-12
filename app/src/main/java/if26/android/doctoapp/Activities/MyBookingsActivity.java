@@ -109,7 +109,7 @@ public class MyBookingsActivity
 
         for (final Booking a: this.loggedUser.getAppointments()) {
             View appointmentItemLayout = inflater.inflate(R.layout.template_doctor_appointment_item, this.appointmentList, false);
-            TextView fullDay = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_fullday);
+            TextView fullDate = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_fulldate);
             TextView time = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_time);
             CircleImageView patientPicture = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_picture);
             TextView patientFullname = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_patient_fullname);
@@ -117,7 +117,7 @@ public class MyBookingsActivity
             TextView patientChevron = appointmentItemLayout.findViewById(R.id.doctor_appointment_item_chevron);
 
             // Set data
-            fullDay.setText(a.getDate());
+            fullDate.setText(a.getFullDate());
             time.setText(a.getTime());
             if (!a.getPatient().getPicture().isEmpty()) patientPicture.setImageURI(ImageService.GetURIFromPath(a.getPatient().getPicture()));
             patientFullname.setText(a.getPatient().getFullname());
@@ -145,7 +145,7 @@ public class MyBookingsActivity
 
         for (final Booking a: this.loggedUser.getAppointments()) {
             View appointmentItemLayout = inflater.inflate(R.layout.template_patient_appointment_item_compact , this.appointmentList, false);
-            TextView fullDay = appointmentItemLayout.findViewById(R.id.patient_appointment_item_fullday);
+            TextView fullDate = appointmentItemLayout.findViewById(R.id.patient_appointment_item_fulldate);
             TextView time = appointmentItemLayout.findViewById(R.id.patient_appointment_item_time);
             CircleImageView doctorPicture = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_picture);
             TextView doctorFullname = appointmentItemLayout.findViewById(R.id.patient_appointment_item_doctor_fullname);
@@ -153,7 +153,7 @@ public class MyBookingsActivity
             TextView doctorChevron = appointmentItemLayout.findViewById(R.id.patient_appointment_item_chevron);
 
             // Set data
-            fullDay.setText(a.getDate());
+            fullDate.setText(a.getFullDate());
             time.setText(a.getTime());
             if (!a.getDoctor().getPicture().isEmpty()) doctorPicture.setImageURI(ImageService.GetURIFromPath(a.getDoctor().getPicture()));
             doctorFullname.setText(a.getDoctor().getFullname());

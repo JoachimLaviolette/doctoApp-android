@@ -15,6 +15,7 @@ import if26.android.doctoapp.Models.Doctor;
 import if26.android.doctoapp.Models.Patient;
 import if26.android.doctoapp.Models.Reason;
 import if26.android.doctoapp.Models.Resident;
+import if26.android.doctoapp.Services.DateTimeService;
 
 public class BookingDatabaseHelper {
     private DoctoAppDatabaseHelper databaseHelper;
@@ -62,12 +63,15 @@ public class BookingDatabaseHelper {
                         bookingContentValues.put(bookingTableKeys[i], a.GetReasonId());
                         break;
                     case 3:
-                        bookingContentValues.put(bookingTableKeys[i], a.getDate());
+                        bookingContentValues.put(bookingTableKeys[i], a.getFullDate());
                         break;
                     case 4:
-                        bookingContentValues.put(bookingTableKeys[i], a.getTime());
+                        bookingContentValues.put(bookingTableKeys[i], a.getDate());
                         break;
                     case 5:
+                        bookingContentValues.put(bookingTableKeys[i], a.getTime());
+                        break;
+                    case 6:
                         bookingContentValues.put(bookingTableKeys[i], a.getBookingDate());
                         break;
                 }
@@ -94,6 +98,7 @@ public class BookingDatabaseHelper {
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT, booking.getPatient().getId());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DOCTOR, booking.getDoctor().getId());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_REASON, booking.getReason().getId());
+        bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_FULL_DATE, booking.getFullDate());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE, booking.getDate());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME, booking.getTime());
         bookingContentValues.put(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE, booking.getBookingDate());
@@ -172,12 +177,24 @@ public class BookingDatabaseHelper {
         String query = String.format(
                 "SELECT * " +
                         "FROM %s " +
-                        "WHERE %s = ?",
+                        "WHERE %s = ? " +
+                        "AND %s > ? OR (%s = ? AND %s > ?)",
                 DoctoAppDatabaseContract.Booking.TABLE_NAME,
-                DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_PATIENT,
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE,
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE,
+                DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME
         );
 
-        String[] args = { patient.getId() + "" };
+        String currentDate = DateTimeService.GetCurrentDate();
+        String currentTime = DateTimeService.GetCurrentTime();
+
+        String[] args = {
+                patient.getId() + "",
+                currentDate,
+                currentDate,
+                currentTime,
+        };
 
         Cursor c = database.rawQuery(query, args);
         Set<Booking> appointments = this.BuildPatientAppointmentsList(c, patient);
@@ -225,6 +242,7 @@ public class BookingDatabaseHelper {
                         patient,
                         doctor,
                         reason,
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_FULL_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE).toString()
@@ -277,6 +295,7 @@ public class BookingDatabaseHelper {
                         patient,
                         doctor,
                         reason,
+                        bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_FULL_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_DATE).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_TIME).toString(),
                         bookingData.get(DoctoAppDatabaseContract.Booking.COLUMN_NAME_BOOKING_DATE).toString()
