@@ -394,7 +394,16 @@ public class LoginActivity
      * Start ForgotPwd activity
      */
     private void ForgotPwd() {
+        // Create the intent
+        Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
 
+        // Prepare the intent parameters
+        // The doctor
+        String key = this.getResources().getString(R.string.intent_logged_user);
+        i.removeExtra(key);
+
+        // Start the activity
+        startActivityForResult(i, RequestCode.LOGGED_PATIENT);
     }
 
     /**

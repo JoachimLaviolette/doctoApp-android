@@ -4,6 +4,7 @@
     <!-- Titles -->
     <string name="title_search">Search</string>
     <string name="title_login">Login</string>
+    <string name="title_forgot_password">Forgot password</string>
     <string name="title_signup">Sign-up</string>
     <string name="title_my_profile">My profile</string>
 
@@ -45,6 +46,17 @@
     <string name="login_delete_account_popup_close">x</string>
     <string name="login_delete_account_popup_discard_btn_text">Discard</string>
     <string name="login_delete_account_popup_confirm_btn_text">Confirm</string>
+
+    <!-- Forgot password -->
+    <string name="forgot_password_caption">Reset your password</string>
+    <string name="forgot_password_email_placeholder">Email</string>
+    <string name="forgot_password_pwd_placeholder">Password</string>
+    <string name="forgot_password_confirm_pwd_placeholder">Confirm your password</string>
+    <string name="forgot_password_btn">Set new password</string>
+    <string name="forgot_password_success_msg_title">Password successfully reset</string>
+    <string name="forgot_password_success_msg_content">Your new password is now set. You can use it to login.</string>
+    <string name="forgot_password_error_msg_title">Password not reset</string>
+    <string name="forgot_password_error_msg_content">Something went wrong when retrieving your account. Please make sure you provided an existing email address and both given passwords are the same.</string>
 
     <!-- Signup -->
     <string name="signup_picture_uri">signup_picture_uri</string>
