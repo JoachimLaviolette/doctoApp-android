@@ -486,8 +486,11 @@
     <string name="date_service_day_name">day_name</string>
     <string name="date_service_day_number">day_number</string>
     <string name="date_service_month_name">month_name</string>
+    <string name="date_service_year">year</string>
+    <string name="date_service_month_number">month_number</string>
     <string name="date_service_tag">_tag_{time}_{day_name}_{day_number}_{month_name}</string>
-    <string name="date_service_full_day">{day_name}, {month_name} {day_number}</string>
+    <string name="date_service_full_date">{day_name}, {month_name} {day_number}</string>
+    <string name="date_service_date">{year}-{month_number}-{day_number}</string>
 
     <!-- Confirm appointment -->
     <string name="confirm_appointment_header_title">Booking summary</string>

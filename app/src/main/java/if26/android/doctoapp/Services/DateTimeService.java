@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -34,11 +35,15 @@ public class DateTimeService {
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
+        String monthNumber = this.resources.getString(R.string.date_service_month_number);
+        String year = this.resources.getString(R.string.date_service_year);
 
         dateTimeData.put(timeKey, time);
         dateTimeData.put(dayName, this.GetDayNameFromFullDay(fullDay));
         dateTimeData.put(dayNumber, this.GetDayNumberFromFullDay(fullDay));
         dateTimeData.put(monthName, this.GetMonthNameFromFullDay(fullDay));
+        dateTimeData.put(monthNumber, this.GetMonthNumberFromMonthName(dateTimeData.get(monthName)));
+        dateTimeData.put(year, this.GetCurrentYear());
 
         return dateTimeData;
     }
@@ -53,6 +58,8 @@ public class DateTimeService {
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
+        String monthNumber = this.resources.getString(R.string.date_service_month_number);
+        String year = this.resources.getString(R.string.date_service_year);
 
         Map<String,String> dateTimeData = new LinkedHashMap<>();
 
@@ -60,6 +67,8 @@ public class DateTimeService {
         dateTimeData.put(dayName, this.GetDayNameFromTimeTag(timeTag));
         dateTimeData.put(dayNumber, this.GetDayNumberFromTimeTag(timeTag));
         dateTimeData.put(monthName, this.GetMonthNameFromTimeTag(timeTag));
+        dateTimeData.put(monthNumber, this.GetMonthNumberFromMonthName(dateTimeData.get(monthName)));
+        dateTimeData.put(year, this.GetCurrentYear());
 
         return dateTimeData;
     }
@@ -87,17 +96,17 @@ public class DateTimeService {
     }
 
     /**
-     * Return the full day in format "Day, Month X"
+     * Return the full date in format "Day, Month X"
      * @param dateTimeData Map containing datetime data
-     * @return The full day
+     * @return The full date
      */
-    public String GetFullDayFromData(Map<String,String> dateTimeData) {
+    public String GetFullDateFromData(Map<String,String> dateTimeData) {
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
-        String fullDay = this.resources.getString(R.string.date_service_full_day).trim();
+        String fullDate = this.resources.getString(R.string.date_service_full_date).trim();
 
-        return fullDay
+        return fullDate
                 .replace(this.ToBrace(dayName), dateTimeData.get(dayName))
                 .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
                 .replace(this.ToBrace(monthName), dateTimeData.get(monthName))
@@ -105,14 +114,21 @@ public class DateTimeService {
     }
 
     /**
-     * Return the time in format hh:mm
+     * Return the date in format "YYYY-MM-DD"
      * @param dateTimeData Map containing datetime data
-     * @return The time
+     * @return The date
      */
-    public String GetTimeFromData(Map<String,String> dateTimeData) {
-        String timeKey = this.resources.getString(R.string.date_service_time);
-        
-        return dateTimeData.get(timeKey).trim();
+    public String GetDateFromData(Map<String,String> dateTimeData) {
+        String dayNumber = this.resources.getString(R.string.date_service_day_number);
+        String monthNumber = this.resources.getString(R.string.date_service_month_number);
+        String year = this.resources.getString(R.string.date_service_year);
+        String fullDay = this.resources.getString(R.string.date_service_date).trim();
+
+        return fullDay
+                .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
+                .replace(this.ToBrace(monthNumber), dateTimeData.get(monthNumber))
+                .replace(this.ToBrace(year), dateTimeData.get(year))
+                .trim();
     }
 
     /**
@@ -151,6 +167,27 @@ public class DateTimeService {
         String monthName = fullDay.substring(fullDay.indexOf(" ") + 1);
 
         return monthName.substring(0, monthName.indexOf(" ")).trim();
+    }
+
+    /**
+     * Get the month number from the provided month name
+     * @param monthName The name of the month (HAS TO BE IN ENGLISH)
+     * @return The corresponding month number
+     */
+    private String GetMonthNumberFromMonthName(String monthName) {
+        try {
+            Date date = new SimpleDateFormat("MMMM", Locale.ENGLISH).parse(monthName);
+            Calendar cal = Calendar.getInstance();
+            if (date != null) {
+                cal.setTime(date);
+
+                return cal.get(Calendar.MONTH) + 1 + "";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**
@@ -215,12 +252,38 @@ public class DateTimeService {
     }
 
     /**
-     * Return the current date time in the given format
-     * @param format The format to get the date in
+     * Return the current date
      * @return The current date
      */
-    public static String GetCurrentDateTime(String format) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+    public static String GetCurrentDate() {
+        String DATE_FORMAT = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date today = Calendar.getInstance().getTime();
+
+        return dateFormat.format(today);
+    }
+
+    /**
+     * Return the current time
+     * @return The current time
+     */
+    public static String GetCurrentTime() {
+        String DATE_FORMAT = "HH:mm";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Paris")); // Todo : Fix the time zone
+        Date today = Calendar.getInstance().getTime();
+
+        return dateFormat.format(today);
+    }
+
+    /**
+     * Return the current year
+     * @return The current year
+     */
+    private String GetCurrentYear() {
+        String DATE_FORMAT = "yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date today = Calendar.getInstance().getTime();
 

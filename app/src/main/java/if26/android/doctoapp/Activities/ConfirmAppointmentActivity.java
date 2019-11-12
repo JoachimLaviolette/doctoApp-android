@@ -151,8 +151,8 @@ public class ConfirmAppointmentActivity
      * Set the content in case the booking has successfully been created
      */
     private void SetSuccessContent() {
-        // Set appointment full day
-        this.appointmentDay.setText(this.booking.getDate());
+        // Set appointment full date
+        this.appointmentDay.setText(this.booking.getFullDate());
 
         // Set appointment time
         this.appointmentTime.setText(this.booking.getTime());

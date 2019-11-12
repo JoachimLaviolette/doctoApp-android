@@ -172,7 +172,7 @@ public class ShowBooking
      */
     private void SetContent() {
         // Set appointment full day
-        this.appointmentDay.setText(this.booking.getDate());
+        this.appointmentDay.setText(this.booking.getFullDate());
 
         // Set appointment time
         this.appointmentTime.setText(this.booking.getTime());
@@ -404,8 +404,8 @@ public class ShowBooking
      * Set popup dynamic content
      */
     private void SetPopupContent() {
-        String date = getString(R.string.show_booking_appointment_cancel_appointment_popup_content_appointment_date_prefix) + this.booking.getDate();
-        this.popupDate.setText(date);
+        String fullDate = getString(R.string.show_booking_appointment_cancel_appointment_popup_content_appointment_date_prefix) + this.booking.getFullDate();
+        this.popupDate.setText(fullDate);
 
         String time = getString(R.string.show_booking_appointment_cancel_appointment_popup_content_appointment_time_prefix) + this.booking.getTime();
         this.popupTime.setText(time);

@@ -91,6 +91,7 @@ CREATE TABLE booking (
  patient_id INTEGER NOT NULL,
  doctor_id INTEGER NOT NULL,
  reason_id INTEGER NOT NULL,
+ full_date TEXT NOT NULL,
  date TEXT NOT NULL,
  time TEXT NOT NULL,
  booking_date TEXT NOT NULL,

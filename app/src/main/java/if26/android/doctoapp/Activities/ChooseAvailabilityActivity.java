@@ -209,7 +209,8 @@ public class ChooseAvailabilityActivity
         // Prepare the intent parameters
         // The completed booking
         String key = this.getResources().getString(R.string.intent_booking);
-        this.booking.setDate((new DateTimeService(this.getApplicationContext()).GetFullDayFromData(dateData)));
+        this.booking.setFullDate((new DateTimeService(this).GetFullDateFromData(dateData)));
+        this.booking.setDate((new DateTimeService(this).GetDateFromData(dateData)));
         this.booking.setTime(dateData.get(this.getResources().getString(R.string.date_service_time)));
         this.booking.setBookingDate(DateTimeService.GetCurrentDateTime());
         i.putExtra(key, this.booking);
