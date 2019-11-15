@@ -1,7 +1,9 @@
 package if26.android.doctoapp.Activities;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
@@ -183,11 +187,11 @@ public class SignupActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.signup_take_picture_from_camera:
-                this.TakePictureFromCamera();
+                this.CheckPermission("CAMERA");
 
                 return;
             case R.id.signup_select_picture_from_gallery:
-                this.SelectPictureFromGallery();
+                this.CheckPermission("READ_EXTERNAL_STORAGE");
 
                 return;
             case R.id.signup_btn:
@@ -224,6 +228,67 @@ public class SignupActivity
         this.cityInput.setText("");
         this.zipInput.setText("");
         this.countryInput.setText("");
+    }
+
+    /**
+     * Check if we have the permission to access the camera and the gallery
+     */
+    private void CheckPermission(String PermissionAction){
+        switch (PermissionAction) {
+            case "READ_EXTERNAL_STORAGE":
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission is not granted
+                    // Request the permission
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                } else {
+                    // Permission has already been granted
+                    this.SelectPictureFromGallery();
+                }
+
+                break;
+            case "CAMERA":
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission is not granted
+                    //Request the permission
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.CAMERA},
+                            RequestCode.PERMISSIONS_REQUEST_CAMERA);
+                } else {
+                    // Permission has already been granted
+                    this.TakePictureFromCamera();
+                }
+
+                break;
+        }
+    }
+
+    /**
+     * Do an action depending on the result of the permission request
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case RequestCode.PERMISSIONS_REQUEST_CAMERA:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    this.TakePictureFromCamera();
+                }
+                break;
+            case RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    this.SelectPictureFromGallery();
+                }
+                break;
+        }
     }
 
     /**
