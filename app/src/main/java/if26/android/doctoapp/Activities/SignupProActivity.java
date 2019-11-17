@@ -162,6 +162,11 @@ public class SignupProActivity
     private static final String PREFIX_PROFILE_HEADER = "profile_header_";
     private static final String FILE_EXT = ".png";
 
+    private static final String PERMISSION_CAMERA_PROFILE_PICTURE = "CAMERA_PROFILE_PICTURE";
+    private static final String PERMISSION_GALLERY_PROFILE_PICTURE = "GALLERY_PROFILE_PICTURE";
+    private static final String PERMISSION_CAMERA_HEADER = "CAMERA_HEADER";
+    private static final String PERMISSION_GALLERY_HEADER = "GALLERY_HEADER";
+
     private static final int ADD_AVAILABILITY = 0;
     private static final int ADD_REASON = 1;
     private static final int ADD_EXPERIENCE = 2;
@@ -374,20 +379,14 @@ public class SignupProActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.signup_pro_take_picture_from_camera:
-                this.CheckPermission("CAMERA");
-
-                return;
-            case R.id.signup_pro_select_picture_from_gallery:
-                this.CheckPermission("READ_EXTERNAL_STORAGE");
-
-                return;
             case R.id.signup_pro_take_header_from_camera:
-                this.CheckPermission("CAMERA_HEADER");
+                if (this.CheckPermission(PERMISSION_CAMERA_HEADER))
+                    this.TakeHeaderFromCamera();
 
                 return;
             case R.id.signup_pro_select_header_from_gallery:
-                this.CheckPermission("READ_EXTERNAL_STORAGE_HEADER");
+                if (this.CheckPermission(PERMISSION_GALLERY_HEADER))
+                    this.SelectHeaderFromGallery();
 
                 return;
             case R.id.signup_pro_add_availability_btn:
@@ -430,25 +429,9 @@ public class SignupProActivity
     /**
      * Check if we have the permission to access the camera and the gallery
      */
-    private void CheckPermission(String PermissionAction){
-        switch (PermissionAction) {
-            case "READ_EXTERNAL_STORAGE":
-                if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    // Permission is not granted
-                    // Request the permission
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                } else {
-                    // Permission has already been granted
-                    this.SelectPictureFromGallery();
-                }
-
-                break;
-            case "CAMERA":
+    private boolean CheckPermission(String permissionAction){
+        switch (permissionAction) {
+            case PERMISSION_CAMERA_PROFILE_PICTURE:
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -458,13 +441,12 @@ public class SignupProActivity
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.CAMERA},
                             RequestCode.PERMISSIONS_REQUEST_CAMERA);
-                } else {
-                    // Permission has already been granted
-                    this.TakePictureFromCamera();
+
+                    return false;
                 }
 
-                break;
-            case "READ_EXTERNAL_STORAGE_HEADER":
+                return true;
+            case PERMISSION_GALLERY_PROFILE_PICTURE:
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.READ_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -473,14 +455,13 @@ public class SignupProActivity
                     // Request the permission
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_HEADER);
-                } else {
-                    // Permission has already been granted
-                    this.SelectHeaderFromGallery();
+                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+                    return false;
                 }
 
-                break;
-            case "CAMERA_HEADER":
+                return true;
+            case PERMISSION_CAMERA_HEADER:
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -490,13 +471,29 @@ public class SignupProActivity
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.CAMERA},
                             RequestCode.PERMISSIONS_REQUEST_CAMERA_HEADER);
-                } else {
-                    // Permission has already been granted
-                    this.TakeHeaderFromCamera();
+
+                    return false;
                 }
 
-                break;
+                return true;
+            case PERMISSION_GALLERY_HEADER:
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission is not granted
+                    // Request the permission
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_HEADER);
+
+                    return false;
+                }
+
+                return true;
         }
+
+        return false;
     }
 
     /**
@@ -508,25 +505,23 @@ public class SignupProActivity
 
         switch (requestCode) {
             case RequestCode.PERMISSIONS_REQUEST_CAMERA:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.TakePictureFromCamera();
-                }
-                break;
+
+                return;
             case RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.SelectPictureFromGallery();
-                }
-                break;
+
+                return;
             case RequestCode.PERMISSIONS_REQUEST_CAMERA_HEADER:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.TakeHeaderFromCamera();
-                }
-                break;
+
+                return;
             case RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_HEADER:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.SelectHeaderFromGallery();
-                }
-                break;
         }
     }
 

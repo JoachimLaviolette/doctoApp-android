@@ -80,6 +80,9 @@ public class MyProfileActivity
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String FILE_EXT = ".png";
 
+    private static final String PERMISSION_CAMERA_PROFILE_PICTURE = "CAMERA_PROFILE_PICTURE";
+    private static final String PERMISSION_GALLERY_PROFILE_PICTURE = "GALLERY_PROFILE_PICTURE";
+
     private static final int SCALE_AMOUNT_PICTURE = 400;
 
     @Override
@@ -211,11 +214,13 @@ public class MyProfileActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.my_profile_take_picture_from_camera:
-                this.CheckPermission("CAMERA");
+                if (this.CheckPermission(PERMISSION_CAMERA_PROFILE_PICTURE))
+                    this.TakePictureFromCamera();
 
                 return;
             case R.id.my_profile_select_picture_from_gallery:
-                this.CheckPermission("READ_EXTERNAL_STORAGE");
+                if (this.CheckPermission(PERMISSION_GALLERY_PROFILE_PICTURE))
+                    this.SelectPictureFromGallery();
 
                 return;
             case R.id.my_profile_update_btn:
@@ -226,25 +231,9 @@ public class MyProfileActivity
     /**
      * Check if we have the permission to access the camera and the gallery
      */
-    private void CheckPermission(String PermissionAction){
-        switch (PermissionAction) {
-            case "READ_EXTERNAL_STORAGE":
-                if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    // Permission is not granted
-                    // Request the permission
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                } else {
-                    // Permission has already been granted
-                    this.SelectPictureFromGallery();
-                }
-
-                break;
-            case "CAMERA":
+    private boolean CheckPermission(String permissionAction){
+        switch (permissionAction) {
+            case PERMISSION_CAMERA_PROFILE_PICTURE:
                 if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
@@ -254,13 +243,29 @@ public class MyProfileActivity
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.CAMERA},
                             RequestCode.PERMISSIONS_REQUEST_CAMERA);
-                } else {
-                    // Permission has already been granted
-                    this.TakePictureFromCamera();
+
+                    return false;
                 }
 
-                break;
+                return true;
+            case PERMISSION_GALLERY_PROFILE_PICTURE:
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    // Permission is not granted
+                    // Request the permission
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+                    return false;
+                }
+
+                return true;
         }
+
+        return false;
     }
 
     /**
@@ -272,15 +277,13 @@ public class MyProfileActivity
 
         switch (requestCode) {
             case RequestCode.PERMISSIONS_REQUEST_CAMERA:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.TakePictureFromCamera();
-                }
-                break;
+
+                return;
             case RequestCode.PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     this.SelectPictureFromGallery();
-                }
-                break;
         }
     }
 
