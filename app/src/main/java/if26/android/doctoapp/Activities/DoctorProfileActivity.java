@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -136,6 +137,8 @@ public class DoctorProfileActivity
      * Set content procedurally
      */
     private void SetContent() {
+        if (this.loggedUser instanceof Doctor) ((ViewGroup) this.bookAppointmentBtn.getParent()).removeView(this.bookAppointmentBtn);
+
         // Set doctor picture
         if (this.doctor.getPicture() != null) {
             if (!this.doctor.getPicture().isEmpty()) {
