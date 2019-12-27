@@ -43,7 +43,7 @@ public class DateTimeService {
         dateTimeData.put(dayNumber, this.GetDayNumberFromFullDay(fullDay));
         dateTimeData.put(monthName, this.GetMonthNameFromFullDay(fullDay));
         dateTimeData.put(monthNumber, this.GetMonthNumberFromMonthName(dateTimeData.get(monthName)));
-        dateTimeData.put(year, this.GetCurrentYear());
+        dateTimeData.put(year, this.GetYearFromFullDay(fullDay));
 
         return dateTimeData;
     }
@@ -68,7 +68,7 @@ public class DateTimeService {
         dateTimeData.put(dayNumber, this.GetDayNumberFromTimeTag(timeTag));
         dateTimeData.put(monthName, this.GetMonthNameFromTimeTag(timeTag));
         dateTimeData.put(monthNumber, this.GetMonthNumberFromMonthName(dateTimeData.get(monthName)));
-        dateTimeData.put(year, this.GetCurrentYear());
+        dateTimeData.put(year, this.GetYearNameFromTimeTag(timeTag));
 
         return dateTimeData;
     }
@@ -84,6 +84,7 @@ public class DateTimeService {
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
+        String year = this.resources.getString(R.string.date_service_year);
         String tag = this.resources.getString(R.string.date_service_tag);
         Map<String,String> dateTimeData = this.GetDateTimeDataFromFullDay(time, fullDay);
 
@@ -92,6 +93,7 @@ public class DateTimeService {
                 .replace(this.ToBrace(dayName), dateTimeData.get(dayName))
                 .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
                 .replace(this.ToBrace(monthName), dateTimeData.get(monthName))
+                .replace(this.ToBrace(year), dateTimeData.get(year))
                 .trim();
     }
 
@@ -104,12 +106,14 @@ public class DateTimeService {
         String dayName = this.resources.getString(R.string.date_service_day_name);
         String dayNumber = this.resources.getString(R.string.date_service_day_number);
         String monthName = this.resources.getString(R.string.date_service_month_name);
+        String year = this.resources.getString(R.string.date_service_year);
         String fullDate = this.resources.getString(R.string.date_service_full_date).trim();
 
         return fullDate
                 .replace(this.ToBrace(dayName), dateTimeData.get(dayName))
                 .replace(this.ToBrace(dayNumber), dateTimeData.get(dayNumber))
                 .replace(this.ToBrace(monthName), dateTimeData.get(monthName))
+                .replace(this.ToBrace(year), dateTimeData.get(year))
                 .trim();
     }
 
@@ -142,7 +146,7 @@ public class DateTimeService {
 
     /**
      * Get the day name from the provided full day string
-     * @param fullDay Has to be in format: "Day, Month X"
+     * @param fullDay Has to be in format: "Day, Month X, YEAR"
      * @return The day name
      */
     private String GetDayNameFromFullDay(String fullDay) {
@@ -151,16 +155,16 @@ public class DateTimeService {
 
     /**
      * Get the day number from the provided full day string
-     * @param fullDay Has to be in format: "Day, Month X"
+     * @param fullDay Has to be in format: "Day, Month X, YEAR"
      * @return The day number
      */
     private String GetDayNumberFromFullDay(String fullDay) {
-        return fullDay.substring(fullDay.lastIndexOf(" ") + 1).trim();
+        return fullDay.substring(fullDay.lastIndexOf(",") - 2, fullDay.lastIndexOf(",")).trim();
     }
 
     /**
      * Get the month name from the provided full day string
-     * @param fullDay Has to be in format: "Day, Month X"
+     * @param fullDay Has to be in format: "Day, Month X, YEAR"
      * @return The month name
      */
     private String GetMonthNameFromFullDay(String fullDay) {
@@ -191,8 +195,17 @@ public class DateTimeService {
     }
 
     /**
+     * Get the year from the provided full day string
+     * @param fullDay Has to be in format: "Day, Month X, YEAR"
+     * @return The year
+     */
+    private String GetYearFromFullDay(String fullDay) {
+        return fullDay.substring(fullDay.lastIndexOf(" ") + 1).trim();
+    }
+
+    /**
      * Get the time from the provided time tag
-     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}"
+     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}_{year}"
      * @return The time
      */
     private String GetTimeFromTimeTag(String timeTag) {
@@ -204,7 +217,7 @@ public class DateTimeService {
 
     /**
      * Get the day name from the provided time tag
-     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}"
+     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}_{year}"
      * @return The day name
      */
     private String GetDayNameFromTimeTag(String timeTag) {
@@ -216,7 +229,7 @@ public class DateTimeService {
 
     /**
      * Get the day number from the provided time tag
-     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}"
+     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}_{year}"
      * @return The day number
      */
     private String GetDayNumberFromTimeTag(String timeTag) {
@@ -228,13 +241,25 @@ public class DateTimeService {
 
     /**
      * Get the month name from the provided time tag
-     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}"
+     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}_{year}"
      * @return The month name
      */
     private String GetMonthNameFromTimeTag(String timeTag) {
         return timeTag
                 .split("_")
                 [5]
+                .trim();
+    }
+
+    /**
+     * Get the year from the provided time tag
+     * @param timeTag Has to be in format: "_tag_{time}_{dayName}_{dayNumber}_{monthName}_{year}"
+     * @return The year
+     */
+    private String GetYearNameFromTimeTag(String timeTag) {
+        return timeTag
+                .split("_")
+                [6]
                 .trim();
     }
 
@@ -296,7 +321,7 @@ public class DateTimeService {
      * @return The new date
      */
     public static String GetDateFromCurrent(int daysToAdd) {
-        String DATE_FORMAT = "EEEE, MMMM d";
+        String DATE_FORMAT = "EEEE, MMMM d, yyyy";
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
         Calendar c = Calendar.getInstance();
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));

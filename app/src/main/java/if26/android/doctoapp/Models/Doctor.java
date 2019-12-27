@@ -257,16 +257,16 @@ public class Doctor extends Resident {
         this.languages.add(l);
     }
 
-    public void addPaymentOption(PaymentOption p) {
-        this.paymentOptions.add(p);
+    public void addPaymentOption(PaymentOption po) {
+        this.paymentOptions.add(po);
     }
 
     public void addReason(Reason r) {
         this.reasons.add(r);
     }
 
-    public void addTraining(Education t) {
-        this.trainings.add(t);
+    public void addTraining(Education e) {
+        this.trainings.add(e);
     }
 
     public void addExperience(Experience e) {
@@ -284,9 +284,9 @@ public class Doctor extends Resident {
             this.languages.remove(l);
     }
 
-    public void removePaymentOption(PaymentOption p) {
-        if (this.paymentOptions.contains(p))
-            this.paymentOptions.remove(p);
+    public void removePaymentOption(PaymentOption po) {
+        if (this.paymentOptions.contains(po))
+            this.paymentOptions.remove(po);
     }
 
     public void removeReason(Reason r) {
@@ -294,9 +294,9 @@ public class Doctor extends Resident {
             this.reasons.remove(r);
     }
 
-    public void removeTraining(Education t) {
-        if (this.trainings.contains(t))
-            this.trainings.remove(t);
+    public void removeTraining(Education e) {
+        if (this.trainings.contains(e))
+            this.trainings.remove(e);
     }
 
     public void removeExperience(Experience e) {
@@ -411,7 +411,7 @@ public class Doctor extends Resident {
     public String getTrainingsAsString() {
         String trainings = "";
 
-        for (Education t: this.trainings) trainings += "- " + t.getYear() + ": " + t.getDegree() + "\n";
+        for (Education e: this.trainings) trainings += "- " + e.getYear() + ": " + e.getDegree() + "\n";
 
         return trainings.trim();
     }

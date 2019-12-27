@@ -244,7 +244,7 @@ public class ShowBooking
      * Handle click events
      * @param v The view that has been clicked
      */
-    @Override
+    @Override   
     public void onClick(View v) {
         if (this.loggedUser instanceof Patient) {
             if (v.getId() == R.id.show_booking_appointment_chevron) {

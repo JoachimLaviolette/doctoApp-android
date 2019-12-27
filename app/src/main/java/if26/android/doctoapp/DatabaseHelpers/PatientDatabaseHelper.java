@@ -79,7 +79,7 @@ public class PatientDatabaseHelper {
 
         String[] args = { patient.getId() + "" };
 
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
 
         return database.update(
                 DoctoAppDatabaseContract.Patient.TABLE_NAME,
@@ -126,7 +126,7 @@ public class PatientDatabaseHelper {
                 patientContentValues.put(patientTableKeys[i], patientData[i].toString());
         }
 
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
         long patientId = database.insert(
                 DoctoAppDatabaseContract.Patient.TABLE_NAME,
                 null,
@@ -139,9 +139,9 @@ public class PatientDatabaseHelper {
     }
 
     /**
-     * Get all the patients matching with the needle
+     * Get all the patients
      * See the SQL query to see what fields are considered
-     * @return A list of matching patients
+     * @return A list of patients
      */
     public List<Patient> GetPatients() {
         SQLiteDatabase database = this.databaseHelper.getReadableDatabase();

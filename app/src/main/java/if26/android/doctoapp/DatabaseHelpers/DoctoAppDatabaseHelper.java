@@ -12,8 +12,8 @@ import java.io.InputStreamReader;
 public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
 
-    private static String SQL_CREATE_ENTRIES_FILE = "sql_entries/create.sql";
-    private static String SQL_DELETE_ENTRIES_FILE = "sql_entries/delete.sql";
+    private static final String SQL_CREATE_ENTRIES_FILE = "sql_entries/create.sql";
+    private static final String SQL_DELETE_ENTRIES_FILE = "sql_entries/delete.sql";
     private static String SQL_CREATE_ENTRIES = null;
     private static String SQL_DELETE_ENTRIES = null;
 
@@ -45,7 +45,7 @@ public class DoctoAppDatabaseHelper extends SQLiteOpenHelper {
      */
     private String ReadFileEntries(String file) {
         InputStream reader = null;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
 
         try {
             reader = this.context.getAssets().open(file);

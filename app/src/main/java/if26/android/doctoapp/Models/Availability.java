@@ -53,6 +53,7 @@ public class Availability implements Serializable {
 
         if ((a.getDoctor() == null && this.getDoctor() != null)
                 || (a.getDoctor() != null && this.getDoctor() == null)) return false;
+                
         if (!a.getDate().equals(this.getDate())) return false;
 
         return a.getTime().equals(this.getTime());

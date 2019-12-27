@@ -248,14 +248,13 @@ public class DoctorProfileActivity
                 break;
             case R.id.doctor_profile_hours_contacts_section:
                 titleKey = R.string.doctor_profile_hours_contacts;
-                // TODO: content = this.doctor.GetFullAddress();
+                content = this.doctor.getContactNumberAsString();
                 break;
             case R.id.doctor_profile_languages_section:
                 titleKey = R.string.doctor_profile_languages;
                 content = this.doctor.getLanguagesAsString();
                 break;
-            default:
-                return;
+            default: break;
         }
 
         this.CreatePopup(

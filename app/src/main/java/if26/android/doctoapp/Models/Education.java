@@ -52,6 +52,7 @@ public class Education implements Serializable {
 
         if ((e.getDoctor() == null && this.getDoctor() != null)
                 || (e.getDoctor() != null && this.getDoctor() == null)) return false;
+        
         if (!e.getYear().equals(this.getYear())) return false;
 
         return e.getDegree().equals(this.getDegree());

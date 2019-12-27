@@ -75,7 +75,7 @@ public abstract class Resident implements Serializable {
     }
 
     public String getFullname() {
-        return this.firstname + " " + getLastname().toUpperCase();
+        return this.firstname + " " + this.lastname.toUpperCase();
     }
 
     public String getEmail() {
@@ -198,9 +198,7 @@ public abstract class Resident implements Serializable {
         Resident r = (Resident) obj;
 
         // Because the id is unique
-        // It's enough to compare Doctor objects
-        if (r.getId() != this.getId()) return false;
-
-        return true;
+        // It's enough to compare both Resident objects
+        return r.getId() == this.getId();
     }
 }

@@ -18,11 +18,11 @@ public enum Language implements Serializable {
 
     /**
      * Get the Language value of the given string representation
-     * @param lString The string representation of the language
+     * @param languageName The string representation of the language
      * @return The language value associated
      */
-    public static Language GetValueOf(String lString) {
-        switch (lString) {
+    public static Language GetValueOf(String languageName) {
+        switch (languageName) {
             case "French": return FR;
             case "English": return EN;
             case "Spanish": return ES;

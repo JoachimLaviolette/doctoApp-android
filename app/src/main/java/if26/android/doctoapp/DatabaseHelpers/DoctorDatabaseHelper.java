@@ -122,7 +122,7 @@ public class DoctorDatabaseHelper {
 
         String[] args = { doctor.getId() + "" };
 
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
 
         if (database.update(
                 DoctoAppDatabaseContract.Doctor.TABLE_NAME,
@@ -202,7 +202,7 @@ public class DoctorDatabaseHelper {
                 doctorContentValues.put(doctorTableKeys[i], doctorData[i].toString());
         }
 
-        SQLiteDatabase database = this.databaseHelper.getReadableDatabase();
+        SQLiteDatabase database = this.databaseHelper.getWritableDatabase();
         long doctorId = database.insert(
                 DoctoAppDatabaseContract.Doctor.TABLE_NAME,
                 null,
