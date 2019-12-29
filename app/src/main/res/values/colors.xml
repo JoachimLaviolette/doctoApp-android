@@ -86,6 +86,17 @@
     <color name="signup_select_picture_from_gallery">#494949</color>
     <color name="signup_select_picture_from_gallery_text">#FFFFFF</color>
 
+    <!-- Terms of use -->
+    <color name="terms_of_use_popup_external_background">#000000</color>
+    <color name="terms_of_use_popup_background">#FFFFFF</color>
+    <color name="terms_of_use_popup_title">#FFFFFF</color>
+    <color name="terms_of_use_popup_title_background">#1B86E4</color>
+    <color name="terms_of_use_popup_section_title">#444444</color>
+    <color name="terms_of_use_popup_section_content">#727272</color>
+    <color name="terms_of_use_popup_close">#FFFFFF</color>
+    <color name="terms_of_use_popup_btn_text">#FFFFFF</color>
+
+
     <!-- My profile -->
     <color name="my_profile_background">#E4E4E4</color>
     <color name="my_profile_caption">#696969</color>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/terms_of_use_popup_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <RelativeLayout
+        android:id="@+id/terms_of_use_popup_external_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".8"
+        android:background="@color/terms_of_use_popup_external_background">
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/terms_of_use_popup_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        android:background="@color/terms_of_use_popup_background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/terms_of_use_popup_title_background"
+            android:orientation="horizontal"
+            android:padding="10sp">
+
+            <TextView
+                android:id="@+id/terms_of_use_popup_title"
+                android:layout_width="332dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/terms_of_use_popup_title"
+                android:textAlignment="center"
+                android:textColor="@color/terms_of_use_popup_title"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/terms_of_use_popup_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10sp"
+                android:fontFamily="@font/acme"
+                android:text="@string/terms_of_use_popup_close"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/terms_of_use_popup_close"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/terms_of_use_popup_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="100"
+            android:fadeScrollbars="true"
+            android:fontFamily="@font/roboto"
+            android:isScrollContainer="true"
+            android:lineSpacingExtra="6sp"
+            android:padding="20sp"
+            android:shadowColor="#000000"
+            android:text="@string/terms_of_use_popup_content"
+            android:textColor="@color/terms_of_use_popup_section_content"
+            android:textSize="13sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/terms_of_use_popup_discard_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/login_btn_background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="@string/terms_of_use_popup_discard_btn_text"
+                android:textColor="@color/terms_of_use_popup_btn_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/terms_of_use_popup_confirm_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/login_btn_background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="@string/terms_of_use_popup_confirm_btn_text"
+                android:textColor="@color/terms_of_use_popup_btn_text"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -9,10 +9,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +53,7 @@ public class SignupActivity
         implements View.OnClickListener {
     private Resident loggedUser;
 
+    private ScrollView mainLayout;
     private LinearLayout signupMsg;
     private TextView signupMsgTitle;
     private TextView signupMsgContent;
@@ -81,6 +88,13 @@ public class SignupActivity
     private TextView proAccountLink;
     private LinearLayout professionalSection;
 
+    private PopupWindow currentTermsOfUsePopup;
+    private TextView popupClose;
+    private RelativeLayout popupExternalBackground;
+    private LinearLayout popupContentLayout;
+    private Button discardBtn;
+    private Button confirmBtn;
+
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String FILE_EXT = ".png";
 
@@ -105,6 +119,8 @@ public class SignupActivity
      */
     private void Instantiate() {
         this.loggedUser = null;
+
+        this.mainLayout = findViewById(R.id.signup_layout);
 
         this.signupMsg = findViewById(R.id.signup_msg);
         this.signupMsgTitle = findViewById(R.id.signup_msg_title);
@@ -140,6 +156,14 @@ public class SignupActivity
 
         this.proAccountLink = findViewById(R.id.signup_pro_account_link);
         this.professionalSection = findViewById(R.id.signup_pro_account_section);
+
+        // Popup
+        this.currentTermsOfUsePopup = null;
+        this.popupClose = null;
+        this.popupExternalBackground = null;
+        this.popupContentLayout = null;
+        this.discardBtn = null;
+        this.confirmBtn = null;
     }
 
     /**
@@ -151,6 +175,14 @@ public class SignupActivity
         this.signupBtn.setOnClickListener(this);
         this.loginLink.setOnClickListener(this);
         this.proAccountLink.setOnClickListener(this);
+        // CHEATING CODE...
+        // BUT... Needed to make terms of use popup appear
+        this.mainLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                HandleTermsOfUse();
+            }
+        });
     }
 
     /**
@@ -183,6 +215,13 @@ public class SignupActivity
     }
 
     /**
+     * Check if we have to display terms of use and force the user to accept it
+     */
+    private void HandleTermsOfUse() {
+        this.CreateTermsOfUsePopup();
+    }
+
+    /**
      * Handle click events
      * @param v The view that has been clicked
      */
@@ -209,6 +248,22 @@ public class SignupActivity
                 return;
             case R.id.signup_pro_account_link:
                 this.SignupPro();
+
+                return;
+            case R.id.terms_of_use_popup_close:
+            case R.id.terms_of_use_popup_discard_btn:
+                this.finish();
+
+                return;
+            case R.id.terms_of_use_popup_external_background:
+                if (v.getId() != R.id.terms_of_use_popup_content_layout) {
+                    this.finish();
+
+                    return;
+                }
+
+            case R.id.terms_of_use_popup_confirm_btn:
+                this.ClearCurrentTermsOfUsePopupContext();
         }
     }
 
@@ -575,5 +630,71 @@ public class SignupActivity
             finish();
         }
         catch (Exception e) { e.printStackTrace(); }
+    }
+
+    /**
+     * Open the terms of use popup
+     */
+    private void CreateTermsOfUsePopup() {
+        // Clear the current delete account popup context if any
+        this.ClearCurrentTermsOfUsePopupContext();
+
+        // Create the new popup context
+        this.CreateNewTermsOfUsePopupContext();
+
+        // Attach the appropriate events to the current popup
+        this.SubscribeEventsPopup();
+
+        // Display the popup
+        this.currentTermsOfUsePopup.showAtLocation(this.mainLayout, Gravity.NO_GRAVITY, 0, 0);
+    }
+
+    /**
+     * Clear the current popup context
+     */
+    private void ClearCurrentTermsOfUsePopupContext() {
+        if (this.currentTermsOfUsePopup != null) {
+            this.currentTermsOfUsePopup.dismiss();
+            this.currentTermsOfUsePopup = null;
+        }
+
+        if (this.popupClose != null) {
+            this.popupClose = null;
+            this.discardBtn = null;
+            this.confirmBtn = null;
+        }
+
+        if (this.popupExternalBackground != null) this.popupExternalBackground = null;
+        if (this.popupContentLayout != null) this.popupContentLayout = null;
+    }
+
+    /**
+     * Create a new popup context
+     * @return The popup sample view
+     */
+    private void CreateNewTermsOfUsePopupContext() {
+        // Initialize a new instance of LayoutInflater service
+        LayoutInflater inflater = getLayoutInflater();
+        int popupLayout = R.layout.popup_terms_of_use_layout;
+        View popupSampleView = inflater.inflate(popupLayout, null);
+
+        // Create the popup window
+        this.currentTermsOfUsePopup = new PopupWindow(popupSampleView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        this.popupClose = popupSampleView.findViewById(R.id.terms_of_use_popup_close);
+        this.popupExternalBackground = popupSampleView.findViewById(R.id.terms_of_use_popup_external_background);
+        this.popupContentLayout = popupSampleView.findViewById(R.id.terms_of_use_popup_content_layout);
+        this.discardBtn = popupSampleView.findViewById(R.id.terms_of_use_popup_discard_btn);
+        this.confirmBtn = popupSampleView.findViewById(R.id.terms_of_use_popup_confirm_btn);
+    }
+
+    /**
+     * Attach the appropriate events to the current popup components
+     */
+    private void SubscribeEventsPopup() {
+        this.popupClose.setOnClickListener(this);
+        this.popupExternalBackground.setOnClickListener(this);
+        this.popupContentLayout.setOnClickListener(this);
+        this.discardBtn.setOnClickListener(this);
+        this.confirmBtn.setOnClickListener(this);
     }
 }

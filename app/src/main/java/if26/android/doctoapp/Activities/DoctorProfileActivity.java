@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -137,7 +136,7 @@ public class DoctorProfileActivity
      * Set content procedurally
      */
     private void SetContent() {
-        if (this.loggedUser instanceof Doctor) ((ViewGroup) this.bookAppointmentBtn.getParent()).removeView(this.bookAppointmentBtn);
+        if (this.loggedUser instanceof Doctor) this.bookAppointmentBtn.setVisibility(View.GONE);
 
         // Set doctor picture
         if (this.doctor.getPicture() != null) {
@@ -230,7 +229,7 @@ public class DoctorProfileActivity
             return;
         }
 
-        String content = this.getResources().getString(contentKey);
+        String content;
 
         switch (v.getId()) {
             case R.id.doctor_profile_prices_refunds_section:
@@ -257,7 +256,7 @@ public class DoctorProfileActivity
                 titleKey = R.string.doctor_profile_languages;
                 content = this.doctor.getLanguagesAsString();
                 break;
-            default: break;
+            default: return;
         }
 
         this.CreatePopup(
@@ -356,7 +355,7 @@ public class DoctorProfileActivity
         int popupLayout = R.layout.popup_doctor_profile_layout;
 
         // Inflate the popup layout
-        if (title == this.getResources().getString(R.string.doctor_profile_prices_refunds))
+        if (title.equals(this.getResources().getString(R.string.doctor_profile_prices_refunds)))
             popupLayout = R.layout.popup_doctor_profile_prices_refunds_layout;
 
         View popupSampleView = inflater.inflate(popupLayout, null);
@@ -392,7 +391,7 @@ public class DoctorProfileActivity
         // Set the popup title
         popupTitle.setText(title);
 
-        if (title != this.getResources().getString(R.string.doctor_profile_prices_refunds)) {
+        if (!title.equals(this.getResources().getString(R.string.doctor_profile_prices_refunds))) {
             TextView popupContent = popupSampleView.findViewById(R.id.doctor_profile_popup_content);
             popupContent.setText(content);
 

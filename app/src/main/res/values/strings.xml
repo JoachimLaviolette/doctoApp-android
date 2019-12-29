@@ -108,6 +108,13 @@
     <string name="signup_patient_profile_section_label">Profile data</string>
     <string name="signup_patient_address_section_label">Address data</string>
 
+    <!-- Terms of use -->
+    <string name="terms_of_use_popup_content">By signing-up to DoctoApp, you accept to be the host of all personal-related information you provide.\nYou also allow the system to use these information in order to provide online booking service.\nDoctoApp agrees to collect the minimum required personal-related information to run its service.</string>
+    <string name="terms_of_use_popup_title">Terms of use of DoctoApp</string>
+    <string name="terms_of_use_popup_close">x</string>
+    <string name="terms_of_use_popup_discard_btn_text">Discard</string>
+    <string name="terms_of_use_popup_confirm_btn_text">Confirm</string>
+
     <!-- My profile -->
     <string name="my_profile_picture_uri">my_profile_picture_uri</string>
 
