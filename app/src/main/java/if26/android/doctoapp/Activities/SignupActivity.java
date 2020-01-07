@@ -95,6 +95,8 @@ public class SignupActivity
     private Button discardBtn;
     private Button confirmBtn;
 
+    private boolean isTermsOfUseAccepted;
+
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String FILE_EXT = ".png";
 
@@ -109,8 +111,8 @@ public class SignupActivity
         setContentView(R.layout.activity_signup);
 
         this.Instantiate();
-        this.SubscribeEvents();
         this.RetrieveExtraParams();
+        this.SubscribeEvents();
         this.SetContent();
     }
 
@@ -208,9 +210,9 @@ public class SignupActivity
         // Get the logged user
         String key = this.getResources().getString(R.string.intent_logged_user);
         this.loggedUser = bundle.containsKey(key) ?
-                        bundle.getSerializable(key) instanceof Patient ?
-                            (Patient) bundle.getSerializable(key) :
-                                (Doctor) bundle.getSerializable(key) : null;
+                bundle.getSerializable(key) instanceof Patient ?
+                        (Patient) bundle.getSerializable(key) :
+                        (Doctor) bundle.getSerializable(key) : null;
         if (this.loggedUser != null) this.loggedUser = this.loggedUser.Update(this.getApplicationContext());
     }
 
@@ -218,7 +220,7 @@ public class SignupActivity
      * Check if we have to display terms of use and force the user to accept it
      */
     private void HandleTermsOfUse() {
-        this.CreateTermsOfUsePopup();
+        if (!this.isTermsOfUseAccepted) this.CreateTermsOfUsePopup();
     }
 
     /**
@@ -264,6 +266,7 @@ public class SignupActivity
 
             case R.id.terms_of_use_popup_confirm_btn:
                 this.ClearCurrentTermsOfUsePopupContext();
+                this.isTermsOfUseAccepted = true;
         }
     }
 
@@ -550,10 +553,8 @@ public class SignupActivity
         // Both passwords do not correspond
         if (!bothPwdEqual) return false;
 
-        boolean isBirthDateCorrectFormat = this.birthdateInput.getText().toString().trim().matches("\\d{4}-(01|02|03|04|05|06|07|08|09|10|11|12)-\\d{2}");
-
         // The provided date not in the correct format (ie. 1996-01-27)
-        return isBirthDateCorrectFormat;
+        return this.birthdateInput.getText().toString().trim().matches("\\d{4}-(01|02|03|04|05|06|07|08|09|10|11|12)-\\d{2}");
     }
 
     /**

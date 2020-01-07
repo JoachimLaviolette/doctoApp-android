@@ -170,6 +170,8 @@ public class SignupProActivity
     private Button discardBtn;
     private Button confirmBtn;
 
+    private boolean isTermsOfUseAccepted;
+
     private static final String PREFIX_PROFILE_PICTURE = "profile_picture_";
     private static final String PREFIX_PROFILE_HEADER = "profile_header_";
     private static final String FILE_EXT = ".png";
@@ -205,8 +207,8 @@ public class SignupProActivity
         setContentView(R.layout.activity_signup_pro);
 
         this.Instantiate();
-        this.SubscribeEvents();
         this.RetrieveExtraParams();
+        this.SubscribeEvents();
         this.SetContent();
     }
 
@@ -372,7 +374,7 @@ public class SignupProActivity
      * Check if we have to display terms of use and force the user to accept it
      */
     private void HandleTermsOfUse() {
-        this.CreateTermsOfUsePopup();
+        if (!this.isTermsOfUseAccepted) this.CreateTermsOfUsePopup();
     }
 
     /**
@@ -416,6 +418,16 @@ public class SignupProActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.signup_pro_take_picture_from_camera:
+                if (this.CheckPermission(PERMISSION_CAMERA_PROFILE_PICTURE))
+                    this.TakePictureFromCamera();
+
+                return;
+            case R.id.signup_pro_select_picture_from_gallery:
+                if (this.CheckPermission(PERMISSION_GALLERY_PROFILE_PICTURE))
+                    this.SelectPictureFromGallery();
+
+                return;
             case R.id.signup_pro_take_header_from_camera:
                 if (this.CheckPermission(PERMISSION_CAMERA_HEADER))
                     this.TakeHeaderFromCamera();
@@ -477,6 +489,7 @@ public class SignupProActivity
 
             case R.id.terms_of_use_popup_confirm_btn:
                 this.ClearCurrentTermsOfUsePopupContext();
+                this.isTermsOfUseAccepted = true;
         }
     }
 
